@@ -27,7 +27,7 @@
    ========================================================================== */
 
 html {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
@@ -1021,23 +1021,23 @@ body.nav-opened .nav {
 }
 
 body:not(.post-template) .post-title {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight:800;
     /* background-color: #f3f3dd69; */
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.7rem;
+    /* padding-top: 0.5rem;
+    padding-bottom: 0.5rem; */
+    padding-left: 0.3rem;
     color: #FFF;
     align-content: center;
 }
 
 body.page-template .post-title {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight: 800;
     /* background-color: #f3f3dd69; */
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    padding-left: 0.7rem;
+    padding-left: 0.3rem;
     color: #FFF;
     align-content: center;
 
