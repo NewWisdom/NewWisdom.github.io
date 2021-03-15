@@ -12,7 +12,7 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
-	  <title>코드 리뷰 정리</title>
+	  <title>🕹 Level 1. 블랙잭 미션 코드 리뷰 정리</title>
 	  <link>//%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
 	  <author></author>
 	  <pubDate>2021-03-15T19:18:00+09:00</pubDate>
@@ -292,7 +292,7 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 	</item>
 
 	<item>
-	  <title>Weekly 회고 5, 6 주차</title>
+	  <title>💡 위클리 회고 5, 6 주차</title>
 	  <link>//Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8</link>
 	  <author></author>
 	  <pubDate>2021-03-14T19:18:00+09:00</pubDate>
