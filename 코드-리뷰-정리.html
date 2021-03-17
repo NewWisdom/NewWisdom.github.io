@@ -235,6 +235,27 @@ Controller에서 처리되고 있는 것이다.
 <p>기능 요구사항에서 초기 카드를 보여주는 로직이 딜러와 플레이어마다 달랐다. 딜러는 처음에 한장만 보여주고, 플레이어는 두장을 보여주어야 한다. 이를 처음 구현했을 때는 User 추상 클래스에 <code class="highlighter-rouge">public final Cards getCards()</code> 를 두고 플레이어는 초기에 이 메서드를 통해 카드를 2장인 Cards를 (사실은 전부) 반환하고, 딜러는 딜러만의 <code class="highlighter-rouge">Card showOneCard()</code> 를 통해 Card 객체를 반환한다. 반환 타입도 달라서 딜러와 플레이어들의 카드를 출력하기 위해서는 매개변수가 다른 출력 메서드들도 필요했다. 때문에 BlackjackGame 객체에서도 출력만을 위한 비슷한 <code class="highlighter-rouge">get()</code> 들이 생겨났다. 게이츠의 말씀대로 이렇게 추상 클래스인 User에 <code class="highlighter-rouge">Cards showInitialCard();</code>를 만들고 딜러와 플레이어 각각이
 <code class="highlighter-rouge">getCardsByCount(int count)</code>에 각자 맞는 개수로 카드를 가져올 수 있도록 리팩토링 해보았다.</p>
 
+<hr />
+
+<h3 id="캐시-적용">캐시 적용</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111397796-7e63fb80-8705-11eb-9427-2ae8125ae479.png" alt="image" /></p>
+
+<p>처음 로직 구현 때는 Deck 객체 자체를 static으로 만들어서 캐싱하는 방법으로 구현하였다.<br />
+하지만 static은 메모리 주소를 하나만 가지기 때문에, 해당 게임을 여러 스레드에서 진행한다면 카드 배분에 문제가 생길 것이다.<br />
+때문에 Deck을 그냥 인스턴스로 생성하게 하였는데, Deck에 들어갈 카드를 캐싱하는 부분을 생각하지 못했었다.<br />
+처음에는 LottoNumber 때를 생각하고 of로 객체 하나하나를 반환해주어야 하나 고민을 했는데, 그냥 <code class="highlighter-rouge">List&lt;Card&gt;</code> 를 미리 생성하면 되었다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111396928-6e4b1c80-8703-11eb-819b-388d0ac6be20.png" alt="image" /></p>
+
+<hr />
+
+<h3 id="ui와-관련된-로직">UI와 관련된 로직</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111469846-85712500-876a-11eb-988b-b8933870fd5b.png" alt="image" /></p>
+
+<p>BlackjackGame 객체에서 카드를 더 받기 원하는지에 대한 대답을 받아야 했는데, 스스로는 BlackjackGame 객체가 게임 진행을 담당하고 있으니, yes / no 에 대한 정보는 yes인지 no인지에 따라 게임 진행 여부가 다르니, 게임 객체가 알아야 한다고 생각했다. 이에 대해 내 생각을 전달하고 의견을 물어보았는데, “BlackjackGame 객체가 블랙잭 게임 역할을 담당하고 있으니 yes no에 대한 정보를 가지고 있어도 괜찮지만 yes, no에 대한 정보는 UI 요구사항이라 추후에 예, 아니오로 변경됏을 때 도메인 객체까지 영향 범위가 갈 것 같다”라고 말씀하셨다. <strong>View의 요구사항이 변경되었을 때 도메인 객체까지 영향이 갈 것 같다</strong>는 부분은 생각하지 못했던 것 같다. 이 피드백에서 많은 인사이트를 얻었는데, 체스 게임 미션에서 사용자의 대답을 입력 받는 부분에 있어서 대답에 대한 검증을 어디에서 취해줄까를 계속 토론하다 게임 객체에서 해주었었는데, 이 답변을 받고 도메인 밖으로 대답 검증을 뺄 수 있었다.</p>
+
 <h2 id="-미션-정리">💾 미션 정리</h2>
 
 <h3 id="상태-패턴-적용기">상태 패턴 적용기</h3>
@@ -477,13 +498,20 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 
     <!-- [[! next_post ]] -->
     
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5">
+            <section class="post">
+                <h2>📝 Java8 Lambda, Stream API 강의 정리</h2>
+                <p>## 함수형 프로그래밍의 장점 ? ### 관심사의 분리 관심사의 분리란 무엇일까? 예제를 들어보자. `List numbers...</p>
+            </section>
+        </a>
+    
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1">
             <section class="post">
-                <h2>💡 위클리 회고 5, 6 주차</h2>
-                <p>무슨일이 있었나? 일주일 2번 오프라인 출근이 시작되었다. 온라인으로만 만나던 사람들을 3D로 처음 만났다. 출입증 사진을...</p>
+                <h2>💡 위클리 회고 7 주차</h2>
+                <p>무슨일이 있었나? 월 검프, 영이, 멍토와 모각코를 했다. 필라테스를 정말 오랜만에 갔다. 화 조금 늦잠을...</p>
             </section>
         </a>
     

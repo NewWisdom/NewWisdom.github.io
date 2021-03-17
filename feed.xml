@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>📝 Java8 Lambda, Stream API 강의 정리</title>
+        
+          <description>&lt;h2 id=&quot;함수형-프로그래밍의-장점-&quot;&gt;함수형 프로그래밍의 장점 ?&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Tue, 16 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>🕹 Level 1. 블랙잭 미션 코드 리뷰 정리</title>
         
           <description>&lt;h2 id=&quot;-코드-리뷰-정리&quot;&gt;💾 코드 리뷰 정리&lt;/h2&gt;
@@ -23,6 +38,21 @@
     
       
       <item>
+        <title>💡 위클리 회고 7 주차</title>
+        
+          <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>💡 위클리 회고 5, 6 주차</title>
         
           <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
@@ -33,23 +63,6 @@
         <link>
         http://localhost:4000/Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8</link>
         <guid isPermaLink="true">http://localhost:4000/Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>the-businessman-and-fisherman</title>
-        
-          <description>&lt;h2 id=&quot;코드-리뷰-정리&quot;&gt;코드 리뷰 정리&lt;/h2&gt;
-&lt;h3 id=&quot;controller에-있는-도메인-로직&quot;&gt;Controller에 있는 도메인 로직&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;https://images.velog.io/images/new_wisdom/post/56c51213-0e01-48f5-ac72-8e76e77f73f1/image.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/the-businessman-and-fisherman</link>
-        <guid isPermaLink="true">http://localhost:4000/the-businessman-and-fisherman</guid>
       </item>
       
     

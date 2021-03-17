@@ -12,6 +12,63 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📝 Java8 Lambda, Stream API 강의 정리</title>
+	  <link>//%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+	  <author></author>
+	  <pubDate>2021-03-16T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+	  <description><![CDATA[
+	     <h2 id="함수형-프로그래밍의-장점-">함수형 프로그래밍의 장점 ?</h2>
+
+<h3 id="관심사의-분리">관심사의 분리</h3>
+
+<p>관심사의 분리란 무엇일까? 예제를 들어보자.</p>
+
+<p><code class="highlighter-rouge">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);</code> 리스트에 있는 <strong>원소마다 콜론을 추가</strong>하려 한다.</p>
+
+<h4 id="이때-foreach-를-사용한다면-">이때 <code class="highlighter-rouge">forEach()</code> 를 사용한다면 ?</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">ForEach</span><span class="err">를</span><span class="n">_</span><span class="err">활용하여</span><span class="n">_</span><span class="err">콜론을</span><span class="n">_</span><span class="err">추가하는</span><span class="n">_</span><span class="err">문자열</span><span class="n">_</span><span class="err">작성</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">StringBuilder</span> <span class="n">stringBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">Integer</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">number</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">" : "</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">3</span><span class="o">,</span> <span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>나는 <strong>원소마다 콜론 추가하는 것</strong>을 원하는데, forEach문을 작성하니 이를 어떻게(How) 구현할지에 집중하고 있는 것 같다.</p>
+
+<h4 id="그렇다면-함수형-프로그래밍의-일종인-stream을-사용한다면-">그렇다면 함수형 프로그래밍의 일종인 Stream을 사용한다면 ?</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="n">Stream</span><span class="err">을</span><span class="n">_</span><span class="err">활용하여</span><span class="n">_</span><span class="err">콜론을</span><span class="n">_</span><span class="err">추가하는</span><span class="n">_</span><span class="err">문자열</span><span class="n">_</span><span class="err">작성</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">valueOf</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">joining</span><span class="o">(</span><span class="n">COLON_DELIMITER</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>요소마다 콜론을 결합하는 것</strong>을 메소드를 사용함으로서 개발자인 내가 무엇을(What)을 수행할 것인지에 집중할 수 있다.</p>
+
+<h3 id="side-effect가-발생하지-않는다">Side Effect가 발생하지 않는다.</h3>
+
+<p>함수형 프로그래밍의 특징은 지역 변수만을 변경할 수 있고, 매개변수를 변경하지 않는다. <br />
+즉, 함수는 같은 인수값으로 함수를 호출했을 때 항상 같은 값을 반환한다. (이 때 다른 값을 반환하는 Random, Scanner 등은 함수가 아니다).<br />
+만약 함수에 참조하는 객체가 있다면 그 객체는 불변이어야 하며, 해당 객체의 모든 참조 필드도 불변 객체를 직접 참조해야 한다. <br />
+함수 내에서 생성한 객체의 필드는 갱신할 수 있지만, 새로 생성한 필드의 갱신은 외부에 노출되면 안된다. <br />
+또한 다음에 메서드를 다시 호출한 결과에 영향을 미치지 않으며, 어떠한 예외도 일으키지 않아야 한다.</p>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>🕹 Level 1. 블랙잭 미션 코드 리뷰 정리</title>
 	  <link>//%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
 	  <author></author>
@@ -105,6 +162,27 @@ Controller에서 처리되고 있는 것이다.
 
 <p>기능 요구사항에서 초기 카드를 보여주는 로직이 딜러와 플레이어마다 달랐다. 딜러는 처음에 한장만 보여주고, 플레이어는 두장을 보여주어야 한다. 이를 처음 구현했을 때는 User 추상 클래스에 <code class="highlighter-rouge">public final Cards getCards()</code> 를 두고 플레이어는 초기에 이 메서드를 통해 카드를 2장인 Cards를 (사실은 전부) 반환하고, 딜러는 딜러만의 <code class="highlighter-rouge">Card showOneCard()</code> 를 통해 Card 객체를 반환한다. 반환 타입도 달라서 딜러와 플레이어들의 카드를 출력하기 위해서는 매개변수가 다른 출력 메서드들도 필요했다. 때문에 BlackjackGame 객체에서도 출력만을 위한 비슷한 <code class="highlighter-rouge">get()</code> 들이 생겨났다. 게이츠의 말씀대로 이렇게 추상 클래스인 User에 <code class="highlighter-rouge">Cards showInitialCard();</code>를 만들고 딜러와 플레이어 각각이
 <code class="highlighter-rouge">getCardsByCount(int count)</code>에 각자 맞는 개수로 카드를 가져올 수 있도록 리팩토링 해보았다.</p>
+
+<hr />
+
+<h3 id="캐시-적용">캐시 적용</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111397796-7e63fb80-8705-11eb-9427-2ae8125ae479.png" alt="image" /></p>
+
+<p>처음 로직 구현 때는 Deck 객체 자체를 static으로 만들어서 캐싱하는 방법으로 구현하였다.<br />
+하지만 static은 메모리 주소를 하나만 가지기 때문에, 해당 게임을 여러 스레드에서 진행한다면 카드 배분에 문제가 생길 것이다.<br />
+때문에 Deck을 그냥 인스턴스로 생성하게 하였는데, Deck에 들어갈 카드를 캐싱하는 부분을 생각하지 못했었다.<br />
+처음에는 LottoNumber 때를 생각하고 of로 객체 하나하나를 반환해주어야 하나 고민을 했는데, 그냥 <code class="highlighter-rouge">List&lt;Card&gt;</code> 를 미리 생성하면 되었다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111396928-6e4b1c80-8703-11eb-819b-388d0ac6be20.png" alt="image" /></p>
+
+<hr />
+
+<h3 id="ui와-관련된-로직">UI와 관련된 로직</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111469846-85712500-876a-11eb-988b-b8933870fd5b.png" alt="image" /></p>
+
+<p>BlackjackGame 객체에서 카드를 더 받기 원하는지에 대한 대답을 받아야 했는데, 스스로는 BlackjackGame 객체가 게임 진행을 담당하고 있으니, yes / no 에 대한 정보는 yes인지 no인지에 따라 게임 진행 여부가 다르니, 게임 객체가 알아야 한다고 생각했다. 이에 대해 내 생각을 전달하고 의견을 물어보았는데, “BlackjackGame 객체가 블랙잭 게임 역할을 담당하고 있으니 yes no에 대한 정보를 가지고 있어도 괜찮지만 yes, no에 대한 정보는 UI 요구사항이라 추후에 예, 아니오로 변경됏을 때 도메인 객체까지 영향 범위가 갈 것 같다”라고 말씀하셨다. <strong>View의 요구사항이 변경되었을 때 도메인 객체까지 영향이 갈 것 같다</strong>는 부분은 생각하지 못했던 것 같다. 이 피드백에서 많은 인사이트를 얻었는데, 체스 게임 미션에서 사용자의 대답을 입력 받는 부분에 있어서 대답에 대한 검증을 어디에서 취해줄까를 계속 토론하다 게임 객체에서 해주었었는데, 이 답변을 받고 도메인 밖으로 대답 검증을 뺄 수 있었다.</p>
 
 <h2 id="-미션-정리">💾 미션 정리</h2>
 
@@ -287,6 +365,137 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 물론 다른 미션에서 상태패턴을 적용하라하면 잘 적용할 수 있을지는 모르겠으나,
 이번 미션을 통해 이렇게 상태에 따른 분기처리를 줄일 수 있구나, 
 디자인 패턴은 이런 장점이 있구나를 느낄 수 있었다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>💡 위클리 회고 7 주차</title>
+	  <link>//%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
+	  <author></author>
+	  <pubDate>2021-03-14T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
+	  <description><![CDATA[
+	     <h2 id="무슨일이-있었나">무슨일이 있었나?</h2>
+
+<h4 id="월">월</h4>
+
+<ul>
+  <li>검프, 영이, 멍토와 모각코를 했다.</li>
+  <li>필라테스를 정말 오랜만에 갔다.</li>
+</ul>
+
+<h4 id="화">화</h4>
+
+<ul>
+  <li>조금 늦잠을 자버렸다. 때문에 아침 일정이 틀어져 조급했다.</li>
+  <li>내가 데일리 마스터로 윷놀아를 준비했다.</li>
+  <li>스트림에 대한 강의를 들었다.</li>
+  <li>점심먹고 데일리 크루들이랑 오늘 강의 내용 일부에 대해 이야기를 나눴는데 유익했다.</li>
+  <li>레벨 1 마지막 미션인 체스 미션이 시작되었다.</li>
+  <li>새로운 페어인 오즈를 오늘 출근을 하지 못해 구글 밋으로 만났다.</li>
+  <li>하루종일 핸드폰을 거의 안봐서 개인적으로 중요한 연락을 놓쳤다. 즐거운 하루였으나 스스로는 정신이 없었다.</li>
+  <li></li>
+  <li>일주일 2번 오프라인 출근이 시작되었다.</li>
+  <li>온라인으로만 만나던 사람들을 3D로 처음 만났다.</li>
+  <li>출입증 사진을 찍었다.</li>
+  <li>3월2일-3월 4일 블랙잭  페어 프로그램을 진행하고 이후 개별 미션으로 찢어졌다.</li>
+  <li>학습 로그 말하기를 했다.</li>
+  <li>브라운이랑 면담을 했다.</li>
+  <li>테코톡 발표를 준비하고 있었는데 미뤄졌다.</li>
+  <li>데일리 주제로 레벨 1후, 우테코 수료 후의 나를 적어보는 시간을 가졌다.</li>
+  <li>3월 29일까지 완료해야하는 글쓰기 미션이 시작됐다.</li>
+  <li>교육장에 있으면서 많은 크루, 코치님과 이야기를 나누었다.</li>
+  <li>5주차는 정말 바빴다. 빠듯한 미션 후, 리팩토링과 공부한 내용을 정리하느라 조급했다.</li>
+  <li>6주차에는 출근날이 아닌날은 사람들이랑 만나서 모각코를 했다.</li>
+  <li>함수형 인터페이스에 대해 찐하게 공부했다.</li>
+  <li>상태패턴을 배웠다.</li>
+  <li>정말 오랜만에 뚝딱이들이랑 줌미팅을 했다.</li>
+</ul>
+
+<hr />
+
+<h2 id="어떤-것을-느꼈나">어떤 것을 느꼈나?</h2>
+
+<h4 id="화-1">화</h4>
+
+<p>이번 페어와는 마지막 찐한 회고를 다짐했다. 온라인이었지만 오프라인으로 만난 것 처럼 즐거웠다. <br />
+옆에 오프라인으로 페어를 하는 크루들이랑도 같이 소통해서 좋았다.<br />
+오늘도 정말 많이 웃었다.</p>
+
+<h3 id="크루들의-에너지">크루들의 에너지</h3>
+
+<p>매일 온라인으로만 보던 데일리 크루들을 오프라인으로 보니 처음에는 낯설았지만, 또 금방 적응돼서 정말 유쾌하고 즐거웠다.<br />
+또, 크루들과 함께 모여 공부하니 많은 에너지를 느끼고, 열심과 열정으로 가득한 크루들덕에 많은 동기부여를 받았다. 졸업하고 가장 아쉬웠던 것이 매일 학교에 남아서 동기들과 으쌰으쌰하며 공부했던 것이 내가 배움에 즐거움을 느끼는 이유 중 하나였는데, 우테코에 들어와서 더 열정적인 사람들과 함께 배움의 즐거움을 누리고 있다는게 너무 행복하다.<br />
+온라인으로는 궁금한 것들이 있지만 말하기 애매해서 그냥 삼켰던 프로그래밍 질문들을 오프라인에서는 바로바로 답이 오니 마음 편하게 질문할 수 있어서 오프라인의 유익함을 많이 느꼈다.<br />
+함께 공부하며 열정을 불태우는 환경 덕에, 스스로 뒤쳐지는 것이 아닌가 하는 불안감이 정말 싹 사라졌다. 오프라인 출근이 시작되고 크루들이 경쟁자가 아닌 10개월간 함께 으쌰으쌰할 동료라는 말이 이제 정말 진심으로 느껴졌다.</p>
+
+<h3 id="많이-웃었다">많이 웃었다.</h3>
+<p>(여기 글에 어울리는지는 모르겠으나) 우테코 출근 시작 부터 크루들과 정말 즐거운 생활을 했다. 정말 많이 웃고 유쾌했던 2주였다.</p>
+
+<h3 id="브라운과-면담">브라운과 면담</h3>
+<p><del>느낀점에다 적는게 맞는지는 모르겠으나</del> 브라운과 면담을 하면서 많은 것을 깨달았다. 또한 우테코 생활에 대한 자신감을 얻을 수 있었으며, 우테코를 시작하고 바꾼 나의 생활, 학습 태도에 확신을 얻을 수 있었다. 가장 인상 깊었던 부분은 <strong>페어와의 회고</strong>에 대한 부분이었다. 무조건 좋은 말이 아닌 상대방에 대한 객관적인 피드백은 그 사람을 더 성장하게 만들고, 우테코 미션의 목적 또한 미션 완수가 아닌 페어를 통해 함께 성장하는 것이다. 어떻게 하면 남에게 이로운 피드백을 줄 수 있을까에 대한 고민과 남에게 피드백을 주는데 두려움들이 면담을 통해 해소되었다. 
+또 좋은 학습 방법을 알려주셨는데, 어떤 개념을 완전히 내 것으로 만들기 위해서 스스로 동영상이나 녹음을 통해 설명하는 것이다. 이 말을 듣고 굉장히 혹했기에 한번 시도해 볼 계획이다.</p>
+
+<hr />
+
+<h2 id="잘한-것은-무엇인가">잘한 것은 무엇인가?</h2>
+
+<h3 id="깊게-공부하려고-노력한-것">깊게 공부하려고 노력한 것</h3>
+<p>저번 미션 학습 로그까지는 무조건 많이 쓰는 것이 많이 성장한 것이라 생각했다. 하지만 내가 적은 내용을 말하려다보니 내가 많이 배우려는 욕심만 부리고 그 개념들을 완벽히 체화하지 못했다는 것이다.<br />
+그래서 이번 미션부터는 정말 내가 누군가에게 설명이 가능하도록 내것으로 만들었다. 빠르게 보다는 천천히 꼭꼭 씹어 학습 태도를 취하려 노력하고 있다.</p>
+
+<h3 id="사람들과-많은-이야기를-나눈-것">사람들과 많은 이야기를 나눈 것</h3>
+
+<p>우테코에는 정말 좋은사람들이 많다. 사람들과 이야기를 나누면서, 기술적인 부분만 아니라 인간적으로도 많이 배운다. 다양한 사람들과 이야기를 나누면서 사람에 대해 배워갈 수 있어서 좋았다.
+또한 우테코에서 이야기를 나누다가, 또는 채팅으로 좋은 이야기들이 많이 오고 가는데, 그 중 계속 기억해두면 좋을 것 같은 문장들을 개인 슬랙에 저장해두기로 하였다. 
+이번주는 포비와 이야기할 수 있는 기회가 있었는데, 대화 속에서 많은 위로와 도전을 얻어서 조금 기록해 두었다.
+브라운과 면담도 바로바로 이렇게 적을걸 하는 아쉬움이 살짝 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111073627-c840bc00-8522-11eb-9f11-621f1971db13.png" alt="image" /></p>
+
+<h3 id="모각코한-것">모각코한 것</h3>
+<p>이번주 내내 사람들과 만나서 공부했다. 교육장에서, 또는 출근을 안하는 날은 카페에서 누군가와 함께 공부했다. 
+같이 만나서 공부하니 더 즐거웠고, 모르는 것을 함께 알아나가는 기쁨을 누릴 수 있어서 좋았다. 
+누군가의 궁금증이 내 궁금증이 되어 같이 고민하고 차근차근 공부해 나가는 재미를 느낄 수 있었다.</p>
+
+<h3 id="깃블로그를-판-것">깃블로그를 판 것</h3>
+<p>기록 권태기가 와서 벼르고 벼뤘던 깃블로그 이사를 실행하는 중이다.
+스스로 공부하는 내용을 좀 더 깊이있고 깔끔하게 정리하고자 하는 다짐과 함께 내 깃블로그가 탄생했다.
+커스텀 하느라 너무 많은 시간을 투자하는 것 같아 지금 이래도 되나하는 생각이 들긴하지만, 나의 권태 극복에 많은 도움이 되었다 생각해 잘한 선택인 것 같다.</p>
+
+<hr />
+
+<h2 id="아쉬운-것은-무엇인가">아쉬운 것은 무엇인가?</h2>
+
+<h3 id="내-지식에-대한-불확신">내 지식에 대한 불확신</h3>
+<p>솔직하게 돌아보면 나는 아직도 내가 아는 것에 자신이 없는 것 같다.<br />
+“나보다 저 사람이 더 맞을거야”라는 생각이 아직까지 강하다.<br />
+크루들을 보면 자신이 아는 지식을 정리한 글들을 공유해주는데, <br />
+나는 아직까지 내 글, 지식에 자신감이 없어서 그렇지 못하다.</p>
+
+<h3 id="레벨-1후-수료-후의-뚜렷한-목표가-없는-것">레벨 1후, 수료 후의 뚜렷한 목표가 없는 것</h3>
+
+<p>데일리 주제로 한번 스스로 레벨 1과 수료 후 어떻게 변화되어있을지 적어보는 시간을 가졌다. 정말 많은 생각이 들게하는 질문이었다. 최근 미션때문에, 오프라인 출근을 해서 스스로를 돌이켜보는 시간이 많이 없었다. 저 질문들에 선뜻 답하지 못하는 것은 내가 뚜렷한 목표없이 요즘을 살고 있는 것인가 하는 반성을 하게 됐다. 우테코 수료 후, 나는 어떤 개발자를 꿈꾸는가? 계속해서 고민해보고 목표를 세워야겠다.</p>
+
+<h3 id="지금껏-제대로된-회고를-진행하지-못한-것">지금껏 제대로된 회고를 진행하지 못한 것</h3>
+
+<p>브라운이랑 면담하면서 내가 그동안 상대방에게 유익한 피드백을 못주고 있었음을 깨달았다. 지금까지의 페어 모두 만족하지만 미션을 진행하기 급급해서 다른 부수적인 것들을 보지 못했다. 우테코에서 미션을 페어프로그래밍으로 진행하는 이유는 기술적인 부분만이 아닌, 소프트 스킬과 상대방이 보는 나의 객관적인 피드백을 들으며 성장하는 것이다. 면담 내용을 적기 위해 지금껏 미션을 돌아보니 스스로는 미션 완성에만 큰 목표를 두고 있었던 것 같다. 상대방을 기분 좋게 하는 피드백 보다 좋은 사람으로 만들 수 있는 피드백을 해야겠다. 이 내용을 가지고 브라운이랑 면담하면서 회고의 중요성을 많이 깨달았기에, 다음 미션부터는 페어와 사전 협의로 아주 찐한 회고를 할거다.</p>
+
+<h3 id="약간의-귀차니즘이-찾아와-기록하는-습관을-놓친-것">약간의 귀차니즘이 찾아와 기록하는 습관을 놓친 것</h3>
+<p>미션이 끝나고 너무 달려서였나, 내가 공부하거나 느낀 점들을 기록하기를 게을리했던 것 같다. 그래서 깃블로그를 팠다.</p>
+
+<hr />
+
+<h2 id="어떻게-달라질-것인가">어떻게 달라질 것인가</h2>
+<h3 id="기록하는-삶">기록하는 삶</h3>
+<p>이번주는 귀차니즘을 이겨내고, 블로그도 옮겼으니 새로운 마음으로 그날 배운 내용들을 간략하게라도 기록하자.</p>
+
+<h3 id="계획하는-삶">계획하는 삶</h3>
+<p>2주동안 그냥 정신없게 사느라 여러 방면에서 놓친 부분들이 많았다. 시간을 더 효율적으로 쓰기 위해 앞으로 내가 오늘 무슨 일을 할 것인지 아침마다 정리해보자.</p>
+
+<h3 id="페어와-찐한-회고">페어와 찐한 회고</h3>
+<p>화요일에 새로운 미션이 시작되는데, 이번에는 브라운과 면담한 대로 페어와 함께 성장을 위해 서로 솔직하고 찐한 회고를 약속할 것이다. 페어도 나와 동일한 마음이었으면 좋겠다.</p>
 
 	  ]]></description>
 	</item>
