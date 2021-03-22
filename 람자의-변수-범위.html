@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📙 Java 람다의 변수 범위</title>
+    <meta name="description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
+
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📙 Java 람다의 변수 범위" />
+    <meta property="og:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta property="og:url" content="http://localhost:4000//%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1" />
+    <meta property="og:image" content="/assets/images/java.jpeg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📙 Java 람다의 변수 범위" />
+    <meta name="twitter:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta name="twitter:url" content="http://localhost:4000//%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1" />
+    <meta name="twitter:image:src" content="/assets/images/java.jpeg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📙 Java 람다의 변수 범위",
+    "url": "http://localhost:4000//%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1",
+    "image": "/assets/images/java.jpeg",
+    "description": "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/java.jpeg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📙 Java 람다의 변수 범위</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-03-19">19 Mar 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h3 id="람다의-변수-범위">람다의 변수 범위</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111862130-956d4c80-8996-11eb-9abd-c2bef47886d9.png" alt="image" /></p>
+
+<p>물론 위의 코드는 미션을 위해 일단 구현만을 목적으로 많은 리팩토링이 필요하니 참고 🥲<br />
+미션을 진행하다가 for 문 내에 stream을 쓰게 되었는데, i의 값을 람다식 내에서 사용하려니 컴파일 에러가 났다.<br />
+“Variable used in lambda expression should be final or effectively final”
+즉 람다식에서 사용되는 변수는 final이거나 effectively final이어야 한다.</p>
+
+<p>effectively final은 무엇이며, 람다의 변수 범위를 정확히 짚고 넘어가자.</p>
+
+<h3 id="람다의-변수-범위-1">람다의 변수 범위</h3>
+
+<p>다음과 같은 Lambda 클래스가 있고, 각각의 메서드를 호출해 클래스 필드인 <code class="highlighter-rouge">name</code>이 어떻게 바뀌는지 살펴본다 🔎</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lambda</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">example1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">function</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">5</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">example2</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">function</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">10</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">example3</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">function</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">15</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111862546-58568980-8999-11eb-8fb0-6ac25fc92285.png" alt="image" /></p>
+
+<p>이에 대한 출력 결과는 다음과 같다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111862548-5ee50100-8999-11eb-9962-0697067614f8.png" alt="image" /></p>
+
+<p>위 예제에서 람다식에서는 자신을 감싼 메서드나 클래스에 속한 변수에 접근을 할 수 있다.<br />
+예제는 람다에 파라미터로 넘겨진 변수가 아닌 외부에서 정의된 변수를 사용하고 있는데 이러한 변수를 <strong>자유 변수</strong>라고 부른다.</p>
+
+<p>그렇다면 다시 맨 처음 오류를 가져와서 … 
+<img src="https://user-images.githubusercontent.com/43840561/111862130-956d4c80-8996-11eb-9abd-c2bef47886d9.png" alt="image" /></p>
+
+<p>이 부분에서 왜 자유 변수인 i를 final이나 effectvely final로 선언하라는 것일까 ?</p>
+
+<p>먼저 지역 변수는 JVM에서 스택 영역에 저장이 된다. 그리고 실제 메모리와 다르게 JVM에서 이 스택 영역은 스레드 마다 
+별도의 스택이 생성된다. <br />
+따라서 지역 변수는 한 스레드 안에서만 사용이 되며, 스레드끼리 공유하지 못한다.</p>
+
+<p>지역 변수와 다르게 인스턴스 변수는 힙 영역에 생성되어 서로 다른 스레드끼리도 공유할 수 있는 공유 변수이다.</p>
+
+<p>람다는 각각 별도의 스레드에서 실행이 가능하다.<br />
+위 예제에서 각각의 메서드는 i를 증가시키는 것이 아니라 람다를 리턴할 뿐이다.<br />
+실행 흐름 상 메서드를 호출한 스레드의 스택에 지역 변수인 i가 생성이 되는데,<br />
+람다식을 반환한 후에는 해당 함수가 종료되었으니 메모리에서 i가 사라질 것이다. <br />
+그렇지만 반환된 람다식은 다른 스레드에서 호출될 수 있는데, i가 GC에 의해 정리되어 접근할 수 없는 문제가 발생할 수 있다.</p>
+
+<p>때문에 실행 시점에 지역 변수가 사라질 것을 방지하기 위해서 이 자유 변수의 복사본을 만들어서 동작한다. 
+이 복사본을 가지고 동작할 예정인데, 이 복사본 값이 바뀌어 버리면 의도하지 않은 결과가 생길 수 있으므로 컴파일 단계에서<br />
+final 또는 effectively final로 선언해 변수를 신뢰할 수 있게 만드는 것이다.<br />
+이를 <strong>람다 캡처링</strong>이라고 한다.</p>
+
+<p>위 문제에서 컴파일 에러가 뜨는 것은 i가 스코프 밖에 있어 값이 변할 수 있어 신뢰할 수 없다.<br />
+때문에 인텔리제이가 권해주는 방법을 쓰면 i를 스코프 안 변수에 새로 할당해서 사용하게 된다.<br />
+<img src="https://user-images.githubusercontent.com/43840561/111863899-7de79100-89a1-11eb-8ed3-6c685817269d.png" alt="image" /></p>
+
+<p>여기서 i는 <code class="highlighter-rouge">final</code> 로 선언되지는 않았지만, 자바 8에서 추가된 effectivly final로 선언된 것이다.<br />
+effectively final은 final로 선언되지 않아도 컴파일러가 해당 변수가 변경되지 않았다고 판단할 수 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111863962-d61e9300-89a1-11eb-85f8-b7e0a7d5ef7e.png" alt="image" /></p>
+
+<p>만약 effectively final인 i의 값을 바꾸려 한다면 이렇게 컴파일 오류가 발생한다.</p>
+
+<p>파도 파도 끝없는 람다의 세계 🤸‍♀️</p>
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://perfectacle.github.io/2019/06/30/java-8-lambda-capturing/">(Java) 람다 캡처링과 final 제약조건</a></li>
+  <li><a href="https://futurecreator.github.io/2018/08/02/java-lambda-variable-scope/">Java Lambda (5) 변수 범위</a></li>
+  <li><a href="https://jeong-pro.tistory.com/211">자바 람다에서 final이거나 final처럼 쓰인 지역 변수만 접근할 수 있는 이유</a></li>
+</ul>
+
+<hr />
+
+<h3 id="enum-map">Enum Map</h3>
+
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📙 Java 람다의 변수 범위&amp;url=http://localhost:4000%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%8B%E1%85%A6%E1%86%AF%E1%84%85%E1%85%A6%E1%84%80%E1%85%A1%E1%86%BC%E1%84%90%E1%85%B3-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4">
+            <section class="post">
+                <h2>📝 엘레강트 오브젝트 뽀개기 1 강의 정리</h2>
+                <p>강의를 들으며 정리하기 ✍️ ## 엘레강트 오브젝트 * 문자열과 원시값을 포장해라 * 반환 값은 모두...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5">
+            <section class="post">
+                <h2>📝 Java8 Lambda, Stream API 강의 정리</h2>
+                <p>함수형 프로그래밍의 장점 ? 관심사의 분리 관심사의 분리란 무엇일까? 예제를 들어보자. List&lt;Integer&gt; numbers = Arrays.asList(1,...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

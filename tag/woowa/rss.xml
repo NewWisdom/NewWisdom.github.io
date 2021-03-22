@@ -12,6 +12,461 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📝 엘레강트 오브젝트 뽀개기 1 강의 정리</title>
+	  <link>//%E1%84%8B%E1%85%A6%E1%86%AF%E1%84%85%E1%85%A6%E1%84%80%E1%85%A1%E1%86%BC%E1%84%90%E1%85%B3-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</link>
+	  <author></author>
+	  <pubDate>2021-03-20T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%8B%E1%85%A6%E1%86%AF%E1%84%85%E1%85%A6%E1%84%80%E1%85%A1%E1%86%BC%E1%84%90%E1%85%B3-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</guid>
+	  <description><![CDATA[
+	     <p>강의를 들으며 정리하기 ✍️</p>
+
+<h2 id="엘레강트-오브젝트">엘레강트 오브젝트</h2>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111856837-ca66a880-8970-11eb-903f-b93200975d2e.png" alt="image" style="zoom:50%;" /></p>
+
+<ul>
+  <li>
+    <p>문자열과 원시값을 포장해라</p>
+  </li>
+  <li>
+    <p>반환 값은 모두 일급 컬렉션</p>
+
+    <p><img src="https://user-images.githubusercontent.com/43840561/111856864-fc780a80-8970-11eb-9ada-2c99c659bcfd.png" alt="image" style="zoom:50%;" /></p>
+  </li>
+</ul>
+
+<h3 id="인자의-값으로-null을-절대-허용하지-마세요">인자의 값으로 null을 절대 허용하지 마세요</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;</span> <span class="nf">find</span><span class="o">(</span><span class="n">String</span> <span class="n">mask</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mask</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="c1">// .</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+<span class="c1">// .</span>
+<span class="o">}</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>null을 체크하는 로직을 구현하는 것은 객체를 무시하는 것이다.<br />
+mask 객체를 존중했다면 조건의 존재 여부를 객체 스스로 결정하게 했을 것이다.<br />
+이를 위해 <strong>원시 값과 문자열을 포장</strong>하면 null을 허용하지 않을 수 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111857492-216e7c80-8975-11eb-8c28-ef1e68a6c3ba.png" alt="image" /></p>
+
+<p>이 부분이 randomNumber를 무시하는 것이 아닌가.<br />
+randomNumber를 객체로 만든다. (원시값 포장). 
+<img src="https://user-images.githubusercontent.com/43840561/111857526-77432480-8975-11eb-92c2-3abaeb7ccbd3.png" alt="image" style="zoom:50%;" /></p>
+
+<p>객체에게 메시지를 보내도록 리팩토링한다.<br />
+<img src="https://user-images.githubusercontent.com/43840561/111857586-e02a9c80-8975-11eb-84d0-74f7930af1bc.png" alt="image" style="zoom:50%;" /></p>
+
+<p>테스트 가능하게 오버라이딩.</p>
+
+<p>RandomNumber의 null 체크 안해줘도 되나 ? <br />
+이 메서드가 외부에 쓰인다면 고민해봐야하지만, 내부에서만 move가 호출되면 
+null 체크를 굳이 안해줘도 좋다. 
+내가 컨트롤할 수 있는 범위라면 안해도 될 것 같다.<br />
+<code class="highlighter-rouge">move()</code> 를 사용하는 범위가 어디까지인지에 따라 null 체크 여부가 달린 것 같다.</p>
+
+<h3 id="final이거나-abstract-이거나">final이거나 abstract 이거나</h3>
+
+<p>상속은 객체들의 관계를 복잡하게 만드니 최대한 자제하고,<br />
+final이나 abstract로 만들어라</p>
+
+<p>변수에 <code class="highlighter-rouge">final</code> 을 붙이면 재할당이 불가능하지만, 메서드에 붙이면 오버라이딩이 불가하다.<br />
+클래스에 <code class="highlighter-rouge">final</code> 은 상속을 불가능하게 한다.</p>
+
+<p>final 클래스가 테스트 가능하도록 하는 법.
+인터페이스로 만든다.</p>
+
+<p>RandomNumber 클래스를 final로 만들고 Number 인터페이스를 만든다.<br />
+<img src="https://user-images.githubusercontent.com/43840561/111857934-5e883e00-8978-11eb-8472-ac523772cb3b.png" alt="image" style="zoom:67%;" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111857943-7069e100-8978-11eb-8e53-dd4b5f7d6b2c.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111858087-862bd600-8979-11eb-91b5-49a3004f38d8.png" alt="image" style="zoom:50%;" /></p>
+
+<p>그러면 이렇게 Number 인터페이스와 의존 관계를 맺는다. <br />
+인터페이스와 의존 관계를 맺는게 final 클래스와 의존 관계를 맺는 것 보다 테스트가 더 용이하다.</p>
+
+<p>클래스에 final을 붙이는 것은 좋은 습관이다.<br />
+final을 테스트하고 싶으면 인터페이스를 추출하면 된다.</p>
+
+<p>인터페이스 구현체가 여러개가 되면 중복들이 많아지는데, 
+이 중복을 어떻게 없애나 ?<br />
+인터페이스 구현체 중간에 추상 클래스를 둔다.<br />
+Car - 인터페이스 <br />
+AbstractCar - 추상 클래스<br />
+Sonatar - 클래스</p>
+
+<p>이러면 추상 클래스의 필요성을 느낄 수 있을 것이다.</p>
+
+<p>근데 default 메소드를 사용하면 안되나 ?</p>
+
+<p>포비는 default 를 남용하지 않는다.  추상 클래스를 쓰는게 더 좋다.</p>
+
+<p>중복을 제거할 때 추상 클래스의 인스턴스 변수, 즉 인스턴스에 종속된 메서드면 default 메서드를 만들기 어려울 수 있다.  default 메서드를 만들 수 있는 경우, 없는 경우가 있으니 잘 구별.<br />
+추상 클래스는 상태를 가지니 상태를 활용할 수 있다.</p>
+
+<p>상속 때 부모 클래스에 있는 인스턴스 변수를 private로 막아라 ! <br />
+그래야 캡슐화가 잘 되었다고 한다. <br />
+접근할 때는 메서드를 통해 접근해라</p>
+
+<h3 id="-er로-끝나는-이름을-사용하지-마세요">-er로 끝나는 이름을 사용하지 마세요</h3>
+
+<p>클래스 이름을 지을 때 좋은 가이드.</p>
+
+<p>클래스는 객체를 만들어 내는 역할일 뿐이다 (객체의 Factory).<br />
+클래스는 객체를 만들고, 추적하고, 적절한 시점에 파괴한다 (라이프 사이클 관리).</p>
+
+<p>클래스를 객체의 템플릿으로 바라보는 것은 클래스를 수동적인 존재로 만드는 것이다.<br />
+클래스는 객체의 능동적인 관리자이다.<br />
+객체를 꺼내거나 반환하는 저장소이다.</p>
+
+<h4 id="클래스-이름을-짓는-방식">클래스 이름을 짓는 방식</h4>
+
+<p>클래스의 객체들이 <strong>무엇을 하는지</strong> 가 아닌, <strong>무엇인지</strong> 에 기반해 지어라.</p>
+
+<ul>
+  <li><strong>무엇을 하는지</strong>로 이름을 지은 잘못된 예</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashFormatter</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">dollars</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">CashFormatter</span><span class="o">(</span><span class="kt">int</span> <span class="n">dollars</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="n">dollars</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">format</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"$ %d"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">dollars</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>무엇인지를 기반으로 객체의 역량을 나타내도록 이름을 지어야 한다.</p>
+
+<ul>
+  <li><strong>무엇인지</strong></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">dollars</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="kt">int</span> <span class="n">dollars</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="n">dollars</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">usd</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"$ %d"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">dollars</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>객체는 객체의 외부 세계와 내부 세계를 이어주는 연결장치가 아니고,<br />
+내부에 캡슐화된 데이터를 다루기 위해 요청할 수 있는 절차의 집합도 아니다.<br />
+객체는 <strong>캡슐화된 데이터의 대표자</strong>이다.</p>
+
+<p>무엇인지로 객체를 추출하면 무엇을 하는지까지 포괄하는 것이 아닌가. <br />
+무엇을 하는지는 수동적인 존재가 된다.</p>
+
+<p>메서드에서는 protected를 사용할 수 있는데 변수에는 사용하지 않는 것이 좋다.<br />
+DTO는 모르겠는데 도메인 객체에서는 무조건 인스턴스 변수는 private여야 한다.</p>
+
+<p>“무엇인지” 생각하지 않고 “무엇을 하는지”를 먼저 생각하고 설계하지 말라</p>
+
+<p>처음에 메세지를 정하고 객체의 협력을 구상해야하는데 이를 하기 위해는 “무엇을 하는지”가 아니라 객체가 “무엇인지” 부터 생각을 해야하는 것 같아요. 객체가 무엇인지 생각하고 책임을 부여하면서 “무엇을 하는지” 가 된다.</p>
+
+<p>이미 er과 or을 가지고 있는 것들은 써도 되지만, 나머지는 자제하라</p>
+
+<p>CashFormatter가 아닌 FomattedCash는 어때 ?<br />
+CashFormatter는<code class="highlighter-rouge">format()</code> 이외의 기능을 가지면 부자연스럽기 때문이다.</p>
+
+<h3 id="메서드-이름을-신중하게-선택하세요">메서드 이름을 신중하게 선택하세요</h3>
+
+<p>메서드 명은 무조건 동사가 아니다.</p>
+
+<h4 id="빌더builder의-이름은-명사로">빌더(builder)의 이름은 명사로</h4>
+
+<p>반환타입이 void가 아닌 메서드로, 무언가를 만들어 새로운 객체를 반환한다.<br />
+이 메서드의 명은 항상 <strong>명사</strong>여야 한다.<br />
+형용사를 덧붙여 메서드의 의미를 좀 더 풍부하게 설명하는 명사로 나타낼 수도 있다.</p>
+
+<p>Ex) float speed(), Employee employee(), String parsedCell()</p>
+
+<h4 id="조정자manipulator의-이름은-동사로">조정자(manipulator)의 이름은 동사로</h4>
+
+<p>반환타입이 void인 메서드로 엔티티를 수정하는 메서드이다.<br />
+이 메서드 명은 항상 <strong>동사</strong>여야 한다.<br />
+부사를 덧붙여 메서드의 문맥과 목적에 관한 풍부한 정보를 제송하는 동사로 나타낼 수 있다.</p>
+
+<p>ex) void save(String content), void quicklyPrint(int id);</p>
+
+<h4 id="잘못된-예시">잘못된 예시</h4>
+
+<p>boolean put(String key, Float value);</p>
+
+<p>이 메서드는 <code class="highlighter-rouge">PutOperation</code> 과 같은 클래스를 추가해 <code class="highlighter-rouge">save()</code> , <code class="highlighter-rouge">success()</code> 메서드로 분리한다.</p>
+
+<h4 id="빌더와-조정자로-분리---빌더는-명사다">빌더와 조정자로 분리 - 빌더는 명사다</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Bakery</span> <span class="o">{</span>
+    <span class="n">Food</span> <span class="nf">cookBrownie</span><span class="o">();</span>
+    <span class="n">Drink</span> <span class="nf">brewCupOfCoffee</span><span class="o">(</span><span class="n">String</span> <span class="n">flavor</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">cookBrownie()</code> , <code class="highlighter-rouge">brewCupOfCoffee()</code> 는 실제로는 객체의 메서드가 아니고, 프로시저이다.<br />
+객체는 자신의 의무를 수행하는 방법을 알고 있고, 존중해줘야하는 살아있는 유기체이다.<br />
+단순한 명령에 따르지 않고, 계약에 기반해 일하고 싶어한다.</p>
+
+<p>하지만 관념적인 부분은 포기해도 괜찮다 !</p>
+
+<p>getXxx()는 내부적으로 xxx를 가지고 있을 것이라는 것을 드러내지만,<br />
+명사를 사용하면 그 메서드 내부에 로직이 있는지를 숨길 수 있다.</p>
+
+<h4 id="빌더와-조정자로-분리---조정자는-동사다">빌더와 조정자로 분리 - 조정자는 동사다</h4>
+
+<p>ex) DJ에게 음악을 틀어달라고 요청할 때</p>
+
+<ul>
+  <li>방법 1. 음악을 틀어주세요.</li>
+  <li>방법 2. 음악을 틀고, 현재 볼륨 상태를 말해주세요.</li>
+</ul>
+
+<p>이 중 방법 1가 더 객체를 존중하고 있다.<br />
+그 객체가 알아서 하겠지 ! 를 생각해라. 객체를 믿어라.</p>
+
+<p>print도 매개변수가 다르니 <code class="highlighter-rouge">print()</code> 로 통일할 수 있다.</p>
+
+<h4 id="빌더와-조정자로-분리-3---빌더와-조정자-혼합하기">빌더와 조정자로 분리 3 - 빌더와 조정자 혼합하기</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Document</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="nf">write</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">content</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>값을 반환하고 있는 write를 빌더와 조정자로 분리한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Document</span> <span class="o">{</span>
+    <span class="n">OutputPipe</span> <span class="nf">output</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">OutputPipe</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">content</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="nf">bytes</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="nf">time</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="빌더와-조정자로-분리---boolean-값을-반환하는-경우-형용사로-지어라">빌더와 조정자로 분리 - Boolean 값을 반환하는 경우 형용사로 지어라</h4>
+
+<p>빌더이지만, 가독성을 위해 형용사로 지어라.</p>
+
+<h3 id="생성자-하나를-주-생성자로-만드세요">생성자 하나를 주 생성자로 만드세요</h3>
+
+<p><strong>클래스는 2~3개의 메서드와 5~10개의 생성</strong>자를 포함해야한다.</p>
+
+<p>생성자가 많고 메서드가 적을 수록 응집도가 높고 견고한 클래스가 된다.<br />
+생성자가 많을 수록 클라이언트가 클래스를 더 편하게 사용할 수 있다.</p>
+
+<ul>
+  <li>주 생성자 : 프로퍼티를 초기화한다. 오직 주 생성자만 담당한다.</li>
+  <li>부 생성자 : 주 생성자를 호출한다.</li>
+</ul>
+
+<p>인자수가 적은 수부터 많은 순으로, 주 생성자는 마지막에 둔다.</p>
+
+<p>테스트를 위한 생성자는 좋다 ! 하지만 메서드 추가는 옳지 않다 !
+생성자 여러개를 테스트 할 때 다른 타입 매개변수의 생성자 동등성을 테스트 하면 된다.</p>
+
+<p><em>뷰에서 List 정도로 가공은 할 수 있을 것 같다.</em></p>
+
+<p>좋은 객체는 모든 메서드가 각각 모든 인스턴스 변수를 사용하고 있다 (100%는 어렵다).</p>
+
+<h3 id="문서를-작성하는-대신-테스트를-만들어라">문서를 작성하는 대신 테스트를 만들어라</h3>
+
+<p>주석이 없어도 클래스명과 메서드만을 봐도 무슨일을 하는지 알 수 있게,<br />
+테스트를 통해  메서드의 의도를 알도록 하라.</p>
+
+<p>깔끔하게 만든다라는 것은 단위 테스트도 만든다는 의미이다.<br />
+단위 테스트는 클래스의 일부이고 독립적인 개체가 아니다.</p>
+
+<h3 id="생성자에-코드를-넣지-마세요">생성자에 코드를 넣지 마세요</h3>
+
+<p>인자에 손을 대지 말라는 의미이다.</p>
+
+<ul>
+  <li>잘못된 예시</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">dollars</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="n">String</span> <span class="n">dlr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">dlr</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>생성자에 코드가 있을 경우 객체 변환과 관련한 예외를 제어할 수 없다.</p>
+
+<ul>
+  <li>좋은 예시</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Number</span> <span class="n">dollars</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="n">String</span> <span class="n">dlr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringAsInteger</span><span class="o">(</span><span class="n">dlr</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StringAsInteger</span> <span class="kd">extends</span> <span class="n">Number</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">source</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">StringAsInteger</span><span class="o">(</span><span class="n">String</span> <span class="n">txt</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">source</span> <span class="o">=</span> <span class="n">txt</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">intValue</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">source</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>이렇게 리팩토링을 하면 실제로 객체를 사용하는 시점까지의 객체 변환 작업은 연기된다.<br />
+생성자에 코드가 없을 경우 성능 최적화가 더 쉬워 실행 속도가 더 빨라진다.</p>
+
+<p>진정한 객체지향에서 인스턴스화란 더 작은 객체들을 조합해서 더 큰 객체를 만드는 것이다.</p>
+
+<p>객체의 변환을 뒤로 미뤄 파싱이 여러번 실행되지 않도록  데코레이터(decorator)를 추가해 파싱 결과를 캐싱할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CachedNumber</span> <span class="kd">extends</span> <span class="n">Number</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Number</span> <span class="n">origin</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">cached</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nf">CachedNumber</span><span class="o">(</span><span class="n">Number</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">origin</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">intValue</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">cached</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">cached</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">origin</span><span class="o">.</span><span class="na">intValue</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">cached</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Number</span> <span class="n">dollars</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="n">String</span> <span class="n">dlr</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CachedNumber</span><span class="o">(</span><span class="k">new</span> <span class="n">StringAsInteger</span><span class="o">(</span><span class="n">dlr</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📙 Java 람다의 변수 범위</title>
+	  <link>//%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1</link>
+	  <author></author>
+	  <pubDate>2021-03-19T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1</guid>
+	  <description><![CDATA[
+	     <h3 id="람다의-변수-범위">람다의 변수 범위</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111862130-956d4c80-8996-11eb-9abd-c2bef47886d9.png" alt="image" /></p>
+
+<p>물론 위의 코드는 미션을 위해 일단 구현만을 목적으로 많은 리팩토링이 필요하니 참고 🥲<br />
+미션을 진행하다가 for 문 내에 stream을 쓰게 되었는데, i의 값을 람다식 내에서 사용하려니 컴파일 에러가 났다.<br />
+“Variable used in lambda expression should be final or effectively final”
+즉 람다식에서 사용되는 변수는 final이거나 effectively final이어야 한다.</p>
+
+<p>effectively final은 무엇이며, 람다의 변수 범위를 정확히 짚고 넘어가자.</p>
+
+<h3 id="람다의-변수-범위-1">람다의 변수 범위</h3>
+
+<p>다음과 같은 Lambda 클래스가 있고, 각각의 메서드를 호출해 클래스 필드인 <code class="highlighter-rouge">name</code>이 어떻게 바뀌는지 살펴본다 🔎</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lambda</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">example1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">function</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">5</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">example2</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">function</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">10</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">example3</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">function</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">15</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111862546-58568980-8999-11eb-8fb0-6ac25fc92285.png" alt="image" /></p>
+
+<p>이에 대한 출력 결과는 다음과 같다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111862548-5ee50100-8999-11eb-9962-0697067614f8.png" alt="image" /></p>
+
+<p>위 예제에서 람다식에서는 자신을 감싼 메서드나 클래스에 속한 변수에 접근을 할 수 있다.<br />
+예제는 람다에 파라미터로 넘겨진 변수가 아닌 외부에서 정의된 변수를 사용하고 있는데 이러한 변수를 <strong>자유 변수</strong>라고 부른다.</p>
+
+<p>그렇다면 다시 맨 처음 오류를 가져와서 … 
+<img src="https://user-images.githubusercontent.com/43840561/111862130-956d4c80-8996-11eb-9abd-c2bef47886d9.png" alt="image" /></p>
+
+<p>이 부분에서 왜 자유 변수인 i를 final이나 effectvely final로 선언하라는 것일까 ?</p>
+
+<p>먼저 지역 변수는 JVM에서 스택 영역에 저장이 된다. 그리고 실제 메모리와 다르게 JVM에서 이 스택 영역은 스레드 마다 
+별도의 스택이 생성된다. <br />
+따라서 지역 변수는 한 스레드 안에서만 사용이 되며, 스레드끼리 공유하지 못한다.</p>
+
+<p>지역 변수와 다르게 인스턴스 변수는 힙 영역에 생성되어 서로 다른 스레드끼리도 공유할 수 있는 공유 변수이다.</p>
+
+<p>람다는 각각 별도의 스레드에서 실행이 가능하다.<br />
+위 예제에서 각각의 메서드는 i를 증가시키는 것이 아니라 람다를 리턴할 뿐이다.<br />
+실행 흐름 상 메서드를 호출한 스레드의 스택에 지역 변수인 i가 생성이 되는데,<br />
+람다식을 반환한 후에는 해당 함수가 종료되었으니 메모리에서 i가 사라질 것이다. <br />
+그렇지만 반환된 람다식은 다른 스레드에서 호출될 수 있는데, i가 GC에 의해 정리되어 접근할 수 없는 문제가 발생할 수 있다.</p>
+
+<p>때문에 실행 시점에 지역 변수가 사라질 것을 방지하기 위해서 이 자유 변수의 복사본을 만들어서 동작한다. 
+이 복사본을 가지고 동작할 예정인데, 이 복사본 값이 바뀌어 버리면 의도하지 않은 결과가 생길 수 있으므로 컴파일 단계에서<br />
+final 또는 effectively final로 선언해 변수를 신뢰할 수 있게 만드는 것이다.<br />
+이를 <strong>람다 캡처링</strong>이라고 한다.</p>
+
+<p>위 문제에서 컴파일 에러가 뜨는 것은 i가 스코프 밖에 있어 값이 변할 수 있어 신뢰할 수 없다.<br />
+때문에 인텔리제이가 권해주는 방법을 쓰면 i를 스코프 안 변수에 새로 할당해서 사용하게 된다.<br />
+<img src="https://user-images.githubusercontent.com/43840561/111863899-7de79100-89a1-11eb-8ed3-6c685817269d.png" alt="image" /></p>
+
+<p>여기서 i는 <code class="highlighter-rouge">final</code> 로 선언되지는 않았지만, 자바 8에서 추가된 effectivly final로 선언된 것이다.<br />
+effectively final은 final로 선언되지 않아도 컴파일러가 해당 변수가 변경되지 않았다고 판단할 수 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/111863962-d61e9300-89a1-11eb-85f8-b7e0a7d5ef7e.png" alt="image" /></p>
+
+<p>만약 effectively final인 i의 값을 바꾸려 한다면 이렇게 컴파일 오류가 발생한다.</p>
+
+<p>파도 파도 끝없는 람다의 세계 🤸‍♀️</p>
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://perfectacle.github.io/2019/06/30/java-8-lambda-capturing/">(Java) 람다 캡처링과 final 제약조건</a></li>
+  <li><a href="https://futurecreator.github.io/2018/08/02/java-lambda-variable-scope/">Java Lambda (5) 변수 범위</a></li>
+  <li><a href="https://jeong-pro.tistory.com/211">자바 람다에서 final이거나 final처럼 쓰인 지역 변수만 접근할 수 있는 이유</a></li>
+</ul>
+
+<hr />
+
+<h3 id="enum-map">Enum Map</h3>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📝 Java8 Lambda, Stream API 강의 정리</title>
 	  <link>//%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
 	  <author></author>
@@ -58,12 +513,104 @@
 
 <h3 id="side-effect가-발생하지-않는다">Side Effect가 발생하지 않는다.</h3>
 
+<ul>
+  <li>Side Effect란 ? 함수 내의 실행으로 인해 함수 외부가 영향을 받는 것</li>
+</ul>
+
 <p>함수형 프로그래밍의 특징은 지역 변수만을 변경할 수 있고, 매개변수를 변경하지 않는다. <br />
 즉, 함수는 같은 인수값으로 함수를 호출했을 때 항상 같은 값을 반환한다. (이 때 다른 값을 반환하는 Random, Scanner 등은 함수가 아니다).<br />
 만약 함수에 참조하는 객체가 있다면 그 객체는 불변이어야 하며, 해당 객체의 모든 참조 필드도 불변 객체를 직접 참조해야 한다. <br />
 함수 내에서 생성한 객체의 필드는 갱신할 수 있지만, 새로 생성한 필드의 갱신은 외부에 노출되면 안된다. <br />
-또한 다음에 메서드를 다시 호출한 결과에 영향을 미치지 않으며, 어떠한 예외도 일으키지 않아야 한다.</p>
+또한 다음에 메서드를 다시 호출한 결과에 영향을 미치지 않으며, 어떠한 예외도 일으키지 않아야 한다. <br />
+값이 변경되는 것을 허용한 객체를 멀티 스레드 프로그램에서 접근한다면, 값이 일정하지 않을 것이다.</p>
 
+<p>하지만 단순히 구조만으로 순수성이 보장되지는 않고, 입력에 참조값이 오는 경우는 Side-Effect가 생긴다. 
+이에 대한 내용은 <strong>참조 투명성</strong>을 살펴보자.</p>
+
+<h4 id="참조-투명성">참조 투명성</h4>
+
+<p>참조 투명성은 함수가 함수 외부의 영향을 받지 않는 것을 의미한다.<br />
+또, 함수의 결과는 입력 파라미터에만 의존하고, 함수 외부 세계(입력 콘솔, 파일, 데이터 베이스 등)에서 데이터를 읽지 않는다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">a</span><span class="o">++;</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 예제의 경우 원시 타입인 a의 값을 바꾸었는데, 자바의 원시타입의 매개변수는 call by value (메서드 호출 시 기본 자료형의 값을 인자로 전달하는 방식) 형태로 전달이 되어, 함수를 벗어나도 a에는 영향이 없다.<br />
+여기서 인자로 참조 변수를 넣어주면 어떤 일이 발생할 수 있을까?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">position</span><span class="o">(</span><span class="n">Position</span> <span class="n">a</span><span class="o">,</span> <span class="n">Position</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">a</span><span class="o">.</span><span class="na">setX</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getX</span><span class="o">())</span>
+  <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이렇게 참조 변수를 넘겨주면 함수 안에서 참조 변수의 값을 바꿀 수도 있기 때문에 side effect가 발생할 수 있다.<br />
+함수형 프로그래밍은 이런 Side Effect가 발생하지 않는, 참조 투명성이어야 한다.</p>
+
+<h3 id="일급-객체">일급 객체</h3>
+
+<p>함수형 프로그래밍은 함수인 메서드가 일급 객체임을 말하는데, 일급 객체는 다음과 같은 특성을 가진다.</p>
+
+<ul>
+  <li>변수나 데이터에 할당할 수 있어야 한다.</li>
+  <li>객체의 매개변수로 넘길 수 있어야 한다.</li>
+  <li>객체의 반환 값으로 리턴할 수 있어야 한다.</li>
+</ul>
+
+<p>자바8 이전까지, 메서드는 일급 객체가 아니었지만, 자바8의 익명 함수의 등장으로 메서드도 일급 객체로 다룰 수 있게 되었다.<br />
+또 이 익명 함수를 좀 더 단순화 한 것이 바로 람다 표현식(lambda expression)이다.</p>
+
+<h3 id="boxing과-unboxing">Boxing과 UnBoxing</h3>
+
+<p>원시 타입이 래퍼 클래스로 변환하는 것을 Boxing이라고 하며,<br />
+래퍼 클래스를 원시 타입으로 형변환 하는 것을 UnBoxing이라고 한다. <br />
+JDK1.5부터는 래퍼 클래스와 기본 자료형 사이의 변환을 자동으로 해주는 Auto Boxing과 Auto UnBoxing 기능을 지원한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">Integer</span> <span class="n">integer</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// Auto Boxing</span>
+<span class="n">Integer</span> <span class="n">integer1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">777</span><span class="o">);</span> <span class="c1">// 명시적 Boxing</span>
+
+<span class="kt">int</span> <span class="n">primitive</span> <span class="o">=</span> <span class="n">integer</span><span class="o">;</span> <span class="c1">// Auto UnBoxing</span>
+</code></pre></div></div>
+
+<p>#### Auto Boxing이 일어나는 예</p>
+
+<p>자바에서는 래퍼 클래스에 대한 연산이 시도될 때, 연산을 하려는 두 객체를 Auto Unboxing을 하여 원시타입으로 변환 후,<br />
+연산을 수행하게 된다. 래퍼 클래스와 원시 타입 간 연산도 동일하다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="n">Integer</span> <span class="n">integer127</span> <span class="o">=</span> <span class="mi">127</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+  <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">127</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">==</span> <span class="n">integer127</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
+<span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+  <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">128</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">integer127</span><span class="o">))</span>
+  <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
+<span class="o">);</span>
+</code></pre></div></div>
+
+<p>두 스트림 연산에서 원시 타입 <code class="highlighter-rouge">int</code> 인 값들의 Stream을 만들고 각각 래퍼 클래스 <code class="highlighter-rouge">Integer</code> 와 비교를 할 때 Auto Boxing이 일어난다.<br />
+이때, <code class="highlighter-rouge">findFirst().get()</code> 을 하게 된다면 래퍼 클래스가 반환된다.<br />
+이렇게 되면 각각 원시 타입에 Auto Boxing이 일어나니, <br />
+원시 타입에 대한 스트림은 기본형 특화 스트림 (IntStream, LongStream, DoubleStream)을 사용하는 것이 성능상 좋다.</p>
+
+<p>➕ 수업 예제에서 이 부분이 왜 127과 128로 나누었을까 크루들이랑 이야기를 했다.<br />
+Integer 래퍼 클래스는 127까지 인스턴스를 미리 생성해 두기 때문에 <code class="highlighter-rouge">==</code> 연산자로도 비교가 가능하지만 (주소값을 비교하는 것이다),<br />
+128부터는 새로운 인스턴스를 반환하기 때문에 동일성 검사인 <code class="highlighter-rouge">equals()</code> 를 사용해 반환한다.</p>
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://jinwooe.wordpress.com/2017/12/21/%EB%B6%80%EC%88%98-%ED%9A%A8%EA%B3%BC-side-effect-%EC%B0%B8%EC%A1%B0-%ED%88%AC%EB%AA%85%EC%84%B1-referential-transparency/">부수 효과 (Side Effect), 참조 투명성 (Referential Transparency)</a></li>
+</ul>
 
 	  ]]></description>
 	</item>
@@ -395,7 +942,17 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
   <li>레벨 1 마지막 미션인 체스 미션이 시작되었다.</li>
   <li>새로운 페어인 오즈를 오늘 출근을 하지 못해 구글 밋으로 만났다.</li>
   <li>하루종일 핸드폰을 거의 안봐서 개인적으로 중요한 연락을 놓쳤다. 즐거운 하루였으나 스스로는 정신이 없었다.</li>
-  <li></li>
+</ul>
+
+<h4 id="수">수</h4>
+
+<ul>
+  <li>데일리에서 멤수타2를 했다.</li>
+  <li>오즈가 코로나 음성이 나와서 오프라인으로 페어를 진행했다.</li>
+  <li>포모, 조엘, 수리도 같은 장소에서 페어를 했다.</li>
+  <li>
+    <p>오늘은 적당히 7시까지 하다 헤어졌다.</p>
+  </li>
   <li>일주일 2번 오프라인 출근이 시작되었다.</li>
   <li>온라인으로만 만나던 사람들을 3D로 처음 만났다.</li>
   <li>출입증 사진을 찍었다.</li>
@@ -422,6 +979,13 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 <p>이번 페어와는 마지막 찐한 회고를 다짐했다. 온라인이었지만 오프라인으로 만난 것 처럼 즐거웠다. <br />
 옆에 오프라인으로 페어를 하는 크루들이랑도 같이 소통해서 좋았다.<br />
 오늘도 정말 많이 웃었다.</p>
+
+<h4 id="수-1">수</h4>
+
+<p>와 체스 게임 미션 정말 어렵다.<br />
+이동 규칙이 객체마다 달라서 어떻게 해야할지 한참을 고민한다.<br />
+오즈랑 페어는 재미있다.<br />
+그런데 오즈가 조금 더 적극적으로 자기 의견을 피력하면 어떨까 싶기도 하다.</p>
 
 <h3 id="크루들의-에너지">크루들의 에너지</h3>
 
