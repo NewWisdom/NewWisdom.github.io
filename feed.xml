@@ -8,19 +8,6 @@
     
       
       <item>
-        <title></title>
-        
-          <description></description>
-        
-        <pubDate>Mon, 12 Apr 2021 01:11:08 +0900</pubDate>
-        <link>
-        http://localhost:4000/2021-02-07-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-02-07-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</guid>
-      </item>
-      
-    
-      
-      <item>
         <title>🕹 Level 1. 체스 미션 정리 - Service Layer, DAO와 Repository</title>
         
           <description>&lt;h2 id=&quot;mvc와-service&quot;&gt;MVC와 Service&lt;/h2&gt;
@@ -29,8 +16,8 @@
         
         <pubDate>Sat, 10 Apr 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository</guid>
+        http://localhost:4000/level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-service-layer-dao%EC%99%80-repository</link>
+        <guid isPermaLink="true">http://localhost:4000/level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-service-layer-dao%EC%99%80-repository</guid>
       </item>
       
     
@@ -44,8 +31,8 @@
         
         <pubDate>Sat, 10 Apr 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC</guid>
+        http://localhost:4000/level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-jdbc</link>
+        <guid isPermaLink="true">http://localhost:4000/level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-jdbc</guid>
       </item>
       
     
@@ -60,8 +47,8 @@
         
         <pubDate>Fri, 09 Apr 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-DTO</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-DTO</guid>
+        http://localhost:4000/level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-dto</link>
+        <guid isPermaLink="true">http://localhost:4000/level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-dto</guid>
       </item>
       
     
@@ -135,8 +122,8 @@
         
         <pubDate>Fri, 19 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
-        <guid isPermaLink="true">http://localhost:4000/Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</guid>
+        http://localhost:4000/java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
+        <guid isPermaLink="true">http://localhost:4000/java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</guid>
       </item>
       
     
@@ -150,8 +137,8 @@
         
         <pubDate>Tue, 16 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
-        <guid isPermaLink="true">http://localhost:4000/Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
+        http://localhost:4000/java8-lambda-stream-api-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
+        <guid isPermaLink="true">http://localhost:4000/java8-lambda-stream-api-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
       </item>
       
     
@@ -165,8 +152,8 @@
         
         <pubDate>Mon, 15 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</guid>
+        http://localhost:4000/level-1-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
+        <guid isPermaLink="true">http://localhost:4000/level-1-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</guid>
       </item>
       
     
@@ -180,8 +167,8 @@
         
         <pubDate>Sat, 06 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</guid>
+        http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5-6-%EC%A3%BC%EC%B0%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5-6-%EC%A3%BC%EC%B0%A8</guid>
       </item>
       
     
@@ -196,8 +183,8 @@
         
         <pubDate>Sat, 06 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Functional-Interface</link>
-        <guid isPermaLink="true">http://localhost:4000/Functional-Interface</guid>
+        http://localhost:4000/functional-interface</link>
+        <guid isPermaLink="true">http://localhost:4000/functional-interface</guid>
       </item>
       
     
@@ -246,8 +233,8 @@
         
         <pubDate>Mon, 01 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/level-1-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/level-1-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
       </item>
       
     
@@ -263,8 +250,8 @@
         
         <pubDate>Mon, 01 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</link>
-        <guid isPermaLink="true">http://localhost:4000/BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</guid>
+        http://localhost:4000/bigdecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</link>
+        <guid isPermaLink="true">http://localhost:4000/bigdecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</guid>
       </item>
       
     
@@ -299,8 +286,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Thu, 25 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
+        http://localhost:4000/stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
       </item>
       
     
@@ -315,8 +302,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Wed, 24 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
-        <guid isPermaLink="true">http://localhost:4000/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+        http://localhost:4000/exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+        <guid isPermaLink="true">http://localhost:4000/exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
       </item>
       
     
@@ -331,8 +318,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Sun, 21 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</link>
-        <guid isPermaLink="true">http://localhost:4000/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</guid>
+        http://localhost:4000/enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</link>
+        <guid isPermaLink="true">http://localhost:4000/enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</guid>
       </item>
       
     
@@ -364,14 +351,14 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Sat, 20 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/TDD-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/TDD-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/tdd-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/tdd-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
       </item>
       
     
       
       <item>
-        <title>📖 Effective java -  item 34. int 상수 대신 열거 타입을 사용하라</title>
+        <title>📖 Effective java item 34 - int 상수 대신 열거 타입을 사용하라</title>
         
           <description>&lt;h2 id=&quot;enum-&quot;&gt;Enum ?&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://velog.io/@new_wisdom/Java-Enum-%EC%97%B4%EA%B1%B0%ED%98%95&quot;&gt;[Java] Enum 열거형&lt;/a&gt;&lt;/p&gt;
@@ -386,14 +373,14 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Sat, 20 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+        http://localhost:4000/effective-java-item-34-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/effective-java-item-34-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
       </item>
       
     
       
       <item>
-        <title>📖 Effective java - item 28. 배열보다는 리스트를 사용하라</title>
+        <title>📖 Effective java item 28 - 배열보다는 리스트를 사용하라</title>
         
           <description>&lt;p&gt;우테코 Level 1 로또 미션에서 “배열 대신 ArrayList를 사용한다.”가 요구사항에 들어있었다.&lt;br /&gt;
 왜 배열대신 ArrayList를 사용하라는 것일까?&lt;br /&gt;
@@ -403,8 +390,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Wed, 17 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Effective-java-item-28.-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-28.-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+        http://localhost:4000/effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
       </item>
       
     
@@ -420,8 +407,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Level-1.-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/level-1-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/level-1-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
       </item>
       
     
@@ -439,8 +426,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</guid>
+        http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-immutable-class</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-immutable-class</guid>
       </item>
       
     
@@ -458,14 +445,14 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/String-vs-StringBuffer-vs-StringBuilder</link>
-        <guid isPermaLink="true">http://localhost:4000/String-vs-StringBuffer-vs-StringBuilder</guid>
+        http://localhost:4000/string-vs-stringbuffer-vs-stringbuilder</link>
+        <guid isPermaLink="true">http://localhost:4000/string-vs-stringbuffer-vs-stringbuilder</guid>
       </item>
       
     
       
       <item>
-        <title>📖 Effective java - item 1. 생성자 대신 정적 팩터리 메서드를 고려하라</title>
+        <title>📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라</title>
         
           <description>&lt;p&gt;클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 &lt;code class=&quot;highlighter-rouge&quot;&gt;팩터리 메서드&lt;/code&gt;와는 다르다.&lt;/p&gt;
 
@@ -473,8 +460,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Sun, 14 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+        http://localhost:4000/effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
       </item>
       
     
@@ -516,6 +503,24 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
     
       
       <item>
+        <title>👀 인텔리제이를 인텔리제이답게 - Mac 단축키</title>
+        
+          <description>&lt;p&gt;사실 인텔리제이를 쓰면서 사람들이 왜 인텔리제이가 편하다고 하는 걸까 의문이었다.&lt;br /&gt;
+하지만 우테코를 진행하면서 몇 가지 단축키를 배우니 굉장히 유용한 것 . . .&lt;br /&gt;
+인텔리 제이에서 제공하는 영문 Key Map Reference를 정리하면서 &lt;br /&gt;
+나도 내게 유용한 기능들을 익혀보려 한다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 07 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📖 공식문서와 함께하는 assertJ 정리</title>
         
           <description>&lt;p&gt;JUnit5으로 테스트 코드를 작성하면서 assertion을 주는 도구로 assertJ를 배웠다.&lt;br /&gt;
@@ -525,8 +530,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Fri, 05 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertj-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertj-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
       </item>
       
     
@@ -544,8 +549,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5</link>
-        <guid isPermaLink="true">http://localhost:4000/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5</guid>
+        http://localhost:4000/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-junit5</link>
+        <guid isPermaLink="true">http://localhost:4000/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-junit5</guid>
       </item>
       
     

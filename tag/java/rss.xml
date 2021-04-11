@@ -508,10 +508,10 @@ CashFormatter는<code class="highlighter-rouge">format()</code> 이외의 기능
 
 	<item>
 	  <title>📖 Java 람다의 변수 범위</title>
-	  <link>//Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
+	  <link>//java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
 	  <author></author>
 	  <pubDate>2021-03-19T19:18:00+09:00</pubDate>
-	  <guid>//Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</guid>
+	  <guid>//java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</guid>
 	  <description><![CDATA[
 	     <h3 id="람다의-변수-범위">람다의 변수 범위</h3>
 
@@ -612,10 +612,10 @@ effectively final은 final로 선언되지 않아도 컴파일러가 해당 변�
 
 	<item>
 	  <title>📝 Java8 Lambda, Stream API 강의 정리</title>
-	  <link>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
+	  <link>//java8-lambda-stream-api-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
 	  <author></author>
 	  <pubDate>2021-03-16T19:18:00+09:00</pubDate>
-	  <guid>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
+	  <guid>//java8-lambda-stream-api-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
 	  <description><![CDATA[
 	     <h2 id="함수형-프로그래밍의-장점-">함수형 프로그래밍의 장점 ?</h2>
 
@@ -761,10 +761,10 @@ Integer 래퍼 클래스는 127까지 인스턴스를 미리 생성해 두기 �
 
 	<item>
 	  <title>📖 Functional Interface</title>
-	  <link>//Functional-Interface</link>
+	  <link>//functional-interface</link>
 	  <author></author>
 	  <pubDate>2021-03-06T19:18:00+09:00</pubDate>
-	  <guid>//Functional-Interface</guid>
+	  <guid>//functional-interface</guid>
 	  <description><![CDATA[
 	     <h2 id="함수형-인터페이스">함수형 인터페이스</h2>
 <p>자바 8부터 자바는 객체지향 언어일 뿐만 아니라 함수형 언어도 지원할 수 있게되었다.</p>
@@ -1500,10 +1500,10 @@ ex) 학생은 사람이다.</p>
 
 	<item>
 	  <title>📖 BigDecimal에 관한 고찰</title>
-	  <link>//BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</link>
+	  <link>//bigdecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</link>
 	  <author></author>
 	  <pubDate>2021-03-01T19:18:00+09:00</pubDate>
-	  <guid>//BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</guid>
+	  <guid>//bigdecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</guid>
 	  <description><![CDATA[
 	     <p>이번 미션에서 <code class="highlighter-rouge">BigDecimal</code>에 대한 언급이 많았는데,<br />
 <strong>도대체 그게 뭐지 🤷‍♀️ 나만 몰라 ❓</strong><br />
@@ -1687,10 +1687,10 @@ BigDecimal을 뜯어보니 굉장히 흥미롭다 👻</p>
 
 	<item>
 	  <title>📖 Stream 부수기</title>
-	  <link>//Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
+	  <link>//stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
 	  <author></author>
 	  <pubDate>2021-02-25T19:18:00+09:00</pubDate>
-	  <guid>//Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
+	  <guid>//stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
 	  <description><![CDATA[
 	     <p>코드를 짜다보면 가독성과 간결함을 위해 stream을 자주 쓰게 된다.<br />
 프리코스 때 Stream에 대해 정리했었으나,<br />
@@ -2168,10 +2168,10 @@ collect()가 스트림의 요소를 수집하려면, 어떻게 수집할 것인�
 
 	<item>
 	  <title>📖 Exception에 대하여</title>
-	  <link>//Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+	  <link>//exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
 	  <author></author>
 	  <pubDate>2021-02-24T19:18:00+09:00</pubDate>
-	  <guid>//Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+	  <guid>//exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
 	  <description><![CDATA[
 	     <p>오늘 수업 시간에 자바의 Exception에 대해 배웠다.<br />
 수업을 듣고 들은 내용을 자바의 정석의 예외 처리를 함께 보면서 정리 ✍️</p>

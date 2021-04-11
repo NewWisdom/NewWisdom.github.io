@@ -1033,10 +1033,10 @@ ex) 학생은 사람이다.</p>
 
 	<item>
 	  <title>📖 불변 객체 (Immutable Class)</title>
-	  <link>//%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</link>
+	  <link>//%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-immutable-class</link>
 	  <author></author>
 	  <pubDate>2021-02-15T19:18:00+09:00</pubDate>
-	  <guid>//%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</guid>
+	  <guid>//%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-immutable-class</guid>
 	  <description><![CDATA[
 	     <h2 id="불변-객체-immutable-class란">불변 객체 (Immutable Class)란?</h2>
 <p>불변 객체란 말 그대로 <strong>변경이 불가능한 객체</strong>이다.<br />
