@@ -8,7 +8,7 @@
     
       
       <item>
-        <title>🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository</title>
+        <title>🕹 Level 1. 체스 미션 정리 - Service Layer, DAO와 Repository</title>
         
           <description>&lt;h2 id=&quot;mvc와-service&quot;&gt;MVC와 Service&lt;/h2&gt;
 
@@ -16,8 +16,8 @@
         
         <pubDate>Sat, 10 Apr 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53</guid>
+        http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository</link>
+        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository</guid>
       </item>
       
     
@@ -31,8 +31,8 @@
         
         <pubDate>Sat, 10 Apr 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2</guid>
+        http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC</link>
+        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC</guid>
       </item>
       
     
@@ -47,8 +47,8 @@
         
         <pubDate>Fri, 09 Apr 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-DTO</link>
+        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-DTO</guid>
       </item>
       
     
@@ -62,8 +62,23 @@
         
         <pubDate>Tue, 23 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</guid>
+        http://localhost:4000/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%84%A4%EA%B3%84-%EA%B0%95%EC%9D%98-%EB%85%B8%ED%8A%B8</link>
+        <guid isPermaLink="true">http://localhost:4000/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%84%A4%EA%B3%84-%EA%B0%95%EC%9D%98-%EB%85%B8%ED%8A%B8</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>💡 위클리 회고 7 주차</title>
+        
+          <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sun, 21 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8</guid>
       </item>
       
     
@@ -92,8 +107,8 @@
         
         <pubDate>Sat, 20 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8B%E1%85%A6%E1%86%AF%E1%84%85%E1%85%A6%E1%84%80%E1%85%A1%E1%86%BC%E1%84%90%E1%85%B3-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%A6%E1%86%AF%E1%84%85%E1%85%A6%E1%84%80%E1%85%A1%E1%86%BC%E1%84%90%E1%85%B3-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</guid>
+        http://localhost:4000/%EC%97%98%EB%A0%88%EA%B0%95%ED%8A%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%BD%80%EA%B0%9C%EA%B8%B0-1-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
+        <guid isPermaLink="true">http://localhost:4000/%EC%97%98%EB%A0%88%EA%B0%95%ED%8A%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%BD%80%EA%B0%9C%EA%B8%B0-1-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
       </item>
       
     
@@ -107,8 +122,8 @@
         
         <pubDate>Fri, 19 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A1%E1%84%8B%E1%85%B4-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE-%E1%84%87%E1%85%A5%E1%86%B7%E1%84%8B%E1%85%B1</guid>
+        http://localhost:4000/Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
+        <guid isPermaLink="true">http://localhost:4000/Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</guid>
       </item>
       
     
@@ -122,8 +137,8 @@
         
         <pubDate>Tue, 16 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
+        <guid isPermaLink="true">http://localhost:4000/Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
       </item>
       
     
@@ -137,8 +152,8 @@
         
         <pubDate>Mon, 15 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
-        <guid isPermaLink="true">http://localhost:4000/%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</guid>
+        http://localhost:4000/Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
+        <guid isPermaLink="true">http://localhost:4000/Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</guid>
       </item>
       
     
@@ -165,21 +180,6 @@
     
       
       <item>
-        <title>💡 위클리 회고 7 주차</title>
-        
-          <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
-
-</description>
-        
-        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
-      </item>
-      
-    
-      
-      <item>
         <title>💡 위클리 회고 5, 6 주차</title>
         
           <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
@@ -188,8 +188,8 @@
         
         <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8</guid>
+        http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</guid>
       </item>
       
     
@@ -225,8 +225,8 @@ SOPT 앱잼으로 프로젝트가 시작되고 더불어 이사를 가면서 정
         
         <pubDate>Sun, 17 Jan 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%91%E1%85%B3%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3-%E1%84%8B%E1%85%B5%E1%84%92%E1%85%AE%E1%84%8B%E1%85%B4-%E1%84%89%E1%85%A1%E1%86%B1%E1%84%80%E1%85%AA-%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC-%E1%84%92%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A7%E1%86%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%91%E1%85%B3%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3-%E1%84%8B%E1%85%B5%E1%84%92%E1%85%AE%E1%84%8B%E1%85%B4-%E1%84%89%E1%85%A1%E1%86%B1%E1%84%80%E1%85%AA-%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC-%E1%84%92%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A7%E1%86%A8</guid>
+        http://localhost:4000/%ED%94%84%EB%A6%AC%EC%BD%94%EC%8A%A4-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%82%B6%EA%B3%BC-%EC%B5%9C%EC%A2%85-%ED%95%A9%EA%B2%A9</link>
+        <guid isPermaLink="true">http://localhost:4000/%ED%94%84%EB%A6%AC%EC%BD%94%EC%8A%A4-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%82%B6%EA%B3%BC-%EC%B5%9C%EC%A2%85-%ED%95%A9%EA%B2%A9</guid>
       </item>
       
     
