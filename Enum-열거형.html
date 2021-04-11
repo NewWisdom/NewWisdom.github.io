@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📖 Enum 열거형</title>
+    <meta name="description" content="I want to be a person who gives you new wisdom." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
+
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="This is New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📖 Enum 열거형" />
+    <meta property="og:description" content="I want to be a person who gives you new wisdom." />
+    <meta property="og:url" content="http://localhost:4000//Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📖 Enum 열거형" />
+    <meta name="twitter:description" content="I want to be a person who gives you new wisdom." />
+    <meta name="twitter:url" content="http://localhost:4000//Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "This is New Wisdom's Log !",
+    "name": "📖 Enum 열거형",
+    "url": "http://localhost:4000//Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC",
+    "image": "/assets/images/woowa.jpg",
+    "description": "I want to be a person who gives you new wisdom."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="This is New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📖 Enum 열거형</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-02-21">21 Feb 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="열거형이란">열거형이란?</h2>
+<p>JDK 1.5 부터 새로 추가된 개념이다.</p>
+
+<p>기존의 언어들과 자바의 Enum이 다른 점은</p>
+<ul>
+  <li>열거형이 갖는 값 뿐만 아니라 타입까지 관리하기 때문에 보다 
+논리적인 오류를 줄일 수 있다.</li>
+  <li>‘타입에 안전한 열거형’을 제공하여 실제 값이 같아도 타입이 다르면 조건식 결과가 false이다. 값 뿐만 아니라 타입까지 체크한다.</li>
+  <li>상수 값이 바뀌어도 기존 소스를 다시 컴파일하지 않아도 된다.</li>
+</ul>
+
+<h3 id="열거형의-정의와-사용">열거형의 정의와 사용</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="err">열거형이름</span> <span class="o">{</span><span class="err">상수명</span><span class="mi">1</span><span class="o">,</span> <span class="err">상수명</span><span class="mi">2</span><span class="o">,</span> <span class="o">...}</span>
+</code></pre></div></div>
+<p>열거형에 정의된 상수를 사요아는 방법은 <code class="highlighter-rouge">열거형이름.상수명</code>이다.<br />
+클래스의 static 변수를 참조하는 것과 동일하다.</p>
+
+<h4 id="열거형-상수간-비교">열거형 상수간 비교</h4>
+<p><code class="highlighter-rouge">==</code> 연산자를 사용하여 비교할 수 있다.<br />
+<code class="highlighter-rouge">equals()</code>가 아닌 <code class="highlighter-rouge">==</code>으로 비교가 가능하다는 것은 그만큼 성능이 좋다는 것이다.<br />
+<code class="highlighter-rouge">&lt;, &gt;</code>로는 비교할 수 없지만 <code class="highlighter-rouge">compareTo()</code>는 사용이 가능하다.</p>
+
+<p>또 <code class="highlighter-rouge">switch</code> 문의 조건식에도 사용할 수 있다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span><span class="o">(</span><span class="n">d1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nl">EAST:</span> <span class="c1">// Direction.EAST라고 쓰면 안된다.</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The direction is EAST."</span><span class="o">);</span> 
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">SOUTH:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The direction is SOUTH."</span><span class="o">);</span> 
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">WEST:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The direction is WEST."</span><span class="o">);</span> 
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">NORTH:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The direction is NORTH."</span><span class="o">);</span> 
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Invalid direction."</span><span class="o">);</span> 
+        <span class="k">break</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="다양한-메소드">다양한 메소드</h4>
+<p>열거형에 정의된 모든 상수를 출력하려면 다음과 같이 한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Direction</span><span class="o">[]</span> <span class="n">dArr</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">values</span><span class="o">();</span>
+
+<span class="k">for</span><span class="o">(</span><span class="n">Direction</span> <span class="n">d</span> <span class="o">:</span> <span class="n">dArr</span> <span class="o">)</span> 
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s=%d%n"</span><span class="o">,</span> <span class="n">d</span><span class="o">.</span><span class="na">name</span><span class="o">(),</span> <span class="n">d</span><span class="o">.</span><span class="na">original</span><span class="o">());</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="highlighter-rouge">values()</code> : 열거형의 모든 상수를 배열에 담아 반환한다.</li>
+  <li><code class="highlighter-rouge">ordinal()</code> : 모든 열거형의 조상인 <code class="highlighter-rouge">java.lang.Enum</code> 클래스에 정의된 것으로, 정의된 순서를 정수로 반환한다.</li>
+  <li><code class="highlighter-rouge">name()</code> : 열거형 상수의 이름을 문자열로 반환한다.</li>
+  <li><code class="highlighter-rouge">valueOf()</code> : 지정된 열거형에서 name과 일치하는 열거형 상수를 반환한다.</li>
+</ul>
+
+<h3 id="열거형의-생성자">열거형의 생성자</h3>
+<p>Enum 타입은 열거형을 의미하는 특별한 형태의 클래스이기 때문에 일반 클래스와 같이<br />
+생성자가 존재하여애 한다. 자바가 기본 생성자를 만들어주긴 하지만, <br />
+열거형의 생성자는 제어자가 묵시적으로 private으로 지정해줘야 한다.</p>
+
+<p>이유는 고정된 상수의 집합으로 런타임이 아닌 컴파일 타임에 모든 값을 <br />
+알고 있어야 하기 때문이다.<br />
+즉, 다른 패키지나 클래스에서 접근해 동적으로 값을 할당할 수 없다.</p>
+
+<h3 id="열거형에-멤버-추가하기">열거형에 멤버 추가하기</h3>
+<p><code class="highlighter-rouge">oridinal()</code>이 열거형 상수가 정의된 순서를 반환하지만, <br />
+내부적인 용도로만 사용되기 위한 것이기 때문에 열거형 상수의 값으로 사용하지 않는 것이 좋다.</p>
+
+<p>열거 상수의 값이 불규칙적인 경우에는 다음과 같이 열거형 상수 이름 옆에 <br />
+원하는 값을 괄호와 함께 적어준다.<br />
+그리고 지정된 값을 저장할 수 있는 인스턴스 변수와 생성자를 새로 추가해주어야 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="n">Direction</span> <span class="o">{</span>
+    <span class="n">EAST</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="n">SOUTH</span><span class="o">(</span><span class="mi">5</span><span class="o">),</span> <span class="n">WEST</span><span class="o">(-</span><span class="mi">1</span><span class="o">),</span> <span class="n">NORTH</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span> <span class="c1">// 정수를 저장할 필드(인스턴스 변수) 추가</span>
+    <span class="n">Direction</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;}</span>
+    
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">value</span><span class="o">;}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>필요에 따라 하나의 열거형 상수에 여러 값을 지정할 수 있다.<br />
+이에 맞게 인스턴스 변수와 생성자 등을 새로 추가해주어야 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="n">Direction</span> <span class="o">{</span>
+    <span class="n">EAST</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"&gt;"</span><span class="o">),</span> <span class="n">SOUTH</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">"V"</span><span class="o">),</span> <span class="n">WEST</span><span class="o">(-</span><span class="mi">1</span><span class="o">,</span> <span class="s">"&lt;"</span><span class="o">),</span> <span class="n">NORTH</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="s">"^"</span><span class="o">);</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span> <span class="c1">// 정수를 저장할 필드(인스턴스 변수) 추가</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">symbol</span><span class="o">;</span>
+    <span class="n">Direction</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">,</span> <span class="n">String</span> <span class="n">symbol</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">symbol</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">value</span><span class="o">;}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSymbol</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">symbol</span><span class="o">;}</span>
+</code></pre></div></div>
+<h4 id="example">Example</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="n">Direction</span> <span class="o">{</span> 
+    <span class="n">EAST</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"&gt;"</span><span class="o">),</span> <span class="n">SOUTH</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="s">"V"</span><span class="o">),</span> <span class="n">WEST</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">"&lt;"</span><span class="o">),</span> <span class="n">NORTH</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span><span class="s">"^"</span><span class="o">);</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Direction</span><span class="o">[]</span> <span class="n">DIR_ARR</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">values</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">symbol</span><span class="o">;</span>
+
+    <span class="n">Direction</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">,</span> <span class="n">String</span> <span class="n">symbol</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// private Direction(int value)</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span>  <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">symbol</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">()</span>      <span class="o">{</span> <span class="k">return</span> <span class="n">value</span><span class="o">;</span>  <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSymbol</span><span class="o">()</span>  <span class="o">{</span> <span class="k">return</span> <span class="n">symbol</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Direction</span> <span class="nf">of</span><span class="o">(</span><span class="kt">int</span> <span class="n">dir</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">dir</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">dir</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Invalid value :"</span> <span class="o">+</span> <span class="n">dir</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">DIR_ARR</span><span class="o">[</span><span class="n">dir</span> <span class="o">-</span> <span class="mi">1</span><span class="o">];</span>		
+    <span class="o">}</span>	
+
+    <span class="c1">// 방향을 회전시키는 메서드. num의 값만큼 90도씩 시계방향으로 회전한다.</span>
+    <span class="kd">public</span> <span class="n">Direction</span> <span class="nf">rotate</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">4</span><span class="o">;</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="n">num</span> <span class="o">+=</span><span class="mi">4</span><span class="o">;</span> <span class="c1">// num이 음수일 때는 시계반대 방향으로 회전 </span>
+
+        <span class="k">return</span> <span class="n">DIR_ARR</span><span class="o">[(</span><span class="n">value</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">num</span><span class="o">)</span> <span class="o">%</span> <span class="mi">4</span><span class="o">];</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">name</span><span class="o">()+</span><span class="n">getSymbol</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="c1">// enum Direction</span>
+
+<span class="kd">class</span> <span class="nc">EnumEx2</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="n">Direction</span> <span class="n">d</span> <span class="o">:</span> <span class="n">Direction</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> 
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s=%d%n"</span><span class="o">,</span> <span class="n">d</span><span class="o">.</span><span class="na">name</span><span class="o">(),</span> <span class="n">d</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span> 
+
+        <span class="n">Direction</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">;</span>
+        <span class="n">Direction</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"d1=%s, %d%n"</span><span class="o">,</span> <span class="n">d1</span><span class="o">.</span><span class="na">name</span><span class="o">(),</span> <span class="n">d1</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"d2=%s, %d%n"</span><span class="o">,</span> <span class="n">d2</span><span class="o">.</span><span class="na">name</span><span class="o">(),</span> <span class="n">d2</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">.</span><span class="na">rotate</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">.</span><span class="na">rotate</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">.</span><span class="na">rotate</span><span class="o">(-</span><span class="mi">1</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">.</span><span class="na">rotate</span><span class="o">(-</span><span class="mi">2</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h3 id="열거형에-추상-메서드-추가하기">열거형에 추상 메서드 추가하기</h3>
+<h4 id="example-1">Example</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="n">Transportation</span> <span class="o">{</span> 
+    <span class="n">BUS</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>      <span class="o">{</span> <span class="kt">int</span> <span class="nf">fare</span><span class="o">(</span><span class="kt">int</span> <span class="n">distance</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">distance</span><span class="o">*</span><span class="n">BASIC_FARE</span><span class="o">;}},</span>
+    <span class="n">TRAIN</span><span class="o">(</span><span class="mi">150</span><span class="o">)</span>    <span class="o">{</span> <span class="kt">int</span> <span class="nf">fare</span><span class="o">(</span><span class="kt">int</span> <span class="n">distance</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">distance</span><span class="o">*</span><span class="n">BASIC_FARE</span><span class="o">;}},</span>
+    <span class="n">SHIP</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>     <span class="o">{</span> <span class="kt">int</span> <span class="nf">fare</span><span class="o">(</span><span class="kt">int</span> <span class="n">distance</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">distance</span><span class="o">*</span><span class="n">BASIC_FARE</span><span class="o">;}},</span>
+    <span class="n">AIRPLANE</span><span class="o">(</span><span class="mi">300</span><span class="o">)</span> <span class="o">{</span> <span class="kt">int</span> <span class="nf">fare</span><span class="o">(</span><span class="kt">int</span> <span class="n">distance</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">distance</span><span class="o">*</span><span class="n">BASIC_FARE</span><span class="o">;}};</span>
+
+    <span class="kd">protected</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">BASIC_FARE</span><span class="o">;</span> <span class="c1">// protected로 해야 각 상수에서 접근가능</span>
+	
+    <span class="n">Transportation</span><span class="o">(</span><span class="kt">int</span> <span class="n">basicFare</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// private Transportation(int basicFare) {</span>
+		<span class="n">BASIC_FARE</span> <span class="o">=</span> <span class="n">basicFare</span><span class="o">;</span>
+	<span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBasicFare</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">BASIC_FARE</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fare</span><span class="o">(</span><span class="kt">int</span> <span class="n">distance</span><span class="o">);</span> <span class="c1">// 거리에 따른 요금 계산</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">EnumEx3</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"bus fare="</span>     <span class="o">+</span><span class="n">Transportation</span><span class="o">.</span><span class="na">BUS</span><span class="o">.</span><span class="na">fare</span><span class="o">(</span><span class="mi">100</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"train fare="</span>   <span class="o">+</span><span class="n">Transportation</span><span class="o">.</span><span class="na">TRAIN</span><span class="o">.</span><span class="na">fare</span><span class="o">(</span><span class="mi">100</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ship fare="</span>    <span class="o">+</span><span class="n">Transportation</span><span class="o">.</span><span class="na">SHIP</span><span class="o">.</span><span class="na">fare</span><span class="o">(</span><span class="mi">100</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"airplane fare="</span><span class="o">+</span><span class="n">Transportation</span><span class="o">.</span><span class="na">AIRPLANE</span><span class="o">.</span><span class="na">fare</span><span class="o">(</span><span class="mi">100</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Transportation은 운송 수단의 종류 별로 상수를 정의하고 있고,<br />
+각 운송 수단에는 기본요금이 책정되어 있다.<br />
+여기서 거리에 따라 요금을 계산하는 방식이 각 운송 수단마다 다른 경우를 위해,<br />
+추상 메서드 <code class="highlighter-rouge">fare(int distance)</code>를 선언해 각 열거형 상수가 이 추상 메서드를 반드시 구현해야 한다.</p>
+
+<p>열거형에 추상 메서드를 선언할 일은 그리 많지 않다.</p>
+
+<h3 id="열거형의-비교">열거형의 비교</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="n">Direction</span> <span class="o">{</span> <span class="n">EAST</span><span class="o">,</span> <span class="n">SOUTH</span><span class="o">,</span> <span class="n">WEST</span><span class="o">,</span> <span class="n">NORTH</span><span class="o">;</span> <span class="o">}</span>
+</code></pre></div></div>
+<p>이 열거형 상수 하나하나가 Direction 객체이다. <br />
+Direction 클래스의 static 상수 EAST, SOUTH, WEST, NORTH의 값은 객체의 주소이고,<br />
+이 값은 바뀌지 않는 값이므로 <code class="highlighter-rouge">==</code>로 비교가 가능하다.</p>
+
+<h4 id="example-2">Example</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">MyEnum</span><span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">MyEnum</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="kd">implements</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		
+    <span class="kt">int</span> <span class="n">ordinal</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">ordinal</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">ordinal</span><span class="o">;</span> <span class="o">}</span>
+	
+    <span class="n">MyEnum</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="n">ordinal</span> <span class="o">=</span> <span class="n">id</span><span class="o">++;</span>	
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compareTo</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ordinal</span> <span class="o">-</span> <span class="n">t</span><span class="o">.</span><span class="na">ordinal</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>객체가 생성될 때마다 번호를 붙여서 인스턴스 변수 ordinal에 저장한다.<br />
+그리고 Comparable 인터페이스를 구현해서 열거형 상수간의 비교가 가능하도록 되어 있다.</p>
+
+<p>만일 클래스를 <code class="highlighter-rouge">MyEnum&lt;T&gt;</code>와 같이 선언하였다면, compareTo()를 위와 같이<br />
+간단히 작성할 수 없었을 것이다.<br />
+타입 T에 <code class="highlighter-rouge">ordinal()</code>이 정의되어 있는지 확인할 수 없기 때문이다.<br />
+그래서 <code class="highlighter-rouge">MyEnum&lt;T extends&lt;MyEnum&lt;T&gt;&gt;</code>와 같이 선언한 것이며,<br />
+이것은 타입 T가 <code class="highlighter-rouge">MyEnum&lt;T&gt;</code>의 자손이어야 한다는 의미이다.<br />
+타입 T가 MyEnum의 자손이므로 ordinal()이 정의되어 있는 것은 분명하므로,<br />
+형변환 없이도 에러가 나지 않는다.</p>
+
+<p>그리고 추상 메서드를 새로 추가하면, 클래스 앞에도 abstract를 붙여줘야 하고,<br />
+각 static 상수들도 추상 메서드를 구현해주어야 한다.</p>
+
+<h3 id="참고-자료">참고 자료</h3>
+<ul>
+  <li>자바의 정석 3판</li>
+  <li><a href="https://www.nextree.co.kr/p11686/">Java: enum의 뿌리를 찾아서</a></li>
+</ul>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📖 Enum 열거형&amp;url=http://localhost:4000Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7">
+            <section class="post">
+                <h2>📖 Exception에 대하여</h2>
+                <p>오늘 수업 시간에 자바의 Exception에 대해 배웠다. 수업을 듣고 들은 내용을 자바의 정석의 예외 처리를...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-3-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1">
+            <section class="post">
+                <h2>💡 위클리 회고 3 주차</h2>
+                <p>이제 매주마다 회고를 간략하게라도 작성하려 한다. 막상 주 단위로 회고를 작성하려니 이번주 뭔가 많은 걸...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">This is New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

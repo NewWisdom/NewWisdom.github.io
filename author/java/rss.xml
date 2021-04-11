@@ -6,13 +6,13 @@
       <title>NewWisdom.github.io/</title>
    
    <link>http://localhost:4000</link>
-   <description>A beautiful narrative written with the world's most elegant publishing platform. The story begins here.</description>
+   <description>I want to be a person who gives you new wisdom.</description>
    <language>ko-KR</language>
    <managingEditor> </managingEditor>
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
-	  <title>📙 Java 람다의 변수 범위</title>
+	  <title>📖 Java 람다의 변수 범위</title>
 	  <link>//Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
 	  <author></author>
 	  <pubDate>2021-03-19T19:18:00+09:00</pubDate>
@@ -116,7 +116,745 @@ effectively final은 final로 선언되지 않아도 컴파일러가 해당 변�
 	</item>
 
 	<item>
-	  <title>📙 내가 정리한 JUnit5</title>
+	  <title>📖 배열의 깊은 복사와 얕은 복사</title>
+	  <link>//%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</link>
+	  <author></author>
+	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</guid>
+	  <description><![CDATA[
+	     <h2 id="자바에서의-객체-복사">자바에서의 객체 복사</h2>
+<p>자마에서 객체를 복사하는 유형에는 얕은 복사와 깊은 복사가 있다.</p>
+
+<h3 id="얕은-복사">얕은 복사</h3>
+<p>단순히 객체의 주소 값만을 복사하는 것이다.  <br />
+때문에 실제로는 하나의 주소 값만을 가지고 서로 간의 값은 바뀌지 않는다. <br />
+대부분 객체를 복사한다는 말은 얕은 복사가 아닌 깊은 복사를 의미한다.  <br />
+<strong>Example</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Array_Shallow_Copy</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arr1</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arr2</span> <span class="o">=</span> <span class="n">arr2</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">=</code>  연산자는 <code class="highlighter-rouge">주소를 이어줌</code>을 의미하는데,  <br />
+위 예제는 a의 배열을 b배열로 <code class="highlighter-rouge">=</code> 연산자를 활용하여 대입했기 때문에 얕은 복사가 된다. <br />
+즉 같은 주소값을 가진다. (참조에 의한 복사) <br />
+때문에 arr2의 값을 수정하면 arr1의 값도 같이 수정된다.</p>
+
+<h3 id="깊은-복사">깊은 복사</h3>
+<p>객체의 실제 값을 새로운 객체로 복사한다.  <br />
+복사된 배열이나 원본 배열이 변경될 때 서로 간의 값은 바뀌지 않는다.</p>
+
+<p>자바에서는 배열을 깊은 복사할 수 있는 여러가지 메서드를 제공하고 있다.</p>
+
+<h4 id="obejctclone">Obejct.clone()</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Array_Copy_Clone</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span> <span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>가장 보편적인 방법으로 깊은 복사를 할 때 사용된다.</p>
+
+<p>But. 객체 배열의 경우 <code class="highlighter-rouge">clone()</code>을 사용하면 깊은 복사가 되지 않는다! <br />
+그 이유는 객체는 주소값을 가지고 있기 때문이다. (일반 자료형의 배열만 깊은 복사가 가능하다) <br />
+마찬가지로 2차원 배열의 경우도 각각의 row에 대한 주소값이 존재하기 때문에 깊은 복사가 되지 않는다.</p>
+
+<p>또 해당 메소드는 객체의 클로닝을 위한 메소드인데 <br />
+추가로 <a href="https://javacan.tistory.com/entry/31">객체 클로닝에 관하여</a> 글을 읽어보면 좋다.</p>
+
+<h3 id="systemarraycopy">System.arraycopy()</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Array_Copy_ArrayCopy</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span> <span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">System.arraycopy(src, srcPos, dest, destPos, a.length);</code> 형식으로 사용한다.</p>
+
+<h3 id="일차원-객체-배열-복사하기">일차원 객체 배열 복사하기</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">Pos</span><span class="o">[]</span> <span class="nf">deepCopy</span><span class="o">(</span><span class="n">Pos</span><span class="o">[]</span> <span class="n">src</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">src</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Pos</span><span class="o">[]</span> <span class="n">dest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pos</span><span class="o">[</span><span class="n">src</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">src</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+    	<span class="n">src</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pos</span><span class="o">(</span><span class="n">src</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">a</span><span class="o">,</span> <span class="n">src</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">b</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">dest</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">for</code> 문을 돌 때마다 새로운 객체를 생성하여 직접 값을 넣어준다. <br />
+그래야 새로운 객체를 담은 다른 배열로 깊은 복사된 배열을 가질 수 있다.</p>
+
+<h3 id="참고-자료">참고 자료</h3>
+<ul>
+  <li><a href="https://coding-factory.tistory.com/548">[Java] 자바 배열을 복사하는 다양한 방법 (깊은복사, 얕은복사)</a></li>
+  <li><a href="https://hoho325.tistory.com/89">자바(java) 배열의 깊은 복사(deep copy)와 얕은 복사 완벽정리(1차원 배열, 2차원 배열, 객체 배열 복사)</a></li>
+</ul>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📚 머리에 박제할라고 진짜 간단히 정리한 일급 컬렉션</title>
+	  <link>//%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</link>
+	  <author></author>
+	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</guid>
+	  <description><![CDATA[
+	     <h3 id="일급-컬렉션">일급 컬렉션</h3>
+<p>일급 컬렉션의 개념을 좀 더 정확히 짚고 넘어가야 할 것 같았다.<br />
+1차 리뷰어님께서 첨부해 주신 글을 저번에도 읽어보았으나<br />
+그 때까지는 이 글의 모든 개념을 파악하기 어려웠다.<br />
+때문에 훌라당 읽고 넘어갔지만 🥲<br />
+이번에 정독해보니 머릿 속에 개념과 목적이 좀 더 명확하게 잡혔다.</p>
+
+<p>내 머릿 속에 박을라고 내가 이해한대로 진짜 간단하게 정리하는 글 ✍️</p>
+<h3 id="참고-자료">참고 자료</h3>
+<p><a href="https://jojoldu.tistory.com/412">일급 컬렉션 (First Class Collection)의 소개와 써야할 이유</a></p>
+
+<h4 id="일급-컬렉션-1">일급 컬렉션?</h4>
+<p>다른 멤버 변수가 없이 오로지 콜렉션만 포함한 객체.<br />
+한마디로 Collection을 클래스로 Wrapping 한 것이다.</p>
+
+<h4 id="비즈니스에-종속적인-자료구조">비즈니스에 종속적인 자료구조</h4>
+<p>collection의 값을 비즈니스 로직이 서비스 메소드에 들어가 있을 때 <br />
+값을 검증하는 메소드도 이 서비스 메소드에 들어가게 될 것이다.<br />
+만약 변경이 일어난다면 모든 코드와 도메인을 알고 있어야하므로 언제든지<br />
+문제의 발생 여지가 있는 로직이 되어버린다.<br />
+이는 객체지향 설계에 어긋난다.<br />
+해당 조건으로만 생성 할 수 있는 자료구조인 일급 컬렉션을 사용한다.</p>
+
+<h4 id="불변-보장">불변 보장</h4>
+<p><code class="highlighter-rouge">final</code> 예약어를 사용하라.<br />
+이는 불변을 금지하는 것이 아닌 재할당을 금지한다.</p>
+
+<h4 id="상태와-행위를-한곳에서-관리">상태와 행위를 한곳에서 관리</h4>
+<p>컬렉션 내의 어떤 상태별로 메소드를 실행하고 싶다 가정할 때 <br />
+로직이 밖으로 분리되어 있다면 상태에 따라 지정된 메소드 실행이 어렵다.</p>
+
+<h4 id="이름이-있는-컬렉션">이름이 있는 컬렉션</h4>
+<p>컬렉션에 이름을 붙일 수 있어 검색이 어렵고 명확한 표현이 불가능한 문제를 해결한다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>👀 인텔리제이를 인텔리제이답게 - Mac 단축키</title>
+	  <link>//%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</link>
+	  <author></author>
+	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</guid>
+	  <description><![CDATA[
+	     <p>사실 인텔리제이를 쓰면서 사람들이 왜 인텔리제이가 편하다고 하는 걸까 의문이었다.<br />
+하지만 우테코를 진행하면서 몇 가지 단축키를 배우니 굉장히 유용한 것 . . .<br />
+인텔리 제이에서 제공하는 영문 Key Map Reference를 정리하면서 <br />
+나도 내게 유용한 기능들을 익혀보려 한다.</p>
+
+<p><em>앞으로 쓰면서 계속 추가 예정 ✍️</em></p>
+<blockquote>
+  <p>참고로 Key Map Reference는 인텔리제이의 <code class="highlighter-rouge">Help &gt; Key Map Reference</code> 에 있다.</p>
+</blockquote>
+
+<h3 id="editing">Editing</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>^Space</td>
+      <td>기본 자동 완성</td>
+    </tr>
+    <tr>
+      <td>^⇧Space</td>
+      <td>스마트 자동 완성</td>
+    </tr>
+    <tr>
+      <td>⌘⇧Enter</td>
+      <td>static 메소드 자동완성</td>
+    </tr>
+    <tr>
+      <td>⌘P</td>
+      <td>파라미터 정보</td>
+    </tr>
+    <tr>
+      <td>F1</td>
+      <td>Doc 간략 보기</td>
+    </tr>
+    <tr>
+      <td>⌘N</td>
+      <td>Getters, Setters, Constructors, hashCode/equals, toString 자동완성</td>
+    </tr>
+    <tr>
+      <td>^O</td>
+      <td>메소드 오버라이드</td>
+    </tr>
+    <tr>
+      <td>^I</td>
+      <td>Override 메서드 자동완성 (Implement Methods)</td>
+    </tr>
+    <tr>
+      <td>⌘⌥T</td>
+      <td>if..else, try..catch, for, synchronized, 등으로 감싸기</td>
+    </tr>
+    <tr>
+      <td>⌘/</td>
+      <td>한줄 주석</td>
+    </tr>
+    <tr>
+      <td>⌘⌥/</td>
+      <td>블럭 주석</td>
+    </tr>
+    <tr>
+      <td>⌥↑</td>
+      <td>코드 블록 연속 증가 선택</td>
+    </tr>
+    <tr>
+      <td>⌥↓</td>
+      <td>코드 블록 연속 감소 선택</td>
+    </tr>
+    <tr>
+      <td>^⇧Q</td>
+      <td>문맥 정보 (클래스명)</td>
+    </tr>
+    <tr>
+      <td>⌥Enter</td>
+      <td>의도하는 작업 표시 및 빠른 수정</td>
+    </tr>
+    <tr>
+      <td>⌘⌥L</td>
+      <td>코드 리포맷</td>
+    </tr>
+    <tr>
+      <td>^⌥O</td>
+      <td>import 문 최적화</td>
+    </tr>
+    <tr>
+      <td>⌘⌥I</td>
+      <td>자동 인덴트</td>
+    </tr>
+    <tr>
+      <td>⌘⇧V</td>
+      <td>버퍼에서 붙여넣기</td>
+    </tr>
+    <tr>
+      <td>⌘D</td>
+      <td>현재 라인 복제</td>
+    </tr>
+    <tr>
+      <td>⌘Delete</td>
+      <td>현재 라인 삭제</td>
+    </tr>
+    <tr>
+      <td>^⇧J</td>
+      <td>스마트 라인 합치기</td>
+    </tr>
+    <tr>
+      <td>⇧⌘← / ⇧⌘→</td>
+      <td>토글 기준으로 왼, 오 선택</td>
+    </tr>
+    <tr>
+      <td>⌥Delete</td>
+      <td>단어 삭제</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="navigation">Navigation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘O</td>
+      <td>클래스로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⇧O</td>
+      <td>파일로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⌥O</td>
+      <td>심볼로 이동</td>
+    </tr>
+    <tr>
+      <td>^⇧F4</td>
+      <td>run/messages/find/… tab 닫기</td>
+    </tr>
+    <tr>
+      <td>⌘⌥← / ⌘⌥→</td>
+      <td>전, 후에 있던 위치로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⇧Delete</td>
+      <td>최근 수정 위치로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘B</td>
+      <td>선언으로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⌥B</td>
+      <td>구현으로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘U</td>
+      <td>부모 메소드나 클래스로 이동</td>
+    </tr>
+    <tr>
+      <td>^H</td>
+      <td>Type hierarchy</td>
+    </tr>
+    <tr>
+      <td>⌘⇧H</td>
+      <td>Method hierarchy</td>
+    </tr>
+    <tr>
+      <td>^⌥ㅗ</td>
+      <td>hierarchy 호출</td>
+    </tr>
+    <tr>
+      <td>⌘↑</td>
+      <td>네비게이션 바 보이기</td>
+    </tr>
+    <tr>
+      <td>F3</td>
+      <td>북마크</td>
+    </tr>
+    <tr>
+      <td>⌥F3</td>
+      <td>멘션과 함께 북마크</td>
+    </tr>
+    <tr>
+      <td>⌘F3</td>
+      <td>북마크 보이기</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="searchreplace">Search/Replace</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⇧⇧</td>
+      <td>전체 검색</td>
+    </tr>
+    <tr>
+      <td>⌘F</td>
+      <td>찾기</td>
+    </tr>
+    <tr>
+      <td>⌘G</td>
+      <td>다음 찾기</td>
+    </tr>
+    <tr>
+      <td>⌘⇧G</td>
+      <td>이전 찾기</td>
+    </tr>
+    <tr>
+      <td>⌘R</td>
+      <td>대체</td>
+    </tr>
+    <tr>
+      <td>⌘⇧F</td>
+      <td>path 찾기</td>
+    </tr>
+    <tr>
+      <td>⌘⇧R</td>
+      <td>path에서 교체</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="live-templates">Live Templates</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘⌥J</td>
+      <td>Live Template로 감싸기</td>
+    </tr>
+    <tr>
+      <td>⌘J</td>
+      <td>Live Template 추가</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="vcs">VCS</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌥⇧C</td>
+      <td>최근 change 보기</td>
+    </tr>
+    <tr>
+      <td>^V</td>
+      <td>빠른 VSC 팝업 띄우기</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="refactoring">Refactoring</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>F5</td>
+      <td>Copy</td>
+    </tr>
+    <tr>
+      <td>F6</td>
+      <td>Move</td>
+    </tr>
+    <tr>
+      <td>⌘Delete</td>
+      <td>Safe Delete</td>
+    </tr>
+    <tr>
+      <td>⇧F6</td>
+      <td>이름 변경</td>
+    </tr>
+    <tr>
+      <td>⌘F6</td>
+      <td>시그니쳐 변경</td>
+    </tr>
+    <tr>
+      <td>⌘⌥N</td>
+      <td>Inline</td>
+    </tr>
+    <tr>
+      <td>⌘⌥M</td>
+      <td>메소드 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥V</td>
+      <td>변수 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥F</td>
+      <td>필드 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥C</td>
+      <td>상수 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥P</td>
+      <td>파라미터 추출</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="compile-and-run">Compile and Run</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘F9</td>
+      <td>프로젝트 생성</td>
+    </tr>
+    <tr>
+      <td>⌘⇧F9</td>
+      <td>파일, 패키지, 모듈 컴파일</td>
+    </tr>
+    <tr>
+      <td>^⌥R</td>
+      <td>configuration 선택하고 실행</td>
+    </tr>
+    <tr>
+      <td>^⌥D</td>
+      <td>configuration 선택하고 디버깅</td>
+    </tr>
+    <tr>
+      <td>^R</td>
+      <td>실행</td>
+    </tr>
+    <tr>
+      <td>^D</td>
+      <td>디버깅</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="general">General</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘0 … ⌘9</td>
+      <td>해당하는 윈도우 열기</td>
+    </tr>
+    <tr>
+      <td>⌥⇧F</td>
+      <td>즐겨찾기 등록</td>
+    </tr>
+  </tbody>
+</table>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📖 공식문서와 함께하는 assertJ 정리</title>
+	  <link>//%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+	  <author></author>
+	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+	  <description><![CDATA[
+	     <p>JUnit5으로 테스트 코드를 작성하면서 assertion을 주는 도구로 assertJ를 배웠다.<br />
+새로 깨닫게 된 것은 정리하며 익히자.</p>
+
+<h2 id="assertj">assertJ?</h2>
+<p>Java 테스트에서 유창하고 풍부한 assertions를 작성하는 데 사용되는 오픈 소스 커뮤니티 기반 라이브러리</p>
+
+<h3 id="지원">지원</h3>
+<ul>
+  <li>Standard Java</li>
+  <li>Java 8</li>
+  <li>Guava</li>
+  <li>Joda Time</li>
+  <li>Neo4J and</li>
+  <li>Swing components</li>
+</ul>
+
+<h3 id="assertions-작성">Assertions 작성</h3>
+<p>Assertions.assertThat()에 object를 전달하면 assertion을 받을 수 있다.</p>
+
+<h3 id="obejct-assertions">Obejct Assertions</h3>
+<p>Obejct는 두 객체의 동일성이나 객체의 필드를 조사하기 위해 다양한 방법으로 비교할 수 있다.</p>
+<h4 id="example">Example</h4>
+<p>두 Dog의 객체인 fido와 fidoClone이 주어질 때</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="o">{</span> 
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span> 
+    <span class="kd">private</span> <span class="n">Float</span> <span class="n">weight</span><span class="o">;</span>
+    
+    <span class="c1">// standard getters and setters</span>
+<span class="o">}</span>
+
+<span class="n">Dog</span> <span class="n">fido</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">(</span><span class="s">"Fido"</span><span class="o">,</span> <span class="mf">5.25</span><span class="o">);</span>
+
+<span class="n">Dog</span> <span class="n">fidosClone</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">(</span><span class="s">"Fido"</span><span class="o">,</span> <span class="mf">5.25</span><span class="o">);</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">assertThat</code>을 이용해 비교한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertThat</span><span class="o">(</span><span class="n">fido</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">fidosClone</span><span class="o">);</span>
+</code></pre></div></div>
+<p>하지만 <code class="highlighter-rouge">isEqualsTo()</code>가 객체의 참조를 비교하므로 fail이다.<br />
+내용을 비교하려면 <code class="highlighter-rouge">isEqualToComparingFieldByFieldRecursively()</code>를 사용한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertThat</span><span class="o">(</span><span class="n">fido</span><span class="o">).</span><span class="na">isEqualToComparingFieldByFieldRecursively</span><span class="o">(</span><span class="n">fidosClone</span><span class="o">);</span>
+</code></pre></div></div>
+<p>✍️ 참고로 페어프로그래밍을 하면서 페어에게 들었는데 <code class="highlighter-rouge">assertEquals</code>보다 <code class="highlighter-rouge">assertThat</code>이 <br />
+좀 더 직관적이기 때문에 가급적 <code class="highlighter-rouge">assertThat()</code>을 사용하라고 알려줬다.</p>
+
+<h3 id="boolean-assertions">Boolean Assertions</h3>
+<ul>
+  <li>isTrue()</li>
+  <li>isFalse()
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat("".isEmpty()).isTrue();
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="iterablearray-assertions">Iterable/Array Assertions</h3>
+<p>Iterable/Array에 특정 요소가 존재하는지 다양한 방법으로 알 수 있다.<br />
+여기서는 특정 요소가 포함되어 있는지 확인한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List&lt;String&gt; list = Arrays.asList("1", "2", "3");
+
+assertThat(list).contains("1");
+</code></pre></div></div>
+<h4 id="example-1">Example</h4>
+<p>list가 비어 있지 않은 경우</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(list).isNotEmpty();
+</code></pre></div></div>
+<p>list가 주어진 문자로 시작하는 경우</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(list).startsWith("1");
+</code></pre></div></div>
+<p>동일한 객체에 하나 이상의 assertion을 생성하려는 경우 체이닝을 통해 쉽게 결합할 수 있다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(list)
+  .isNotEmpty()
+  .contains("1")
+  .doesNotContainNull()
+  .containsSequence("2", "3");
+</code></pre></div></div>
+
+<h3 id="character-assertions">Character Assertions</h3>
+<p>Character에 대한 assertions는 비교 대상 문자가 유니코드 테이블에 있는지 확인하는 작업을 포함한다.</p>
+<h4 id="example-2">Example</h4>
+<p>문자가 ‘a’가 아니고 유니코드 테이블에 있는지, ‘b’보다 크고 소문자인지 확인하는 assertion</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(someCharacter)
+  .isNotEqualTo('a')
+  .inUnicode()
+  .isGreaterThanOrEqualTo('b')
+  .isLowerCase();
+</code></pre></div></div>
+
+<h3 id="class-assertions">Class Assertions</h3>
+<p>해당 필드, 클래스 유형, annotations의 존재 등을 체크한다.</p>
+<h4 id="example-3">Example</h4>
+<p>해당 클래스가 Runnable인지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(Runnable.class).isInterface();
+</code></pre></div></div>
+<p>한 클래스가 다른 클래스에 할당 가능한지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(Exception.class).isAssignableFrom(NoSuchElementException.class);
+</code></pre></div></div>
+
+<h3 id="file-assertions">File Assertions</h3>
+<p>지정된 File 인스턴스가 존재 하는지, 디렉토리 또는 파일인지, <br />
+특정 콘텐츠가 있는지, 읽을 수 있는지 또는 확장명이 있는지 확인한다.</p>
+
+<h4 id="example-4">Example</h4>
+<p>파일이 존재하고, 디렉토리가 아닌 파일이며, 읽고 쓸 수 있는지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> assertThat(someFile)
+   .exists()
+   .isFile()
+   .canRead()
+   .canWrite();
+</code></pre></div></div>
+
+<h3 id="double--float--integer-assertions">Double / Float / Integer Assertions</h3>
+<p>주어진 Offset 안에서 혹은 없는 숫자 값을 비교한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(5.1).isEqualTo(5, withPrecision(1d));
+</code></pre></div></div>
+
+<h3 id="inputstream-assertions">InputStream Assertions</h3>
+<ul>
+  <li>hasSameContentAs(InputStream expected)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(given).hasSameContentAs(expected);
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="map-assertions">Map Assertions</h3>
+<p>맵에 특정 항목, entry, key/value 값이 포함되어 있는지 확인한다.</p>
+<h4 id="example-5">Example</h4>
+<p>맵이 비어있지 않고 키 2를 포함하며, 키 10을 포함하지 않고 (2, “a”)를 포함하는지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(map)
+  .isNotEmpty()
+  .containsKey(2)
+  .doesNotContainKeys(10)
+  .contains(entry(2, "a"));
+</code></pre></div></div>
+
+<h3 id="throwable-assertions">Throwable Assertions</h3>
+<p>예외 메시지, 스택 추적 검사, 예외가 이미 throw 되었는지 확인</p>
+<h4 id="example-6">Example</h4>
+<p>주어진 예외가 발생했는지 확인하고 “c”로 끝나는 메시지가 있는지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(ex).hasNoCause().hasMessageEndingWith("c");
+</code></pre></div></div>
+<p>교육에서 이 Throwable Assertions로 예외를 발생시켰는지 확인했다.<br />
+<code class="highlighter-rouge">assertThatThrownBy()</code>와 <code class="highlighter-rouge">assertThatExceptionOfType()</code> 두 가지 방법으로 처리가 가능함을 깨달았다.</p>
+
+<ul>
+  <li>assertThatThrownBy() : Java 8 exception assertion 표준 스타일</li>
+  <li>
+    <p>assertThatExceptionOfType() : 예외 클래스 넣기
+```
+@Test
+@DisplayName(“특정 위치 문자 가져오기 has”)
+public void charGetFromString1() {
+  String name = “Fortune”;
+  int index = 10;</p>
+
+    <p>assertThatThrownBy(() -&gt; {
+      name.charAt(index);
+  }).isInstanceOf(IndexOutOfBoundsException.class)
+          .hasMessageContaining(“%d”, index);
+}</p>
+  </li>
+</ul>
+
+<p>@Test
+@DisplayName(“특정 위치 문자 가져오기 with”)
+public void charGetFromString2() {
+    String name = “Fortune”;
+    int index = 10;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThatExceptionOfType(IndexOutOfBoundsException.class)
+        .isThrownBy(() -&gt; {
+            name.charAt(index);
+        }).withMessageContaining("%d", index); } ```
+</code></pre></div></div>
+
+<h3 id="java8에서-더-유용하게--">java8에서 더 유용하게. . .</h3>
+<ul>
+  <li>java7
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(fellowshipOfTheRing)
+.filteredOn("race", HOBBIT)
+.containsOnly(sam, frodo, pippin, merry);
+</code></pre></div>    </div>
+  </li>
+  <li>java8
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(fellowshipOfTheRing)
+.filteredOn(character -&gt; character.getRace().equals(HOBBIT))
+.containsOnly(sam, frodo, pippin, merry);
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li><a href="https://www.baeldung.com/introduction-to-assertj">AssertJ 소개</a></li>
+</ul>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📖 내가 정리한 JUnit5</title>
 	  <link>//%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5</link>
 	  <author></author>
 	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>

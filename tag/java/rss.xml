@@ -6,7 +6,7 @@
       <title>NewWisdom.github.io/</title>
    
    <link>http://localhost:4000</link>
-   <description>A beautiful narrative written with the world's most elegant publishing platform. The story begins here.</description>
+   <description>I want to be a person who gives you new wisdom.</description>
    <language>ko-KR</language>
    <managingEditor> </managingEditor>
    <atom:link href="rss" rel="self" type="application/rss+xml" />
@@ -507,7 +507,7 @@ CashFormatter는<code class="highlighter-rouge">format()</code> 이외의 기능
 	</item>
 
 	<item>
-	  <title>📙 Java 람다의 변수 범위</title>
+	  <title>📖 Java 람다의 변수 범위</title>
 	  <link>//Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
 	  <author></author>
 	  <pubDate>2021-03-19T19:18:00+09:00</pubDate>
@@ -1061,245 +1061,1253 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 	</item>
 
 	<item>
-	  <title>📙 내가 정리한 JUnit5</title>
-	  <link>//%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5</link>
+	  <title>📖 Stream 부수기</title>
+	  <link>//Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
 	  <author></author>
-	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
-	  <guid>//%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5</guid>
+	  <pubDate>2021-02-25T19:18:00+09:00</pubDate>
+	  <guid>//Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
 	  <description><![CDATA[
-	     <blockquote>
-  <p>우테코 level1 1주차 - JUnit을 활용한 단위 테스트 이론 및 실습
-단위테스트에 대해서 배웠다. 허나 나는 단위 테스트는 처음이라 👀
-처음 배운 JUnit5를 익히기 위해 정리해본다.</p>
-</blockquote>
+	     <p>코드를 짜다보면 가독성과 간결함을 위해 stream을 자주 쓰게 된다.<br />
+프리코스 때 Stream에 대해 정리했었으나,<br />
+내가 쓴 글을 리팩토링(ㅎ) 해보면서 다시 개념을 익혀야 겠다.</p>
 
-<p><em>계속 추가 예정✍️</em></p>
-<h2 id="junit이란">JUnit이란</h2>
+<h2 id="스트림">스트림?</h2>
+<p>배열 또는 컬렉션 인스턴스에 저장된 데이터를 꺼내서 파이프에 흘려보낸다.</p>
 <ul>
-  <li>자바 프로그래밍 언어를 위한 단위 테스트 프레임 워크</li>
-  <li>xUnit으로 알려진 단위 테스트 프레임 워크 제품군이다.</li>
-  <li>“먼저 테스트 한 다음 코딩”</li>
-  <li>“조금 테스트, 약간 코딩, 약간 테스트, 약간 코딩”</li>
+  <li>중간 연산 : 마지막이 아닌 위치에서 진행이 되어야 하는 연산</li>
+  <li>최종 연산 : 마지막에 진행이 되어야 하는 연산
+스트림은 중간 연산과 최종 연산을 진행하기 좋은 구조로 배치된 복사본이라 할 수 있다.</li>
 </ul>
 
-<h3 id="특징">특징</h3>
-<ul>
-  <li>테스트를 작성하고 실행하는 데 사용되는 오픈 소스 프레임 워크</li>
-  <li>annotation을 제공한다.</li>
-  <li>테스트 기대 결과를 위한 assertion을 제공한다.</li>
-  <li>test runner를 제공한다.</li>
-  <li>퀄리티를 올리며 빠르게 코드를 작성할 수 있게 해준다.</li>
-  <li>자동으로 테스트가 실행될 수 있으며 자체의 결과를 확인하고 바로 결과를 제공한다.</li>
-  <li>테스트 cases 및 기타 테스트 suites를 포함하는 test suites로 구성된다.</li>
-  <li>테스트 성공시 초록, 실패시 빨강</li>
-</ul>
+<h3 id="스트림의-특성">스트림의 특성</h3>
+<h4 id="가독성과-간결함">가독성과 간결함</h4>
+<p>컬렉션이나 배열에 데이터를 담고 원하는 결과를 얻기 위해 
+for문과 Iterator를 이용해 작성한 코드는 가독성이 떨어지고 재사용성도 떨어진다.</p>
 
-<h3 id="단위-테스트-케이스는-왜-써">단위 테스트 케이스는 왜 써?</h3>
-<ul>
-  <li>메소드가 에상대로 동작하는지 확인한다.</li>
-  <li>원하는 결과를 빠르게 확인하기 위해서는 테스트 프레임 워크가 필요하다.</li>
-  <li>이 역할을 JUnit이 한다.</li>
-  <li>알고 있는 입력과 기대하는 출력으로 작성된다.</li>
-  <li>각 요구 사항에 대해 최소 두 개의 단위 테스트 케이스가 필요하다. (양성, 음성)</li>
-  <li>요구사항에 하위 요구사항이 있으면 여기에도 두 개의 단위 테스트 케이스가 필요하다.</li>
-</ul>
+<h4 id="데이터-소스-추상화">데이터 소스 추상화</h4>
+<p>어떤 메소드로 처리하기 위해 데이터 소스마다 다른 방식으로 다뤄야 하는 문제를
+스트림을 통해 데이터 소스가 무엇이던 간에 같은 방식으로 다룰 수 있게 되었다.<br />
+이는 코드의 재사용성을 가져온다.</p>
 
-<h2 id="junit5-">JUnit5 👀</h2>
-<h3 id="모듈-구성">모듈 구성</h3>
-<h4 id="junit-platform">JUnit Platform</h4>
-<p>테스트 프레임워크를 실행하는데 기반이 되는 모듈
-플랫폼에서 동작하는 테스트 프레임 워크 개발을 위한 TestEngine API를 정의한다.
-command line에서 console Launcher와 JUnit4 기반 환경의 플랫폼에서 실행하기 위한
-JUnit 4 based Runner 를 제공한다.
-각종 IDE 및 빌드 도구에 존재한다.</p>
-<h4 id="junit-jupiter">JUnit Jupiter</h4>
-<p>테스트를 위한 새로운 프로그래밍 모델 과 확장 모델의 조합이다.
-주피터의 하위 프로젝트는 플랫폼에서 주피터 동작을 위한 TestEngine을 제공한다.</p>
-<h4 id="junit-vintage">JUnit Vintage</h4>
-<p>하위 버전을 실행할 수 있는 TestEngine을 제공한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">listStream</span> <span class="o">=</span> <span class="n">strList</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+<span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">arrayStream</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">strArr</span><span class="o">);</span>
 
-<h3 id="installation">Installation</h3>
-<p>maven이나 gradle 프로젝트에서 
-Jupiter Engine Dependency and Platform Runner Dependency 
-즉 최소 2개의 dependency가 필요하다.</p>
-<h4 id="maven">maven</h4>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
-    <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
-    <span class="nt">&lt;maven.compiler.source&gt;</span>1.8<span class="nt">&lt;/maven.compiler.source&gt;</span>
-    <span class="nt">&lt;maven.compiler.target&gt;</span>${maven.compiler.source}<span class="nt">&lt;/maven.compiler.target&gt;</span>
-    <span class="nt">&lt;junit.jupiter.version&gt;</span>5.5.2<span class="nt">&lt;/junit.jupiter.version&gt;</span>
-    <span class="nt">&lt;junit.platform.version&gt;</span>1.5.2<span class="nt">&lt;/junit.platform.version&gt;</span>
-<span class="nt">&lt;/properties&gt;</span>
-<span class="nt">&lt;dependencies&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.junit.jupiter<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>junit-jupiter-engine<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;version&gt;</span>${junit.jupiter.version}<span class="nt">&lt;/version&gt;</span>
-        <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.junit.platform<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>junit-platform-runner<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;version&gt;</span>${junit.platform.version}<span class="nt">&lt;/version&gt;</span>
-        <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-<span class="nt">&lt;/dependencies&gt;</span>
+<span class="n">listStream</span><span class="o">.</span><span class="na">sorted</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="n">arrayStream</span><span class="o">.</span><span class="na">sorted</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 </code></pre></div></div>
-<h4 id="gradle">gradle</h4>
-<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">testRuntime</span><span class="o">(</span><span class="s2">"org.junit.jupiter:junit-jupiter-engine:5.5.2"</span><span class="o">)</span>
-<span class="n">testRuntime</span><span class="o">(</span><span class="s2">"org.junit.platform:junit-platform-runner:1.5.2"</span><span class="o">)</span>
+<p>두 스트림의 데이터 소스는 서로 다르지만, 정렬하고 출력하는 방법은 같다.</p>
 
+<h4 id="데이터-소스를-변경하지-않는다">데이터 소스를 변경하지 않는다.</h4>
+<p>스트림은 데이터 소스로 부터 데이터를 읽기만 할 뿐, 
+데이터 소스를 변경하지 않는다.<br />
+필요시에만 정렬된 결과를 컬렉션이나 배열에 담아서 반환할 수도 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sortedList</span> <span class="o">=</span> <span class="n">listStream</span><span class="o">.</span><span class="na">sorted</span><span class="o">().</span><span class="na">collect</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
 </code></pre></div></div>
-<h3 id="java-versions">Java Versions</h3>
-<p>Java8 이상이어야 한다.</p>
 
-<h2 id="tests-작성하기">Tests 작성하기</h2>
-<p><em>이 부분은 강의 시간에 다뤘던 코드로!</em></p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+<h4 id="스트림은-일회용이다">스트림은 일회용이다.</h4>
+<p>Iterator처럼 일회용이다. 한번 사용하면 닫혀서 다시 사용할 수 없다.<br />
+필요하다면 스트림을 다시 생성해야한다.</p>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SetTest</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">numbers</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">listStream</span><span class="o">.</span><span class="na">sorted</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">print</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">numOfElement</span> <span class="o">=</span> <span class="n">listStream</span><span class="o">.</span><span class="na">count</span><span class="o">();</span> <span class="c1">//에러- 스트림이 이미 닫혔다.</span>
+</code></pre></div></div>
 
-    <span class="nd">@Test</span>
-    <span class="kt">void</span> <span class="nf">checkSizeOfSet</span><span class="o">(){</span>
-        <span class="n">assertThat</span><span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">size</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+<h4 id="내부-반복">내부 반복</h4>
+<p>스트림이 간결한 이유중 하나가 반복문을 메서드 내부에 숨기는 ‘내부 반복’ 덕분이다.<br />
+<code class="highlighter-rouge">forEach()</code>는 스트림에 정의된 메서드 중의 하나로 매개변수에 대입된 
+람다식을 데이터 소스의 모든 요소에 적용한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stream</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</code></pre></div></div>
+<h2 id="스트림-생성하기">스트림 생성하기</h2>
+<h3 id="스트림의-생성">스트림의 생성</h3>
+<h4 id="메소드">메소드</h4>
+<p>스트림 생성과 관련해 <code class="highlighter-rouge">Stream&lt;T&gt;</code> 인터페이스에 정의되어 있는 static 메소드는 두 개가 있다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static &lt;T&gt; Stream&lt;T&gt;(T t)
+static &lt;T&gt; Stream&lt;T&gt; of(T...values)
+</code></pre></div></div>
+<p>이 메소드에 스트림 생성에 필요한 데이터를 인자로 직접 전달할 수 있다.</p>
+
+<h4 id="example">Example</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class StreamOfStream {
+    public static void main(String[] args) {
+        // ex 1
+        Stream.of(11, 22, 33, 44)
+            .forEach(n -&gt; System.out.print(n + "\t"));
+        System.out.println();
+
+        // ex 2
+        Stream.of("So Simple")
+            .forEach(s -&gt; System.out.print(s + "\t"));
+        System.out.println();
+
+        // ex 3 세 개의 문자열로 이뤄진 스트림이 생성되는 것이 아닌
+        // sl이 참조하는 하나의 인스턴스만 존재한다.
+        List&lt;String&gt; sl = Arrays.asList("Toy", "Robot", "Box");
+        Stream.of(sl)
+            .forEach(w -&gt; System.out.print(w + "\t"));
+        System.out.println();       
+    }
+}
+</code></pre></div></div>
+<p>of 메소드에 컬렉션 인스턴스를 전달하면 해당 인스턴스 하나로 이뤄진 스트림이 생성된다. <br />
+하지만 배열을 전달하면 하나의 배열로 이뤄진 스트림이 생성되지 않고,<br />
+배열에 저장된 요소로 이뤄진 스트림이 생성된다.</p>
+
+<h3 id="배열">배열</h3>
+<p>배열에 저장된 데이터를 대상으로 스트림을 생성할 때 호출되는 대표 메소드는 다음과 같다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">satic</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">stream</span><span class="o">(</span><span class="n">T</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="c1">// Arrays 클래스에 정의되어 있다</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">StringStream</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">names</span> <span class="o">=</span> <span class="o">{</span><span class="s">"YOON"</span><span class="o">,</span> <span class="s">"LEE"</span><span class="o">,</span> <span class="s">"PARK"</span><span class="o">};</span>
+        
+        <span class="c1">// 스트림 생성</span>
+        <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stm</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">names</span><span class="o">);</span>
+        
+        <span class="c1">// 최종 연산 진행</span>
+        <span class="n">stm</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">));</span>
     <span class="o">}</span>
-
 <span class="o">}</span>
 </code></pre></div></div>
-<h4 id="test-class">Test Class</h4>
-<p>최소 하나의 테스트 메소드를 포함하는 최상위 클래스
-<code class="highlighter-rouge">single constructor</code> 여야 한다.</p>
+<p>forEach는 최종 연산이며 메소드의 매개변수형은 <code class="highlighter-rouge">Consumer&lt;T&gt;</code> 이므로 람다식을 인자로 전달해야하며, <br />
+내부적으로 스트림 데이터를 하나씩 인자로 전달하면서 accept 메소드를 호출한다.</p>
 
-<h4 id="test-method">Test Method</h4>
-<p><code class="highlighter-rouge">@Test</code>, <code class="highlighter-rouge">@ParameterizedTest</code> 등의 어노테이션을 통해 테스트 메소드임을 나타낸다.</p>
+<h3 id="컬렉션-인스턴스">컬렉션 인스턴스</h3>
+<p>컬렉션 인스턴스를 대상으로 스트림을 생성할 때 호출되는 메소드는 다음과 같다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">default</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">stream</span><span class="o">()</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class ListStream {
+    public static void main(String[] args) {
+        
+        List&lt;String&gt; list = Arrays.asList("Toy", "Robot", "Box");
+        
+        list.stream()
+          .forEach(s -&gt; System.out.print(s + "\t"));
+
+        System.out.println();
+    }
+}
+</code></pre></div></div>
+
+<h3 id="특정-범위의-정수">특정 범위의 정수</h3>
+<p><code class="highlighter-rouge">IntStream</code>과 <code class="highlighter-rouge">LongStream</code>은 지정된 범위의 연속된 정수를 스트림으로 생성해서
+반환하는 <code class="highlighter-rouge">range()</code>와 <code class="highlighter-rouge">rangeClosed()</code>를 가지고 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IntStream intStream = IntStream.range(1, 5); // 1,2,3,4,
+IntStream intStream = IntStream = Intstream.rangeClosed(1, 5); // 1,2,3,4,5 
+</code></pre></div></div>
+<p><code class="highlighter-rouge">range</code>는 end가 범위에 포함되지 않고 <code class="highlighter-rouge">rangeClosed</code>는 포함된다.</p>
+
+<h3 id="람다식---iterate-generate">람다식 - iterate(), generate()</h3>
+<p>Stream 클래스의 <code class="highlighter-rouge">iterate()</code>와 <code class="highlighter-rouge">generate()</code>는 람다식을 매개변수로 받아서,<br />
+이 람다식에 의해 계산되는 값들을 요소로 하는 무한 스트림을 생성한다.</p>
+
+<p>이때 생성되는 스트림은 무한하기 때문에 <code class="highlighter-rouge">limit()</code>를 호출하여 특정 사이즈로 제한해주는 것이 좋다.</p>
+<h4 id="iterate">iterate()</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stream</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">evenStream</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">iterate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="o">).</span><span class="na">limit</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+<span class="c1">// 0, 2, 4 ...</span>
+</code></pre></div></div>
+<p>씨드로 지정된 값부터 시작해서,  람다식에 의해 계산된 결과를 다시 시드 값으로 해서 
+계산을 반복한다.</p>
+
+<h4 id="generate">generate()</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stream</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">randomStream</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">generate</span><span class="o">(</span><span class="nl">Math:</span><span class="o">:</span><span class="n">random</span><span class="o">).</span><span class="na">limit</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">iterate()</code>처럼 람다식에 의해 계산되는 값을 요소로 하는 무한 스트림을 생성해서
+반환하지만, <code class="highlighter-rouge">iterate()</code>와 달리 이전 결과를 이용해서 다음 요소를 계산하지 않는다.</p>
+
+<h3 id="빈-스트림">빈 스트림</h3>
+<p>요소가 하나도 없는 비어있는 스트림을 생성할 수도 있다.<br />
+스트림에 연산을 수핸한 결과가 하나도 없을 때, null보다 빈 스트림을 반환하는게 낫다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stream</span> <span class="n">emptyStream</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span> <span class="c1">// empty() 는 빈 스트림을 생성해서 반환한다.</span>
+<span class="kt">long</span> <span class="n">count</span> <span class="o">=</span> <span class="n">emptyStream</span><span class="o">.</span><span class="na">count</span><span class="o">();</span> <span class="c1">// count값은 0</span>
+</code></pre></div></div>
+<p>여기서 <code class="highlighter-rouge">count()</code>는 요소의 갯수를 반환한다.</p>
+
+<h2 id="스트림의-연산">스트림의 연산</h2>
+<h4 id="지연-처리">지연 처리</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyFirstStream2</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">ar</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">};</span>
+
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">ar</span><span class="o">)</span> <span class="c1">// 스트림을 생성</span>
+                        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="c1">// filter 통과</span>
+                        <span class="o">.</span><span class="na">sum</span><span class="o">();</span> <span class="c1">// sum을 통과시켜 그 결과를 반환</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sum</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>위 예제에서 쓰인 두 메소드는 다음과 같다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">IntStream</span> <span class="nf">stream</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span>
+<span class="n">IntStream</span> <span class="nf">filter</span><span class="o">(</span><span class="n">IntPredicate</span> <span class="n">predicate</span><span class="o">)</span>
+</code></pre></div></div>
+<p>filter와 sum 메소드는 IntStream의 인스턴스 메소드이다.</p>
+
+<p>스트림의 연산은 “지연 처리” 방식으로 동작한다.<br />
+최종 연산이 수행 되기 전까지는 중간 연산이 수행되지 않는다.</p>
+
+<p>위 예제에서는 sum이 호출될 때까지 filter의 호출 결과는 스트림에 반영되지 않는다.<br />
+최종 연산인 sum이 호출되어야만 filter의 호출 결과가 스트림에 반영된다.<br />
+이처럼 최종 연산이 생략되면 중간 연산이 의미가 없다.</p>
+
+<h3 id="스트림의-중간-연산">스트림의 중간 연산</h3>
+<p>연산 결과가 스트림인 연산으로, 스트림에 연속해서 중간 연산할 수 있다.</p>
+<h3 id="filter-필터링">filter (필터링)</h3>
+<p>스트림을 구성하는 데이터 중 일부를 조건에 따라 걸러내는 행위를 의미한다.</p>
+<h4 id="메소드-1">메소드</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span> <span class="c1">// Stream&lt;T&gt;에 존재</span>
+</code></pre></div></div>
+<p>매개변수 형이 Predicate이므로 test 메소드의 구현에 해당하는 람다식을 
+인자로 전달해야 한다.<br />
+내부적으로 스트림 데이터를 하나씩 인자로 전달하면서 test를 호출하고,<br />
+그 결과가 true이면 해당 데이터를 스트림에 남긴다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">FilterStream</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">ar</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">};</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">ar</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="c1">// 홀수만 통과</span>
+            <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">n</span> <span class="o">+</span> <span class="s">"\t"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sl</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"Toy"</span><span class="o">,</span> <span class="s">"Robot"</span><span class="o">,</span> <span class="s">"Box"</span><span class="o">);</span>
+        <span class="n">sl</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span> <span class="c1">// 길이가 3이면 통과</span>
+            <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">s</span> <span class="o">+</span> <span class="s">"\t"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>       
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h3 id="map-맵핑">map (맵핑)</h3>
+<p>스트림 요소에서 저장된 값 중에서 원하는 필드만 뽑아내거나 특정 형태로 변환해야 할 떄가 있다.<br />
+맵핑을 진행하면 스트림의 데이터 형이 달라지는 특징이 있다.</p>
+
+<h4 id="메소드-2">메소드</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="o">)</span>
+</code></pre></div></div>
+<p>매개변수 형이 Function이므로 apply 메소드의 구현에 해당하는 람다식을 
+인자로 전달해야 한다.<br />
+내부적으로 스트림 데이터를 하나씩 인자로 전달하면서 apply를 호출하고,<br />
+그 결과로 반환되는 값을 모아 새 스트림을 생성한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MapToInt</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"Box"</span><span class="o">,</span> <span class="s">"Robot"</span><span class="o">,</span> <span class="s">"Simple"</span><span class="o">);</span>
+        
+        <span class="n">ls</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">n</span> <span class="o">+</span> <span class="s">"\t"</span><span class="o">));</span>
+        
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h4 id="map-vs-flatmap">map vs flatMap</h4>
+<h5 id="map의-메소드">map의 메소드</h5>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="o">)</span>
+</code></pre></div></div>
+<p>map에 전달할 람다식에서는 스트림을 구성할 데이터만 반환하면 된다.</p>
+<h5 id="flatmap의-메소드">flatMap의 메소드</h5>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">flatMap</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;&gt;</span> <span class="n">mapper</span><span class="o">)</span>
+</code></pre></div></div>
+<p>flatMap에 전달할 람다식에서는 스트림을 생성하고 이를 반환해야 한다.</p>
+
+<h3 id="filter--map">filter &amp; map</h3>
+<h4 id="example-1">example</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+	<span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="o">)</span>
+	<span class="o">.</span><span class="na">mapToInt</span><span class="o">(</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="na">getPrice</span><span class="o">())</span>
+	<span class="o">.</span><span class="na">sum</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="sorted">sorted</h3>
+<h4 id="메소드-3">메소드</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">sorted</span><span class="o">()</span>
+<span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">sorted</span><span class="o">(</span><span class="n">Comparator</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">compatator</span><span class="o">)</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">sorted()</code>는 지정된 Comparator로 스트림을 정렬하는데, Comparator대신 
+int 값을 반환하는 람다식을 사용할 수도 있다.<br />
+Comparator를 지정하지 않으면 스트림 요소의 기본 정렬 기준으로 정렬한다.<br />
+하지만 스트림 요소가 Comparable을 구현한 클래스가 아니면 예외가 발생한다.<br />
+정렬에 사용되는 메서드의 개수가 많지만 기본적인 메서드는 <code class="highlighter-rouge">comparing()</code>이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">comparing</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">keyExtractor</span><span class="o">)</span>
+<span class="n">comparing</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">keyExtractor</span><span class="o">,</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">keyComparator</span><span class="o">)</span>
+</code></pre></div></div>
+<p>스트림 요소가 Comparable을 구현한 경우, 매개변수 하나짜리를 사용하면 되고,<br />
+그렇지 않으면 추가적인 매개변수로 정렬기준(Comparator)을 따로 지정해줘야 한다.</p>
+
+<p>정렬 조건을 추가할 때는 <code class="highlighter-rouge">thenComparing()</code>을 사용한다.</p>
+
+<h4 id="example-2">Example</h4>
+<p>학생 스트림을 반별, 성적순, 이름 순으로 정렬하는 예시이다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">student</span><span class="o">.</span><span class="na">sorted</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Student:</span><span class="o">:</span><span class="n">getBan</span><span class="o">)</span>
+	<span class="o">.</span><span class="na">thenComparing</span><span class="o">(</span><span class="nl">Student:</span><span class="o">:</span><span class="n">getTOtalScore</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">thenComparing</span><span class="o">(</span><span class="nl">Student:</span><span class="o">:</span><span class="n">getName</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="peek">peek</h3>
+<p>스트림을 이루는 모든 데이터 각각을 대상으로 특정 연산을 진행하는 행위를 “루핑”이라 한다.<br />
+forEach는 루핑으로 최종연산이지만, 중간연산에도 루핑 메소드가 있다.</p>
+
+<h4 id="메소드-4">메소드</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Stream&lt;T&gt;의 메소드
+Stream&lt;T&gt; peek(Consumer&lt;? super T&gt; action)
+</code></pre></div></div>
+<h4 id="example-3">Example</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LazyOpStream</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 최종 연산이 생략된 스트림의 파이프 라인</span>
+        <span class="c1">// 아무 것도 출력되지 않는다.</span>
+        <span class="n">IntStream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">d</span> <span class="o">+</span> <span class="s">"\t"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+
+  
+        <span class="c1">// 최종 연산이 존재하는 파이프 라인</span>
+        <span class="n">IntStream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">d</span> <span class="o">+</span> <span class="s">"\t"</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">sum</span><span class="o">();</span>            
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="스트림의-최종-연산">스트림의 최종 연산</h2>
+<p>최종 연산은 스트림의 요소를 소모해서 결과를 만들어낸다.<br />
+그래서 최종 연산 후에는 스트임니 닫혀 더 이상 사용할 수 없다.<br />
+최종 연산의 결과는 스트림의 요소의 합과 같은 단일 값이거나, <br />
+스트림의 요소가 담긴 배열 또는 컬렉션일 수 있다.</p>
+
+<h3 id="foreach">forEach</h3>
+<p>지정된 작업을 스트림의 모든 요소에 대해 수행한다.
+주의할 점은 <code class="highlighter-rouge">forEach()</code>는 스트림의 요소를 소모하면서 작업을 수행하므로 같은 스트림에 <code class="highlighter-rouge">forEach()</code>를 두 번 호출할 수 없다.</p>
+
+<h4 id="메소드-5">메소드</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Stream&lt;T&gt;의 메소드
+void forEach(Consumer&lt;? super T&gt; action)
+</code></pre></div></div>
+<p><code class="highlighter-rouge">peek()</code>과 달리 스트림의 요소를 소모하는 최종 연산이기 때문에 반환형이 void이다.</p>
+
+<h3 id="reduce">reduce</h3>
+<p>스트림 요소를 줄여나가면서 연산을 수행하고 최종 결과를 반환한다.<br />
+처음 두 요소를 가지고 연산한 결과를 가지고 그 다음 요소와 연산한다.<br />
+이 과정에서 스트림의 요소를 하나씩 소모하게 되며, 스트림의 모든 요소를 소모하면 그 결과를 반환한다.</p>
+
+<p>스트림의 요소가 하나도 없는 경우, 초기값이 반환되므로 반환타입이 <code class="highlighter-rouge">Optional&lt;T&gt;</code>가 아니라 <code class="highlighter-rouge">T</code>이다.</p>
+<h4 id="메소드-6">메소드</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="nf">reduce</span><span class="o">(</span><span class="n">T</span> <span class="n">identity</span><span class="o">,</span> <span class="n">BinaryOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">accumulator</span><span class="o">)</span> <span class="c1">// Stream&lt;T&gt;에 존재</span>
+</code></pre></div></div>
+<p>reduce는 전달하는 람다식에 의해 연산의 내용이 결정된다.</p>
+
+<p><strong><code class="highlighter-rouge">BinaryOperator&lt;T&gt;</code>의 추상 메소드</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>T apply(T t1, T t2)
+</code></pre></div></div>
+<p>reduce 호출 시 메소드 apply에 대한 람다식을 인자로 전달해야 한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ReduceStream</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"Box"</span><span class="o">,</span> <span class="s">"Simple"</span><span class="o">,</span> <span class="s">"Complex"</span><span class="o">,</span> <span class="s">"Robot"</span><span class="o">);</span>
+        
+        <span class="n">BinaryOperator</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">lc</span> <span class="o">=</span> 
+            <span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+               <span class="k">if</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">())</span>
+                   <span class="k">return</span> <span class="n">s1</span><span class="o">;</span>
+               <span class="k">else</span> 
+                   <span class="k">return</span> <span class="n">s2</span><span class="o">;</span>                   
+            <span class="o">};</span>
+        
+        <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                      <span class="o">.</span><span class="na">reduce</span><span class="o">(</span><span class="s">""</span><span class="o">,</span> <span class="n">lc</span><span class="o">);</span> <span class="c1">// 스트림이 빈 경우 빈 문자열 반환</span>
+      
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span><span class="o">);</span> <span class="c1">// Complex</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>reduce 메소드는 스트림이 빈 경우에 첫 번째 인자로 전달된 값을 반환한다.</p>
+<h3 id="allmatch-anymatch-nonematch">allMatch, anyMatch, noneMatch</h3>
+<p>스트림의 요소에 대해 지정된 조건에 모든 요소가 일치하는 지, 일부가 일치하는지,<br />
+아니면 어떤 요소도 일치하지 않는지 확인하는데 사용할 수 있다.</p>
+
+<h4 id="메소드-7">메소드</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">allMatch</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">Y</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
+
+<span class="kt">boolean</span> <span class="nf">anyMatch</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">Y</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
+
+<span class="kt">boolean</span> <span class="nf">noneMatch</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">Y</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
+</code></pre></div></div>
 <ul>
-  <li><code class="highlighter-rouge">assertJ</code>를 통해 테스트 코드의 가독성을 높이며 에러 메세지를 쉽게 확인할 수 있다.</li>
-</ul>
-
-<h2 id="공부한-annotation-몇-개">공부한 Annotation 몇 개</h2>
-
-<h3 id="test">@Test</h3>
-<p>메서드가 테스트 메서드임을 나타낸다.</p>
-
-<h3 id="parameterizedtest">@ParameterizedTest</h3>
-<p>메서드가 매개변수가 있는 테스트임을 나타낸다.</p>
-
-<p>파라미터를 전달하는 방법은 아래의 어노테이션과 더불어 Source로 넘겨준다.</p>
-
-<h4 id="valuesource">@ValueSource</h4>
-<p>단일 리터럴 값 배열을 테스트 메서드에 전달할 수 있으며,
-매번 테스트 메서드에 하나의 인수 만 전달할 수 있다.
-<code class="highlighter-rouge">short</code>, <code class="highlighter-rouge">byte</code>, <code class="highlighter-rouge">int</code>, <code class="highlighter-rouge">long</code>, <code class="highlighter-rouge">float</code>, <code class="highlighter-rouge">double</code>, <code class="highlighter-rouge">char</code>, <code class="highlighter-rouge">boolean</code>, <code class="highlighter-rouge">java.lang.String</code>, <code class="highlighter-rouge">java.lang.Class</code> 리터럴 값을 지원한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ParameterizedTest</span>
-<span class="nd">@ValueSource</span><span class="o">(</span><span class="n">ints</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">})</span>
-<span class="kt">void</span> <span class="nf">contains1</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">assertThat</span><span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">i</span><span class="o">)).</span><span class="na">isTrue</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="csvsource">@CsvSource</h4>
-<p>여러 파라미터를 전달하고자 할 때 사용한다.
-주로 입력 값과 기대 값을 함께 전달하며 테스트할 때 사용한다.
-<code class="highlighter-rouge">,</code>로 값을 구분하지만 delimiter 속성을 사용해 사용자 정의를 할 수 있다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ParameterizedTest</span>
-<span class="nd">@CsvSource</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span><span class="s">"1:true"</span><span class="o">,</span> <span class="s">"5:false"</span><span class="o">},</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="sc">':'</span><span class="o">)</span>
-<span class="kt">void</span> <span class="nf">contains3</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">expected</span><span class="o">)</span> <span class="o">{</span>
- <span class="n">assertThat</span><span class="o">(</span><span class="n">expected</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="nullsource">@NullSource</h4>
-<p>단일 null 값을 전달할 수 있다.</p>
-
-<p>하지만 기본 데이터 타입은 null 값을 허용할 수 없어 @NullSource를 사용할 수 없다.</p>
-
-<h4 id="emptysource">@EmptySource</h4>
-<p>메서드에 하나의 빈 값을 인수에 전달한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ParameterizedTest</span>
-<span class="nd">@EmptySource</span>
-<span class="kt">void</span> <span class="nf">isBlank_ShouldReturnTrueForEmptyStrings</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">assertTrue</span><span class="o">(</span><span class="n">Strings</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">input</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="nullandemptysource">@NullAndEmptySource</h4>
-<p><code class="highlighter-rouge">null</code>과 <code class="highlighter-rouge">empty</code> 값 모두를 전달하기 위해 사용한다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ParameterizedTest</span>
-<span class="nd">@NullAndEmptySource</span>
-<span class="kt">void</span> <span class="nf">isBlank_ShouldReturnTrueForNullAndEmptyStrings</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">assertTrue</span><span class="o">(</span><span class="n">Strings</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">input</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>➕ <code class="highlighter-rouge">null</code>과 <code class="highlighter-rouge">empty</code> 값, 변형된 빈 문자열을 전달하기 위해 <code class="highlighter-rouge">@ValueSource</code>, <code class="highlighter-rouge">@NullSource</code>, <code class="highlighter-rouge">@EmptySource</code>를 함께 결합해 사용할 수 있다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ParameterizedTest</span>
-<span class="nd">@NullAndEmptySource</span>
-<span class="nd">@ValueSource</span><span class="o">(</span><span class="n">strings</span> <span class="o">=</span> <span class="o">{</span><span class="s">"  "</span><span class="o">,</span> <span class="s">"\t"</span><span class="o">,</span> <span class="s">"\n"</span><span class="o">})</span>
-<span class="kt">void</span> <span class="nf">isBlank_ShouldReturnTrueForAllTypesOfBlankStrings</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">assertTrue</span><span class="o">(</span><span class="n">Strings</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">input</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="enumsource">@EnumSource</h4>
-<p>열거형 갑의 배열을 메서드에 전달한다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ParameterizedTest</span>
-<span class="nd">@EnumSource</span><span class="o">(</span><span class="n">Month</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="c1">// 12 months를 전달</span>
-<span class="kt">void</span> <span class="nf">getValueForAMonth_IsAlwaysBetweenOneAndTwelve</span><span class="o">(</span><span class="n">Month</span> <span class="n">month</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">monthNumber</span> <span class="o">=</span> <span class="n">month</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
-    <span class="n">assertTrue</span><span class="o">(</span><span class="n">monthNumber</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">monthNumber</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>위 예시에서 <code class="highlighter-rouge">names</code> 속성을 사용하여 몇 개의 달만 전달할 수도 있다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ParameterizedTest</span>
-<span class="nd">@EnumSource</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">Month</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">names</span> <span class="o">=</span> <span class="o">{</span><span class="s">"APRIL"</span><span class="o">,</span> <span class="s">"JUNE"</span><span class="o">,</span> <span class="s">"SEPTEMBER"</span><span class="o">,</span> <span class="s">"NOVEMBER"</span><span class="o">})</span>
-<span class="kt">void</span> <span class="nf">someMonths_Are30DaysLong</span><span class="o">(</span><span class="n">Month</span> <span class="n">month</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">isALeapYear</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-    <span class="n">assertEquals</span><span class="o">(</span><span class="mi">30</span><span class="o">,</span> <span class="n">month</span><span class="o">.</span><span class="na">length</span><span class="o">(</span><span class="n">isALeapYear</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p><code class="highlighter-rouge">@ValueSource</code> 와 비슷하게 테스트 실행 당 하나의 매개변수만 전달할 수 있다.</p>
-
-<h3 id="beforeeach--aftereach">@BeforeEach / @AfterEach</h3>
-<p>메서드가 현재 테스트 클래스의 각각의 메서드보다 먼저 / 각각의 메서드의 이후에 실행한다.</p>
-<ul>
-  <li>리턴 타입 : <code class="highlighter-rouge">void</code></li>
-  <li><code class="highlighter-rouge">private</code> 불가능</li>
-  <li><code class="highlighter-rouge">static</code> 불가능
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@BeforeEach</span>
-<span class="kt">void</span> <span class="nf">setUp</span><span class="o">(){</span>
-  <span class="n">numbers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
-  <span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
-  <span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
-  <span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
-  <span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div>    </div>
+  <li>allMatch : 스트림의 데이터가 조건을 모두 만족하는가?</li>
+  <li>anyMatch : 스트림의 데이터가 조건을 하나라도 만족하는가?</li>
+  <li>noneMatch : 스트림의 데이터가 조건을 하나도 만족하지 않는가?
+    <h3 id="findany-findfirst">findAny, findFirst</h3>
+    <p><code class="highlighter-rouge">filter()</code>와 함께 쓰여서 조건에 맞는 스트림의 요소가 있는지 확인하는데 사용된다.<br />
+둘의 반환 타입은 <code class="highlighter-rouge">Optionsnal&lt;T&gt;</code>이며, 스트림의 요소가 없을 때 빈 Optional 객체를 반환한다.</p>
   </li>
 </ul>
 
-<h3 id="beforeall--afterall">@BeforeAll / @AfterAll</h3>
-<p>메서드가 현재 테스트 클래스의 모든 메서드보다 먼저 / 모든 메서드의 이후에 실행한다.</p>
-
-<h3 id="displayname">@DisplayName</h3>
-<p>클래스 또는 메서드에 대한 사용자 지정 표시 이름을 선언하는데 사용한다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"Set의 사이즈 확인 테스트"</span><span class="o">)</span>
-<span class="nd">@Test</span>
-<span class="kt">void</span> <span class="nf">checkSizeOfSet</span><span class="o">(){</span>
-    <span class="n">assertThat</span><span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">size</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
-<span class="o">}</span>
+<h4 id="example-4">Example</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">student</span><span class="o">.</span><span class="na">filer</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">getTotalScore</span><span class="o">()</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">).</span><span class="na">findFirst</span><span class="o">();</span>
+</code></pre></div></div>
+<h3 id="collect">collect</h3>
+<p>파이프라인을 통해서 가공되고 걸러진 데이터를 최종 연산 과정에서 별도로 저장이 필요할 때 사용한다.</p>
+<h4 id="메소드-8">메소드</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Stream&lt;T&gt;의 메소드</span>
+<span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">R</span> <span class="nf">collect</span><span class="o">(</span><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">supplier</span><span class="o">,</span> 
+				<span class="n">BiConsumer</span><span class="o">&lt;</span><span class="n">R</span><span class="o">,</span> <span class="o">?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">accumulator</span><span class="o">,</span>
+                <span class="n">BiConsumer</span><span class="o">&lt;</span><span class="n">R</span><span class="o">,</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">combiner</span><span class="o">)</span>
 </code></pre></div></div>
 
-<h3 id="disabled">@Disabled</h3>
-<p>클래스 또는 메서드를 비활성화 하는데 사용한다.</p>
+<h4 id="example-5">Example</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">CollectStringStream</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">words</span> <span class="o">=</span> <span class="o">{</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"Box"</span><span class="o">,</span> <span class="s">"Robot"</span><span class="o">,</span> <span class="s">"Toy"</span><span class="o">};</span>
+        <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">ss</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">words</span><span class="o">);</span>
+        
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">)</span>
+                          <span class="o">.</span><span class="na">collect</span><span class="o">(</span>
+                              <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(),</span>
+                              <span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">),</span>
+                              <span class="o">(</span><span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">lst1</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">lst2</span><span class="o">));</span>
+    
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ls</span><span class="o">);</span> <span class="c1">// [Box, Toy]</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>첫 번째 매개변수인 람다식을 기반으로 데이터를 저장할 저장소를 생성한다.<br />
+두 번째 매개변수인 람다식에서의 첫 번째 매개변수(c)는 
+collect의 첫번째 인자를 통해서 생성된 컬렉션 인스턴스이며,<br />
+두 번째 매개변수(s)는 스트림을 이루는 데이터 이다.<br />
+세 번째 매개변수인 람다식은 병렬 스트림이 아닌 순차 스트림일 경우 사용되지 않는다.</p>
+
+<h2 id="collect-1">collect()</h2>
+<p>스트림의 요소를 수집하는 최종 연산으로 <code class="highlighter-rouge">reduce()</code>와 유사하다.<br />
+collect()가 스트림의 요소를 수집하려면, 어떻게 수집할 것인가에 대한 방법이 정의되어<br />
+있어야 하는데, 이 방법을 정의한 것이 컬렉터이다.</p>
+
+<h3 id="컬렉터">컬렉터</h3>
+<p>컬렉터는 <code class="highlighter-rouge">Collector</code> 인터페이스를 구현한 것으로, 직접 구현할 수도 있고 미리 작성된 것을 사용할 수도 있다.<br />
+다양한 static 메서드를 가지고 있다.</p>
+
+<ul>
+  <li>collect() : 스트림의 최종연산, 매개변수로 컬렉터를 필요로 한다.</li>
+  <li>Collector : 인터페이스. 컬렉터는 이 인터페이스를 구현해야한다.</li>
+  <li>Collectors : 클래스. static 메서드로 미리 작성된 컬렉터를 제공한다.</li>
+</ul>
+
+<p>Collector는 인터페이스이기 때문에 직접 구현해서 컬렉터를 만들어야 한다.</p>
+
+<h3 id="collect-2">collect()</h3>
+<p><code class="highlighter-rouge">collect()</code>는 매개변수 타입이 Collector인데, 매개변수가 Collector를 구현한 클래스의 객체여야 한다.<br />
+<code class="highlighter-rouge">collect()</code>는 이 객체에 구현된 방법대로 스트림의 요소를 수집한다.<br />
+<em>sort()할 때 Comparator가 필요한 것처럼 colllect()할 때는 Collector가 필요하다.</em></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Object</span> <span class="nf">collect</span><span class="o">(</span><span class="n">Collector</span> <span class="n">collector</span><span class="o">)</span> 
+</code></pre></div></div>
+
+<h3 id="스트림을-컬렉션과-배열로-반환">스트림을 컬렉션과 배열로 반환</h3>
+<ul>
+  <li><code class="highlighter-rouge">toList()</code>, <code class="highlighter-rouge">toSet()</code>, <code class="highlighter-rouge">toMap()</code>, <code class="highlighter-rouge">toCollection()</code>, <code class="highlighter-rouge">toArray()</code></li>
+</ul>
+
+<p>스트림의 모든 요소를 컬렉션에 수집하려면, Collectors 클래스의 <code class="highlighter-rouge">toList()</code>와 같은 메서드를 사용하면 된다.<br />
+특정 컬렉션을 지정하려면 <code class="highlighter-rouge">toCollection()</code>에 해당하는 컬렉션의 
+생성자 참조를 매개변수로 넣어주면 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">names</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toCollection</span><span class="o">(</span><span class="n">toCollection</span><span class="o">(</span><span class="nl">ArrayList:</span><span class="o">:</span><span class="k">new</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>Map은 키와 값의 쌍으로 저장해야하니 객체의 어떤 필드를 키로 사용할지와 값으로 사용할지를 지정해줘야 한다.<br />
+아래 예제는 스트림에서 사람의 주민번호를 키로 하고, 값으로 Person 객체를 그대로 저장한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Person</span><span class="o">&gt;</span> <span class="n">map</span>  <span class="o">=</span> <span class="n">personStream</span><span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toMap</span><span class="o">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">p</span><span class="o">.</span><span class="na">getRegId</span><span class="o">(),</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">p</span><span class="o">));</span>
+</code></pre></div></div>
 
 <h2 id="참고-자료">참고 자료</h2>
 <ul>
-  <li><a href="https://junit.org/junit5/docs/current/user-guide/#launcher-api">JUnit 5 User Guide</a></li>
-  <li><a href="https://www.baeldung.com/parameterized-tests-junit-5#4-csv-literals">Guide to JUnit 5 Parameterized Tests</a></li>
+  <li>자바의 정석</li>
+  <li>윤성우의 열혈 자바 프로그래밍</li>
 </ul>
+
+<hr />
+<p>자주 사용하던 스트림을 정리하니까 각 메소드의 사용 목적이 명확해졌다 🙃<br />
+또 Collector와 Collectors는 뭐가 다른지 궁금했는데 정리되었다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📖 Exception에 대하여</title>
+	  <link>//Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+	  <author></author>
+	  <pubDate>2021-02-24T19:18:00+09:00</pubDate>
+	  <guid>//Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+	  <description><![CDATA[
+	     <p>오늘 수업 시간에 자바의 Exception에 대해 배웠다.<br />
+수업을 듣고 들은 내용을 자바의 정석의 예외 처리를 함께 보면서 정리 ✍️</p>
+
+<h2 id="프로그램-오류-종류">프로그램 오류 종류</h2>
+<ul>
+  <li>컴파일 에러 - 컴파일 시에 발생하는 에러</li>
+  <li>런타임 에러 - 실행 시에 발생하는 에러</li>
+  <li>논리적 에러 - 실행은 되지만, 의도와 다르게 동작하는 것</li>
+</ul>
+
+<p>프로그램에서 실행 도중 발생할 수 있는 모든 경우의 수를 고려해 이에 대한 적절한 대비가 필요하다!</p>
+
+<h3 id="error와-exception의-차이">Error와 Exception의 차이?</h3>
+<h4 id="error">Error</h4>
+<p>애플리케이션이 정상적으로 동작하는데 심각한 문제가 있는 경우 사용한다.<br />
+ex) 메모리 부족이나 스택오버플로우 등</p>
+
+<p>개발자가 Error를 사용하는 일은 거의 없다고 한다.</p>
+
+<h4 id="exception">Exception</h4>
+<p>비즈니스 로직 상에서 에러가 발생하는 경우 사용한다. <br />
+발생하더라도 수습이 가능하여 프로그래머가 이에 대한 적절한 처리를 할 수 있다.</p>
+
+<h2 id="예외-클래스-계층-구조">예외 클래스 계층 구조</h2>
+<p><img src="https://images.velog.io/images/new_wisdom/post/b3233d4f-d9e9-4c54-991b-5a0d24430cfb/pngwing.com.png" style="zoom:67%;" /></p>
+
+<p>모두 Throwable을 상속하고 있으며, 여기서부터 Error와 Exception이 발생한다.<br />
+여기서 모든 예외의 조상은 Exception 클래스이다.</p>
+
+<p>또 예외 클래스들은 두 개의 그룹으로 나뉘어 질 수 있다.</p>
+<ul>
+  <li>RuntimeException 클래스와 그 자손 클래스들</li>
+  <li>Exception 클래스와 그 자손 클래스들</li>
+</ul>
+
+<p>이 글에서는 RuntimeException 클래스와 그 자손 클래스들을 <strong>Checked Exception</strong>이라 하고,<br />
+Exception 클래스와 그 자손 클래스들을 <strong>Unchecked Exception</strong>이라고 하겠다.</p>
+
+<h3 id="checked-exception">Checked Exception</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">lotto.view.ErrorView</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomException</span> <span class="kd">extends</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">CustomException</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">ErrorView</span><span class="o">.</span><span class="na">printErrorMessage</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p>…</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CustomException</span> <span class="o">{</span>
+        <span class="n">LottoNumber</span> <span class="n">lottoNumber</span> <span class="o">=</span> <span class="n">LottoNumber</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Exception을 상속받아 사용하는 경우 컴파일 시점에 Exception을 확인할 수 있다. <br />
+만약 컴파일 시점에 Exception에 대한 처리(try/catch)를 하지 않을 경우 컴파일 에러가 발생한다.<br />
+Exception이 발생하는 메소드에서 throws 예약어를 활용해<br />
+Exception을 호출 메소드에 전달해야 한다.</p>
+
+<p>상위 메서드로 throw를 던지는 행위는 상위 메서드들의 책임이 그만큼 증가하기 때문에,<br />
+그리 좋은 방법 같지는 않다.</p>
+
+<h3 id="unchecked-exception">Unchecked Exception</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IllegalLottoNumberException</span> <span class="kd">extends</span> <span class="n">IllegalArgumentException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">IllegalLottoNumberException</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">ErrorView</span><span class="o">.</span><span class="na">printIllegalLottoNumberMessage</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>…</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LottoNumber</span> <span class="kd">implements</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">LottoNumber</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MIN_LOTTO_NUMBER</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MAX_LOTTO_NUMBER</span> <span class="o">=</span> <span class="mi">45</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Pattern</span> <span class="n">NUMBER_PATTERN</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"^[0-9]*$"</span><span class="o">);</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LottoNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">validateLottoNumber</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">validateLottoNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">isBlank</span><span class="o">(</span><span class="n">number</span><span class="o">)</span> <span class="o">||</span> <span class="n">isInvalidNumberFormat</span><span class="o">(</span><span class="n">number</span><span class="o">)</span> <span class="o">||</span> <span class="n">isInvalidLottoNumberRange</span><span class="o">(</span><span class="n">number</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalLottoNumberException</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+<p>Runtime Time Exception 이라고 한다.<br />
+컴파일 시점에 Exception이 발생할 것인지의 여부를 판단할 수 없다.<br />
+Exception이 발생하는 메소드에서 throws 예약어를 활용해 Exception을 처리할 필요가 없지만, 처리해도 무방하다.</p>
+
+<h3 id="checked-exception-vs-unchecked-exception">Checked Exception VS Unchecked Exception</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>Checked Exception</th>
+      <th>Unchecked Exception</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>확인 시점</td>
+      <td>컴파일타임</td>
+      <td>런타임</td>
+    </tr>
+    <tr>
+      <td>처리</td>
+      <td>반드시 예외 처리해야 한다.</td>
+      <td>throws를 통해 그냥 던져도, 처리해도 상관 없다.</td>
+    </tr>
+    <tr>
+      <td>대표 예외</td>
+      <td>IOException, SQLException</td>
+      <td>IllegalArgumentException, NullPointEception</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>너무 치명적이면 Checked 쓰고,<br />
+굳이 경고가 필요없고, 서비스 코드를 만드는 입장이라면 최상단에서 <br />
+에러를 핸들링 할 수 있으니 Unchecked를 쓰는게 좋다.</p>
+
+<p>참고로 코틀린에서는 Checked Exception은 코드만 늘어날 뿐이라 생각(?)해서 <br />
+여러가지 이유로… Checked Exception이 없다고 한다.<br />
+또 프로그래머 입장에서 메인과 같은 중앙에서 핸들링하는 녀석을 만들어 관리하는데,<br />
+굳이 우리가 Checked Exception을 제공할 필요가 있냐는 말이다.</p>
+
+<p>수업시간에 다양한 말들로 둘을 구분지어 보았는데,<br />
+**Checked Exception는 **</p>
+
+<ul>
+  <li>내부 구현이 어떻게 되는지 알려주고 싶어!</li>
+  <li>내가 집 수리할건데 손 다칠수도 있으니까 구급차 미리 불러!</li>
+  <li>너 진짜 조심해야해!</li>
+</ul>
+
+<p>**Unchecked Exception는 **</p>
+<ul>
+  <li>내부에서 예외에 대한 방어가 있는데 클라이언트한테 공개는 안할거야, 대신 값을 잘 넣어주면 좋겠어.</li>
+  <li>내가 집 수리할건데 아냐 다치지 않고 잘 할 수 있어!</li>
+  <li>클라이언트가 입력할 값을 잘 알고 있겠지 ~</li>
+</ul>
+
+<p>이런 느낌으로 이야기가 나왔다.<br />
+Checked인지 Unchecked인지는 <strong>클라이언트에게 얼마나 책임을 떠넘기느냐</strong>에 대한 관점으로 봐도 좋을 것 같다.</p>
+
+<h2 id="예외-처리---try-catch문">예외 처리 - try-catch문</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// 예외 발생 가능성 있는 문장들</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception1</span> <span class="n">e1</span><span class="o">){</span>
+    <span class="c1">// Exception1이 발생했을 경우, 처리하는 문장</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception2</span> <span class="n">e2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Exception2가 발생했을 경우, 처리하는 문장</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>이렇게 하나의 try 블럭 다음에는 여러 종류의 예외를 처리할 수 있도록<br />
+하나 이상의 catch 블럭이 올 수 있다.</p>
+
+<h4 id="흐름">흐름</h4>
+<p>try 블럭에서 예외가 발생하면, 예외가 발생한 위치 이후에 있는 <br />
+try 블럭의 문장들은 수행되지 않는다.<br />
+때문에 try 블럭에 포함시킬 코드의 범위를 잘 선택해야 한다.</p>
+
+<p>예외가 발생하면 발생한 예외에 해당하는 클래스의 인스턴스가 만들어진다.<br />
+try블럭에서 예외가 발생되고, 첫 catch 문부터 차례대로 catch 블럭의<br />
+괄호 내 선언된 참조변수의 종류와 생성된 예외 클래스의 인스턴스에 <code class="highlighter-rouge">instanceof</code>연산자를 이용해 검사한다.<br />
+검사한 결과가 true인 블럭을 만날 때 까지 계속 검사한다.</p>
+
+<h4 id="try에서-발생한-예외의-종류와-일치하는-단-하나의-catch-블럭만-수행된다">try에서 발생한 예외의 종류와 일치하는 단 하나의 catch 블럭만 수행된다.</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LottoNumber</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nf">LottoNumber</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">LottoNumber</span> <span class="nf">from</span><span class="o">(</span><span class="kd">final</span> <span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CustomException</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">CustomException</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>다음과 같이 LottoNumber 객체를 <code class="highlighter-rouge">from()</code>으로 생성했을 때 <br />
+<code class="highlighter-rouge">Exception</code>을 상속받고 있는 <code class="highlighter-rouge">CustomException</code>을 발생시킨다고 해보자.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/daa06d54-027d-44b4-aa16-4c4d985f3e72/image.png" style="zoom:50%;" /></p>
+
+<p>인텔리제이에서도 알 수 있듯이 <code class="highlighter-rouge">CustomException</code>의 상위 클래스인 <br />
+<code class="highlighter-rouge">Exception</code>을 미리 catch해주었기 때문에 하위 catch에서 <br />
+<code class="highlighter-rouge">CustomException</code>를 잡는 것은 소용이 없다.</p>
+
+<p>모든 예외 클래스는 Exception 클래스의 자손이므로, <br />
+Exception 클래스 타입의 참조변수를 선언하면 해당 블럭에서 어떤 예외던지 처리된다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/aae681e5-9d55-4e86-99fe-da67d1cf9492/image.png" style="zoom:50%;" /></p>
+
+<p>또 위와 같은 코드를 실행시켜보면 아래와 같은 출력 결과가 나온다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/20c67935-d673-4440-beb6-a943faf7d55d/image.png" style="zoom:50%;" /></p>
+
+<p><strong>멀티 catch 블럭</strong><br />
+JDK1.7부터 catch 블럭을 <code class="highlighter-rouge">|</code>을 이용해 하나의 catch 쁠럭으로 합칠 수 있게 되었다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/0ae3a6dd-c32e-47ff-8d0c-9788613a410e/image.png" style="zoom:50%;" /></p>
+
+<p>하지만 이렇게 부모 자식 관계가 있다면 컴파일 에러가 발생한다.</p>
+
+<h4 id="중첩된-try-catch">중첩된 try-catch</h4>
+<p><img src="https://images.velog.io/images/new_wisdom/post/720fe0b3-6297-4a8e-85cb-4ad644451cd7/image.png" style="zoom:50%;" /></p>
+
+<p>하나의 메서드 안에 여러개의 try-catch를 사용할 수 있으며,<br />
+중첩으로도 사용이 가능하다.<br />
+하지만 catch블럭 괄호 내 참조 변수는 catch 블럭 내에서 유효한데,<br />
+위의 예제에서는 <code class="highlighter-rouge">e</code>의 참조변수의 영역이 서로 겹치기 때문에 컴파일 에러가 난다.</p>
+
+<h2 id="custom-exception">Custom Exception</h2>
+<p>기존에 정의된 예외 클래스 외에 필요에 따라 사용자 정의 클래스를 정의하여 사용할 수 있다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyException</span> <span class="kd">extends</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">MyException</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span> 
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>생성시 string을 인자로 받아서 메시지로 저장할 수 있다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📖 배열의 깊은 복사와 얕은 복사</title>
+	  <link>//%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</link>
+	  <author></author>
+	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</guid>
+	  <description><![CDATA[
+	     <h2 id="자바에서의-객체-복사">자바에서의 객체 복사</h2>
+<p>자마에서 객체를 복사하는 유형에는 얕은 복사와 깊은 복사가 있다.</p>
+
+<h3 id="얕은-복사">얕은 복사</h3>
+<p>단순히 객체의 주소 값만을 복사하는 것이다.  <br />
+때문에 실제로는 하나의 주소 값만을 가지고 서로 간의 값은 바뀌지 않는다. <br />
+대부분 객체를 복사한다는 말은 얕은 복사가 아닌 깊은 복사를 의미한다.  <br />
+<strong>Example</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Array_Shallow_Copy</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arr1</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arr2</span> <span class="o">=</span> <span class="n">arr2</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">=</code>  연산자는 <code class="highlighter-rouge">주소를 이어줌</code>을 의미하는데,  <br />
+위 예제는 a의 배열을 b배열로 <code class="highlighter-rouge">=</code> 연산자를 활용하여 대입했기 때문에 얕은 복사가 된다. <br />
+즉 같은 주소값을 가진다. (참조에 의한 복사) <br />
+때문에 arr2의 값을 수정하면 arr1의 값도 같이 수정된다.</p>
+
+<h3 id="깊은-복사">깊은 복사</h3>
+<p>객체의 실제 값을 새로운 객체로 복사한다.  <br />
+복사된 배열이나 원본 배열이 변경될 때 서로 간의 값은 바뀌지 않는다.</p>
+
+<p>자바에서는 배열을 깊은 복사할 수 있는 여러가지 메서드를 제공하고 있다.</p>
+
+<h4 id="obejctclone">Obejct.clone()</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Array_Copy_Clone</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span> <span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>가장 보편적인 방법으로 깊은 복사를 할 때 사용된다.</p>
+
+<p>But. 객체 배열의 경우 <code class="highlighter-rouge">clone()</code>을 사용하면 깊은 복사가 되지 않는다! <br />
+그 이유는 객체는 주소값을 가지고 있기 때문이다. (일반 자료형의 배열만 깊은 복사가 가능하다) <br />
+마찬가지로 2차원 배열의 경우도 각각의 row에 대한 주소값이 존재하기 때문에 깊은 복사가 되지 않는다.</p>
+
+<p>또 해당 메소드는 객체의 클로닝을 위한 메소드인데 <br />
+추가로 <a href="https://javacan.tistory.com/entry/31">객체 클로닝에 관하여</a> 글을 읽어보면 좋다.</p>
+
+<h3 id="systemarraycopy">System.arraycopy()</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Array_Copy_ArrayCopy</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>  <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span> <span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">System.arraycopy(src, srcPos, dest, destPos, a.length);</code> 형식으로 사용한다.</p>
+
+<h3 id="일차원-객체-배열-복사하기">일차원 객체 배열 복사하기</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">Pos</span><span class="o">[]</span> <span class="nf">deepCopy</span><span class="o">(</span><span class="n">Pos</span><span class="o">[]</span> <span class="n">src</span><span class="o">){</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">src</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Pos</span><span class="o">[]</span> <span class="n">dest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pos</span><span class="o">[</span><span class="n">src</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">src</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+    	<span class="n">src</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pos</span><span class="o">(</span><span class="n">src</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">a</span><span class="o">,</span> <span class="n">src</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">b</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">dest</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">for</code> 문을 돌 때마다 새로운 객체를 생성하여 직접 값을 넣어준다. <br />
+그래야 새로운 객체를 담은 다른 배열로 깊은 복사된 배열을 가질 수 있다.</p>
+
+<h3 id="참고-자료">참고 자료</h3>
+<ul>
+  <li><a href="https://coding-factory.tistory.com/548">[Java] 자바 배열을 복사하는 다양한 방법 (깊은복사, 얕은복사)</a></li>
+  <li><a href="https://hoho325.tistory.com/89">자바(java) 배열의 깊은 복사(deep copy)와 얕은 복사 완벽정리(1차원 배열, 2차원 배열, 객체 배열 복사)</a></li>
+</ul>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📚 머리에 박제할라고 진짜 간단히 정리한 일급 컬렉션</title>
+	  <link>//%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</link>
+	  <author></author>
+	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</guid>
+	  <description><![CDATA[
+	     <h3 id="일급-컬렉션">일급 컬렉션</h3>
+<p>일급 컬렉션의 개념을 좀 더 정확히 짚고 넘어가야 할 것 같았다.<br />
+1차 리뷰어님께서 첨부해 주신 글을 저번에도 읽어보았으나<br />
+그 때까지는 이 글의 모든 개념을 파악하기 어려웠다.<br />
+때문에 훌라당 읽고 넘어갔지만 🥲<br />
+이번에 정독해보니 머릿 속에 개념과 목적이 좀 더 명확하게 잡혔다.</p>
+
+<p>내 머릿 속에 박을라고 내가 이해한대로 진짜 간단하게 정리하는 글 ✍️</p>
+<h3 id="참고-자료">참고 자료</h3>
+<p><a href="https://jojoldu.tistory.com/412">일급 컬렉션 (First Class Collection)의 소개와 써야할 이유</a></p>
+
+<h4 id="일급-컬렉션-1">일급 컬렉션?</h4>
+<p>다른 멤버 변수가 없이 오로지 콜렉션만 포함한 객체.<br />
+한마디로 Collection을 클래스로 Wrapping 한 것이다.</p>
+
+<h4 id="비즈니스에-종속적인-자료구조">비즈니스에 종속적인 자료구조</h4>
+<p>collection의 값을 비즈니스 로직이 서비스 메소드에 들어가 있을 때 <br />
+값을 검증하는 메소드도 이 서비스 메소드에 들어가게 될 것이다.<br />
+만약 변경이 일어난다면 모든 코드와 도메인을 알고 있어야하므로 언제든지<br />
+문제의 발생 여지가 있는 로직이 되어버린다.<br />
+이는 객체지향 설계에 어긋난다.<br />
+해당 조건으로만 생성 할 수 있는 자료구조인 일급 컬렉션을 사용한다.</p>
+
+<h4 id="불변-보장">불변 보장</h4>
+<p><code class="highlighter-rouge">final</code> 예약어를 사용하라.<br />
+이는 불변을 금지하는 것이 아닌 재할당을 금지한다.</p>
+
+<h4 id="상태와-행위를-한곳에서-관리">상태와 행위를 한곳에서 관리</h4>
+<p>컬렉션 내의 어떤 상태별로 메소드를 실행하고 싶다 가정할 때 <br />
+로직이 밖으로 분리되어 있다면 상태에 따라 지정된 메소드 실행이 어렵다.</p>
+
+<h4 id="이름이-있는-컬렉션">이름이 있는 컬렉션</h4>
+<p>컬렉션에 이름을 붙일 수 있어 검색이 어렵고 명확한 표현이 불가능한 문제를 해결한다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>👀 인텔리제이를 인텔리제이답게 - Mac 단축키</title>
+	  <link>//%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</link>
+	  <author></author>
+	  <pubDate>2021-02-04T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</guid>
+	  <description><![CDATA[
+	     <p>사실 인텔리제이를 쓰면서 사람들이 왜 인텔리제이가 편하다고 하는 걸까 의문이었다.<br />
+하지만 우테코를 진행하면서 몇 가지 단축키를 배우니 굉장히 유용한 것 . . .<br />
+인텔리 제이에서 제공하는 영문 Key Map Reference를 정리하면서 <br />
+나도 내게 유용한 기능들을 익혀보려 한다.</p>
+
+<p><em>앞으로 쓰면서 계속 추가 예정 ✍️</em></p>
+<blockquote>
+  <p>참고로 Key Map Reference는 인텔리제이의 <code class="highlighter-rouge">Help &gt; Key Map Reference</code> 에 있다.</p>
+</blockquote>
+
+<h3 id="editing">Editing</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>^Space</td>
+      <td>기본 자동 완성</td>
+    </tr>
+    <tr>
+      <td>^⇧Space</td>
+      <td>스마트 자동 완성</td>
+    </tr>
+    <tr>
+      <td>⌘⇧Enter</td>
+      <td>static 메소드 자동완성</td>
+    </tr>
+    <tr>
+      <td>⌘P</td>
+      <td>파라미터 정보</td>
+    </tr>
+    <tr>
+      <td>F1</td>
+      <td>Doc 간략 보기</td>
+    </tr>
+    <tr>
+      <td>⌘N</td>
+      <td>Getters, Setters, Constructors, hashCode/equals, toString 자동완성</td>
+    </tr>
+    <tr>
+      <td>^O</td>
+      <td>메소드 오버라이드</td>
+    </tr>
+    <tr>
+      <td>^I</td>
+      <td>Override 메서드 자동완성 (Implement Methods)</td>
+    </tr>
+    <tr>
+      <td>⌘⌥T</td>
+      <td>if..else, try..catch, for, synchronized, 등으로 감싸기</td>
+    </tr>
+    <tr>
+      <td>⌘/</td>
+      <td>한줄 주석</td>
+    </tr>
+    <tr>
+      <td>⌘⌥/</td>
+      <td>블럭 주석</td>
+    </tr>
+    <tr>
+      <td>⌥↑</td>
+      <td>코드 블록 연속 증가 선택</td>
+    </tr>
+    <tr>
+      <td>⌥↓</td>
+      <td>코드 블록 연속 감소 선택</td>
+    </tr>
+    <tr>
+      <td>^⇧Q</td>
+      <td>문맥 정보 (클래스명)</td>
+    </tr>
+    <tr>
+      <td>⌥Enter</td>
+      <td>의도하는 작업 표시 및 빠른 수정</td>
+    </tr>
+    <tr>
+      <td>⌘⌥L</td>
+      <td>코드 리포맷</td>
+    </tr>
+    <tr>
+      <td>^⌥O</td>
+      <td>import 문 최적화</td>
+    </tr>
+    <tr>
+      <td>⌘⌥I</td>
+      <td>자동 인덴트</td>
+    </tr>
+    <tr>
+      <td>⌘⇧V</td>
+      <td>버퍼에서 붙여넣기</td>
+    </tr>
+    <tr>
+      <td>⌘D</td>
+      <td>현재 라인 복제</td>
+    </tr>
+    <tr>
+      <td>⌘Delete</td>
+      <td>현재 라인 삭제</td>
+    </tr>
+    <tr>
+      <td>^⇧J</td>
+      <td>스마트 라인 합치기</td>
+    </tr>
+    <tr>
+      <td>⇧⌘← / ⇧⌘→</td>
+      <td>토글 기준으로 왼, 오 선택</td>
+    </tr>
+    <tr>
+      <td>⌥Delete</td>
+      <td>단어 삭제</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="navigation">Navigation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘O</td>
+      <td>클래스로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⇧O</td>
+      <td>파일로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⌥O</td>
+      <td>심볼로 이동</td>
+    </tr>
+    <tr>
+      <td>^⇧F4</td>
+      <td>run/messages/find/… tab 닫기</td>
+    </tr>
+    <tr>
+      <td>⌘⌥← / ⌘⌥→</td>
+      <td>전, 후에 있던 위치로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⇧Delete</td>
+      <td>최근 수정 위치로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘B</td>
+      <td>선언으로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘⌥B</td>
+      <td>구현으로 이동</td>
+    </tr>
+    <tr>
+      <td>⌘U</td>
+      <td>부모 메소드나 클래스로 이동</td>
+    </tr>
+    <tr>
+      <td>^H</td>
+      <td>Type hierarchy</td>
+    </tr>
+    <tr>
+      <td>⌘⇧H</td>
+      <td>Method hierarchy</td>
+    </tr>
+    <tr>
+      <td>^⌥ㅗ</td>
+      <td>hierarchy 호출</td>
+    </tr>
+    <tr>
+      <td>⌘↑</td>
+      <td>네비게이션 바 보이기</td>
+    </tr>
+    <tr>
+      <td>F3</td>
+      <td>북마크</td>
+    </tr>
+    <tr>
+      <td>⌥F3</td>
+      <td>멘션과 함께 북마크</td>
+    </tr>
+    <tr>
+      <td>⌘F3</td>
+      <td>북마크 보이기</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="searchreplace">Search/Replace</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⇧⇧</td>
+      <td>전체 검색</td>
+    </tr>
+    <tr>
+      <td>⌘F</td>
+      <td>찾기</td>
+    </tr>
+    <tr>
+      <td>⌘G</td>
+      <td>다음 찾기</td>
+    </tr>
+    <tr>
+      <td>⌘⇧G</td>
+      <td>이전 찾기</td>
+    </tr>
+    <tr>
+      <td>⌘R</td>
+      <td>대체</td>
+    </tr>
+    <tr>
+      <td>⌘⇧F</td>
+      <td>path 찾기</td>
+    </tr>
+    <tr>
+      <td>⌘⇧R</td>
+      <td>path에서 교체</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="live-templates">Live Templates</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘⌥J</td>
+      <td>Live Template로 감싸기</td>
+    </tr>
+    <tr>
+      <td>⌘J</td>
+      <td>Live Template 추가</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="vcs">VCS</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌥⇧C</td>
+      <td>최근 change 보기</td>
+    </tr>
+    <tr>
+      <td>^V</td>
+      <td>빠른 VSC 팝업 띄우기</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="refactoring">Refactoring</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>F5</td>
+      <td>Copy</td>
+    </tr>
+    <tr>
+      <td>F6</td>
+      <td>Move</td>
+    </tr>
+    <tr>
+      <td>⌘Delete</td>
+      <td>Safe Delete</td>
+    </tr>
+    <tr>
+      <td>⇧F6</td>
+      <td>이름 변경</td>
+    </tr>
+    <tr>
+      <td>⌘F6</td>
+      <td>시그니쳐 변경</td>
+    </tr>
+    <tr>
+      <td>⌘⌥N</td>
+      <td>Inline</td>
+    </tr>
+    <tr>
+      <td>⌘⌥M</td>
+      <td>메소드 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥V</td>
+      <td>변수 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥F</td>
+      <td>필드 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥C</td>
+      <td>상수 추출</td>
+    </tr>
+    <tr>
+      <td>⌘⌥P</td>
+      <td>파라미터 추출</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="compile-and-run">Compile and Run</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘F9</td>
+      <td>프로젝트 생성</td>
+    </tr>
+    <tr>
+      <td>⌘⇧F9</td>
+      <td>파일, 패키지, 모듈 컴파일</td>
+    </tr>
+    <tr>
+      <td>^⌥R</td>
+      <td>configuration 선택하고 실행</td>
+    </tr>
+    <tr>
+      <td>^⌥D</td>
+      <td>configuration 선택하고 디버깅</td>
+    </tr>
+    <tr>
+      <td>^R</td>
+      <td>실행</td>
+    </tr>
+    <tr>
+      <td>^D</td>
+      <td>디버깅</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="general">General</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⌘0 … ⌘9</td>
+      <td>해당하는 윈도우 열기</td>
+    </tr>
+    <tr>
+      <td>⌥⇧F</td>
+      <td>즐겨찾기 등록</td>
+    </tr>
+  </tbody>
+</table>
 
 	  ]]></description>
 	</item>

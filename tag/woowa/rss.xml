@@ -6,7 +6,7 @@
       <title>NewWisdom.github.io/</title>
    
    <link>http://localhost:4000</link>
-   <description>A beautiful narrative written with the world's most elegant publishing platform. The story begins here.</description>
+   <description>I want to be a person who gives you new wisdom.</description>
    <language>ko-KR</language>
    <managingEditor> </managingEditor>
    <atom:link href="rss" rel="self" type="application/rss+xml" />
@@ -1170,7 +1170,7 @@ CashFormatter는<code class="highlighter-rouge">format()</code> 이외의 기능
 	</item>
 
 	<item>
-	  <title>📙 Java 람다의 변수 범위</title>
+	  <title>📖 Java 람다의 변수 범위</title>
 	  <link>//Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
 	  <author></author>
 	  <pubDate>2021-03-19T19:18:00+09:00</pubDate>

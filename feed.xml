@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Welcome To New Wisdom's Log ! - Articles</title>
-    <description>A beautiful narrative written with the world's most elegant publishing platform. The story begins here.</description>
+    <title>This is New Wisdom's Log ! - Articles</title>
+    <description>I want to be a person who gives you new wisdom.</description>
     <link>
     http://localhost:4000</link>
     
@@ -114,7 +114,7 @@
     
       
       <item>
-        <title>📙 Java 람다의 변수 범위</title>
+        <title>📖 Java 람다의 변수 범위</title>
         
           <description>&lt;h3 id=&quot;람다의-변수-범위&quot;&gt;람다의 변수 범위&lt;/h3&gt;
 
@@ -161,27 +161,6 @@
       <item>
         <title>💡 위클리 회고 5, 6 주차</title>
         
-          <description>&lt;h1 id=&quot;아마찌의-학습-로그-&quot;&gt;아마찌의 학습 로그 ✨&lt;/h1&gt;
-&lt;h4 id=&quot;-amazzis-rule&quot;&gt;📐 amazzi’s rule&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;가중치는 1~5로 표현한다.&lt;/li&gt;
-  &lt;li&gt;링크는 학습하고 구현하는데 &lt;strong&gt;참고한 링크&lt;/strong&gt;, 이것을 &lt;strong&gt;반영한 링크&lt;/strong&gt;, 스스로 공부한 내용을 &lt;strong&gt;정리한 링크&lt;/strong&gt; 3가지로 나눈다.&lt;/li&gt;
-  &lt;li&gt;궁금한 점이나 고민중인 내용은 ❓로 마크해논다.&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        
-        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>💡 위클리 회고 5, 6 주차</title>
-        
           <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
 
 </description>
@@ -195,7 +174,271 @@
     
       
       <item>
-        <title>📙 내가 정리한 JUnit5</title>
+        <title>💡 위클리 회고 4 주차</title>
+        
+          <description>&lt;p&gt;약간 의식의 흐름대로😛 작성하는 이번주 회고 🌼&lt;/p&gt;
+&lt;h3 id=&quot;리팩토링&quot;&gt;리팩토링&lt;/h3&gt;
+&lt;p&gt;1차 미션이 머지되고 2차 미션을 위한 리팩토링을 거치는 중이었는데,&lt;br /&gt;
+화요일 강의에서 Exception에 대해 배우면서,&lt;br /&gt;
+LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-4-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-4-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Effective java - item 1. 생성자 대신 정적 팩터리 메서드를 고려하라</title>
+        
+          <description>&lt;p&gt;클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 &lt;code class=&quot;highlighter-rouge&quot;&gt;팩터리 메서드&lt;/code&gt;와는 다르다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Stream 부수기</title>
+        
+          <description>&lt;p&gt;코드를 짜다보면 가독성과 간결함을 위해 stream을 자주 쓰게 된다.&lt;br /&gt;
+프리코스 때 Stream에 대해 정리했었으나,&lt;br /&gt;
+내가 쓴 글을 리팩토링(ㅎ) 해보면서 다시 개념을 익혀야 겠다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 25 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Exception에 대하여</title>
+        
+          <description>&lt;p&gt;오늘 수업 시간에 자바의 Exception에 대해 배웠다.&lt;br /&gt;
+수업을 듣고 들은 내용을 자바의 정석의 예외 처리를 함께 보면서 정리 ✍️&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 24 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+        <guid isPermaLink="true">http://localhost:4000/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Enum 열거형</title>
+        
+          <description>&lt;h2 id=&quot;열거형이란&quot;&gt;열거형이란?&lt;/h2&gt;
+&lt;p&gt;JDK 1.5 부터 새로 추가된 개념이다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 21 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</link>
+        <guid isPermaLink="true">http://localhost:4000/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>💡 위클리 회고 3 주차</title>
+        
+          <description>&lt;p&gt;이제 매주마다 회고를 간략하게라도 작성하려 한다.&lt;br /&gt;
+막상 주 단위로 회고를 작성하려니 이번주 뭔가 많은 걸 느꼈다고 생각하고&lt;br /&gt;
+한 주를 돌아보며 몰아서 적으려 하니 어떤 걸 적으려 했는지 잘 기억이 안나는 것 같다 🥲&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 21 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-3-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-3-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Effective java -  item 34. int 상수 대신 열거 타입을 사용하라</title>
+        
+          <description>&lt;h2 id=&quot;enum-&quot;&gt;Enum ?&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://velog.io/@new_wisdom/Java-Enum-%EC%97%B4%EA%B1%B0%ED%98%95&quot;&gt;[Java] Enum 열거형&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;int-enum-pattern의-단점&quot;&gt;int Enum Pattern의 단점&lt;/h2&gt;
+&lt;h3 id=&quot;타입-안전을-보장할-방법이-없다&quot;&gt;타입 안전을 보장할 방법이 없다.&lt;/h3&gt;
+&lt;p&gt;```java
+public static final int APPLE_FUJI = 0;
+public static final int APPLE_PIPPIN = 1;
+public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 17 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Effective java - item 28. 배열보다는 리스트를 사용하라</title>
+        
+          <description>&lt;p&gt;우테코 Level 1 로또 미션에서 “배열 대신 ArrayList를 사용한다.”가 요구사항에 들어있었다.&lt;br /&gt;
+왜 배열대신 ArrayList를 사용하라는 것일까?&lt;br /&gt;
+찾아보니 이펙티브 자바에서도 그 내용이 나와 있어서 스스로의 물음에 답하는 내용을 정리하려 한다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 17 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Effective-java-item-28.-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-28.-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>🕹 Level 1. 자동차 경주 미션 코드 리뷰 정리</title>
+        
+          <description>&lt;p&gt;우테코 레벨 1 난생 처음으로 코드리뷰를 받게 되었다.&lt;br /&gt;
+사실 TDD도 처음이고, 누군가 내 코드를 읽고 피드백 받는 것 또한 처음인데&lt;br /&gt;
+이런 기회가 정말 감사하면서도 떨렸던 첫 리뷰 요청이었다 👀&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Level-1.-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/Level-1.-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 불변 객체 (Immutable Class)</title>
+        
+          <description>&lt;h2 id=&quot;불변-객체-immutable-class란&quot;&gt;불변 객체 (Immutable Class)란?&lt;/h2&gt;
+&lt;p&gt;불변 객체란 말 그대로 &lt;strong&gt;변경이 불가능한 객체&lt;/strong&gt;이다.&lt;br /&gt;
+객체를 생성 후 외부에 의해 그 상태를 바꿀 수 없다.&lt;br /&gt;
+여기서 바꿀 수 없다는 것은 heap 영역에서 그 객체가 가리키고 있는&lt;br /&gt;
+데이터 자체의 변화가 불가능 함을 의미하며 stack에 있는 주소값을 다른 주소값을 가리키도록 변경하는 것은 문제 없다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 String vs StringBuffer vs StringBuilder</title>
+        
+          <description>&lt;p&gt;자바의 불변 객체를 공부하다가 String 과 StringBuilder가 예시로 자주 등장함을 보게 되었다.&lt;br /&gt;
+나도 Java를 제대로 공부한지 얼마 안되서,&lt;br /&gt;
+사실 String, StringBuffer, StringBuilder의 명확한 차이를 잘모르고&lt;br /&gt;
+그냥 가져다 썼는데, 자바의 정석을 읽어보니 이 String이 굉장히 흥미로워서 👀&lt;br /&gt;
+이번 기회에 명확히 정리하고 가는 것이 좋다고 생각했다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/String-vs-StringBuffer-vs-StringBuilder</link>
+        <guid isPermaLink="true">http://localhost:4000/String-vs-StringBuffer-vs-StringBuilder</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 배열의 깊은 복사와 얕은 복사</title>
+        
+          <description>&lt;h2 id=&quot;자바에서의-객체-복사&quot;&gt;자바에서의 객체 복사&lt;/h2&gt;
+&lt;p&gt;자마에서 객체를 복사하는 유형에는 얕은 복사와 깊은 복사가 있다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📚 머리에 박제할라고 진짜 간단히 정리한 일급 컬렉션</title>
+        
+          <description>&lt;h3 id=&quot;일급-컬렉션&quot;&gt;일급 컬렉션&lt;/h3&gt;
+&lt;p&gt;일급 컬렉션의 개념을 좀 더 정확히 짚고 넘어가야 할 것 같았다.&lt;br /&gt;
+1차 리뷰어님께서 첨부해 주신 글을 저번에도 읽어보았으나&lt;br /&gt;
+그 때까지는 이 글의 모든 개념을 파악하기 어려웠다.&lt;br /&gt;
+때문에 훌라당 읽고 넘어갔지만 🥲&lt;br /&gt;
+이번에 정독해보니 머릿 속에 개념과 목적이 좀 더 명확하게 잡혔다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>👀 인텔리제이를 인텔리제이답게 - Mac 단축키</title>
+        
+          <description>&lt;p&gt;사실 인텔리제이를 쓰면서 사람들이 왜 인텔리제이가 편하다고 하는 걸까 의문이었다.&lt;br /&gt;
+하지만 우테코를 진행하면서 몇 가지 단축키를 배우니 굉장히 유용한 것 . . .&lt;br /&gt;
+인텔리 제이에서 제공하는 영문 Key Map Reference를 정리하면서 &lt;br /&gt;
+나도 내게 유용한 기능들을 익혀보려 한다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 공식문서와 함께하는 assertJ 정리</title>
+        
+          <description>&lt;p&gt;JUnit5으로 테스트 코드를 작성하면서 assertion을 주는 도구로 assertJ를 배웠다.&lt;br /&gt;
+새로 깨닫게 된 것은 정리하며 익히자.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 내가 정리한 JUnit5</title>
         
           <description>&lt;blockquote&gt;
   &lt;p&gt;우테코 level1 1주차 - JUnit을 활용한 단위 테스트 이론 및 실습
