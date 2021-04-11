@@ -1023,6 +1023,7 @@ body.nav-opened .nav {
 body:not(.post-template) .post-title {
     font-size: 3.2rem;
     font-weight:800;
+    line-height: 4.2rem;
     /* background-color: #f3f3dd69; */
     /* padding-top: 0.5rem;
     padding-bottom: 0.5rem; */
@@ -1032,8 +1033,9 @@ body:not(.post-template) .post-title {
 }
 
 body.page-template .post-title {
-    font-size: 3.2rem;
+    font-size: 3rem;
     font-weight: 800;
+    line-height: 4.2rem;
     /* background-color: #f3f3dd69; */
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -1819,11 +1821,11 @@ Location, website, and link
     }
 
     body:not(.post-template) .post-title {
-        font-size: 3.2rem;
+        font-size: 3rem;
     }
 
     body.page-template .post-title {
-        font-size: 4.5rem;
+        font-size: 3rem;
     }
 
     hr {
