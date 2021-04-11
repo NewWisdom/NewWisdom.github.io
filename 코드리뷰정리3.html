@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository</title>
+    <meta name="description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
+
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository" />
+    <meta property="og:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta property="og:url" content="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53" />
+    <meta property="og:image" content="/assets/images/java.jpeg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository" />
+    <meta name="twitter:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta name="twitter:url" content="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53" />
+    <meta name="twitter:image:src" content="/assets/images/java.jpeg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository",
+    "url": "http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53",
+    "image": "/assets/images/java.jpeg",
+    "description": "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/java.jpeg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-04-10">10 Apr 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="mvc와-service">MVC와 Service</h2>
+
+<p>이번 미션에서 DB를  적용하면서 MVC 패턴에 추가로 Service 레이어를 도입하였다.<br />
+또한 DAO와 데이터 전달을 위한 DTO를 처음 사용했는데, DTO를 정리하고 DAO에 대해서도 새롭게 배운 부분이 많아 정리 ✍️</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114273538-6017c400-9a55-11eb-8ad4-3a62eb905948.png" alt="image" style="zoom:50%;" /></p>
+
+<p>휴의 코멘트에 답변을 달다가 나의 코멘트 내용을 정정해주면서 같이 주신 참고자료가 있는데,<br />
+<strong>서비스 계층과 비즈니스 로직</strong>이라는 개념이 다르다는 것을 제대로 인지하지 못하고 있었던 것 같다.</p>
+
+<p>때문에 <a href="https://umbum.dev/1066">휴가 주신 MVC 패턴과 Service 레이어에 관한 글</a>을 읽고 간단히 정리해본다. <br />
+<em>각 계층에 대한 개념은 조금씩 상이하니 일단 블로그 글은 서비스 계측과 비즈니스 로직에 대한</em>
+<em>참고 정도만 한 수준에서 정리하고 다음 레벨에서 상세히 잡아가는 것이 좋겠다고 하셨다.</em></p>
+
+<h3 id="layered-architecture">Layered Architecture</h3>
+
+<p><img src="https://herbertograca.files.wordpress.com/2017/07/2010s-layered-architecture.png?w=640" alt="Layered Architecture – @hgraca" style="zoom: 67%;" /></p>
+
+<p>일반적으로 사용하는 레이어를 구분한다면 위와 같이 나눌 수 있다.  MVC 패턴 또한 이 Layer를 잘 분리하기 위해 존재한다.</p>
+
+<h4 id="layer-분리의-장점-">Layer 분리의 장점 ?</h4>
+
+<ul>
+  <li>각 계층이 애플리케이션 내에서 특정 역할만을 수행하게 나눔으로, 비즈니스 요청을 충족하기 위해 수행해야하는 작업에 대한 추상화를 이룬다.<br />
+추상화가 잘 이루어진다면 서로 연결되어 있는 계층들이 독립적으로 계층에서 부품을 갈아끼우듯 변경할 수 있다.</li>
+  <li>각 계층은 하위 계층에만 종속되고 상위 계층으로는 독립적으로 구성함으로, 위에서 아래로 떨어지는 간단한 구조로 만든다.<br />
+이로써 각 Layer를 넘나들면서 꼬여있는 의존 관계를 만들지 않는다.</li>
+</ul>
+
+<h4 id="application-layer--service-layer">Application Layer (= Service Layer)</h4>
+
+<p>도메인 모델을 묶어서 소프트웨어에서 사용 가능한 핵심 작업의 집합을 설정하는 계층이다.<br />
+보통 도메인 모델 하나만으로는 소프트웨어에서 처리하고자 하는 복잡한 작업을 할 수 없다.<br />
+때문에 여러 도메인 모델을 불러와 가공하고 비즈니스 로직을 호출해야하는데 이런 작업을 해주는 Layer가 필요하다.<br />
+여기서 <strong>여러 비즈니스 로직들을 의미있는 수준으로 묶어서 추상화하는 것</strong>이 바로 Application Layer이다. <br />
+만약 별도의 캡슐화가 필요하지 않은 경우에는 도메인 모델 그대로를 이 서비스로 만들 수 있다.</p>
+
+<p><strong>❓ 추상화가 필요한 이유</strong> <br />
+만약 UI, Gateway 같은 내부의 서비스 등 다양한 인터페이스로부터 작업을 요청 받는다면, <br />
+각 인터페이스의 종류와 목적이 다르더라도 이를 통해 공통적으로 사용하는 작업이 있을 것이다.<br />
+이 공통적인 작업이 각각에서 정의할 경우 중복이 발생하는데, 이를  Service Layer에서 인터페이스로 정의하여 중복을 제거한다.<br />
+즉, <strong>핵심적인 API를 제공하는 계층</strong>이라고 할 수 있다.<br />
+중요한 것은 Service Layer는 추상화 계층으로 두고, 핵심 로직은 Business Layer에 두는 것이 옳다.</p>
+
+<h4 id="business-layer-domain-model">Business Layer (Domain Model)</h4>
+
+<p>데이터와 이에 관련된 비즈니스 로직인 메서드를 가지고 있는 객체이다.<br />
+Model 객체가 단순히 필드와 게터, 세터만을 가지고 있으면 DTO와 다를 것이 없다. (안티패턴)<br />
+즉, 도메인 모델에서 해당 데이터에 대한 비즈니스 로직을 가지고 있어야 한다.</p>
+
+<hr />
+
+<h2 id="dao">DAO</h2>
+
+<p>미션이 merge된 후, 미처 질문하지 못한 것이 있어 휴에게 DM으로 질문을 남겼다.<br />
+현재 나의 로직에서는 chessGame 객체를 만들기 위해서 piece가 필요한데, 
+chessgame 테이블과 piece 테이블 각각에서 쿼리를 날려 데이터를 받아오고<br />
+이를 service에서 조합해(?) chessGame 객체를 만들고 있었다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114275347-32cf1400-9a5d-11eb-8961-2bca4de75df5.png" alt="image" /></p>
+
+<p>하지만 사실 쿼리를 다음과 같이 join을 사용해서 chessGame 객체를 만들기 위한 데이터를 얻어올 수 있었다.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">turn</span><span class="p">,</span> <span class="n">isFinish</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="k">position</span> <span class="k">FROM</span> <span class="n">chess_game</span> <span class="n">cg</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">piece</span> <span class="n">p</span> <span class="k">WHERE</span> <span class="n">cg</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">chessGameId</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>사실 이렇게 join을 통해서 얻어오려 했지만, dao를 테이블 별로 만들었더니 이 쿼리를 어디서 수행해야할지 판단할 수 없었다. <br />
+만약 chessGameDao에서 수행한다 하더라도 여기서piece 객체를 만드는 것도 아이러니하다고 생각도 들었다. <br />
+때문에 이렇게 DB에서 받은 결과를 어디에서 조합해야하는가에 대한 질문을 남겼다.<br />
+휴의 답변으로 Repository에 대한 것이 언급되었는데,<br />
+사실 이 질문 전에도 크루들과 Repository가 도대체 무엇인가에 대해서 토론했었다.<br />
+휴의 답변과 보내주신 참고 링크 덕분에 Repository가 어떤 역할을 하는 것인지 명확히 파악할 수 있었다.</p>
+
+<blockquote>
+  <p><a href="http://egloos.zum.com/aeternum/v/1160846">DAO와 REPOSITORY 논쟁</a></p>
+</blockquote>
+
+<h3 id="dao와-reposotory의-차이점">DAO와 Reposotory의 차이점</h3>
+
+<h4 id="dao-1">DAO</h4>
+
+<ul>
+  <li>DAO 인터페이스는 DB의 CRUD 쿼리와 1:1 매칭되는 세밀한 단위의 오퍼레이션을 제공한다.</li>
+  <li>테이블 별로 하나의 DAO를 만든다.</li>
+  <li>RANSACTION SCRIPT 패턴과 함께 사용된다.</li>
+  <li>Persistence Layer에 속한다.</li>
+</ul>
+
+<h4 id="repository">Repository</h4>
+
+<ul>
+  <li>Repository는 다수의 DAO를 호출하는 방식으로 구성된다.</li>
+  <li>Repository에서 제공하는 한 오퍼레이션이 DAO의 여러 오퍼레이션에 맵핑되는 것이 일반적이다.</li>
+  <li>DOMAIN MDOEL 패턴과 함께 사용된다.</li>
+  <li>Domain Layer에 속한다.</li>
+  <li>객체 컬렉션 처리에 관한 책임만을 가지고 있다. 외부 시스템과의 상호작용은 별도의 Service가 담당한다.</li>
+</ul>
+
+<p>따라서 현재 나의 질문 같은 경우는 <strong>Repository</strong>를 통해 ChessGameDao와 PieceDao로부터<br />
+가져온 <strong>데이터에 대한 집합 처리</strong>를 함으로 해결할 수 있다. <br />
+이 둘의 차이에 대해서는 지금 단계에서 이정도로 잡고 가자 !</p>
+
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository&amp;url=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/java.jpeg)" href="/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2">
+            <section class="post">
+                <h2>🕹 Level 1. 체스 미션 정리 - JDBC</h2>
+                <p>JDBC (Java DataBase Connectivity) JDBC는 DB에 접근할 수 있도록 Java에서 제공하는 API로, 모든 Java의 Data...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

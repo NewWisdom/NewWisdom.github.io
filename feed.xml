@@ -8,6 +8,82 @@
     
       
       <item>
+        <title>🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository</title>
+        
+          <description>&lt;h2 id=&quot;mvc와-service&quot;&gt;MVC와 Service&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>🕹 Level 1. 체스 미션 정리 - JDBC</title>
+        
+          <description>&lt;h2 id=&quot;jdbc-java-database-connectivity&quot;&gt;JDBC (Java DataBase Connectivity)&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>🕹 Level 1. 체스 미션 정리 - DTO</title>
+        
+          <description>&lt;p&gt;이번 체스 미션에서는 웹 적용을 하면서 새롭게 배운 개념들이 너무 많았다.&lt;br /&gt;
+때문에 이번 미션을 진행하면서 새로 배운 개념들과, 휴가 주신 피드백을 정리하는 방안으로 기록해야겠다 ✍️&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 09 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📝 객체지향 설계 강의 노트</title>
+        
+          <description>&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/43840561/114287351-1fde3300-9aa1-11eb-851c-61060904867d.png&quot; alt=&quot;image&quot; style=&quot;zoom: 67%;&quot; /&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 23 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📝 DTO vs VO 간단 정리</title>
+        
+          <description>&lt;h3 id=&quot;dto-vo-혼동의-이유&quot;&gt;DTO VO 혼동의 이유&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Sat, 20 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/r%E3%85%8F%E3%85%87%E1%84%8B%E1%85%B4</link>
+        <guid isPermaLink="true">http://localhost:4000/r%E3%85%8F%E3%85%87%E1%84%8B%E1%85%B4</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📝 엘레강트 오브젝트 뽀개기 1 강의 정리</title>
         
           <description>&lt;p&gt;강의를 들으며 정리하기 ✍️&lt;/p&gt;
@@ -68,6 +144,27 @@
     
       
       <item>
+        <title>💡 위클리 회고 5, 6 주차</title>
+        
+          <description>&lt;h1 id=&quot;아마찌의-학습-로그-&quot;&gt;아마찌의 학습 로그 ✨&lt;/h1&gt;
+&lt;h4 id=&quot;-amazzis-rule&quot;&gt;📐 amazzi’s rule&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;가중치는 1~5로 표현한다.&lt;/li&gt;
+  &lt;li&gt;링크는 학습하고 구현하는데 &lt;strong&gt;참고한 링크&lt;/strong&gt;, 이것을 &lt;strong&gt;반영한 링크&lt;/strong&gt;, 스스로 공부한 내용을 &lt;strong&gt;정리한 링크&lt;/strong&gt; 3가지로 나눈다.&lt;/li&gt;
+  &lt;li&gt;궁금한 점이나 고민중인 내용은 ❓로 마크해논다.&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        
+        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>💡 위클리 회고 7 주차</title>
         
           <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
@@ -93,6 +190,43 @@
         <link>
         http://localhost:4000/Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8</link>
         <guid isPermaLink="true">http://localhost:4000/Weekly-%ED%9A%8C%EA%B3%A0-5,-6%EC%A3%BC%EC%B0%A8</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📙 내가 정리한 JUnit5</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;우테코 level1 1주차 - JUnit을 활용한 단위 테스트 이론 및 실습
+단위테스트에 대해서 배웠다. 허나 나는 단위 테스트는 처음이라 👀
+처음 배운 JUnit5를 익히기 위해 정리해본다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/1</link>
+        <guid isPermaLink="true">http://localhost:4000/1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>🪐 프리코스 이후의 삶과 최종 합격</title>
+        
+          <description>&lt;p&gt;얼마만에 블로그 포스팅인지 🥲&lt;br /&gt;
+우아한 테크코스 최종 합격 통보를 받게 되었으나,&lt;br /&gt;
+SOPT 앱잼으로 프로젝트가 시작되고 더불어 이사를 가면서 정리할 것들이 많아&lt;br /&gt;
+정말 정신 없는 연말, 연초를 보내고 있었다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 17 Jan 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%91%E1%85%B3%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3-%E1%84%8B%E1%85%B5%E1%84%92%E1%85%AE%E1%84%8B%E1%85%B4-%E1%84%89%E1%85%A1%E1%86%B1%E1%84%80%E1%85%AA-%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC-%E1%84%92%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A7%E1%86%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%91%E1%85%B3%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A9%E1%84%89%E1%85%B3-%E1%84%8B%E1%85%B5%E1%84%92%E1%85%AE%E1%84%8B%E1%85%B4-%E1%84%89%E1%85%A1%E1%86%B1%E1%84%80%E1%85%AA-%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC-%E1%84%92%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A7%E1%86%A8</guid>
       </item>
       
     

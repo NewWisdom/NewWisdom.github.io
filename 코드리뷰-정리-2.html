@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>🕹 Level 1. 체스 미션 정리 - JDBC</title>
+    <meta name="description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
+
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="🕹 Level 1. 체스 미션 정리 - JDBC" />
+    <meta property="og:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta property="og:url" content="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2" />
+    <meta property="og:image" content="/assets/images/java.jpeg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="🕹 Level 1. 체스 미션 정리 - JDBC" />
+    <meta name="twitter:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta name="twitter:url" content="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2" />
+    <meta name="twitter:image:src" content="/assets/images/java.jpeg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "🕹 Level 1. 체스 미션 정리 - JDBC",
+    "url": "http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2",
+    "image": "/assets/images/java.jpeg",
+    "description": "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/java.jpeg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">🕹 Level 1. 체스 미션 정리 - JDBC</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-04-10">10 Apr 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="jdbc-java-database-connectivity">JDBC (Java DataBase Connectivity)</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/b50e0a8b-eed6-46bd-912e-bd975a37d2de/image.png" alt="" /></p>
+
+<p>JDBC는 DB에 접근할 수 있도록 Java에서 제공하는 API로, 모든 Java의 Data Access 기술의 근간이다.<br />
+모든 Persistence Framework는 내부적으로 JDBC API를 이용한다.</p>
+
+<h3 id="jdbc를-통한-db-연결">JDBC를 통한 DB 연결</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1d634167-9324-4c86-abdb-023383bb3af8/image.png" alt="" /></p>
+
+<h4 id="1-드라이버-로드">1. 드라이버 로드</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+  <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"com.mysql.cj.jdbc.Driver"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ClassNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" !! JDBC Driver load 오류: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>제공되는 클래스를 인스턴스화해서 내부적으로 저장해 메모리에 드라이버를 사용할 수 있게한다.<br />
+이 메소드를 통해 드라이버를 사용할 수 있도록 초기화 한다. <br />
+생성자를 통한 인스턴스 생성과 같다고 볼 수 있다.</p>
+
+<h4 id="2-connection-객체-생성">2. Connection 객체 생성</h4>
+
+<p>DriverManager 클래스는 드라이버를 통해 Conection 객체를 만든다.<br />
+Connection은 DB와 연결하는 객체로 DB와 연결하는 통로이며, 이를 통해 쿼리를 전달하고 결과값을 반환받는다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+  <span class="n">con</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:mysql://"</span> <span class="o">+</span> <span class="n">server</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">database</span> <span class="o">+</span> <span class="n">option</span><span class="o">,</span> <span class="n">userName</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"정상적으로 연결되었습니다."</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"연결 오류:"</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="3-statement--preparedstatement-객체-생성">3. Statement / PreparedStatement 객체 생성</h4>
+
+<p><strong>Statement</strong> 객체를 통해 insert 쿼리를 작성하면 아래와 같이 각각의 값을 콤마와 따옴표로 구별해야하기 때문에<br />
+가독성도 떨어지고 잘못 입력할 확률도 커진다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">statement</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="s">"INSERT INTO piece(color, name, position, chessGameId) VALUE ('"</span> <span class="o">+</span> <span class="n">color</span> <span class="o">+</span> <span class="s">"','"</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span>  <span class="s">"','"</span> <span class="o">+</span> <span class="n">position</span> <span class="o">+</span> <span class="s">"','"</span> <span class="o">+</span> <span class="n">chessGameId</span> <span class="s">"')"</span><span class="o">;</span>
+<span class="n">resultCount</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">insertQuery</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>PreparedStatement</strong> 객체를 사용하면 다음과 같이 속성 값을 ?로 설정하고 set을 통해 설정하면, 자동으로 쿼리를 완성시켜준다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="s">"INSERT INTO piece(color, name, position, chessGameId) VALUE (?, ?, ?, ?)"</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">(</span><span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">dbManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+     <span class="n">PreparedStatement</span> <span class="n">pstmt</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">query</span><span class="o">))</span> <span class="o">{</span>
+  <span class="k">for</span> <span class="o">(</span><span class="n">Piece</span> <span class="n">piece</span> <span class="o">:</span> <span class="n">pieces</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">piece</span><span class="o">.</span><span class="na">color</span><span class="o">().</span><span class="na">name</span><span class="o">());</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">piece</span><span class="o">.</span><span class="na">name</span><span class="o">());</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">piece</span><span class="o">.</span><span class="na">position</span><span class="o">().</span><span class="na">key</span><span class="o">());</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="n">chessGameId</span><span class="o">);</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">executeQuery()</code> : select를 통한 정보를 조회하고, 쿼리를 전송 후 결과 객체 반환한다.</li>
+  <li><code class="highlighter-rouge">executeUpdate(String query)</code> : Insert, Update, Delete 쿼리를 전송하고 변경된 레코드 수를 반환한다.</li>
+</ul>
+
+<h4 id="4-resultset-객체-반환">4. ResultSet 객체 반환</h4>
+
+<p>ResultSet 객체는 select 쿼리의 결과값을 모두 가지고 있는 객체이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">Piece</span> <span class="n">piece</span> <span class="o">=</span> <span class="n">PieceFactory</span><span class="o">.</span><span class="na">findByInfo</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"color"</span><span class="o">),</span>
+                        <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">),</span> <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"position"</span><span class="o">));</span>
+                <span class="n">pieces</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">piece</span><span class="o">);</span>
+            <span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">boolean next()</code> : 결과 레코드가 존재하면 true, 없으면 false</li>
+  <li><code class="highlighter-rouge">boolean previous()</code> : 이전 레코드로 이동 (가장 첫 행이면 false)</li>
+  <li><code class="highlighter-rouge">boolean first()</code> : 처음 위치로 이동 (레코드가 없으면 false)</li>
+  <li><code class="highlighter-rouge">boolean last()</code> : 마지막 위치로 이동 (레코드가 없으면 false)</li>
+  <li><code class="highlighter-rouge">String getString(String colLabel)</code> : 현재 커서 위치의 컬럼명에 해당하는 문자열 반환</li>
+  <li><code class="highlighter-rouge">int getInt(String colLabel)</code> :  현재 커서 위치의 컬럼명에 해당하는 정수값 반환</li>
+  <li><code class="highlighter-rouge">String getString(int colIndex)</code> : 컬럼 인덱스에 해당하는 문자열 반환 (1부터 시작)</li>
+  <li><code class="highlighter-rouge">int getInt(int colIndex)</code> : 컬럼 인텍스에 해당하는 정수값 반환 (1부터 시작)</li>
+</ul>
+
+<h4 id="5-자원-해제">5. 자원 해제</h4>
+
+<p>DB 관련 작업을 하면서 <strong>Connection, Statement / PreparedStatement, ResultSet</strong> 객체를 사용했다.<br />
+DB 관련 처리 작업이 완료되었다면, 사용했던 객체들을 메모리에서 해제해주어야 한다.<br />
+만약 해당 자원들을 해제해주지 않으면 다음과 같은 문제점이 발생할 수 있다.</p>
+
+<ul>
+  <li>Connection pool을 사용하지 않은 상태에서 Connection을 닫지 않으면 DBMS에 연결된 새로운 Connection을 생성할 수 없다.</li>
+  <li>Statement / PreparedStatement를 해제하지 않으면, 생성된 갯수가 증가하면서 더 이상 새로운 Statement / PreparedStatement를 생성할 수 없다.</li>
+</ul>
+
+<p>이번 미션에서는 <strong>try-with-resource</strong>를 통해 자원 close 처리 개선을 하였다.
+이는 try 블록의 소괄호 안에서 자원 해제가 필요한 객체를 할당하면 try catch 절이 종료되면서 <br />
+자원 해제가 필요한 connection과 preparedstatement를 자동으로 close되는 try-catch 문이다.<br />
+preparedstatement를 해제하면 현재(가장 최근에 생성한) ResultSet도 자동으로 해제된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Piece</span><span class="o">&gt;</span> <span class="nf">findAllByChessGameId</span><span class="o">(</span><span class="kt">int</span> <span class="n">chessGameId</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">Piece</span><span class="o">&gt;</span> <span class="n">pieces</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+  <span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="s">"SELECT color, name, position FROM piece WHERE chessGameId = ?"</span><span class="o">;</span>
+  <span class="k">try</span> <span class="o">(</span><span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">dbManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+       <span class="n">PreparedStatement</span> <span class="n">pstmt</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">query</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">chessGameId</span><span class="o">);</span>
+    <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">pstmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+      <span class="n">Piece</span> <span class="n">piece</span> <span class="o">=</span> <span class="n">PieceFactory</span><span class="o">.</span><span class="na">findByInfo</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"color"</span><span class="o">),</span>
+                                            <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">),</span> <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"position"</span><span class="o">));</span>
+      <span class="n">pieces</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">piece</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">pieces</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="sql-exception에-대하여">SQL Exception에 대하여</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114271267-8173b280-9a4b-11eb-926a-88e6447a527d.png" alt="image" style="zoom:50%;" /></p>
+
+<p>checked exception인 SQLException에 대해 어떻게 처리를 할지 고민하다가 결국 외부로 던져주기만 했었다.<br />
+휴의 피드백대로 지금은 DAO에서 stacktrace만 출력하도록 변경하였다. <br />
+추후에 휴가 SQLException에 대한 참고 자료를 보내주셨다.</p>
+
+<p>[<a href="http://wonwoo.ml/index.php/post/878">Toby spring] 사라진 SQLException</a>에 따르면 DAO에서 발생하는 예외를 계속해서 외부로 던져주는 것도 하나의 방법이지만,<br />
+이렇게 되면 예외가 발생한 DAO를 사용한 Service에서 왜 SQLException이 발생했는지 알 수 없기 때문에 <br />
+아래와 같이 SQLException을 포장한 예외의 의미를 담은 커스텀 예외를 만들어 던져주는 것도 하나의 방법이 될 수 있다.  <br />
+이렇게 되면 의미가 분명한 예외로 전달해서 처리할 수 있게 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+  <span class="c1">//...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="nf">DuplicatePieceIdException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="k">try</span> <span class="o">{</span>
+  <span class="c1">//...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="nf">DuplicatePieceIdException</span><span class="o">().</span><span class="na">initCause</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>또 자료에 따르면 JDBCTemplate을 사용하면 이 내부에서 SQLException을 처리해준다고 하니 차차 개념을 알아가자.</p>
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://codevang.tistory.com/205">JDBC를 이용한 DB작업_DB 연동 및 데이터 작업 2/3</a></li>
+  <li><a href="https://javacan.tistory.com/entry/78">개발자의 실수를 줄여주는 java.sql.Connection 만들기</a></li>
+</ul>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=🕹 Level 1. 체스 미션 정리 - JDBC&amp;url=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/java.jpeg)" href="/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B53">
+            <section class="post">
+                <h2>🕹 Level 1. 체스 미션 정리 - 비즈니스 로직과 Service Layer / DAO와 Repository</h2>
+                <p>## MVC와 Service 이번 미션에서 DB를 적용하면서 MVC 패턴에 추가로 Service 레이어를 도입하였다. 또한 DAO와...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/java.jpeg)" href="/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5">
+            <section class="post">
+                <h2>🕹 Level 1. 체스 미션 정리 - DTO</h2>
+                <p>이번 체스 미션에서는 웹 적용을 하면서 새롭게 배운 개념들이 너무 많았다. 때문에 이번 미션을 진행하면서...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

@@ -69,13 +69,13 @@
 
 <p>이 부분에서 왜 자유 변수인 i를 final이나 effectvely final로 선언하라는 것일까 ?</p>
 
-<p>먼저 지역 변수는 JVM에서 스택 영역에 저장이 된다. 그리고 실제 메모리와 다르게 JVM에서 이 스택 영역은 스레드 마다 
-별도의 스택이 생성된다. <br />
+<p>먼저 <strong>지역 변수</strong>는 JVM에서 스택 영역에 저장이 된다. <br />
+그리고 실제 메모리와 다르게 JVM에서 이 스택 영역은 스레드 마다 별도의 스택이 생성된다. <br />
 따라서 지역 변수는 한 스레드 안에서만 사용이 되며, 스레드끼리 공유하지 못한다.</p>
 
 <p>지역 변수와 다르게 인스턴스 변수는 힙 영역에 생성되어 서로 다른 스레드끼리도 공유할 수 있는 공유 변수이다.</p>
 
-<p>람다는 각각 별도의 스레드에서 실행이 가능하다.<br />
+<p><strong>람다</strong>는 각각 별도의 스레드에서 실행이 가능하다.<br />
 위 예제에서 각각의 메서드는 i를 증가시키는 것이 아니라 람다를 리턴할 뿐이다.<br />
 실행 흐름 상 메서드를 호출한 스레드의 스택에 지역 변수인 i가 생성이 되는데,<br />
 람다식을 반환한 후에는 해당 함수가 종료되었으니 메모리에서 i가 사라질 것이다. <br />
@@ -90,7 +90,7 @@ final 또는 effectively final로 선언해 변수를 신뢰할 수 있게 만�
 때문에 인텔리제이가 권해주는 방법을 쓰면 i를 스코프 안 변수에 새로 할당해서 사용하게 된다.<br />
 <img src="https://user-images.githubusercontent.com/43840561/111863899-7de79100-89a1-11eb-8ed3-6c685817269d.png" alt="image" /></p>
 
-<p>여기서 i는 <code class="highlighter-rouge">final</code> 로 선언되지는 않았지만, 자바 8에서 추가된 effectivly final로 선언된 것이다.<br />
+<p>여기서 i는 <code class="highlighter-rouge">final</code> 로 선언되지는 않았지만, 자바 8에서 추가된 effectively final로 선언된 것이다.<br />
 effectively final은 final로 선언되지 않아도 컴파일러가 해당 변수가 변경되지 않았다고 판단할 수 있다.</p>
 
 <p><img src="https://user-images.githubusercontent.com/43840561/111863962-d61e9300-89a1-11eb-85f8-b7e0a7d5ef7e.png" alt="image" /></p>

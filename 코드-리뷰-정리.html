@@ -150,7 +150,7 @@
             <h2 id="-코드-리뷰-정리">💾 코드 리뷰 정리</h2>
 
 <h3 id="controller에-있는-도메인-로직">Controller에 있는 도메인 로직</h3>
-<p><img src="https://images.velog.io/images/new_wisdom/post/56c51213-0e01-48f5-ac72-8e76e77f73f1/image.png" alt="" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/56c51213-0e01-48f5-ac72-8e76e77f73f1/image.png" style="zoom:50%;" /></p>
 
 <p>게임 진행을 위해 Controller에 많은 역할을 구현했었다.<br />
 위 피드백을 받고 BlackjackGame이라는 객체를 만들어 게임의 진행을 하도록 구현했다.<br />
@@ -176,7 +176,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/ed3abe31-8b66-4a6d-8a51-5f87404c2b83/image.png" alt="" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/ed3abe31-8b66-4a6d-8a51-5f87404c2b83/image.png" style="zoom:50%;" /></p>
 
 <p>하지만 결국 BlackjackGame에서 플레이어를 <code class="highlighter-rouge">get</code>해와 값을 조회하고,<br />
 해당 값에 대한 로직이 Controller에서 처리되고 있었다.</p>
@@ -194,13 +194,13 @@ Controller에서 처리되고 있는 것이다.
 
 <p>내가 적용한 부분은 다음과 같다.</p>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/88b9a4cc-0474-44a4-97b1-4832858046c9/image.png" alt="" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/88b9a4cc-0474-44a4-97b1-4832858046c9/image.png" style="zoom:50%;" /></p>
 
 <hr />
 
 <h3 id="테스트-코드의-가독성">테스트 코드의 가독성</h3>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/a30b0ff5-2286-4a1e-819c-8073d35f97f0/image.png" alt="" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/a30b0ff5-2286-4a1e-819c-8073d35f97f0/image.png" style="zoom:50%;" /></p>
 
 <p>리뷰어님께서 테스트 코드의 가독성을 위해 given, when, then으로 
 줄바꿈 할 것을 권해주셨는데, 찾아보니 테스트 코드를 작성할 때 주로 사용하는
@@ -230,7 +230,7 @@ Controller에서 처리되고 있는 것이다.
 
 <h3 id="추상-메서드로-공통-기능을-선언하고-각각-구현하기">추상 메서드로 공통 기능을 선언하고 각각 구현하기</h3>
 
-<p><img src="https://user-images.githubusercontent.com/43840561/111168509-79a82600-85e5-11eb-8143-e030459f1915.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43840561/111168509-79a82600-85e5-11eb-8143-e030459f1915.png" alt="image" style="zoom:50%;" /></p>
 
 <p>기능 요구사항에서 초기 카드를 보여주는 로직이 딜러와 플레이어마다 달랐다. 딜러는 처음에 한장만 보여주고, 플레이어는 두장을 보여주어야 한다. 이를 처음 구현했을 때는 User 추상 클래스에 <code class="highlighter-rouge">public final Cards getCards()</code> 를 두고 플레이어는 초기에 이 메서드를 통해 카드를 2장인 Cards를 (사실은 전부) 반환하고, 딜러는 딜러만의 <code class="highlighter-rouge">Card showOneCard()</code> 를 통해 Card 객체를 반환한다. 반환 타입도 달라서 딜러와 플레이어들의 카드를 출력하기 위해서는 매개변수가 다른 출력 메서드들도 필요했다. 때문에 BlackjackGame 객체에서도 출력만을 위한 비슷한 <code class="highlighter-rouge">get()</code> 들이 생겨났다. 게이츠의 말씀대로 이렇게 추상 클래스인 User에 <code class="highlighter-rouge">Cards showInitialCard();</code>를 만들고 딜러와 플레이어 각각이
 <code class="highlighter-rouge">getCardsByCount(int count)</code>에 각자 맞는 개수로 카드를 가져올 수 있도록 리팩토링 해보았다.</p>
@@ -239,20 +239,20 @@ Controller에서 처리되고 있는 것이다.
 
 <h3 id="캐시-적용">캐시 적용</h3>
 
-<p><img src="https://user-images.githubusercontent.com/43840561/111397796-7e63fb80-8705-11eb-9427-2ae8125ae479.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43840561/111397796-7e63fb80-8705-11eb-9427-2ae8125ae479.png" alt="image" style="zoom:50%;" /></p>
 
 <p>처음 로직 구현 때는 Deck 객체 자체를 static으로 만들어서 캐싱하는 방법으로 구현하였다.<br />
 하지만 static은 메모리 주소를 하나만 가지기 때문에, 해당 게임을 여러 스레드에서 진행한다면 카드 배분에 문제가 생길 것이다.<br />
 때문에 Deck을 그냥 인스턴스로 생성하게 하였는데, Deck에 들어갈 카드를 캐싱하는 부분을 생각하지 못했었다.<br />
 처음에는 LottoNumber 때를 생각하고 of로 객체 하나하나를 반환해주어야 하나 고민을 했는데, 그냥 <code class="highlighter-rouge">List&lt;Card&gt;</code> 를 미리 생성하면 되었다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/43840561/111396928-6e4b1c80-8703-11eb-819b-388d0ac6be20.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43840561/111396928-6e4b1c80-8703-11eb-819b-388d0ac6be20.png" alt="image" style="zoom:50%;" /></p>
 
 <hr />
 
 <h3 id="ui와-관련된-로직">UI와 관련된 로직</h3>
 
-<p><img src="https://user-images.githubusercontent.com/43840561/111469846-85712500-876a-11eb-988b-b8933870fd5b.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/43840561/111469846-85712500-876a-11eb-988b-b8933870fd5b.png" alt="image" style="zoom:50%;" /></p>
 
 <p>BlackjackGame 객체에서 카드를 더 받기 원하는지에 대한 대답을 받아야 했는데, 스스로는 BlackjackGame 객체가 게임 진행을 담당하고 있으니, yes / no 에 대한 정보는 yes인지 no인지에 따라 게임 진행 여부가 다르니, 게임 객체가 알아야 한다고 생각했다. 이에 대해 내 생각을 전달하고 의견을 물어보았는데, “BlackjackGame 객체가 블랙잭 게임 역할을 담당하고 있으니 yes no에 대한 정보를 가지고 있어도 괜찮지만 yes, no에 대한 정보는 UI 요구사항이라 추후에 예, 아니오로 변경됏을 때 도메인 객체까지 영향 범위가 갈 것 같다”라고 말씀하셨다. <strong>View의 요구사항이 변경되었을 때 도메인 객체까지 영향이 갈 것 같다</strong>는 부분은 생각하지 못했던 것 같다. 이 피드백에서 많은 인사이트를 얻었는데, 체스 게임 미션에서 사용자의 대답을 입력 받는 부분에 있어서 대답에 대한 검증을 어디에서 취해줄까를 계속 토론하다 게임 객체에서 해주었었는데, 이 답변을 받고 도메인 밖으로 대답 검증을 뺄 수 있었다.</p>
 
@@ -354,7 +354,7 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 <p>이렇게 함수형 인터페이스를 사용하면서 이를 사용했을 경우의 장점을 스스로 생각하고,<br />
 리뷰어님께 질문을 남겼는데 추가적으로 의견을 달아주셨다 👀</p>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/7f0a6deb-3e53-49b1-8424-87ad3876b191/image.png" alt="" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/7f0a6deb-3e53-49b1-8424-87ad3876b191/image.png" style="zoom:50%;" /></p>
 
 <h3 id="상태-패턴">상태 패턴</h3>
 <p>미션 2단계를 시작하면서, 베팅 금액을 입력 받고 상태에 따라 수익을 구하는 기능을 추가해야했다.
@@ -367,7 +367,7 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 <h4 id="내가-적용한-상태-패턴">내가 적용한 상태 패턴</h4>
 <p>제이슨 코드를 미리 보고 상태패턴을 시도했기 때문에,  스스로 생각해보지 못한 코드 따라쟁이가 되어버릴까봐 스스로 계속해서 상태별로 다르게 구현해야할 기능들에 대하여 생각해보고 클래스 다이어그램에 나름대로의 명분을 정리해보았다.</p>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/5c238570-b95c-4c63-b6ae-6e4b2ab77716/image.png" alt="" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/5c238570-b95c-4c63-b6ae-6e4b2ab77716/image.png" style="zoom:50%;" /></p>
 
 <p>또한 아래는 상태 패턴의 콘텍스트인 User 클래스이다.</p>
 
@@ -427,7 +427,7 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 
 <h4 id="ps">PS</h4>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/20bb1288-8fec-4e05-a353-61be9fefc696/image.png" alt="" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/20bb1288-8fec-4e05-a353-61be9fefc696/image.png" style="zoom:50%;" /></p>
 
 <p>위 말은 교육장에서 포비와 이야기를 나누다 인상 깊어 스스로 DM에 남겨놓은 말이다.
 말씀대로 디자인 패턴이 무조건 좋은 것은 아니지만, 
@@ -508,10 +508,10 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-7%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%B3%E1%86%B8%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3">
             <section class="post">
-                <h2>💡 위클리 회고 7 주차</h2>
-                <p>무슨일이 있었나? 월 검프, 영이, 멍토와 모각코를 했다. 필라테스를 정말 오랜만에 갔다. 화 조금 늦잠을...</p>
+                <h2>💡 위클리 회고 5, 6 주차</h2>
+                <p>아마찌의 학습 로그 ✨ 📐 amazzi’s rule 가중치는 1~5로 표현한다. 링크는 학습하고 구현하는데 참고한 링크,...</p>
             </section>
         </a>
     

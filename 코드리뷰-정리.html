@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>🕹 Level 1. 체스 미션 정리 - DTO</title>
+    <meta name="description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
+
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="🕹 Level 1. 체스 미션 정리 - DTO" />
+    <meta property="og:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta property="og:url" content="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5" />
+    <meta property="og:image" content="/assets/images/java.jpeg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="🕹 Level 1. 체스 미션 정리 - DTO" />
+    <meta name="twitter:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta name="twitter:url" content="http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5" />
+    <meta name="twitter:image:src" content="/assets/images/java.jpeg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "🕹 Level 1. 체스 미션 정리 - DTO",
+    "url": "http://localhost:4000//%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5",
+    "image": "/assets/images/java.jpeg",
+    "description": "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/java.jpeg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">🕹 Level 1. 체스 미션 정리 - DTO</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-04-09">09 Apr 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <p>이번 체스 미션에서는 웹 적용을 하면서 새롭게 배운 개념들이 너무 많았다.<br />
+때문에 이번 미션을 진행하면서 새로 배운 개념들과, 휴가 주신 피드백을 정리하는 방안으로 기록해야겠다 ✍️</p>
+
+<h2 id="step1에서의-dto">step1에서의 DTO</h2>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114128924-72e8a680-9938-11eb-920c-449d58edf7a8.png" alt="image" style="zoom:50%;" /></p>
+
+<p>사실 DTO의 개념은 대략 알고 있으나,<br />
+전 미션까지는 DTO의 필요성을 잘 못느끼고 있어서 사용하지는 않았었다.<br />
+이때 같은 경우는 현재 기물들을 나타내는 Pices 객체들만이 존재할 뿐인데 View에서는 64개의 position에 대한 정보를 출력하기 위해 <br />
+Pieces의 메소드를 통해<code class="highlighter-rouge">pieces.findByPosition(CACHE.get(xy));</code> 로 도메인에 대한 의존성이 생기고 있었다.<br />
+그래서 이를 제거하기 위해 휴의 리뷰대로 DTO를 만들어 View에 필요한 데이터들을 전달해주기로 하고<br />
+이 방법에 대한 확신을 얻기 위해 휴에게 질문을 했었다.<br />
+하지만 질답을 하다가 이번 단계에서 DTO를 사용하는 것 보다 다음 단계 웹 UI를 적용하면서<br />
+DTO의 필요성을 뼈저리게 느끼기로 했다. <br />
+사실 지금 시점에서 돌이켜보면 piecesDto를 만들면 해결될 일인것 같지만, 말씀대로 꼭 DTO가 필요했던 시점이 아니였던 것 같다.<br />
+일단 휴와의 질답을 통해 얻은 DTO에 관한 이야기는 다음과 같다.</p>
+
+<ul>
+  <li>DTO는 데이터를 전송하기 위한 객체로서 로직이 없어야 한다.<br />
+대신 model -&gt; modelDto로 변환하는 과정에서 필요한 작업을 모두 수행하여 View에 필요한 데이터를 세팅할 수 있다.</li>
+  <li>DTO의 데이터를 사용할 때 로직을 수행하는게 아닌 생성 하는 시점에 미리 데이터를 다 세팅하고 DTO를 사용하는 시점엔 데이터로서만 사용한다. 
+(이 부분이 dto 생성자에서 필요한 값 세팅을 마친다는 의미)</li>
+  <li>값에 대한 표현을 어떻게 할지에 대한 ui 로직은 View에서 자체적으로 판단해도 된다.</li>
+</ul>
+
+<p>또한 DTO를 적용하기 전 DTO에 관해 알아보고 약간의 정리를 했다.</p>
+
+<hr />
+
+<h3 id="-dto-vs-vo-간단-정리">📝 DTO vs VO 간단 정리</h3>
+
+<h4 id="dto-vo-혼동의-이유">DTO VO 혼동의 이유</h4>
+
+<p>데이터 전달용 객체를 VO에서 TO로 변경되었기 때문에 혼동이 온다.</p>
+
+<h4 id="dto--data-transfer-object">DTO = Data Transfer Object</h4>
+
+<p>“계층 간” 데이터를 전달하기 위한 객체로, 데이터를 담아서 전달하는 바구니 역할을 한다.</p>
+
+<ul>
+  <li>용도 : 레이어 간 데이터 전달</li>
+  <li>동등 결정 : 속성 값이 모두 같다고 해서 같은 객체는 아니다.</li>
+  <li>가변 / 불변 : setter 존재 시 가변, setter 비 존재 시 불변</li>
+  <li>로직 : getter / setter 외의 로직을 가지지 않는다.</li>
+</ul>
+
+<p>getter/setter 메서드만을 갖는다. <br />
+보내는 쪽에서 setter를 사용해 값을 설정하고 getter를 사용해 값을 받는다.</p>
+
+<p>setter 메소드를 가질 경우 데이터가 가변이기 때문에 필드를 final 로 하고 생성자를 통해 set을 하면 더 안정적이다.</p>
+
+<h4 id="-entity">➕ Entity</h4>
+
+<p>엔티티 클래스는 요청이나 응답 값을 전달하는 클래스가 아닌 데이터베이스와 매핑된 핵심 클래스다.<br />
+이 엔티티 클래스를 기준으로 테이블이 생성된다. <br />
+뷰와 엔티티가 직접 연결되어 있으면 엔티티에 변경이 일어날 때, 뷰의 모든 부분을 수정해주어야 한다.</p>
+
+<h4 id="vo--value-object">VO = Value Object</h4>
+
+<p>값 그 자체를 표현하는 객체로 불변이어야 한다.</p>
+
+<p>값으로만 비교되는 객체로 equals / hashCode 오버라이딩이 핵심이다. <br />
+생성자를 통해서만 값을 초기화해야 한다.</p>
+
+<ul>
+  <li>용도 : 값 자체 표현</li>
+  <li>속성 값이 모두 같으면 같은 객체</li>
+  <li>가변 / 불변 : 불변</li>
+  <li>로직 : getter / setter 외의 로직을 가질 수 있다.</li>
+</ul>
+
+<hr />
+
+<h2 id="step2에서의-dto">step2에서의 DTO</h2>
+
+<h3 id="view에-데이터를-전달하는-목적">View에 데이터를 전달하는 목적</h3>
+
+<p>4, 5단계를 진행하면서 웹 UI를 그리기 위해 Gson을 사용하였고, 이로 뷰에 보내줄 데이터를 Json으로 만들 수 있었다.<br />
+<code class="highlighter-rouge">String chessGameListJson = gson.toJson(chessGameList);</code> <br />
+이렇게 Gson 객체를 통해 string 형태의 json을 만들고 spark java에서 다음과 같이 res 객체의 body에 이 json을 담아 보낸다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">get</span><span class="o">(</span><span class="s">"/chess-game-list"</span><span class="o">,</span> <span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">res</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">chessGameList</span> <span class="o">=</span> <span class="n">chessService</span><span class="o">.</span><span class="na">getAllChessGameId</span><span class="o">();</span>
+  <span class="k">return</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">chessGameList</span><span class="o">);</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p>➕ 잠깐 Gson에 대해 좀 더 언급하면, <br />
+json의 키 값과 객체의 필드를 매칭 시키면 다음과 같이 req로 날아온 json 데이터를 객체로 쉽게 생성할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MoveRequestDto</span> <span class="n">moveRequestDto</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">body</span><span class="o">(),</span> <span class="n">MoveRequestDto</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Gson을 통해서 객체를 json으로 변경할 때에 gson이 객체의 필드에 있는 값들을 자동으로 key-value의 json으로 만들어 준다.<br />
+그런데, 객체 자체를 Gson을 통해 json으로 만들면<br />
+View에서 원하는 데이터 양식을 맞출 수 없고, 또 View에서 원하지 않는 데이터도 함께 들어가게 된다.</p>
+
+<p>그래서 이때 필요한 것이 바로 DTO 였다.<br />
+View에 필요한 데이터를 원시값 필드로 가진 DTO를 만들고 View에게 데이터 전송을 위해 이를 사용하는 것이다.<br />
+이 경험 덕분에 휴가 step1에서 언급했던 DTO의 찐 필요성을 느낄 수 있었다.</p>
+
+<h3 id="dao에서-잘못된-dto-사용">DAO에서 잘못된 DTO 사용</h3>
+
+<p>DTO에 대한 개념을 살펴보면서 <strong>계층 간 데이터를 전달하기 위한 객체</strong>라는 사실에 집중하여 <br />
+맨 처음에는 DAO와 Service 레이어가 주고 받는 데이터에서도 DTO를 사용하였었다. <br />
+이에 대해서는 다음과 같은 피드백을 받았다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114265815-dd2f4300-9a2d-11eb-919e-40acacb82a98.png" alt="image" style="zoom:50%;" /></p>
+
+<p>dao로 데이터를 전달하기 위해 서비스에서 dto로 싸고, dao에서 dto로 반환하여 서비스 레이어에서 꺼내 쓰는 이 과정이,<br />
+돌이켜보니 도메인에서 꺼내 쓸 수 있는 값들을 굳이 dto로 전달하면서 불필요한 dto 객체 생성과 코드만 늘어나고 있었다.<br />
+뷰에서는 gson을 사용해 json으로 만들기 위해 dto의 필요성을 절실히 느낄 수 있었지만,
+ dao에서 불필요한 dto들을 제거했더니 dto를 불필요하게 사용하고 있었구나를 느꼈다.</p>
+
+<h3 id="데이터-전달-목적">데이터 전달 목적</h3>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114266098-51b6b180-9a2f-11eb-89ca-721d3c9804cd.png" alt="image" style="zoom:50%;" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114266117-7448ca80-9a2f-11eb-965d-dbc7e76d3681.png" alt="image" style="zoom:50%;" /></p>
+
+<p>휴의 말대로 나의 구조에서, ChessGame 객체와 chess_game 테이블 간의 불일치는 명확히 존재했다.<br />
+사실 DB 연동 경험이 있지만 이번 미션에서 DB를 연동하는데 왜이렇게 막막할까 많이 고민이 되었는데,<br />
+객체를 테이블로 1:1 맵핑을 하려하다 보니 생긴 문제였다.<br />
+(휴의 말대로 나중에는 ORM을 통해 해결이 되겠지..!) <br />
+이번 단계에서는 객체와 테이블 간의 불일 치 문제를 DTO로 해결할 것을 제시해주셨고,<br />
+ChessGame에 대해서는 DAO와 Service 간에 데이터 전달에서 DTO를 사용하여 저장할 데이터를 주고 받도록 하였다.</p>
+
+<ul>
+  <li><strong>ChessGameDao 일부</strong></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">ChessGameStatusDto</span> <span class="nf">findChessGameStateById</span><span class="o">(</span><span class="kt">int</span> <span class="n">chessGameId</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="s">"SELECT turn, IF(isFinish, 'true', 'false') isFinish FROM chess_game WHERE id = ?"</span><span class="o">;</span>
+  <span class="k">try</span> <span class="o">(</span><span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">dbManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+       <span class="n">PreparedStatement</span> <span class="n">pstmt</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">query</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">chessGameId</span><span class="o">);</span>
+    <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">pstmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ChessGameStatusDto</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"turn"</span><span class="o">),</span> <span class="n">rs</span><span class="o">.</span><span class="na">getBoolean</span><span class="o">(</span><span class="s">"isFinish"</span><span class="o">));</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>ChessService 일부</strong></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">ChessGame</span> <span class="nf">findChessGameById</span><span class="o">(</span><span class="kt">int</span> <span class="n">chessGameId</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">ChessGameStatusDto</span> <span class="n">chessGameStatusDto</span> <span class="o">=</span> <span class="n">chessGameDao</span><span class="o">.</span><span class="na">findChessGameStateById</span><span class="o">(</span><span class="n">chessGameId</span><span class="o">);</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">Piece</span><span class="o">&gt;</span> <span class="n">pieces</span> <span class="o">=</span> <span class="n">pieceDao</span><span class="o">.</span><span class="na">findAllByChessGameId</span><span class="o">(</span><span class="n">chessGameId</span><span class="o">);</span>
+  <span class="k">return</span> <span class="n">ChessGameFactory</span><span class="o">.</span><span class="na">loadChessGameByInfo</span><span class="o">(</span><span class="n">pieces</span><span class="o">,</span> <span class="n">chessGameStatusDto</span><span class="o">.</span><span class="na">getTurn</span><span class="o">(),</span> <span class="n">chessGameStatusDto</span><span class="o">.</span><span class="na">isFinish</span><span class="o">());</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><em>이에 대한 휴의 피드백은 OK 였지만 DTO에 대해서 리뷰어마다 다른 관점을 가지고 있을 것이라 하였다.</em></p>
+
+<hr />
+
+<h2 id="dto에-대한-결론">DTO에 대한 결론</h2>
+
+<p>DTO에 대해서 휴가 주신 참고 자료를 읽고, 이번 미션에서 경험한 DTO를 간략히 정리하고 마무리한다.</p>
+
+<blockquote>
+  <p><a href="https://www.slipp.net/questions/22">혹시 DTO(VO) 작성하시나요?</a></p>
+</blockquote>
+
+<p>객체를 자동으로 Json으로 변경할 경우 객체에 존재하는 모든 속성과 조합 관계에 있는 객체의 속성까지 Json으로 자동으로 변환된다.<br />
+이 경우 View에서 불필요한 속성까지 Json으로 변환된다.<br />
+이 문제를 해결하기 위해서 객체에서 View에서 필요한 속성만을 뽑아서 DTO로 만들어 계층 간 데이터를 전달한다.</p>
+
+<p><em>하지만 도메인에서 특정 속성만을 뽑아 데이터를 전달하고 싶다면, 추후에 Lombok을 통해 필요한 속성만을 전달할 수 있다.</em></p>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=🕹 Level 1. 체스 미션 정리 - DTO&amp;url=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/java.jpeg)" href="/%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5-2">
+            <section class="post">
+                <h2>🕹 Level 1. 체스 미션 정리 - JDBC</h2>
+                <p>## JDBC (Java DataBase Connectivity) ![](https://images.velog.io/images/new_wisdom/post/b50e0a8b-eed6-46bd-912e-bd975a37d2de/image.png) JDBC는 DB에 접근할 수 있도록 Java에서 제공하는 API로, 모든...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4">
+            <section class="post">
+                <h2>📝 객체지향 설계 강의 노트</h2>
+                <p>랜덤넘버는 구현체이니까 Number로 받자 이러면 모두가 움직이는데 ? 의존성 주입 DI 스프링 프레임 워크는 DI를...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>
