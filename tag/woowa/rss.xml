@@ -13,10 +13,10 @@
    
 	<item>
 	  <title>🕹 Level 1. 체스 미션 정리 - Service Layer, DAO와 Repository</title>
-	  <link>//level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-service-layer-dao%EC%99%80-repository</link>
+	  <link>//Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository</link>
 	  <author></author>
 	  <pubDate>2021-04-10T19:18:00+09:00</pubDate>
-	  <guid>//level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-service-layer-dao%EC%99%80-repository</guid>
+	  <guid>//Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository</guid>
 	  <description><![CDATA[
 	     <h2 id="mvc와-service">MVC와 Service</h2>
 
@@ -126,10 +126,10 @@ chessgame 테이블과 piece 테이블 각각에서 쿼리를 날려 데이터�
 
 	<item>
 	  <title>🕹 Level 1. 체스 미션 정리 - JDBC</title>
-	  <link>//level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-jdbc</link>
+	  <link>//Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC</link>
 	  <author></author>
 	  <pubDate>2021-04-10T19:18:00+09:00</pubDate>
-	  <guid>//level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-jdbc</guid>
+	  <guid>//Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC</guid>
 	  <description><![CDATA[
 	     <h2 id="jdbc-java-database-connectivity">JDBC (Java DataBase Connectivity)</h2>
 
@@ -300,10 +300,10 @@ preparedstatement를 해제하면 현재(가장 최근에 생성한) ResultSet�
 
 	<item>
 	  <title>🕹 Level 1. 체스 미션 정리 - DTO</title>
-	  <link>//level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-dto</link>
+	  <link>//Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-DTO</link>
 	  <author></author>
 	  <pubDate>2021-04-09T19:18:00+09:00</pubDate>
-	  <guid>//level-1-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-dto</guid>
+	  <guid>//Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-DTO</guid>
 	  <description><![CDATA[
 	     <p>이번 체스 미션에서는 웹 적용을 하면서 새롭게 배운 개념들이 너무 많았다.<br />
 때문에 이번 미션을 진행하면서 새로 배운 개념들과, 휴가 주신 피드백을 정리하는 방안으로 기록해야겠다 ✍️</p>
@@ -1171,10 +1171,10 @@ CashFormatter는<code class="highlighter-rouge">format()</code> 이외의 기능
 
 	<item>
 	  <title>📖 Java 람다의 변수 범위</title>
-	  <link>//java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
+	  <link>//Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</link>
 	  <author></author>
 	  <pubDate>2021-03-19T19:18:00+09:00</pubDate>
-	  <guid>//java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</guid>
+	  <guid>//Java-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%EC%88%98-%EB%B2%94%EC%9C%84</guid>
 	  <description><![CDATA[
 	     <h3 id="람다의-변수-범위">람다의 변수 범위</h3>
 
@@ -1275,10 +1275,10 @@ effectively final은 final로 선언되지 않아도 컴파일러가 해당 변�
 
 	<item>
 	  <title>📝 Java8 Lambda, Stream API 강의 정리</title>
-	  <link>//java8-lambda-stream-api-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
+	  <link>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
 	  <author></author>
 	  <pubDate>2021-03-16T19:18:00+09:00</pubDate>
-	  <guid>//java8-lambda-stream-api-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
+	  <guid>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
 	  <description><![CDATA[
 	     <h2 id="함수형-프로그래밍의-장점-">함수형 프로그래밍의 장점 ?</h2>
 
@@ -1424,10 +1424,10 @@ Integer 래퍼 클래스는 127까지 인스턴스를 미리 생성해 두기 �
 
 	<item>
 	  <title>🕹 Level 1. 블랙잭 미션 코드 리뷰 정리</title>
-	  <link>//level-1-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
+	  <link>//Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
 	  <author></author>
 	  <pubDate>2021-03-15T19:18:00+09:00</pubDate>
-	  <guid>//level-1-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</guid>
+	  <guid>//Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</guid>
 	  <description><![CDATA[
 	     <h2 id="-코드-리뷰-정리">💾 코드 리뷰 정리</h2>
 
