@@ -165,10 +165,93 @@
 
 </description>
         
-        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
+        <pubDate>Sat, 06 Mar 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</link>
         <guid isPermaLink="true">http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Functional Interface</title>
+        
+          <description>&lt;h2 id=&quot;함수형-인터페이스&quot;&gt;함수형 인터페이스&lt;/h2&gt;
+&lt;p&gt;자바 8부터 자바는 객체지향 언어일 뿐만 아니라 함수형 언어도 지원할 수 있게되었다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 06 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Functional-Interface</link>
+        <guid isPermaLink="true">http://localhost:4000/Functional-Interface</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 추상 클래스와 인터페이스의 차이</title>
+        
+          <description>&lt;h2 id=&quot;추상-클래스&quot;&gt;추상 클래스&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;간단히 말하면…&lt;/strong&gt;&lt;br /&gt;
+클래스를 설계도라 하면, 추상 클래스는 &lt;strong&gt;미완성 설계도&lt;/strong&gt;에 비유할 수 있다.&lt;br /&gt;
+(여기서 클래스가 미완성이라는 것은 추상 메서드를 포함하고 있다는 의미이다.)&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 상속에 대하여</title>
+        
+          <description>&lt;p&gt;강의시간에 배운 상속 개념에 추가로 공부한 내용을 정리해본다 ✍️&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 04 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>🕹 Level 1. 로또 미션 코드 리뷰 정리</title>
+        
+          <description>&lt;h2 id=&quot;1단계-피드백&quot;&gt;1단계 피드백&lt;/h2&gt;
+&lt;h3 id=&quot;객체인-controller&quot;&gt;객체인 Controller&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://images.velog.io/images/new_wisdom/post/c00aaeae-a114-4634-ba8b-15d91ea499f6/image.png&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 01 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 BigDecimal에 관한 고찰</title>
+        
+          <description>&lt;p&gt;이번 미션에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;BigDecimal&lt;/code&gt;에 대한 언급이 많았는데,&lt;br /&gt;
+&lt;strong&gt;도대체 그게 뭐지 🤷‍♀️ 나만 몰라 ❓&lt;/strong&gt;&lt;br /&gt;
+에서부터 출발한 BigDecimal에 대한 고찰 ~&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 01 Mar 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</link>
+        <guid isPermaLink="true">http://localhost:4000/BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</guid>
       </item>
       
     
@@ -184,25 +267,10 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
 
 </description>
         
-        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
+        <pubDate>Sun, 28 Feb 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-4-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
         <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-4-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📖 Effective java - item 1. 생성자 대신 정적 팩터리 메서드를 고려하라</title>
-        
-          <description>&lt;p&gt;클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 &lt;code class=&quot;highlighter-rouge&quot;&gt;팩터리 메서드&lt;/code&gt;와는 다르다.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 14 Mar 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
       </item>
       
     
@@ -274,6 +342,22 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
     
       
       <item>
+        <title>📝 TDD 강의 정리</title>
+        
+          <description>&lt;p&gt;이번 로또 미션을 구현하면서 페어와 TDD를 연습하면서 
+강의에서 들었던 모든 이점들을 느낄 수 있었다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 20 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/TDD-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+        <guid isPermaLink="true">http://localhost:4000/TDD-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📖 Effective java -  item 34. int 상수 대신 열거 타입을 사용하라</title>
         
           <description>&lt;h2 id=&quot;enum-&quot;&gt;Enum ?&lt;/h2&gt;
@@ -287,7 +371,7 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
 
 </description>
         
-        <pubDate>Wed, 17 Feb 2021 19:18:00 +0900</pubDate>
+        <pubDate>Sat, 20 Feb 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
         <guid isPermaLink="true">http://localhost:4000/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
@@ -368,6 +452,21 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
     
       
       <item>
+        <title>📖 Effective java - item 1. 생성자 대신 정적 팩터리 메서드를 고려하라</title>
+        
+          <description>&lt;p&gt;클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 &lt;code class=&quot;highlighter-rouge&quot;&gt;팩터리 메서드&lt;/code&gt;와는 다르다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 14 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📖 배열의 깊은 복사와 얕은 복사</title>
         
           <description>&lt;h2 id=&quot;자바에서의-객체-복사&quot;&gt;자바에서의 객체 복사&lt;/h2&gt;
@@ -375,7 +474,7 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
 
 </description>
         
-        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <pubDate>Wed, 10 Feb 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</link>
         <guid isPermaLink="true">http://localhost:4000/%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</guid>
@@ -384,7 +483,7 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
     
       
       <item>
-        <title>📚 머리에 박제할라고 진짜 간단히 정리한 일급 컬렉션</title>
+        <title>📋 머리에 박제할라고 진짜 간단히 정리한 일급 컬렉션</title>
         
           <description>&lt;h3 id=&quot;일급-컬렉션&quot;&gt;일급 컬렉션&lt;/h3&gt;
 &lt;p&gt;일급 컬렉션의 개념을 좀 더 정확히 짚고 넘어가야 할 것 같았다.&lt;br /&gt;
@@ -395,7 +494,7 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
 
 </description>
         
-        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <pubDate>Tue, 09 Feb 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</link>
         <guid isPermaLink="true">http://localhost:4000/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</guid>
@@ -413,7 +512,7 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
 
 </description>
         
-        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <pubDate>Sun, 07 Feb 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</link>
         <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-Mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</guid>
@@ -429,7 +528,7 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
 
 </description>
         
-        <pubDate>Thu, 04 Feb 2021 19:18:00 +0900</pubDate>
+        <pubDate>Fri, 05 Feb 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
         <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>

@@ -29,10 +29,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 <link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
-    <!-- highlight.js -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
-    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
-
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
         <link rel="canonical" href="http://localhost:4000//%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-4-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1" />
     <meta name="referrer" content="origin" />
@@ -81,7 +81,8 @@
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
         <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
-        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
         <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
         <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
         <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
@@ -121,7 +122,7 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-03-14">14 Mar 2021</time>
+            <time class="post-date" datetime="2021-02-28">28 Feb 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
@@ -337,20 +338,20 @@ gather에 상주해 있기도 한다.<br />
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8">
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF">
             <section class="post">
-                <h2>💡 위클리 회고 5, 6 주차</h2>
-                <p>## 무슨일이 있었나? * 일주일 2번 오프라인 출근이 시작되었다. * 온라인으로만 만나던 사람들을 3D로 처음...</p>
+                <h2>📖 BigDecimal에 관한 고찰</h2>
+                <p>이번 미션에서 `BigDecimal`에 대한 언급이 많았는데, **도대체 그게 뭐지 🤷‍♀️ 나만 몰라 ❓** 에서부터 출발한...</p>
             </section>
         </a>
     
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5">
             <section class="post">
-                <h2>📖 Effective java - item 1. 생성자 대신 정적 팩터리 메서드를 고려하라</h2>
-                <p>클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 팩터리 메서드와는...</p>
+                <h2>📖 Stream 부수기</h2>
+                <p>코드를 짜다보면 가독성과 간결함을 위해 stream을 자주 쓰게 된다. 프리코스 때 Stream에 대해 정리했었으나, 내가...</p>
             </section>
         </a>
     

@@ -29,12 +29,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 <link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
-    <!-- highlight.js -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
-    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
-
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//author/woowa/page5/" />
+        <link rel="canonical" href="http://localhost:4000//author/oop/" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
@@ -42,13 +42,13 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Author" />
     <meta property="og:description" content="I want to be a person who gives you new wisdom." />
-    <meta property="og:url" content="http://localhost:4000//author/woowa/page5/" />
+    <meta property="og:url" content="http://localhost:4000//author/oop/" />
     <meta property="og:image" content="/assets/images/cover4.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Author" />
     <meta name="twitter:description" content="I want to be a person who gives you new wisdom." />
-    <meta name="twitter:url" content="http://localhost:4000//author/woowa/page5/" />
+    <meta name="twitter:url" content="http://localhost:4000//author/oop/" />
     <meta name="twitter:image:src" content="/assets/images/cover4.jpg" />
 
     <script type="application/ld+json">
@@ -57,7 +57,7 @@
     "@type": "Website",
     "publisher": "This is New Wisdom's Log !",
     "name": "Author",
-    "url": "http://localhost:4000//author/woowa/page5/",
+    "url": "http://localhost:4000//author/oop/",
     "image": "/assets/images/cover4.jpg",
     "description": "I want to be a person who gives you new wisdom."
 }
@@ -68,7 +68,7 @@
 
 
 </head>
-<body class="paged archive-template nav-closed">
+<body class="author-template nav-closed">
 
     <!-- The blog navigation links -->
     <div class="nav">
@@ -79,9 +79,10 @@
     <ul>
         <li class="nav-home " role="presentation"><a href="/">Home</a></li>
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
-        <li class="nav-woowa  nav-current" role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
-        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-oop  nav-current" role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
         <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
         <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
         <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
@@ -128,11 +129,7 @@
         
             <nav class="pagination" role="pagination">
     
-        
-            <a class="newer-posts" href="/author/woowa/page4/" title="Previous Page">&laquo; Newer Posts</a>
-      
-    
-    <span class="page-number"> Page 5 of 5 </span>
+    <span class="page-number"> Page 1 of 1 </span>
     
 </nav>
 
@@ -143,10 +140,10 @@
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/String-vs-StringBuffer-vs-StringBuilder">📖 String vs StringBuffer vs StringBuilder</a></h2>
+            <h2 class="post-title"><a href="/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB">📋 머리에 박제할라고 진짜 간단히 정리한 일급 컬렉션</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>자바의 불변 객체를 공부하다가 String 과 StringBuilder가 예시로 자주 등장함을 보게 되었다. 나도 Java를 제대로 공부한지 얼마 안되서, 사실 String, StringBuffer, StringBuilder의 명확한 차이를 잘모르고 그냥... <a class="read-more" href="/String-vs-StringBuffer-vs-StringBuilder">&raquo;</a></p>
+            <p>일급 컬렉션 일급 컬렉션의 개념을 좀 더 정확히 짚고 넘어가야 할 것 같았다. 1차 리뷰어님께서 첨부해 주신 글을 저번에도 읽어보았으나 그 때까지는 이 글의 모든 개념을... <a class="read-more" href="/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -164,42 +161,19 @@
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>,
+                    
+                
+                    
+                       <a href='/tag/oop'>Oop</a>
                     
                 
             
-            <time class="post-date" datetime="2021-02-15">15 Feb 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/%ED%94%84%EB%A6%AC%EC%BD%94%EC%8A%A4-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%82%B6%EA%B3%BC-%EC%B5%9C%EC%A2%85-%ED%95%A9%EA%B2%A9">🪐 프리코스 이후의 삶과 최종 합격</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>얼마만에 블로그 포스팅인지 🥲 우아한 테크코스 최종 합격 통보를 받게 되었으나, SOPT 앱잼으로 프로젝트가 시작되고 더불어 이사를 가면서 정리할 것들이 많아 정말 정신 없는 연말, 연초를... <a class="read-more" href="/%ED%94%84%EB%A6%AC%EC%BD%94%EC%8A%A4-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%82%B6%EA%B3%BC-%EC%B5%9C%EC%A2%85-%ED%95%A9%EA%B2%A9">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-01-17">17 Jan 2021</time>
+            <time class="post-date" datetime="2021-02-09">09 Feb 2021</time>
         </footer>
     </article>
     
@@ -208,11 +182,7 @@
     
         <nav class="pagination" role="pagination">
     
-        
-            <a class="newer-posts" href="/author/woowa/page4/" title="Previous Page">&laquo; Newer Posts</a>
-      
-    
-    <span class="page-number"> Page 5 of 5 </span>
+    <span class="page-number"> Page 1 of 1 </span>
     
 </nav>
 

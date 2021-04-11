@@ -29,10 +29,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 <link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
-    <!-- highlight.js -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
-    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
-
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
         <link rel="canonical" href="http://localhost:4000//author/woowa/page2/" />
     <meta name="referrer" content="origin" />
@@ -81,7 +81,8 @@
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
         <li class="nav-woowa  nav-current" role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
-        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
         <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
         <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
         <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
@@ -132,7 +133,7 @@
             <a class="newer-posts" href="/author/woowa" title="Previous Page">&laquo; Newer Posts</a>
         
     
-    <span class="page-number"> Page 2 of 5 </span>
+    <span class="page-number"> Page 2 of 4 </span>
     
         <a class="older-posts" href="/author/woowa/page3/" title="Next Page">Older Posts &raquo;</a>
     
@@ -201,7 +202,11 @@
                     
                 
                     
-                       <a href='/tag/java'>Java</a>
+                       <a href='/tag/java'>Java</a>,
+                    
+                
+                    
+                       <a href='/tag/oop'>Oop</a>
                     
                 
             
@@ -267,11 +272,7 @@
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/java'>Java</a>
+                       <a href='/tag/woowa'>Woowa</a>
                     
                 
             
@@ -281,10 +282,10 @@
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">📖 Effective java - item 1. 생성자 대신 정적 팩터리 메서드를 고려하라</a></h2>
+            <h2 class="post-title"><a href="/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8">💡 위클리 회고 5, 6 주차</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 팩터리 메서드와는 다르다. 장점 1. 이름을 가질 수 있다. 생성자에 넘기는 매개변수와 생성자만으로는... <a class="read-more" href="/Effective-java-item-1.-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">&raquo;</a></p>
+            <p>무슨일이 있었나? 일주일 2번 오프라인 출근이 시작되었다. 온라인으로만 만나던 사람들을 3D로 처음 만났다. 출입증 사진을 찍었다. 3월2일-3월 4일 블랙잭 페어 프로그램을 진행하고 이후 개별 미션으로 찢어졌다.... <a class="read-more" href="/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -306,7 +307,7 @@
                     
                 
             
-            <time class="post-date" datetime="2021-03-14">14 Mar 2021</time>
+            <time class="post-date" datetime="2021-03-06">06 Mar 2021</time>
         </footer>
     </article>
     
@@ -319,7 +320,7 @@
             <a class="newer-posts" href="/author/woowa" title="Previous Page">&laquo; Newer Posts</a>
         
     
-    <span class="page-number"> Page 2 of 5 </span>
+    <span class="page-number"> Page 2 of 4 </span>
     
         <a class="older-posts" href="/author/woowa/page3/" title="Next Page">Older Posts &raquo;</a>
     

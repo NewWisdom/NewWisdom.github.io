@@ -29,10 +29,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 <link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
-    <!-- highlight.js -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
-    <style>.hljs { background: none; font-family: 'D2 coding', "Consolas", monospace;}</style>
-
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
         <link rel="canonical" href="http://localhost:4000//author/java/page2/" />
     <meta name="referrer" content="origin" />
@@ -81,7 +81,8 @@
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
         <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
         <li class="nav-java  nav-current" role="presentation"><a href="/tag/java">Java</a></li>
-        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
         <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
         <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
         <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
@@ -132,7 +133,9 @@
             <a class="newer-posts" href="/author/java" title="Previous Page">&laquo; Newer Posts</a>
         
     
-    <span class="page-number"> Page 2 of 2 </span>
+    <span class="page-number"> Page 2 of 4 </span>
+    
+        <a class="older-posts" href="/author/java/page3/" title="Next Page">Older Posts &raquo;</a>
     
 </nav>
 
@@ -143,10 +146,10 @@
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5">📖 내가 정리한 JUnit5</a></h2>
+            <h2 class="post-title"><a href="/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5">📖 Stream 부수기</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>우테코 level1 1주차 - JUnit을 활용한 단위 테스트 이론 및 실습 단위테스트에 대해서 배웠다. 허나 나는 단위 테스트는 처음이라 👀 처음 배운 JUnit5를 익히기 위해 정리해본다.... <a class="read-more" href="/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5">&raquo;</a></p>
+            <p>코드를 짜다보면 가독성과 간결함을 위해 stream을 자주 쓰게 된다. 프리코스 때 Stream에 대해 정리했었으나, 내가 쓴 글을 리팩토링(ㅎ) 해보면서 다시 개념을 익혀야 겠다. 스트림? 배열 또는... <a class="read-more" href="/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -172,7 +175,147 @@
                     
                 
             
-            <time class="post-date" datetime="2021-02-04">04 Feb 2021</time>
+            <time class="post-date" datetime="2021-02-25">25 Feb 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7">📖 Exception에 대하여</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>오늘 수업 시간에 자바의 Exception에 대해 배웠다. 수업을 듣고 들은 내용을 자바의 정석의 예외 처리를 함께 보면서 정리 ✍️ 프로그램 오류 종류 컴파일 에러 - 컴파일... <a class="read-more" href="/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-02-24">24 Feb 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC">📖 Enum 열거형</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>열거형이란? JDK 1.5 부터 새로 추가된 개념이다. 기존의 언어들과 자바의 Enum이 다른 점은 열거형이 갖는 값 뿐만 아니라 타입까지 관리하기 때문에 보다 논리적인 오류를 줄일 수... <a class="read-more" href="/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-02-21">21 Feb 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">📖 Effective java -  item 34. int 상수 대신 열거 타입을 사용하라</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Enum ? [Java] Enum 열거형 int Enum Pattern의 단점 타입 안전을 보장할 방법이 없다. public static final int APPLE_FUJI = 0; public static final int APPLE_PIPPIN... <a class="read-more" href="/Effective-java-item-34.-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-02-20">20 Feb 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/Effective-java-item-28.-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">📖 Effective java - item 28. 배열보다는 리스트를 사용하라</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>우테코 Level 1 로또 미션에서 “배열 대신 ArrayList를 사용한다.”가 요구사항에 들어있었다. 왜 배열대신 ArrayList를 사용하라는 것일까? 찾아보니 이펙티브 자바에서도 그 내용이 나와 있어서 스스로의 물음에 답하는... <a class="read-more" href="/Effective-java-item-28.-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-02-17">17 Feb 2021</time>
         </footer>
     </article>
     
@@ -185,7 +328,9 @@
             <a class="newer-posts" href="/author/java" title="Previous Page">&laquo; Newer Posts</a>
         
     
-    <span class="page-number"> Page 2 of 2 </span>
+    <span class="page-number"> Page 2 of 4 </span>
+    
+        <a class="older-posts" href="/author/java/page3/" title="Next Page">Older Posts &raquo;</a>
     
 </nav>
 
