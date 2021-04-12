@@ -774,10 +774,10 @@ ex) Comparable, Cloneable 인터페이스는 여러 클래스들에서 구현되
 
 	<item>
 	  <title>📖 상속에 대하여</title>
-	  <link>//%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+	  <link>//inheritance</link>
 	  <author></author>
 	  <pubDate>2021-03-04T19:18:00+09:00</pubDate>
-	  <guid>//%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+	  <guid>//inheritance</guid>
 	  <description><![CDATA[
 	     <p>강의시간에 배운 상속 개념에 추가로 공부한 내용을 정리해본다 ✍️</p>
 

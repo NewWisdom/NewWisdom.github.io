@@ -198,8 +198,8 @@
         
         <pubDate>Thu, 04 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+        http://localhost:4000/inheritance</link>
+        <guid isPermaLink="true">http://localhost:4000/inheritance</guid>
       </item>
       
     
@@ -215,8 +215,8 @@
         
         <pubDate>Mon, 01 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/lotto</link>
+        <guid isPermaLink="true">http://localhost:4000/lotto</guid>
       </item>
       
     
@@ -232,8 +232,8 @@
         
         <pubDate>Mon, 01 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</link>
-        <guid isPermaLink="true">http://localhost:4000/BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</guid>
+        http://localhost:4000/bigdecimal</link>
+        <guid isPermaLink="true">http://localhost:4000/bigdecimal</guid>
       </item>
       
     
@@ -251,8 +251,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Sun, 28 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-4-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-4-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
+        http://localhost:4000/weekly4</link>
+        <guid isPermaLink="true">http://localhost:4000/weekly4</guid>
       </item>
       
     
@@ -268,8 +268,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Thu, 25 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
+        http://localhost:4000/stream</link>
+        <guid isPermaLink="true">http://localhost:4000/stream</guid>
       </item>
       
     
@@ -284,24 +284,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Wed, 24 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
-        <guid isPermaLink="true">http://localhost:4000/Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📖 Enum 열거형</title>
-        
-          <description>&lt;h2 id=&quot;열거형이란&quot;&gt;열거형이란?&lt;/h2&gt;
-&lt;p&gt;JDK 1.5 부터 새로 추가된 개념이다.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 21 Feb 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</link>
-        <guid isPermaLink="true">http://localhost:4000/Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</guid>
+        http://localhost:4000/exception</link>
+        <guid isPermaLink="true">http://localhost:4000/exception</guid>
       </item>
       
     
@@ -319,6 +303,22 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         <link>
         http://localhost:4000/weekly3</link>
         <guid isPermaLink="true">http://localhost:4000/weekly3</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 Enum 열거형</title>
+        
+          <description>&lt;h2 id=&quot;열거형이란&quot;&gt;열거형이란?&lt;/h2&gt;
+&lt;p&gt;JDK 1.5 부터 새로 추가된 개념이다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 21 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/enumnote</link>
+        <guid isPermaLink="true">http://localhost:4000/enumnote</guid>
       </item>
       
     

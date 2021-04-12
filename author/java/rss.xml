@@ -619,10 +619,10 @@ ex) Comparable, Cloneable 인터페이스는 여러 클래스들에서 구현되
 
 	<item>
 	  <title>📖 상속에 대하여</title>
-	  <link>//%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+	  <link>//inheritance</link>
 	  <author></author>
 	  <pubDate>2021-03-04T19:18:00+09:00</pubDate>
-	  <guid>//%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+	  <guid>//inheritance</guid>
 	  <description><![CDATA[
 	     <p>강의시간에 배운 상속 개념에 추가로 공부한 내용을 정리해본다 ✍️</p>
 
@@ -899,10 +899,10 @@ ex) 학생은 사람이다.</p>
 
 	<item>
 	  <title>📖 BigDecimal에 관한 고찰</title>
-	  <link>//BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</link>
+	  <link>//bigdecimal</link>
 	  <author></author>
 	  <pubDate>2021-03-01T19:18:00+09:00</pubDate>
-	  <guid>//BigDecimal%E1%84%8B%E1%85%A6-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%A9%E1%84%8E%E1%85%A1%E1%86%AF</guid>
+	  <guid>//bigdecimal</guid>
 	  <description><![CDATA[
 	     <p>이번 미션에서 <code class="highlighter-rouge">BigDecimal</code>에 대한 언급이 많았는데,<br />
 <strong>도대체 그게 뭐지 🤷‍♀️ 나만 몰라 ❓</strong><br />
@@ -1086,10 +1086,10 @@ BigDecimal을 뜯어보니 굉장히 흥미롭다 👻</p>
 
 	<item>
 	  <title>📖 Stream 부수기</title>
-	  <link>//Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</link>
+	  <link>//stream</link>
 	  <author></author>
 	  <pubDate>2021-02-25T19:18:00+09:00</pubDate>
-	  <guid>//Stream-%E1%84%87%E1%85%AE%E1%84%89%E1%85%AE%E1%84%80%E1%85%B5</guid>
+	  <guid>//stream</guid>
 	  <description><![CDATA[
 	     <p>코드를 짜다보면 가독성과 간결함을 위해 stream을 자주 쓰게 된다.<br />
 프리코스 때 Stream에 대해 정리했었으나,<br />
@@ -1567,10 +1567,10 @@ collect()가 스트림의 요소를 수집하려면, 어떻게 수집할 것인�
 
 	<item>
 	  <title>📖 Exception에 대하여</title>
-	  <link>//Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</link>
+	  <link>//exception</link>
 	  <author></author>
 	  <pubDate>2021-02-24T19:18:00+09:00</pubDate>
-	  <guid>//Exception%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%A2%E1%84%92%E1%85%A1%E1%84%8B%E1%85%A7</guid>
+	  <guid>//exception</guid>
 	  <description><![CDATA[
 	     <p>오늘 수업 시간에 자바의 Exception에 대해 배웠다.<br />
 수업을 듣고 들은 내용을 자바의 정석의 예외 처리를 함께 보면서 정리 ✍️</p>
@@ -1806,10 +1806,10 @@ JDK1.7부터 catch 블럭을 <code class="highlighter-rouge">|</code>을 이용�
 
 	<item>
 	  <title>📖 Enum 열거형</title>
-	  <link>//Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</link>
+	  <link>//enumnote</link>
 	  <author></author>
 	  <pubDate>2021-02-21T19:18:00+09:00</pubDate>
-	  <guid>//Enum-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5%E1%84%92%E1%85%A7%E1%86%BC</guid>
+	  <guid>//enumnote</guid>
 	  <description><![CDATA[
 	     <h2 id="열거형이란">열거형이란?</h2>
 <p>JDK 1.5 부터 새로 추가된 개념이다.</p>

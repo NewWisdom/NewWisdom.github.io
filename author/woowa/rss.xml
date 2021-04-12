@@ -1657,10 +1657,10 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 
 	<item>
 	  <title>🕹 Level 1. 로또 미션 코드 리뷰 정리</title>
-	  <link>//Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
+	  <link>//lotto</link>
 	  <author></author>
 	  <pubDate>2021-03-01T19:18:00+09:00</pubDate>
-	  <guid>//Level-1.-%E1%84%85%E1%85%A9%E1%84%84%E1%85%A9-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+	  <guid>//lotto</guid>
 	  <description><![CDATA[
 	     <h2 id="1단계-피드백">1단계 피드백</h2>
 <h3 id="객체인-controller">객체인 Controller</h3>
