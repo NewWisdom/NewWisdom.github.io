@@ -2052,10 +2052,10 @@ Direction 클래스의 static 상수 EAST, SOUTH, WEST, NORTH의 값은 객체�
 
 	<item>
 	  <title>📖 Effective java item 34 - int 상수 대신 열거 타입을 사용하라</title>
-	  <link>//Effective-java-item-34-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+	  <link>//effective34</link>
 	  <author></author>
 	  <pubDate>2021-02-20T19:18:00+09:00</pubDate>
-	  <guid>//Effective-java-item-34-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+	  <guid>//effective34</guid>
 	  <description><![CDATA[
 	     <h2 id="enum-">Enum ?</h2>
 <p><a href="https://velog.io/@new_wisdom/Java-Enum-%EC%97%B4%EA%B1%B0%ED%98%95">[Java] Enum 열거형</a></p>
@@ -2394,10 +2394,10 @@ switch 문이나 상수별 메서드 구현이 필요 없게 된다.</p>
 
 	<item>
 	  <title>📖 Effective java item 28 - 배열보다는 리스트를 사용하라</title>
-	  <link>//Effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
+	  <link>//effective28</link>
 	  <author></author>
 	  <pubDate>2021-02-17T19:18:00+09:00</pubDate>
-	  <guid>//Effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+	  <guid>//effective28</guid>
 	  <description><![CDATA[
 	     <p>우테코 Level 1 로또 미션에서 “배열 대신 ArrayList를 사용한다.”가 요구사항에 들어있었다.<br />
 왜 배열대신 ArrayList를 사용하라는 것일까?<br />

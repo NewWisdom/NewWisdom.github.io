@@ -317,8 +317,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Sun, 21 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-3-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B1%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%92%E1%85%AC%E1%84%80%E1%85%A9-3-%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%A1</guid>
+        http://localhost:4000/weekly3</link>
+        <guid isPermaLink="true">http://localhost:4000/weekly3</guid>
       </item>
       
     
@@ -333,8 +333,8 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         
         <pubDate>Sat, 20 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/TDD-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/TDD-%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/tddlecture</link>
+        <guid isPermaLink="true">http://localhost:4000/tddlecture</guid>
       </item>
       
     
@@ -355,8 +355,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Sat, 20 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Effective-java-item-34-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-34-int-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%AE-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%80%E1%85%A5-%E1%84%90%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+        http://localhost:4000/effective34</link>
+        <guid isPermaLink="true">http://localhost:4000/effective34</guid>
       </item>
       
     
@@ -372,44 +372,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Wed, 17 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>🕹 Level 1. 자동차 경주 미션 코드 리뷰 정리</title>
-        
-          <description>&lt;p&gt;우테코 레벨 1 난생 처음으로 코드리뷰를 받게 되었다.&lt;br /&gt;
-사실 TDD도 처음이고, 누군가 내 코드를 읽고 피드백 받는 것 또한 처음인데&lt;br /&gt;
-이런 기회가 정말 감사하면서도 떨렸던 첫 리뷰 요청이었다 👀&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/Level-1.-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/Level-1.-%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8C%E1%85%AE-%E1%84%86%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%85%E1%85%B5%E1%84%87%E1%85%B2-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📖 불변 객체 (Immutable Class)</title>
-        
-          <description>&lt;h2 id=&quot;불변-객체-immutable-class란&quot;&gt;불변 객체 (Immutable Class)란?&lt;/h2&gt;
-&lt;p&gt;불변 객체란 말 그대로 &lt;strong&gt;변경이 불가능한 객체&lt;/strong&gt;이다.&lt;br /&gt;
-객체를 생성 후 외부에 의해 그 상태를 바꿀 수 없다.&lt;br /&gt;
-여기서 바꿀 수 없다는 것은 heap 영역에서 그 객체가 가리키고 있는&lt;br /&gt;
-데이터 자체의 변화가 불가능 함을 의미하며 stack에 있는 주소값을 다른 주소값을 가리키도록 변경하는 것은 문제 없다.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)</guid>
+        http://localhost:4000/effective28</link>
+        <guid isPermaLink="true">http://localhost:4000/effective28</guid>
       </item>
       
     
@@ -434,6 +398,42 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
     
       
       <item>
+        <title>🕹 Level 1. 자동차 경주 미션 코드 리뷰 정리</title>
+        
+          <description>&lt;p&gt;우테코 레벨 1 난생 처음으로 코드리뷰를 받게 되었다.&lt;br /&gt;
+사실 TDD도 처음이고, 누군가 내 코드를 읽고 피드백 받는 것 또한 처음인데&lt;br /&gt;
+이런 기회가 정말 감사하면서도 떨렸던 첫 리뷰 요청이었다 👀&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/racingcar</link>
+        <guid isPermaLink="true">http://localhost:4000/racingcar</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📖 불변 객체 (Immutable Class)</title>
+        
+          <description>&lt;h2 id=&quot;불변-객체-immutable-class란&quot;&gt;불변 객체 (Immutable Class)란?&lt;/h2&gt;
+&lt;p&gt;불변 객체란 말 그대로 &lt;strong&gt;변경이 불가능한 객체&lt;/strong&gt;이다.&lt;br /&gt;
+객체를 생성 후 외부에 의해 그 상태를 바꿀 수 없다.&lt;br /&gt;
+여기서 바꿀 수 없다는 것은 heap 영역에서 그 객체가 가리키고 있는&lt;br /&gt;
+데이터 자체의 변화가 불가능 함을 의미하며 stack에 있는 주소값을 다른 주소값을 가리키도록 변경하는 것은 문제 없다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 15 Feb 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/Immutableclass</link>
+        <guid isPermaLink="true">http://localhost:4000/Immutableclass</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라</title>
         
           <description>&lt;p&gt;클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 &lt;code class=&quot;highlighter-rouge&quot;&gt;팩터리 메서드&lt;/code&gt;와는 다르다.&lt;/p&gt;
@@ -442,8 +442,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Sun, 14 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
+        http://localhost:4000/effective1</link>
+        <guid isPermaLink="true">http://localhost:4000/effective1</guid>
       </item>
       
     
@@ -458,8 +458,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Wed, 10 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1</guid>
+        http://localhost:4000/arraynote</link>
+        <guid isPermaLink="true">http://localhost:4000/arraynote</guid>
       </item>
       
     
@@ -478,8 +478,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Tue, 09 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%86%E1%85%A5%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6%E1%84%92%E1%85%A1%E1%86%AF%E1%84%85%E1%85%A1%E1%84%80%E1%85%A9-%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%8D%E1%85%A1-%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%92%E1%85%B5-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%E1%84%92%E1%85%A1%E1%86%AB-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB</guid>
+        http://localhost:4000/firstcollection</link>
+        <guid isPermaLink="true">http://localhost:4000/firstcollection</guid>
       </item>
       
     
@@ -496,8 +496,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Sun, 07 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5</guid>
+        http://localhost:4000/intellij</link>
+        <guid isPermaLink="true">http://localhost:4000/intellij</guid>
       </item>
       
     
@@ -512,8 +512,8 @@ public static final int APPLE_GRANNY_SMITH = 2;&lt;/p&gt;
         
         <pubDate>Fri, 05 Feb 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5</guid>
+        http://localhost:4000/assertj</link>
+        <guid isPermaLink="true">http://localhost:4000/assertj</guid>
       </item>
       
     
