@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라</title>
+    <meta name="description" content="I want to be a person who gives you new wisdom." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라" />
+    <meta property="og:description" content="I want to be a person who gives you new wisdom." />
+    <meta property="og:url" content="http://localhost:4000//Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라" />
+    <meta name="twitter:description" content="I want to be a person who gives you new wisdom." />
+    <meta name="twitter:url" content="http://localhost:4000//Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라",
+    "url": "http://localhost:4000//Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1",
+    "image": "/assets/images/woowa.jpg",
+    "description": "I want to be a person who gives you new wisdom."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java  nav-current" role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-ect  nav-current" role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-02-14">14 Feb 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <p>클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 <code class="highlighter-rouge">팩터리 메서드</code>와는 다르다.</p>
+
+<h2 id="장점">장점</h2>
+<h3 id="1-이름을-가질-수-있다">1. 이름을 가질 수 있다.</h3>
+<p>생성자에 넘기는 매개변수와 생성자만으로는 반환될 객체의 특성을 제대로 설명하지 못한다.<br />
+하지만 정적 팩터리 메서드는 반한될 객체의 특성을 메소드명을 통해 드러낼 수 있다.</p>
+
+<ul>
+  <li>Exmaple - 생성자
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Cars</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">names</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">validateNonDuplicatedNames</span><span class="o">(</span><span class="n">names</span><span class="o">);</span>
+  <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">name</span> <span class="o">:</span> <span class="n">names</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">cars</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Car</span><span class="o">(</span><span class="n">name</span><span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">validateNonDuplicatedNames</span><span class="o">(</span><span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">names</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;(</span><span class="n">names</span><span class="o">).</span><span class="na">size</span><span class="o">()</span> <span class="o">!=</span> <span class="n">names</span><span class="o">.</span><span class="na">size</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"중복된 자동차 이름입니다."</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Example -정적 팩터리 메서드
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Cars</span> <span class="nf">makeFromCarNames</span><span class="o">(</span><span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Name</span><span class="o">&gt;</span> <span class="n">carNames</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">List</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">cars</span> <span class="o">=</span> <span class="n">carNames</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">Car:</span><span class="o">:</span><span class="k">new</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">Cars</span><span class="o">(</span><span class="n">cars</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+    <p>자동차의 이름들로 자동차 객체를 생성하는 행동을 더 명확히 드러낸다.</p>
+  </li>
+</ul>
+
+<h3 id="2-호출될-때마다-인스턴스를-새로-생성하지-않아도-된다">2. 호출될 때마다 인스턴스를 새로 생성하지 않아도 된다.</h3>
+<p>이 덕분에 불변 클래스는 인스턴스를 미리 만들어 놓거나 새로 생성한 인스턴스를 캐싱하여<br />
+재활용하는 식으로 불필요한 객체 생성을 피할 수 있다.</p>
+
+<ul>
+  <li>Example - <code class="highlighter-rouge">Boolean.valueOf()</code>는 객체를 아예 생성하지 않는다.
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">Boolean</span> <span class="nf">valueOf</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="o">(</span><span class="n">b</span> <span class="o">?</span> <span class="n">TRUE</span> <span class="o">:</span> <span class="n">FALSE</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+    <p>만약 생성 비용이 큰 같은 객체가 자주 요청되는 상황일 때 정적 팩터리 메서드를 이용하면 성능 향상을 기대할 수 있다.</p>
+  </li>
+</ul>
+
+<p>또한 언제 어느 인스턴스를 살아있게 할지를 철저히 통제할 수 있다. (인스턴스 통제 클래스)<br />
+🤔 인스턴스를 통제하는 이유?</p>
+
+<ul>
+  <li>Singleton 패턴으로 만들수 있다.</li>
+  <li>인스턴스화 불가로 만들 수 있다.</li>
+  <li>불변 클래스에서 동치인 인스턴스가 단 하나뿐임을 보장할 수 있다. 
+(a == b일 때만 a.equals(b)가 성립)</li>
+</ul>
+
+<h3 id="3-반환-타입의-하위-타입-객체를-반환할-수-있는-능력이-있다">3. 반환 타입의 하위 타입 객체를 반환할 수 있는 능력이 있다.</h3>
+<p>반환할 객체의 클래스를 자유롭게 선택할 수 있게하는 엄청난 유연성을 제공한다.<br />
+이는 반환하는 타입을 인터페이스 타입으로 할 경우, 해당 인터페이스를 구현하는 <br />
+다른 타입의 객체들을 반환할 수 있음을 말한다. (상속)<br />
+특히 API를 만들 때 이 유연성을 응용하면 구현 클래스를 공개하지 않고도 그 객체를<br />
+반환할 수 있어 API를 작게 유지할 수 있다. <br />
+이는 인터페이스 기반 프레임워크를 만드는 핵심 기술이기도 하다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f55ed03e-10db-4e31-a45c-a2fa8d1e7d57/image.png" style="zoom:67%;" /></p>
+
+<p>특히 자바 컬렉션 프레임워크는 핵심 인터페이스들에 수정 불가, 동기화 등의 기능을 <br />
+덧붙인 총 45개의 유틸리티 구현체를 제공하는데, <br />
+이 구현체 대부분을 단 하나의 인스턴스화 불가 클래스인 <code class="highlighter-rouge">java.util.Collectoins</code>에서 정적 팩터리 메서드를 통해 얻도록 했다.<br />
+Collection을 상속받는 모든 타입의 인스턴스가 리턴될 수 있는 것이다.</p>
+
+<p>정적 팩터리를 사용하는 클라이언트는 얻은 객체를 인터페이스만으로 다루게 된다.</p>
+
+<h3 id="4-입력-매개변수에-따라-매번-다른-클래스의-객체를-반환할-수-있다">4. 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다.</h3>
+<p>반환 타입의 하위 타입이기만 하면 어떤 클래스의 객체를 반환하든 상관없다.</p>
+<ul>
+  <li>Example - <code class="highlighter-rouge">EnumSet</code>의 <code class="highlighter-rouge">noneOf()</code>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">E</span> <span class="kd">extends</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;&gt;</span> <span class="n">EnumSet</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">noneOf</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">elementType</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Enum</span><span class="o">&lt;?&gt;[]</span> <span class="n">universe</span> <span class="o">=</span> <span class="n">getUniverse</span><span class="o">(</span><span class="n">elementType</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">universe</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ClassCastException</span><span class="o">(</span><span class="n">elementType</span> <span class="o">+</span> <span class="s">" not an enum"</span><span class="o">);</span>
+
+  <span class="k">if</span> <span class="o">(</span><span class="n">universe</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;=</span> <span class="mi">64</span><span class="o">)</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">RegularEnumSet</span><span class="o">&lt;&gt;(</span><span class="n">elementType</span><span class="o">,</span> <span class="n">universe</span><span class="o">);</span>
+  <span class="k">else</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">JumboEnumSet</span><span class="o">&lt;&gt;(</span><span class="n">elementType</span><span class="o">,</span> <span class="n">universe</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+    <p>예시로 <code class="highlighter-rouge">EnumSet</code> 클래스는 publi 생성자 없이 오직 정적 팩터리 메서드만 제공한다. <br />
+만약 원소가 64개 이하이면 원소들은 long 변수 하나로 관리하는 <br />
+<code class="highlighter-rouge">RegularEnumSet</code>의 인스턴스를, <br />
+65개 이상이면 long 배열로 관리하는 <code class="highlighter-rouge">JunboEnumSet</code>의 인스턴스를 반환한다.<br />
+클라이언트는 이 두 클래스의 존재를 몰라도 된다.</p>
+  </li>
+</ul>
+
+<h3 id="5-정적-팩터리-메서드를-작성하는-시점에는-반환할-객체의-클래스가-존재하지-않아도-된다">5. 정적 팩터리 메서드를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.</h3>
+<p>이런 유연함은 서비스 제공자 프레임워크를 만드는 근간이 된다.<br />
+대표적인 서비스 제공자 프레임워크로는 JDBC가 있는데,<br />
+서비스 제공자 프레임워크에서의 제공자는 서비스의 구현체이다. <br />
+그리고 이 구현체들을 클라이언트에 제공하는 역할을 통제하여, <br />
+클라이언트를 구현체로부터 분리해준다.</p>
+
+<h4 id="-서비스-제공자-프레임워크의-3개-핵심-컴포넌트">➕ 서비스 제공자 프레임워크의 3개 핵심 컴포넌트</h4>
+<ul>
+  <li>서비스 인터페이스 : 구현체의 동작을 정의한다.</li>
+  <li>제공자 등록 API : 제공자가 구현체를 등록할 때 사용한다.</li>
+  <li>서비스 접근 API : 클라이언트가 서비스의 인스턴스를 얻을 때 사용한다.</li>
+</ul>
+
+<p>클라이언트는 서비스 접근 API를 사용할 때 원하는 구현체의 조건을 명시할 수 있다.<br />
+이 서비스 접근 API가 바로 서비스 제공자 프레임워크의 근간이 되는 <strong>정적 팩터리 메서드</strong>다.</p>
+
+<p>이와 더불어 ‘서비스 제공자 인터페이스’라는 4 번째 컴포넌트가 쓰이기도 한다. <br />
+이 컴포넌트는 인터페이스의 인스턴스를 생성하는 팩터리 객체를 설명해준다.</p>
+
+<p>JDBC에서는 Connection이 서비스 인터페이스 역할, DriverManager.registerDriver가 제공자 등록 API 역할,<br />
+DriverManager.getConnection이 서비스 접근 API 역할,<br />
+Driver가 서비스 제공자 인터페이스 역할을 수행한다.</p>
+
+<h2 id="단점">단점</h2>
+<h3 id="1-상속을-하려면-public이나-protected-생성자가-필요하니-정적-팩터리-메서드만-제공하면-하위-클래스를-만들-수-없다">1. 상속을 하려면 public이나 protected 생성자가 필요하니 정적 팩터리 메서드만 제공하면 하위 클래스를 만들 수 없다.</h3>
+<p>예시로 Collection 프레임뤄크의 유틸리티 구현 클래스들은 상속할 수 없다.</p>
+
+<p>하지만 상속보다 컴포지션을 사용하도록 유도하고, 불변 타입으로 만들도록 <br />
+유도하므로 오히려 장점이 될 수도 있다.</p>
+
+<h3 id="2-프로그래머가-찾기-어렵다">2. 프로그래머가 찾기 어렵다.</h3>
+<p>사용자는 정적 팩터리 메서드 방식 클래스를 인스턴스화할 방법을 알아내야 한다.<br />
+때문에 정적 팩터리 메서드의 이름 규칙을 정해놓는다.</p>
+
+<h4 id="명명-규칙">명명 규칙</h4>
+<ul>
+  <li>from : 매개변수를 하나 받아 해당 타입의 인스턴스를 반환하는 형변환 메서드<br />
+ex) <code class="highlighter-rouge">Date d = Date.from(instant);</code></li>
+  <li>of : 여러 매개변수를 받아 적합한 타입의 인스턴스를 반환하는 집계 메서드
+ex) <code class="highlighter-rouge">Set&lt;Rank&gt; faceCards = EnumSet.of(JACK, QUEEN, KING);</code></li>
+  <li>valueOf : from과 of의 더 자세한 버전
+ex) <code class="highlighter-rouge">BingInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);</code></li>
+  <li>instance / getInstance : (매개변수를 받는다면) 매개변수로 명시한 인스턴스를 반환하지만, 같은 인스턴스임을 보장하지는 않는다. 
+ex) <code class="highlighter-rouge">StackWalker luke = StackWalker.getInstance(options);</code></li>
+  <li>create / newInstance : instance / getInstance와 같지만, 매번 새로운 인스턴스를 생성해 반환함을 보장한다.
+ex) <code class="highlighter-rouge">Object newArray = Array.newInstance(calssObject, arrayLen);</code></li>
+  <li>getType : getInstance와 같으나, 생성할 클래스가 아닌 다른 클래스에 팩터리 메서드를 정의할 때 쓴다. “Type”은 팩터리 메서드가 반환할 객체의 타입이다.
+ex) <code class="highlighter-rouge">FileStore fs = Files.getFileStore(path);</code></li>
+  <li>newType : newInstance와 같으나, 생성할 클래스가 아닌 다른 클래스에 팩터리 메서드를 정의할 때 쓴다. “Type”은 팩터리 메서드가 반환할 객체의 타입이다.
+ex) <code class="highlighter-rouge">BufferedReader br = Files.newBufferedReader(path);</code></li>
+  <li>type : getType과 newType의 간결한 버전
+ex) <code class="highlighter-rouge">List&lt;Complaint&gt; litany = Collections.list(legacyLintany);</code></li>
+</ul>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라&amp;url=http://localhost:4000Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/String-vs-StringBuffer-vs-StringBuilder">
+            <section class="post">
+                <h2>📖 String vs StringBuffer vs StringBuilder</h2>
+                <p>자바의 불변 객체를 공부하다가 String 과 StringBuilder가 예시로 자주 등장함을 보게 되었다. 나도 Java를 제대로...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%8B%E1%85%B4-%E1%84%80%E1%85%B5%E1%87%81%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1">
+            <section class="post">
+                <h2>📖 배열의 깊은 복사와 얕은 복사</h2>
+                <p>자바에서의 객체 복사 자마에서 객체를 복사하는 유형에는 얕은 복사와 깊은 복사가 있다. 얕은 복사 단순히...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

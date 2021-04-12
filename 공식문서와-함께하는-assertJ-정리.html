@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📖 공식문서와 함께하는 assertJ 정리</title>
+    <meta name="description" content="I want to be a person who gives you new wisdom." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📖 공식문서와 함께하는 assertJ 정리" />
+    <meta property="og:description" content="I want to be a person who gives you new wisdom." />
+    <meta property="og:url" content="http://localhost:4000//%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📖 공식문서와 함께하는 assertJ 정리" />
+    <meta name="twitter:description" content="I want to be a person who gives you new wisdom." />
+    <meta name="twitter:url" content="http://localhost:4000//%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📖 공식문서와 함께하는 assertJ 정리",
+    "url": "http://localhost:4000//%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5",
+    "image": "/assets/images/woowa.jpg",
+    "description": "I want to be a person who gives you new wisdom."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📖 공식문서와 함께하는 assertJ 정리</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-02-05">05 Feb 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <p>JUnit5으로 테스트 코드를 작성하면서 assertion을 주는 도구로 assertJ를 배웠다.<br />
+새로 깨닫게 된 것은 정리하며 익히자.</p>
+
+<h2 id="assertj">assertJ?</h2>
+<p>Java 테스트에서 유창하고 풍부한 assertions를 작성하는 데 사용되는 오픈 소스 커뮤니티 기반 라이브러리</p>
+
+<h3 id="지원">지원</h3>
+<ul>
+  <li>Standard Java</li>
+  <li>Java 8</li>
+  <li>Guava</li>
+  <li>Joda Time</li>
+  <li>Neo4J and</li>
+  <li>Swing components</li>
+</ul>
+
+<h3 id="assertions-작성">Assertions 작성</h3>
+<p>Assertions.assertThat()에 object를 전달하면 assertion을 받을 수 있다.</p>
+
+<h3 id="obejct-assertions">Obejct Assertions</h3>
+<p>Obejct는 두 객체의 동일성이나 객체의 필드를 조사하기 위해 다양한 방법으로 비교할 수 있다.</p>
+<h4 id="example">Example</h4>
+<p>두 Dog의 객체인 fido와 fidoClone이 주어질 때</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="o">{</span> 
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span> 
+    <span class="kd">private</span> <span class="n">Float</span> <span class="n">weight</span><span class="o">;</span>
+    
+    <span class="c1">// standard getters and setters</span>
+<span class="o">}</span>
+
+<span class="n">Dog</span> <span class="n">fido</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">(</span><span class="s">"Fido"</span><span class="o">,</span> <span class="mf">5.25</span><span class="o">);</span>
+
+<span class="n">Dog</span> <span class="n">fidosClone</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">(</span><span class="s">"Fido"</span><span class="o">,</span> <span class="mf">5.25</span><span class="o">);</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">assertThat</code>을 이용해 비교한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertThat</span><span class="o">(</span><span class="n">fido</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">fidosClone</span><span class="o">);</span>
+</code></pre></div></div>
+<p>하지만 <code class="highlighter-rouge">isEqualsTo()</code>가 객체의 참조를 비교하므로 fail이다.<br />
+내용을 비교하려면 <code class="highlighter-rouge">isEqualToComparingFieldByFieldRecursively()</code>를 사용한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertThat</span><span class="o">(</span><span class="n">fido</span><span class="o">).</span><span class="na">isEqualToComparingFieldByFieldRecursively</span><span class="o">(</span><span class="n">fidosClone</span><span class="o">);</span>
+</code></pre></div></div>
+<p>✍️ 참고로 페어프로그래밍을 하면서 페어에게 들었는데 <code class="highlighter-rouge">assertEquals</code>보다 <code class="highlighter-rouge">assertThat</code>이 <br />
+좀 더 직관적이기 때문에 가급적 <code class="highlighter-rouge">assertThat()</code>을 사용하라고 알려줬다.</p>
+
+<h3 id="boolean-assertions">Boolean Assertions</h3>
+<ul>
+  <li>isTrue()</li>
+  <li>isFalse()
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat("".isEmpty()).isTrue();
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="iterablearray-assertions">Iterable/Array Assertions</h3>
+<p>Iterable/Array에 특정 요소가 존재하는지 다양한 방법으로 알 수 있다.<br />
+여기서는 특정 요소가 포함되어 있는지 확인한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List&lt;String&gt; list = Arrays.asList("1", "2", "3");
+
+assertThat(list).contains("1");
+</code></pre></div></div>
+<h4 id="example-1">Example</h4>
+<p>list가 비어 있지 않은 경우</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(list).isNotEmpty();
+</code></pre></div></div>
+<p>list가 주어진 문자로 시작하는 경우</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(list).startsWith("1");
+</code></pre></div></div>
+<p>동일한 객체에 하나 이상의 assertion을 생성하려는 경우 체이닝을 통해 쉽게 결합할 수 있다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(list)
+  .isNotEmpty()
+  .contains("1")
+  .doesNotContainNull()
+  .containsSequence("2", "3");
+</code></pre></div></div>
+
+<h3 id="character-assertions">Character Assertions</h3>
+<p>Character에 대한 assertions는 비교 대상 문자가 유니코드 테이블에 있는지 확인하는 작업을 포함한다.</p>
+<h4 id="example-2">Example</h4>
+<p>문자가 ‘a’가 아니고 유니코드 테이블에 있는지, ‘b’보다 크고 소문자인지 확인하는 assertion</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(someCharacter)
+  .isNotEqualTo('a')
+  .inUnicode()
+  .isGreaterThanOrEqualTo('b')
+  .isLowerCase();
+</code></pre></div></div>
+
+<h3 id="class-assertions">Class Assertions</h3>
+<p>해당 필드, 클래스 유형, annotations의 존재 등을 체크한다.</p>
+<h4 id="example-3">Example</h4>
+<p>해당 클래스가 Runnable인지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(Runnable.class).isInterface();
+</code></pre></div></div>
+<p>한 클래스가 다른 클래스에 할당 가능한지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(Exception.class).isAssignableFrom(NoSuchElementException.class);
+</code></pre></div></div>
+
+<h3 id="file-assertions">File Assertions</h3>
+<p>지정된 File 인스턴스가 존재 하는지, 디렉토리 또는 파일인지, <br />
+특정 콘텐츠가 있는지, 읽을 수 있는지 또는 확장명이 있는지 확인한다.</p>
+
+<h4 id="example-4">Example</h4>
+<p>파일이 존재하고, 디렉토리가 아닌 파일이며, 읽고 쓸 수 있는지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> assertThat(someFile)
+   .exists()
+   .isFile()
+   .canRead()
+   .canWrite();
+</code></pre></div></div>
+
+<h3 id="double--float--integer-assertions">Double / Float / Integer Assertions</h3>
+<p>주어진 Offset 안에서 혹은 없는 숫자 값을 비교한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(5.1).isEqualTo(5, withPrecision(1d));
+</code></pre></div></div>
+
+<h3 id="inputstream-assertions">InputStream Assertions</h3>
+<ul>
+  <li>hasSameContentAs(InputStream expected)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(given).hasSameContentAs(expected);
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="map-assertions">Map Assertions</h3>
+<p>맵에 특정 항목, entry, key/value 값이 포함되어 있는지 확인한다.</p>
+<h4 id="example-5">Example</h4>
+<p>맵이 비어있지 않고 키 2를 포함하며, 키 10을 포함하지 않고 (2, “a”)를 포함하는지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(map)
+  .isNotEmpty()
+  .containsKey(2)
+  .doesNotContainKeys(10)
+  .contains(entry(2, "a"));
+</code></pre></div></div>
+
+<h3 id="throwable-assertions">Throwable Assertions</h3>
+<p>예외 메시지, 스택 추적 검사, 예외가 이미 throw 되었는지 확인</p>
+<h4 id="example-6">Example</h4>
+<p>주어진 예외가 발생했는지 확인하고 “c”로 끝나는 메시지가 있는지 확인</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(ex).hasNoCause().hasMessageEndingWith("c");
+</code></pre></div></div>
+<p>교육에서 이 Throwable Assertions로 예외를 발생시켰는지 확인했다.<br />
+<code class="highlighter-rouge">assertThatThrownBy()</code>와 <code class="highlighter-rouge">assertThatExceptionOfType()</code> 두 가지 방법으로 처리가 가능함을 깨달았다.</p>
+
+<ul>
+  <li>assertThatThrownBy() : Java 8 exception assertion 표준 스타일</li>
+  <li>
+    <p>assertThatExceptionOfType() : 예외 클래스 넣기
+```
+@Test
+@DisplayName(“특정 위치 문자 가져오기 has”)
+public void charGetFromString1() {
+  String name = “Fortune”;
+  int index = 10;</p>
+
+    <p>assertThatThrownBy(() -&gt; {
+      name.charAt(index);
+  }).isInstanceOf(IndexOutOfBoundsException.class)
+          .hasMessageContaining(“%d”, index);
+}</p>
+  </li>
+</ul>
+
+<p>@Test
+@DisplayName(“특정 위치 문자 가져오기 with”)
+public void charGetFromString2() {
+    String name = “Fortune”;
+    int index = 10;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThatExceptionOfType(IndexOutOfBoundsException.class)
+        .isThrownBy(() -&gt; {
+            name.charAt(index);
+        }).withMessageContaining("%d", index); } ```
+</code></pre></div></div>
+
+<h3 id="java8에서-더-유용하게--">java8에서 더 유용하게. . .</h3>
+<ul>
+  <li>java7
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(fellowshipOfTheRing)
+.filteredOn("race", HOBBIT)
+.containsOnly(sam, frodo, pippin, merry);
+</code></pre></div>    </div>
+  </li>
+  <li>java8
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assertThat(fellowshipOfTheRing)
+.filteredOn(character -&gt; character.getRace().equals(HOBBIT))
+.containsOnly(sam, frodo, pippin, merry);
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li><a href="https://www.baeldung.com/introduction-to-assertj">AssertJ 소개</a></li>
+</ul>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📖 공식문서와 함께하는 assertJ 정리&amp;url=http://localhost:4000%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000%E1%84%80%E1%85%A9%E1%86%BC%E1%84%89%E1%85%B5%E1%86%A8%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AA-%E1%84%92%E1%85%A1%E1%86%B7%E1%84%81%E1%85%A6%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-assertJ-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%83%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A6-mac-%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8F%E1%85%B5">
+            <section class="post">
+                <h2>👀 인텔리제이를 인텔리제이답게 - mac 단축키</h2>
+                <p>사실 인텔리제이를 쓰면서 사람들이 왜 인텔리제이가 편하다고 하는 걸까 의문이었다. 하지만 우테코를 진행하면서 몇 가지...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5">
+            <section class="post">
+                <h2>📖 내가 정리한 JUnit5</h2>
+                <p>우테코 level1 1주차 - JUnit을 활용한 단위 테스트 이론 및 실습 단위테스트에 대해서 배웠다. 허나...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

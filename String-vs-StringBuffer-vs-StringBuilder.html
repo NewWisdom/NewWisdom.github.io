@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📖 String vs StringBuffer vs StringBuilder</title>
+    <meta name="description" content="I want to be a person who gives you new wisdom." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//String-vs-StringBuffer-vs-StringBuilder" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📖 String vs StringBuffer vs StringBuilder" />
+    <meta property="og:description" content="I want to be a person who gives you new wisdom." />
+    <meta property="og:url" content="http://localhost:4000//String-vs-StringBuffer-vs-StringBuilder" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📖 String vs StringBuffer vs StringBuilder" />
+    <meta name="twitter:description" content="I want to be a person who gives you new wisdom." />
+    <meta name="twitter:url" content="http://localhost:4000//String-vs-StringBuffer-vs-StringBuilder" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📖 String vs StringBuffer vs StringBuilder",
+    "url": "http://localhost:4000//String-vs-StringBuffer-vs-StringBuilder",
+    "image": "/assets/images/woowa.jpg",
+    "description": "I want to be a person who gives you new wisdom."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📖 String vs StringBuffer vs StringBuilder</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-02-15">15 Feb 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <p>자바의 불변 객체를 공부하다가 String 과 StringBuilder가 예시로 자주 등장함을 보게 되었다.<br />
+나도 Java를 제대로 공부한지 얼마 안되서,<br />
+사실 String, StringBuffer, StringBuilder의 명확한 차이를 잘모르고<br />
+그냥 가져다 썼는데, 자바의 정석을 읽어보니 이 String이 굉장히 흥미로워서 👀<br />
+이번 기회에 명확히 정리하고 가는 것이 좋다고 생각했다.</p>
+
+<h2 id="string">String</h2>
+<p>String은 참 특이한 존재이다.<br />
+다른 언어에서 문자열이란 대부분 char형의 배열로 다루는데,<br />
+자바에서는 이 문자열을 위한 클래스가 존재한다는 것이다.</p>
+
+<p>이 String 클래스를 깊게 보기 위해 String 클래스가 어떻게 이루어져 있는지 들여다보자.</p>
+
+<p><strong>String.java 일부</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">String</span>
+    <span class="kd">implements</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span><span class="o">,</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;,</span> <span class="n">CharSequence</span> <span class="o">{</span>
+    <span class="cm">/** The value is used for character storage. */</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">char</span> <span class="n">value</span><span class="o">[];</span>
+
+    <span class="cm">/** Cache the hash code for the string */</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">hash</span><span class="o">;</span> <span class="c1">// Default to 0</span>
+    
+    <span class="o">...</span>
+    
+    <span class="kd">public</span> <span class="nf">String</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">""</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Initializes a newly created {@code String} object so that it represents
+     * the same sequence of characters as the argument; in other words, the
+     * newly created string is a copy of the argument string. Unless an
+     * explicit copy of {@code original} is needed, use of this constructor is
+     * unnecessary since Strings are immutable.
+     *
+     * @param  original
+     *         A {@code String}
+     */</span>
+    <span class="kd">public</span> <span class="nf">String</span><span class="o">(</span><span class="n">String</span> <span class="n">original</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">original</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">hash</span> <span class="o">=</span> <span class="n">original</span><span class="o">.</span><span class="na">hash</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Allocates a new {@code String} so that it represents the sequence of
+     * characters currently contained in the character array argument. The
+     * contents of the character array are copied; subsequent modification of
+     * the character array does not affect the newly created string.
+     *
+     * @param  value
+     *         The initial value of the string
+     */</span>
+    <span class="kd">public</span> <span class="nf">String</span><span class="o">(</span><span class="kt">char</span> <span class="n">value</span><span class="o">[])</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="n">value</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="o">}</span>
+
+</code></pre></div></div>
+<p>String 클래스는 인스턴스 변수로 몇 가지를 가지고 있는데<br />
+그 중 문자열을 저장하기 위해 문자형 배열 변수 <code class="highlighter-rouge">char[] value</code>가 있다.<br />
+또 생성자를 보면 인스턴스 생성 시 생성자의 매개변수로 입력 받는 문자열이 
+이 인스턴스 변수에 문자형 배열로 저장되는 것을 확인할 수 있다. <br />
+또한 <code class="highlighter-rouge">final</code> 키워드로 변경이 불가능한 <strong>불변 객체</strong>임을 확인할 수 있다.</p>
+
+<p>또 생성된 String 인스턴스가 가지고 있는 문자열은 읽을 수만 있고, 변경할 수는 없다.(불변 객체)</p>
+
+<p>만약 연산자를 통해 문자열을 결합하는 경우는 String 인스턴스 내의 value 값이 변하는게 아닌,<br />
+새로운 문자열이 담긴 String 인스턴스를 반환한다.<br />
+때문에 문자열을 결합할 때마다 새로운 문자열을 가진 String 인스턴스를 생성하는 것이다.<br />
+이는 무분별한 메모리 공간 차지의 문제를 일으킬 수 있다.</p>
+
+<h3 id="string의-비교">String의 비교</h3>
+<p>문자열을 만들 때 문자열 리터럴을 지정하는 방법과 String 클래스의 생성자를 이용해 만드는 법이 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*문자열 리터럴*/</span>
+<span class="n">String</span> <span class="n">str1</span> <span class="o">=</span> <span class="s">"amazzi"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">str2</span> <span class="o">=</span> <span class="s">"amazzi"</span><span class="o">;</span>
+
+<span class="cm">/*String 클래스의 생성자*/</span>
+<span class="n">String</span> <span class="n">str3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">"amazzi"</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">str4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="err">"</span><span class="n">amazzi</span><span class="o">);</span>
+</code></pre></div></div>
+<h4 id="string-클래스-생성자">String 클래스 생성자</h4>
+<p>String 클래스 생성자는 new 연산자에 의해 새로운 메모리가 할당된다.<br />
+wmr gkdtkd tofhdns String 인스턴스가 생성되며 각각의 주소값을 갖는다.</p>
+
+<h4 id="문자열-리터럴">문자열 리터럴</h4>
+<p>문자열 리터럴은 클래스가 메모리에 로드될 때 자동적으로 생성되어 이미 존재하는 것을 재사용한다.<br />
+때문에 같은 내용의 문자열 리터럴은 한번만 저장되며 <br />
+같은 문자열은 하나의 인스턴스를 공유하고 참조변수만이 다를 뿐이다.</p>
+
+<p>그렇다면 문자열 리터럴로 만든 str1, str2와 <br />
+String 클래스의 생성자로 만든 str3, str4 각각의 비교 결과는 어떠할까?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">str2</span><span class="o">);</span> <span class="c1">// true</span>
+<span class="n">str3</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">str4</span><span class="o">);</span> <span class="c1">// true</span>
+
+<span class="n">str1</span> <span class="o">==</span> <span class="n">str2</span><span class="o">;</span> <span class="c1">// true</span>
+<span class="n">str3</span> <span class="o">==</span> <span class="n">str4</span> <span class="c1">// false</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">equals()</code> 사용을 통한 비교에서는 두 문자열의 내용을 비교하기 때문에 두 비교 결과 모두 true이다.<br />
+하지만 등가비교연산자 <code class="highlighter-rouge">==</code>를 통해 주소를 비교했을 경우,<br />
+str3, str4는 각각 다른 주소값을 가지고 있기 때문에 false가 나온다.</p>
+
+<h2 id="stringbuffer">StringBuffer</h2>
+<p>String 클래스는 불변 클래스이기 때문에 문자열을 변경할 수 없었으나,<br />
+StringBuffer는 변경이 가능하다.<br />
+StringBuffer는 할당된 값을 변경하더라도, <br />
+String 클래스처럼 새로운 객체를 만들지 않고 기존 할당된 값을 수정하는 것으로 처리한다.<br />
+내부적으로 문자열 편집을 위한 버퍼를 가지고 있으며 StringBuffer 인스턴스를 생성할 때 <br />
+그 크기를 지정할 수 있다.</p>
+
+<p>마찬가지로 StringBuffer 클래스를 들여다보자.</p>
+
+<p><strong>StringBuffer.java 일부</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">StringBuffer</span>
+    <span class="kd">extends</span> <span class="n">AbstractStringBuilder</span>
+    <span class="kd">implements</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span><span class="o">,</span> <span class="n">CharSequence</span>
+<span class="o">{</span>
+
+    <span class="cm">/**
+     * A cache of the last value returned by toString. Cleared
+     * whenever the StringBuffer is modified.
+     */</span>
+    <span class="kd">private</span> <span class="kd">transient</span> <span class="kt">char</span><span class="o">[]</span> <span class="n">toStringCache</span><span class="o">;</span>
+
+    <span class="cm">/** use serialVersionUID from JDK 1.0.2 for interoperability */</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">3388685877147921107L</span><span class="o">;</span>
+
+    <span class="cm">/**
+     * Constructs a string buffer with no characters in it and an
+     * initial capacity of 16 characters.
+     */</span>
+    <span class="kd">public</span> <span class="nf">StringBuffer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Constructs a string buffer with no characters in it and
+     * the specified initial capacity.
+     *
+     * @param      capacity  the initial capacity.
+     * @exception  NegativeArraySizeException  if the {@code capacity}
+     *               argument is less than {@code 0}.
+     */</span>
+    <span class="kd">public</span> <span class="nf">StringBuffer</span><span class="o">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">capacity</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Constructs a string buffer initialized to the contents of the
+     * specified string. The initial capacity of the string buffer is
+     * {@code 16} plus the length of the string argument.
+     *
+     * @param   str   the initial contents of the buffer.
+     */</span>
+    <span class="kd">public</span> <span class="nf">StringBuffer</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="mi">16</span><span class="o">);</span>
+        <span class="n">append</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Constructs a string buffer that contains the same characters
+     * as the specified {@code CharSequence}. The initial capacity of
+     * the string buffer is {@code 16} plus the length of the
+     * {@code CharSequence} argument.
+     * &lt;p&gt;
+     * If the length of the specified {@code CharSequence} is
+     * less than or equal to zero, then an empty buffer of capacity
+     * {@code 16} is returned.
+     *
+     * @param      seq   the sequence to copy.
+     * @since 1.5
+     */</span>
+    <span class="kd">public</span> <span class="nf">StringBuffer</span><span class="o">(</span><span class="n">CharSequence</span> <span class="n">seq</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">seq</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="mi">16</span><span class="o">);</span>
+        <span class="n">append</span><span class="o">(</span><span class="n">seq</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+<p>문자열을 저장하기 위한 <code class="highlighter-rouge">toStringCache</code> 변수가 보인다.<br />
+String 클래스와 차이점은 이 변수는 final로 선언되어 있지 않다는 것이다.<br />
+인스턴스를 생성할 때는 <code class="highlighter-rouge">StringBuffer(int capacity)</code> 생성자를 통해 길이를 지정해 줄 수 있으나,<br />
+지정해주지 않는다면 16개 문자를 저장할 수 있는 크기의 버퍼를 생성한다. <br />
+만약 버퍼의 크기가 작업하려는 문자열의 길이보다 작을 때는 내부적으로 버퍼의 크기를 증가시키는 작업이 수행된다.</p>
+
+<h3 id="stringbuffer의-변경">StringBuffer의 변경</h3>
+<p>String 클래스와는 달리 append() 메소드로 값을 변경, 추가할 수 있다.<br />
+append()는 반환 값이 StringBuffer이며 자신의 주소를 반환한다. <br />
+때문에 아래 코드는 sb에 새로운 문자열이 추가되고 sb 자신의 주소를 반환해 sb2에도 sb의 주소가 들어간다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StringBuffer</span> <span class="n">sb2</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"zzi"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="stringbuffer의-비교">StringBuffer의 비교</h3>
+
+<p>String 클래스에서는 equals 메서드를 오버라이딩 하고 있어서 내용 비교가 가능했으나,<br />
+StringBuffer는 그렇지 않다. 때문에 <code class="highlighter-rouge">==</code>로 비교한 것과 같은 결과를 얻는다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StringBuffer</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="s">"abc"</span><span class="o">);</span>
+<span class="n">StringVuffer</span> <span class="n">sb2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringVuffer</span><span class="o">(</span><span class="s">"abc"</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">sb</span> <span class="o">==</span> <span class="n">sb2</span><span class="o">;</span> <span class="c1">// false</span>
+<span class="n">sb</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">sb2</span><span class="o">);</span> <span class="c1">// false</span>
+</code></pre></div></div>
+<p>하지만 <code class="highlighter-rouge">toString()</code>을 오버라이딩하고 있기 때문에 이를 이용해 인스턴스를 얻고 <code class="highlighter-rouge">equals()</code>를 통해 비교할 수 있다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">sb2</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="o">...</span>
+<span class="n">s</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s2</span><span class="o">);</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<h2 id="stringbuilder">StringBuilder</h2>
+<p>StringBuffer는 멀티 쓰레드에 안전하도록 동기화되어 있다.<br />
+이에 대해 아직은 잘 모르지만 🥲 일단 이 동기화가 StringBuffer의 성능을 떨어뜨린다.<br />
+그래서 StringBuffer에서 스레드의 동기화만 뺀 것이 StringBuilder이고<br />
+둘의 기능은 완전이 동일하다.</p>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📖 String vs StringBuffer vs StringBuilder&amp;url=http://localhost:4000String-vs-StringBuffer-vs-StringBuilder"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000String-vs-StringBuffer-vs-StringBuilder"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000String-vs-StringBuffer-vs-StringBuilder"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/%E1%84%87%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A7%E1%86%AB-%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6-(Immutable-Class)">
+            <section class="post">
+                <h2>📖 불변 객체 (Immutable Class)</h2>
+                <p>## 불변 객체 (Immutable Class)란? 불변 객체란 말 그대로 **변경이 불가능한 객체**이다. 객체를 생성 후...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/Effective-java-item-1-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A1-%E1%84%83%E1%85%A2%E1%84%89%E1%85%B5%E1%86%AB-%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A5%E1%86%A8-%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5-%E1%84%86%E1%85%A6%E1%84%89%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1">
+            <section class="post">
+                <h2>📖 Effective java item 1 -생성자 대신 정적 팩터리 메서드를 고려하라</h2>
+                <p>클래스는 생성자와 별도로 정적 팩터리 메서드(static factory method)를 제공할 수 있다. 디자인 패턴의 팩터리 메서드와는...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>
