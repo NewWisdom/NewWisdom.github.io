@@ -159,7 +159,7 @@
     
       
       <item>
-        <title>Functional Interface</title>
+        <title>📖 Functional Interface</title>
         
           <description>&lt;h2 id=&quot;함수형-인터페이스&quot;&gt;함수형 인터페이스&lt;/h2&gt;
 &lt;p&gt;자바 8부터 자바는 객체지향 언어일 뿐만 아니라 함수형 언어도 지원할 수 있게되었다.&lt;/p&gt;
@@ -175,7 +175,7 @@
     
       
       <item>
-        <title>📖 추상 클래스와 인터페이스의 차이</title>
+        <title>추상 클래스와 인터페이스의 차이</title>
         
           <description>&lt;h2 id=&quot;추상-클래스&quot;&gt;추상 클래스&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;간단히 말하면…&lt;/strong&gt;&lt;br /&gt;
