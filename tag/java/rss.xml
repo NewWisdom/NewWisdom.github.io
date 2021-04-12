@@ -760,7 +760,7 @@ Integer 래퍼 클래스는 127까지 인스턴스를 미리 생성해 두기 �
 	</item>
 
 	<item>
-	  <title>📖 Functional Interface</title>
+	  <title>Functional Interface</title>
 	  <link>//Functional-Interface</link>
 	  <author></author>
 	  <pubDate>2021-03-06T19:18:00+09:00</pubDate>
@@ -814,14 +814,36 @@ Integer 래퍼 클래스는 127까지 인스턴스를 미리 생성해 두기 �
 가급적 이 패키지의 함수형 인터페이스를 사용하자!</p>
 
 <h4 id="표준으로-정의된-대표적-함수형-인터페이스와-그-안에-있는-추상-메소드">표준으로 정의된 대표적 함수형 인터페이스와 그 안에 있는 추상 메소드</h4>
-<p>| 함수형 인터페이스   | 추상 메서드             |
-| ——————- | ———————– |
-| <code class="highlighter-rouge">Predicate&lt;T&gt;</code>  | <code class="highlighter-rouge">boolean test(T t)</code> |
-| <code class="highlighter-rouge">Supplier&lt;T&gt;</code>   | <code class="highlighter-rouge">T get()</code>           |
-| <code class="highlighter-rouge">Consumer&lt;T&gt;</code>   | <code class="highlighter-rouge">void accept(T t)</code>  |
-| <code class="highlighter-rouge">Funtion&lt;T, R&gt;</code> | <code class="highlighter-rouge">R apply(T t)</code>      |</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>함수형 인터페이스</th>
+      <th>추상 메서드</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">Predicate&lt;T&gt;</code></td>
+      <td><code class="highlighter-rouge">boolean test(T t)</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">Supplier&lt;T&gt;</code></td>
+      <td><code class="highlighter-rouge">T get()</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">Consumer&lt;T&gt;</code></td>
+      <td><code class="highlighter-rouge">void accept(T t)</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">Funtion&lt;T, R&gt;</code></td>
+      <td><code class="highlighter-rouge">R apply(T t)</code></td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="predicatet"><code class="highlighter-rouge">Predicate&lt;T&gt;</code></h3>
+
 <p>매개변수 타입 T, 반환타입 Boolean</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">);</span> 
 </code></pre></div></div>
