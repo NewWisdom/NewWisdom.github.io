@@ -183,24 +183,6 @@
         
         <pubDate>Fri, 05 Mar 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%80%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%80%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>추상 클래스와 인터페이스의 차이</title>
-        
-          <description>&lt;h2 id=&quot;추상-클래스&quot;&gt;추상 클래스&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;간단히 말하면…&lt;/strong&gt;&lt;br /&gt;
-클래스를 설계도라 하면, 추상 클래스는 &lt;strong&gt;미완성 설계도&lt;/strong&gt;에 비유할 수 있다.&lt;br /&gt;
-(여기서 클래스가 미완성이라는 것은 추상 메서드를 포함하고 있다는 의미이다.)&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Fri, 05 Mar 2021 19:18:00 +0900</pubDate>
-        <link>
         http://localhost:4000/%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</link>
         <guid isPermaLink="true">http://localhost:4000/%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</guid>
       </item>
@@ -808,24 +790,6 @@ The poor King looked puzzled and unhappy, and struggled with the pencil for some
         <link>
         http://localhost:4000/down-the-rabbit-hole</link>
         <guid isPermaLink="true">http://localhost:4000/down-the-rabbit-hole</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Gettysburg Address</title>
-        
-          <description>&lt;p&gt;Fourscore and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.&lt;/p&gt;
-
-&lt;p&gt;Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.&lt;/p&gt;
-
-&lt;p&gt;But, in a larger sense, we can not dedicate-we can not consecrate-we can not hallow-this ground. The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us-that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion-that we here highly resolve that these dead shall not have died in vain-that this nation, under God, shall have a new birth of freedom-and that government of the people, by the people, for the people shall not perish from the earth.&lt;/p&gt;
-</description>
-        
-        <pubDate>Thu, 19 Nov 1863 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/gettysburg-address</link>
-        <guid isPermaLink="true">http://localhost:4000/gettysburg-address</guid>
       </item>
       
     
