@@ -353,6 +353,272 @@ effectively final은 final로 선언되지 않아도 컴파일러가 해당 변�
 
 	<item>
 	  <title>추상 클래스와 인터페이스의 차이</title>
+	  <link>//%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%80%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</link>
+	  <author></author>
+	  <pubDate>2021-03-05T19:18:00+09:00</pubDate>
+	  <guid>//%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%80%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</guid>
+	  <description><![CDATA[
+	     <h2 id="추상-클래스">추상 클래스</h2>
+
+<p><strong>간단히 말하면…</strong><br />
+클래스를 설계도라 하면, 추상 클래스는 <strong>미완성 설계도</strong>에 비유할 수 있다.<br />
+(여기서 클래스가 미완성이라는 것은 추상 메서드를 포함하고 있다는 의미이다.)</p>
+
+<p>예를 들면, 같은 크기의TV라도 기능의 차이에 따라 여러 종류의 모델이 있지만<br />
+설계도 90은 동일할테니, 어느정도 틀을 갖춘 상태에서 진행하는 것이 좋다.<br />
+이때 사용할 수 있는 것이 <strong>추상 클래스</strong>이다.</p>
+
+<h4 id="추상-메서드-">추상 메서드 ?</h4>
+
+<p>선언부만 작성하고 구현부는 작성하지 않은 채로 남겨 둔 것이 추상메서드이다.<br />
+추상 메서드는 상속받는 클래스에 따라 달라질 수 있다.</p>
+
+<h3 id="추상-클래스-규칙">추상 클래스 규칙</h3>
+
+<ul>
+  <li>추상 클래스는 키워드 <code class="highlighter-rouge">abstract</code>를 붙여 표현한다.
+추상 메서드를 포함하지 않은 클래스에서도 <code class="highlighter-rouge">abstract</code>를 붙여서 추상 클래스로 지정할 수도 있다.</li>
+  <li>클래스를 abstract로 지정하면 <code class="highlighter-rouge">new</code>를 통해 객체를 직접 생성할 수 없다.</li>
+  <li>메소드에 abstract를 사용할 경우 interface의 메소드와 같이 구현 부분은 없다.</li>
+  <li>abstract로 선언한 메소드를 자식 클래스에서 반드시 구현해야 한다. (오버라이딩)
+이는 자식 클래스에서 추상 메서드를 반드시 구현하도록 강제하는 것이다.</li>
+</ul>
+
+<p>다음 예제를 보면서 추상 클래스에 대해 알아보자 !</p>
+
+<h4 id="exmaple">Exmaple</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Player</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">pause</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">currentPos</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pause</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">currentPos</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// 지정된 위치에서 재생을 시작하는 기능 수행되도록 작성</span>
+    <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">(</span><span class="kt">int</span> <span class="n">pos</span><span class="o">);</span>
+    <span class="c1">// 재생을 즉시 멈추는 기능을 수행하도록 작성</span>
+    <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">stop</span><span class="o">();</span>
+
+    <span class="kt">void</span> <span class="nf">pause</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pause</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">pause</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="n">play</span><span class="o">(</span><span class="n">currentPos</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">pause</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="n">stop</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Player 추상 클래스는 <br />
+VCR이나 Audio 같은 재생이 가능한 기기의 부모 클래스가 될 수 있다.<br />
+이제 Player 추상 클래스를 상속받는 CDPlayer 클래스를 만들어보자 🔨</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CDPlayer</span> <span class="kd">extends</span> <span class="n">Player</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kt">void</span> <span class="nf">play</span><span class="o">(</span><span class="kt">int</span> <span class="n">pos</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 구현 생략</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">void</span> <span class="nf">stop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 구현 생략</span>
+    <span class="o">}</span>
+
+    <span class="c1">//CDPlayer 클래스에 추가로 정의된 멤버</span>
+    <span class="kt">int</span> <span class="n">currentTrack</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">nextTrack</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">currentTrack</span><span class="o">++;</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">preTrack</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">currentTrack</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">currentTrack</span><span class="o">--;</span>
+        <span class="o">}</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>부모 클래스의 추상메서드를 CDPlayer에 맞게 오버라이딩해주고, <br />
+CDPlayer만의 새로운 멤버들을 추가해주었다.</p>
+
+<h2 id="인터페이스">인터페이스</h2>
+
+<p><strong>간단히 말하면…</strong><br />
+인터페이스는 일종의 추상 클래스로, 추상 메서드를 갖지만 <br />
+추상 클래스보다 추상화 정도가 높아<br />
+추상 클래스와 달리 몸통을 갖춘 일반 메서드, 멤버 변수를 구성원으로 가질 수 없다.<br />
+추상 클래스를 미완성 설계도라 하면, 인터페이스는 구현된 것은 아무 것도 없는, <br />
+밑그림만 그려진 <strong>기본 설계도</strong>라고 할 수 있다.</p>
+
+<h3 id="인터페이스-규칙">인터페이스 규칙</h3>
+
+<ul>
+  <li>추상 클래스처럼 불완전한 것이기 때문에 그 자체만으로 사용되기 보다,
+다른 클래스를 작성하는데 도움을 줄 목적으로 작성된다.</li>
+  <li>일반 메서드 또는 멤버 변수를 구성원으로 가질 수 없다.</li>
+  <li>모든 멤버 변수는 <code class="highlighter-rouge">public static final</code>이어햐 하며, 이를 생략할 수 있다.</li>
+  <li>모든 메서드는 <code class="highlighter-rouge">public abtract</code>이어야 하며, 이를 생략할 수 있다.
+(단, JDK1.8부터 static 메서드와 default 메서드를 사용할 수 있다.)</li>
+</ul>
+
+<p><strong>🤔 public static final의 사용 목적 ?</strong><br />
+인터페이스 변수는 아무 인스턴스도 존재하지 않는 시점이기 떄문에 스스로 초기화 될 권한이 없다.<br />
+때문에 <code class="highlighter-rouge">public static final</code>를 사용해 구현 객체의 같은 상태를 보장한다.</p>
+
+<h3 id="인터페이스의-다중-상속">인터페이스의 다중 상속</h3>
+
+<p>인터페이스는 인터페이스로부터만 상속받을 수 있으며,<br />
+클래스와 달리 다중상속을 받는 것이 가능하다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Movable</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">move</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">Attackable</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">attack</span><span class="o">(</span><span class="n">Unit</span> <span class="n">u</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">Fightable</span> <span class="kd">extends</span> <span class="n">Movable</span><span class="o">,</span> <span class="n">Attackable</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>클래스의 상속과 마찬가지로 자식 인터페이스는 부모 인터페이스에 정의된 멤버 모두 상속받는다.</p>
+
+<p><strong>인터페이스가 다중 상속이 가능한 이유는?</strong>
+인터페이스는 abstract 메소드만을 가지고 있는데,<br />
+이를 상속할 경우 상속하는 클래스에서 무조건 그 메서드를 구현해주어야 하는데,<br />
+이 경우 다중 상속하고 있는 인터페이스들에 동일한 메서드가 존재한다 하더라도,<br />
+그 내부 구현은 정의되지 않았으니 문제될 것이 없기 때문이 아닐까 한다.</p>
+
+<p>그런데 이제 인터페이스에서 default 메서드를 구현할 수 있는데<br />
+두개의 인터페이스를 다중 상속하는 경우, <br />
+이 default 메소드가 중복이 되면 어떻게 되는거지?</p>
+
+<p>이 질문에 대한 답을 테스트 해보았다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/3bff8105-2d84-4583-ad1b-e208b362f524/image.png" style="zoom:50%;" /></p>
+
+<p>동일한 <code class="highlighter-rouge">printStatic()</code> 을 가진 인터페이스 C와 B를 상속하는 <br />
+인터페이스 A는 <code class="highlighter-rouge">printStatic()</code>를 무조건 오버라이딩하게 되어 있었다…<br />
+만약 중복 메서드가 없을 경우 오버라이딩을 하지 않아도 컴파일 에러가 나지 않는다.</p>
+
+<h4 id="-tip">🍯 Tip</h4>
+
+<p>인터페이스 명은 대부분 “~을 할 수 있는”의 의미인 <code class="highlighter-rouge">able</code>로 끝나는 것들이 많다고 한다.<br />
+그 이유는 어떤 기능 또는 행위를 하는데 필요한 메서드를 제공한다는 의미를 강조하기 위해서다.<br />
+때문에 그 인터페이스를 구현하는 클래스는 “~를 할 수 있는” 능력을 갖추었다는 의미이기도 하다.</p>
+
+<h2 id="추상-클래스-vs-인터페이스">추상 클래스 VS 인터페이스</h2>
+
+<h4 id="공통점-">공통점 ?</h4>
+
+<p>먼저 추상 클래스와 인터페이스의 공통점을 찾아보자. <br />
+추상 클래스와 인터페이스 둘 다 <strong>가지고 있는 추상 메서드를 구현하도록 강제한다.</strong><br />
+또 <strong>인스턴스화가 불가능</strong>하다.</p>
+
+<p>그렇다면 추상 클래스 안에 원하는 것만 추상 메서드를 여러개 두거나,<br />
+전부 추상 메서드로 만들면 되어 추상 클래스가 인터페이스 역할을 할 수 있다.<br />
+만약 모든 클래스가 인터페이스만 사용해서 구현한다면,<br />
+모든 클래스에서 공통으로 필요한 기능들은 각각 오버라이딩 하게 되니 코드의 중복이 발생한다.<br />
+때문에 이 공통으로 필요한 기능들을 부모 클래스에서 일반 메서드로 구현한<br />
+추상클래스를 상속 받아 자식 클래스에서 사용할 수 있도록 하면 될거같은데…<br />
+<strong>왜 인터페이스는 왜 필요한걸까? 🤔</strong></p>
+
+<h3 id="접근자">접근자</h3>
+
+<p><strong>인터페이스</strong>에서 모든 변수는 <code class="highlighter-rouge">public static final</code>, <br />
+모든 메소드는 <code class="highlighter-rouge">public abstract</code>이다.<br />
+하지만 <strong>추상 클래스</strong>에서는 <code class="highlighter-rouge">static</code>이나 <code class="highlighter-rouge">final</code>이 아닌 필드를 가질 수 있고, <br />
+<code class="highlighter-rouge">public, protected, private</code> 모두 가질 수 있다.</p>
+
+<p>개인적인 생각으로는 인터페이스만을 구현하면 <code class="highlighter-rouge">public static final</code>만을 사용해<br />
+구현 객체의 같은 상태를 공유할수 밖에 없는데,<br />
+추상 클래스는 <code class="highlighter-rouge">static</code>이나 <code class="highlighter-rouge">final</code>이 아닌 필드또한 가질 수 있기 때문에 <br />
+추상 클래스를  상속 받은 객체들이 같은 상태를 가지고 있을 수 있다.</p>
+
+<h3 id="다중-상속-여부">다중 상속 여부</h3>
+
+<p><strong>인터페이스</strong>를 구현하는 클래스는 다른 여러개 인터페이스를 함께 구현할 수 있다.<br />
+하지만 자바에서는 다중 상속을 지원하지 않기 때문에 여러 추상 클래스를 상속할 수 없다.</p>
+
+<h3 id="사용-의도">사용 의도</h3>
+
+<p>물론 다중 상속 여부의 차이는 있지만 이것이 포인트가 아니라,<br />
+이에 따른 사용 목적이 다르다는 것에 포인트를 맞춰보자.<br />
+위에서 말한 다중 상속 여부에 따라 추상 클래스와 인터페이스의 사용 의도 또한 다르다.</p>
+
+<p><strong>추상 클래스</strong>는 이를 상속할 각 객체들의 공통점을 찾아 추상화시켜 놓은 것으로,<br />
+상속 관계를 타고 올라갔을 때 같은 부모 클래스를 상속하며 <br />
+부모 클래스가 가진 기능들을 구현해야할 경우 사용한다.</p>
+
+<p><strong>인터페이스</strong>는 상속 관계를 타고 올라갔을 때 <br />
+다른 조상 클래스를 상속하더라도, 같은 기능이 필요할 경우 사용한다.<br />
+클래스와 별도로 구현 객체가 같은 동작을 한다는 것을 보장하기 위해 사용한다.</p>
+
+<h4 id="exmaple-1">Exmaple</h4>
+
+<p>아래와 같은 관계를 갖는 예제를 살펴본다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/af9d99ef-28f2-483f-a261-161cb979fb4a/image.png" style="zoom:50%;" /></p>
+
+<p>제일 부모 클래스인 Creature은 생물에 대한 Abstract Class이다.<br />
+각 생물은 구분에 따라 Animal 또는 Plant를 상속한다.<br />
+그리고 각각이 할 수 있는 추가적인 기능들을 인터페이스로 구현했다.</p>
+
+<p>Animal을 상속받는 Amazzi(나^^), Dog, Cat은 Plant와 다르게<br />
+bark(짖다) 할 수 있으니 Barkable 인터페이스를 구현하였다.</p>
+
+<p>여기서 눈여겨 볼 것은 바로 Eatable인데, <br />
+Eatable 인터페이스는 현재 상속 관계가 다른 Amazzi(나^^), Dog, Cat, FlyHellPlant에게<br />
+공통적인 기능인 Eat 기능을 인터페이스를 사용함으로 같은 기능을 구현하도록 강제하고 있다.</p>
+
+<p>그러면 결국 이 4가지 클래스 모두 생물 클래스를 상속하고 있는데,<br />
+생물 클래스에 eat이라는 추상 메서드를 만들면 안되는가?라고 생각할 수 있지만<br />
+Plant를 상속받은 Rose는 eat 메소드를 가질 수 없다.</p>
+
+<p>그러면 어떻게하지 🤷‍♀️</p>
+
+<p>이때 바로 인터페이스로 따로 선언을 해주어 각각 eat을 할 수 있는 <br />
+클래스에 implements해주어 만들어 주면 <strong>가독성이 올라가며 유지보수 또한 쉬워진다.</strong></p>
+
+<h3 id="각각의-적절한-사용-케이스-정리">각각의 적절한 사용 케이스 정리</h3>
+
+<h4 id="추상-클래스-1">추상 클래스</h4>
+
+<ul>
+  <li>관련성이 높은 클래스 간에 코드를 공유하고 싶은 경우</li>
+  <li>추상 클래스를 상속 받을 클래스들이 공통으로 가지는 메소드와 필드가 많거나, 
+public이외의 접근자(protected, private) 선언이 필요한 경우</li>
+  <li>non-static, non-final 필드 선언이 필요한 경우 (각 인스턴스에서 상태 변경을 위한 메소드가 필요한 경우)</li>
+</ul>
+
+<h4 id="인터페이스-1">인터페이스</h4>
+
+<ul>
+  <li>서로 관련성이 없는 클래스들이 인터페이스를 구현하게 되는 경우. 
+ex) Comparable, Cloneable 인터페이스는 여러 클래스들에서 구현되는데, 구현클래스들 간에 관련성이 없다.</li>
+  <li>특정 데이터 타입의 행동을 명시하고 싶은데, 어디서 그 행동이 구현되는지는 신경쓰지 않는 경우.</li>
+  <li>다중상속을 허용하고 싶은 경우</li>
+</ul>
+
+<h2 id="참고-자료">참고 자료</h2>
+
+<ul>
+  <li>[[JAVA] 추상클래스 VS 인터페이스 왜 사용할까? 차이점, 예제로 확인 :: 마이자몽](</li>
+</ul>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>추상 클래스와 인터페이스의 차이</title>
 	  <link>//%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC-%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%84%89%E1%85%B3%E1%84%8B%E1%85%AA-%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A5%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%8B%E1%85%B4-%E1%84%8E%E1%85%A1%E1%84%8B%E1%85%B5</link>
 	  <author></author>
 	  <pubDate>2021-03-05T19:18:00+09:00</pubDate>
@@ -2366,121 +2632,6 @@ switch 문이나 상수별 메서드 구현이 필요 없게 된다.</p>
   <li>드물게 하나의 메서드가 상수별로 다르게 동작해야 할 때도 있다.
 이런 열거 타입에서는 switch 문 대신 상수별 메서드 구현을 사용한다.</li>
   <li>열거 타입 상수 일부가 같은 동작을 공유하면 전략 열거 타입 패턴을 사용하자.</li>
-</ul>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📖 Effective java item 28 - 배열보다는 리스트를 사용하라</title>
-	  <link>//Effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</link>
-	  <author></author>
-	  <pubDate>2021-02-17T19:18:00+09:00</pubDate>
-	  <guid>//Effective-java-item-28-%E1%84%87%E1%85%A2%E1%84%8B%E1%85%A7%E1%86%AF%E1%84%87%E1%85%A9%E1%84%83%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%85%E1%85%A1</guid>
-	  <description><![CDATA[
-	     <p>우테코 Level 1 로또 미션에서 “배열 대신 ArrayList를 사용한다.”가 요구사항에 들어있었다.<br />
-왜 배열대신 ArrayList를 사용하라는 것일까?<br />
-찾아보니 이펙티브 자바에서도 그 내용이 나와 있어서 스스로의 물음에 답하는 내용을 정리하려 한다.</p>
-
-<h2 id="array배열-vs-arraylist리스트">Array(배열) vs ArrayList(리스트)</h2>
-<p>들어가기에 앞서 이펙티브 자바를 보기 전 Array과 ArrayList의 차이점을 간단히 적어본다.</p>
-<h3 id="array배열">Array(배열)</h3>
-<ul>
-  <li>사이즈가 정적인 데이터 구조이다. 일단 생성되면 크기를 변경할 수 없다.</li>
-  <li>원시 타입과 객체 모두 원소로 포함할 수 있다.</li>
-  <li><code class="highlighter-rouge">for</code> 또는 <code class="highlighter-rouge">for-each</code> 루프를 통해서 반복된다.</li>
-  <li>길이에 대해 <code class="highlighter-rouge">length</code> 변수를 사용한다.</li>
-  <li>Generic(제네릭)을 사용 할 수 없다.</li>
-  <li>원소를 할당하기 위해 할당 연산자<code class="highlighter-rouge">=</code>를 사용한다.</li>
-</ul>
-
-<h3 id="arraylist리스트">ArrayList(리스트)</h3>
-<ul>
-  <li>사이즈가 동적인 데이터 구조이다. 용량을 초과하는 요소를 추가하면 크기가 자동으로 증가한다.</li>
-  <li>객체 원소만 포함할 수 있다.</li>
-  <li>요소를 반복하는 iterators를 제공한다.</li>
-  <li>길이에 대해 <code class="highlighter-rouge">size()</code> 메서드를 사용한다.</li>
-  <li>Generic(제네릭)을 지원한다.</li>
-  <li>원소를 할당하기 위해 <code class="highlighter-rouge">add()</code> 메서드를 사용한다.</li>
-  <li>Collections가 제공하는 다양한 메소드들을 사용할 수 있다.</li>
-</ul>
-
-<h1 id="effective-java-item-28">Effective Java item 28</h1>
-<h2 id="배열과-제네릭-타입의-차이">배열과 제네릭 타입의 차이</h2>
-<h3 id="배열은-공변이다">배열은 공변이다.</h3>
-<p><code class="highlighter-rouge">Sub</code>가 <code class="highlighter-rouge">Super</code>의 하위 타입이라면 배열 <code class="highlighter-rouge">Sub[]</code>는 <code class="highlighter-rouge">Super[]</code>의 하위 타입이 된다.<br />
-즉 함께 변한다는 말이다.<br />
-하지만 제네릭은 불공변으로 서로 다른 타입 <code class="highlighter-rouge">Type1</code>, <code class="highlighter-rouge">Type2</code>가 있을 때, <br />
-<code class="highlighter-rouge">List&lt;Type1&gt;</code>은 <code class="highlighter-rouge">List&lt;Type2&gt;</code>의 하위 타입도, 상위 타입도 아니다.</p>
-
-<h4 id="공변이-왜-문제가-되지">공변이 왜 문제가 되지?</h4>
-<p>아래 코드는 문법상 허용은 되지만 런타임에 실패한다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Object</span><span class="o">[]</span> <span class="n">objectArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Long</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
-<span class="cm">/* ArrayStoreException 발생 */</span>
-<span class="n">objectArray</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="s">"타입이 달라 넣을 수 없음"</span><span class="o">;</span>
-</code></pre></div></div>
-<p>또 아래 코드는 컴파일 오류를 일으킨다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">objectList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;();</span>
-<span class="n">objectList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"타입이 달라 넣을 수 없음"</span><span class="o">);</span>
-</code></pre></div></div>
-<p>두 코드 모두에서 Long용 저장소에 String을 넣을 수 없다.<br />
-배열은 이를 런타임에 알게 되지만 리스트는 컴파일 때 바로 알 수 있다.</p>
-
-<h3 id="배열은-실체화된다">배열은 실체화된다.</h3>
-<p>배열은 런타임에도 자신이 담기로 한 원소의 타입을 인지하고 확인한다.<br />
-때문에 Long용 저장소에 String을 넣으려 하면 ArrayStoreException을 발생시킨다.</p>
-
-<p>하지만 제네릭은 타입 정보가 런타임에는 소거된다.<br />
-이는 원소의 타입을 컴파일 타임에만 검사하며 런타임에는 알 수 없다는 것이다.<br />
-여기서 타입 정보의 소거라 함은 제네릭이 지원되기 전 <br />
-레거시 코드와 제네릭 타입을 함께 사용할 수 있게 해준다.</p>
-
-<h2 id="제네릭-배열을-만들지-못하게-한-이유">제네릭 배열을 만들지 못하게 한 이유?</h2>
-<p>그 이유는 타입 안전하지 않기 떄문이다.
-제네릭 배열을 허용한다면 컴파일러가 자동 생성한 형변환 코드에서 런타임에 ClassCastException이<br />
-발생할 수 있는데, 이는 런타임에 이 예외가 발생하는 일을 막겠다는 제네릭 타입 시스템 취지에 벗어난다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;[]</span> <span class="n">stringLists</span> <span class="o">=</span> <span class="k">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;[</span><span class="mi">1</span><span class="o">];</span> <span class="c1">// (1) </span>
-<span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">intList</span> <span class="o">=</span> <span class="n">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">42</span><span class="o">);</span>              <span class="c1">// (2)</span>
-<span class="n">Object</span><span class="o">[]</span> <span class="n">objects</span> <span class="o">=</span> <span class="n">stringLists</span><span class="o">;</span>                   <span class="c1">// (3)</span>
-<span class="n">objects</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">intList</span><span class="o">;</span>                             <span class="c1">// (4)</span>
-<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">stringLists</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>                 <span class="c1">// (5)</span>
-</code></pre></div></div>
-
-<p>만약 (1)이 허용된다면 (2)는 원소가 하나인 <code class="highlighter-rouge">List&lt;Integer&gt;</code>를 생성한다. <br />
-(3)은 (1)에서 생성한 <code class="highlighter-rouge">List&lt;String&gt;</code>의 배열을 <code class="highlighter-rouge">Object</code> 배열에 할당한다.<br />
-배열은 공변이니 아무 문제가 없다.
-(4) 번은 (2)에서 생성한 <code class="highlighter-rouge">List&lt;Integer&gt;</code>의 인스턴스를 <code class="highlighter-rouge">Object</code> 배열의 첫 원소로 저장한다. <br />
-제네릭은 런타임 시점에서 타입 정보를 소거하니 <code class="highlighter-rouge">List&lt;Integer&gt;</code>은 <code class="highlighter-rouge">List</code>가 되고 <br />
-<code class="highlighter-rouge">List&lt;Integer&gt;[]</code>는 <code class="highlighter-rouge">List[]</code>가 된다. <br />
-따라서 (4)에서도 ArrayStoreException이 발생하지 않는다.<br />
-(5)에서는 <code class="highlighter-rouge">List&lt;String&gt;</code> 인스턴스만 담겠다고 선언한 <code class="highlighter-rouge">stringLists</code> 배열에는 <br />
-<code class="highlighter-rouge">List&lt;Integer&gt;</code> 인스턴스가 저장돼 있다.<br />
-(5)는 이 배열의 처음 리스트에서 첫 원소를 꺼내려 하는데 컴파일러는 꺼낸 원소를 자동으로 String으로<br />
-형변환 하는데, 이 원소는 <code class="highlighter-rouge">Integer</code>이니 런타임에 ClassCastExceptiondl qkftodgksek.</p>
-
-<p>이를 막기 위해서 제네릭 배열 생성을 막도록 (1)에서 컴파일 오류를 내야 한다.</p>
-
-<h2 id="실체화-불가-타입">실체화 불가 타입</h2>
-<p><code class="highlighter-rouge">E</code>, <code class="highlighter-rouge">List&lt;E&gt;</code>, <code class="highlighter-rouge">List&lt;String&gt;</code> 같은 타입을 실체화 불가 타입이라 한다. <br />
-제네릭은 타입 소거로 인해 실체화되지 않아서 런타임에는 컴파일타임보다 타입 정보를 적게 가지는 타입을 뜻한다.<br />
-(매개변수화 타입 가운데 실체화 될 수 있는 타입은 비한정적 와일드카드 타입 뿐이다.)</p>
-
-<h2 id="정리">정리</h2>
-<p>배열과 제네릭에는 매우 다른 타입 규칙이 적용되어서 둘을 섞어 쓰기란 쉽지 않다.<br />
-배열은 공변, 제네릭은 불공변이다. <br />
-이 말은 배열은 런타임 타입에 안전하지만 컴파일 타임에 안전하지 못하다.<br />
-제네릭은 그 반대이다.</p>
-
-<p>단순히 사이즈가 정적인지 동적인지의 차이 뿐만 아니라 배열과 리스트에는 이렇게 많은<br />
-차이점이 존재하고 있었다.</p>
-
-<p>만약 둘을 섞어 쓰다가 컴파일 오류나 경고를 만나면, 먼저 배열을 리스트로 대처하자!</p>
-
-<h2 id="참고-자료">참고 자료</h2>
-<ul>
-  <li><a href="https://www.quora.com/What-is-the-difference-between-an-array-and-an-array-list#:~:targetText=First%20and%20Major%20difference%20between%20Array%20and%20ArrayList%20in%20Java,primitives%20and%20Objects%20in%20Java.">What is the difference between an array and an array list?
-</a></li>
 </ul>
 
 	  ]]></description>
