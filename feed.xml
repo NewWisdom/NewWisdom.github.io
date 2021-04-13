@@ -8,6 +8,36 @@
     
       
       <item>
+        <title>📖 테스트로 배우는 스프링</title>
+        
+          <description>&lt;h4 id=&quot;스프링을-왜-배울까-&quot;&gt;스프링을 왜 배울까 ?&lt;/h4&gt;
+
+</description>
+        
+        <pubDate>Tue, 13 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/til1</link>
+        <guid isPermaLink="true">http://localhost:4000/til1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>💡 Level 1를 돌아봅니다</title>
+        
+          <description>&lt;p&gt;일단 raw하게 적어보는 Level 1 회고 🙃&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 12 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/level1</link>
+        <guid isPermaLink="true">http://localhost:4000/level1</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>🕹 Level 1. 체스 미션 정리 - Service Layer, DAO와 Repository</title>
         
           <description>&lt;h2 id=&quot;mvc와-service&quot;&gt;MVC와 Service&lt;/h2&gt;

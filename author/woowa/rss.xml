@@ -12,6 +12,424 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📖 테스트로 배우는 스프링</title>
+	  <link>//til1</link>
+	  <author></author>
+	  <pubDate>2021-04-13T19:18:00+09:00</pubDate>
+	  <guid>//til1</guid>
+	  <description><![CDATA[
+	     <h4 id="스프링을-왜-배울까-">스프링을 왜 배울까 ?</h4>
+
+<p>잘 동작하는 웹 애플리케이션을 만들기 위해</p>
+
+<h4 id="웹-애플리케이션이란-">웹 애플리케이션이란 ?</h4>
+
+<p>웹 기반으로 동작하는 애플리케이션 -&gt; 웹 기능이 필요하다.<br />
+웹을 활용하려면 네트워크가 필요하다 근데 직접 구현하려면 너무 방대해진다.<br />
+그래서 프레임 워크를 활용해야한다.</p>
+
+<h4 id="프레임워크-">프레임워크 ?</h4>
+
+<p>구현해놓고 재사용한다.<br />
+프레임워크가 있으면 비즈니스 로직만 구현하면 서비스가 만들어진다.</p>
+
+<hr />
+
+<h2 id="테스트로-배우는-스프링">테스트로 배우는 스프링</h2>
+
+<p>왜 테스트로 스프링을 배울까. <br />
+테스트는 기능을 익히기 위한 수단이다.</p>
+
+<h2 id="1-초간단-스프링-프로젝트">1. 초간단 스프링 프로젝트</h2>
+
+<h3 id="resourcesschemasql">resources/schema.sql</h3>
+
+<p>Spring의 기본 값으로 ClassPath 루트에 <strong>schema.sql, data,sql</strong>이 있다면 서버 시작 시 실행될 SQL 문을 미리 정의할 수 있다.</p>
+
+<ul>
+  <li><strong>schema.sql</strong> : DDL</li>
+  <li><strong>data.sql</strong> : DML</li>
+</ul>
+
+<p>개발 단계에서는 in-memory-db인 h2를 기본으로 사용하므로, 굳이 물리적인 DB를 연결하지 않아도 DB 작업이 가능하다.</p>
+
+<h3 id="restcontroller">@RestController</h3>
+
+<p><strong>@Controller와 @ResponseBody</strong>를 합쳐 놓은 어노테이션이다.<br />
+메소드마다 @ResponseBody를 붙여주지 않아도 된다.</p>
+
+<h4 id="controller와의-차이">@Controller와의 차이?</h4>
+
+<p>@Controller는 주로 View를 반환하기 위해 사용한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client가 요청을 보냄 
+-&gt; DispatcherServlet과 Handler Mapping이 요청을 인터셉트 
+-&gt; Controller에 의해 요청을 처리하고, DispatcherServlet이 Model과 View를 적절히 Client에 반환
+</code></pre></div></div>
+
+<p>View를 반환하기 위해서는 ViewResolver가 사용되며, ViewResolver 설정에 맞게 View를 찾아 렌더링한다.<br />
+여기서, <strong>@ResponseBody</strong> 를 사용할 경우 자바 객체를 HTTP 응답의 Body의 내용(Json)으로 매핑을 한다. <br />
+이럴경우 ViewResolver 대신 HttpMessageConverter가 동작한다.<br />
+HttpMessageConverter에는 여러 Converter가 등록되어 있는데, 반환 타입에 따라 사용되는 Converter가 달라진다.</p>
+
+<h4 id="restcontroller는">@RestController는…</h4>
+
+<p>@RestController는 REST 요청에 대한 응답을 줄 때 사용하며, Json 형태로 객체 데이터를 반환한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client가 요청을 보냄 
+-&gt; DispatcherServlet과 Handler Mapping이 요청을 인터셉트 
+-&gt; RestController에 의해 요청을 처리하고, 데이터 반환
+</code></pre></div></div>
+
+<h3 id="repository">@Repository</h3>
+
+<p>퍼시스턴스 레이어, 영속성을 가지는 속성.<br />
+DB나 파일같은 외부 I/O 작업을 처리한다.
+@Repository, @Service, @Controller는 특정한 기능에 대한 @Component의 구체화된 형태이다.</p>
+
+<hr />
+
+<h2 id="2-spring-mvc">2. Spring MVC</h2>
+
+<h3 id="request-mapping">Request Mapping</h3>
+
+<p>URL, HTTP method, request parameters, headers, media types에 대한 맵핑을 할 수 있다.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">@GetMapping</code></li>
+  <li><code class="highlighter-rouge">@PostMapping</code></li>
+  <li><code class="highlighter-rouge">@PutMapping</code></li>
+  <li><code class="highlighter-rouge">@DeleteMapping</code></li>
+  <li><code class="highlighter-rouge">@PatchMapping</code></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/http-method/users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span> <span class="nf">showUser</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">)</span>
+  <span class="o">);</span>
+  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="uri-patterns">URI patterns</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">"/resources/ima?e.png"</code> -path 세그먼트에서 한 문자 일치</li>
+  <li><code class="highlighter-rouge">"/resources/*.png"</code> -path 세그먼트에서 0 개 이상의 문자와 일치</li>
+  <li><code class="highlighter-rouge">"/resources/**"</code> -여러 path 세그먼트 일치</li>
+  <li><code class="highlighter-rouge">"/projects/{project}/versions"</code> -path 세그먼트를 일치시키고 변수로 캡처</li>
+  <li><code class="highlighter-rouge">"/projects/{project:[a-z]+}/versions"</code> -정규식과 일치하고 변수를 캡처</li>
+</ul>
+
+<h3 id="producible-media-types">Producible Media Types</h3>
+
+<p>수신 하고자하는 데이터 포맷을 정의.  <br />
+요청에 ‘Accept’ Header가 produces에 명시한 MediaType과 일치해야 요청이 매칭된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/users"</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span> <span class="nf">showUser</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">)</span>
+  <span class="o">);</span>
+  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="consumable-media-types">Consumable Media Types</h3>
+
+<p>출력하고자 하는 데이터 포맷을 정의.   <br />
+Content-Type 요청 헤더가 consumes에 명시한 MediaType과 일치해야 요청이 매칭된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/users"</span><span class="o">,</span> <span class="n">consumes</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span> 
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addUser</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="parameters-headers">Parameters, headers</h3>
+
+<p>요청 매핑의 범위를 좁힌다.</p>
+
+<p><strong>특정 param</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/message"</span><span class="o">,</span> <span class="n">params</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">messageForParam</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Header 조건</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/message"</span><span class="o">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="s">"HEADER=hi"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">messageForHeader</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"hi"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="method-arguments">Method Arguments</h3>
+
+<p>컨트롤러의 메서드 인수.</p>
+
+<p><strong>@RequestParam</strong></p>
+
+<p>http://127.0.0.1/users?name=amazzi 와 같은 요청 처리.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span> <span class="nf">requestParam</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">)</span> <span class="n">String</span> <span class="n">userName</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="n">userName</span><span class="o">,</span> <span class="s">"email"</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="n">userName</span><span class="o">,</span> <span class="s">"email"</span><span class="o">)</span>
+  <span class="o">);</span>
+  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">value</code> 옵션을 주어 파라미터 명이 name인 것을 userName에 할당.</p>
+
+<p><strong>@PathVariable</strong></p>
+
+<p>http://127.0.0.1/users/1 와 같은 요청 처리.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">pathVariable</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>@RequestParam</strong>, <strong>@PathVariable</strong> 이 둘을 복합적으로 사용하기도 한다.</p>
+
+<p><strong>@RequestBody</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/users/body"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span> <span class="nf">requestBody</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">User</span> <span class="n">newUser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="mi">1L</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">());</span>
+  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="n">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"/users/"</span> <span class="o">+</span> <span class="n">newUser</span><span class="o">.</span><span class="na">getId</span><span class="o">())).</span><span class="na">body</span><span class="o">(</span><span class="n">newUser</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">HttpMessageConverter</code>구현 을 사용하여 선언 된 메서드 인수 형식으로 변환.</p>
+
+<h3 id="return-values">Return Values</h3>
+
+<h4 id="string">String</h4>
+
+<p>Spring + View template을 사용할 때 흔히 사용하는 타입.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">users</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"data"</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">"/users/data"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>모델에 데이터를 Map으로 담고 반환 타입을 String으로 뷰 이름을 지정하면 뷰로 데이터가 전송된다.</p>
+
+<h4 id="void">void</h4>
+
+<p>스프링에서는 뷰 이름을 지정해주지 않아도 URL을 보고 자동으로 뷰 네임을 지정해주기도 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/user/address"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">void</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="responsebody">@ResponseBody</h4>
+
+<p>Json 형태로 데이터를 반환한다.<br />
+객체를 반환타입으로 지정할 경우 클라이언트는 객체의 Json 형태의 데이터를 받는다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/message"</span><span class="o">)</span>
+<span class="nd">@ResponseBody</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">string</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">"message"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+<span class="nd">@ResponseBody</span>
+<span class="kd">public</span> <span class="n">User</span> <span class="nf">responseBodyForUser</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{id}"</span><span class="o">)</span>
+<span class="nd">@ResponseBody</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">responseEntity</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>전체 응답 (HTTP 헤더 및 본문 포함)을 지정하는 반환 값은 <code class="highlighter-rouge">HttpMessageConverter</code>구현을 통해 변환.</p>
+
+<h3 id="exceptions">Exceptions</h3>
+
+<p><strong>@Controller</strong>및 <strong>@ControllerAdvice</strong> 를 가진 클래스는 컨트롤러 메서드의 예외를 처리하는 메서드를 가질 수 있다 .</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/exceptions"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionsController</span> <span class="o">{</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/hello"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span> <span class="nf">exceptionHandler</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">CustomException</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/hi"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span> <span class="nf">exceptionHandler2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">HelloException</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">CustomException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">handle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"CustomException"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>클래스 내 정의한 <strong>@ExceptionHandler</strong>는 해당 컨트롤러에서만 사용이 가능하다.<br />
+<strong>전역적인 예외 처리</strong>는 아래와 같이 클래스를 하나 만들고 <strong>@ControllerAdvice</strong> 를 선언한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloAdvice</span> <span class="o">{</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">HelloException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">handle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"HelloException"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="참고자료">참고자료</h3>
+
+<p><a href="https://ooeunz.tistory.com/101">[Spring] Spring MVC: Controller return 타입</a></p>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>💡 Level 1를 돌아봅니다</title>
+	  <link>//level1</link>
+	  <author></author>
+	  <pubDate>2021-04-12T19:18:00+09:00</pubDate>
+	  <guid>//level1</guid>
+	  <description><![CDATA[
+	     <p>일단 raw하게 적어보는 Level 1 회고 🙃</p>
+
+<h3 id="미라클-모닝">미라클 모닝</h3>
+
+<p>레벨 1의 나의 생활을 이야기하라하면 미라클 모닝을 빼놓을 수 없다.<br />
+나름 포부를 가지고 시작했던 미라클 모닝은 레벨 1 마무리까지 잘 지켜졌다.<br />
+<del>사실 방학 동안은 여행을 가면서 쉬기도 했고, 이게 긴장이 풀어져서 그런지 잠이 몰려와서 늦잠도 많이 자긴했지만 ㅎ</del> <br />
+교육장 퇴근 후 집에 들어와서 오랫동안 다시 공부를 하기 보다 적당히하고 일찍 잔 후 리프레쉬된 상태로 학습하는 패턴이 내게 가장 베스트인 것 같다.   <br />
+특히 페어 프로그래밍을 진행할 때는 페어와 만나기 전, 나의 공부를 할 시간을 확보할 수 있었던 점이 정말 좋았다.   <br />
+레벨 1 중후반 부터는 크루 몇명이 함께 아침 일찍 와서 각자 할 일을 했는데, 함께 하니 더 좋았다.</p>
+
+<p>후반부에는 체력 관리를 잘 못해서 아침 시간에 힘든 정신으로 버텼던거같아 조금 아쉬움이 남는다. <br />
+또 아침에 무엇을 할지를 명확히 정해놓지 않으니 준비만 하다가 붕 뜬 시간도 꽤 있는 것 같다.</p>
+
+<p>미라클 모닝을 하면서 좀 더 부지런한 삶을 살겠다는 마음가짐을 하는데는 큰 도움이 되었던 것 같다.<br />
+시간의 효율도 좋고, 아침의 분위기가 좋아서 매일 아침을 기다리게 된다.<br />
+<strong>레벨 2때도 이를 이어가겠지만, 밑에도 쓰듯 체력관리를 잘 하면서 병행해야겠다.</strong></p>
+
+<h3 id="체력-관리">체력 관리</h3>
+
+<p>사실 나는 내 체력을 믿고 있었다.<br />
+엄마가 계속해서 영양제 챙겨 먹으라고 일러줬었다.<br />
+챙겨 먹기도 귀찮고, 버틸만 한데 괜한데 돈을 쓰는 것 같아서 말을 듣지 않고 있었다.<br />
+그러다 체스 미션 때인가, 정말 해야할 일들이 폭풍처럼 몰아치면서 시간에 쫓기는 삶을 살았다.<br />
+잠을 줄이게 되고, 그러다 보니 체력도 엄청 떨어져서 하루의 효율이 엄청나게 떨어졌다.<br />
+사실 이 전까지는 체력이 크게 중요하지 않다고 생각했는데, 결국 엄마 말대로 영양제를 챙겨 먹기 시작했다.<br />
+체력이 떨어지니까 모든 방면에서 효율이 떨어지는 것 같았다.</p>
+
+<p>또 우테코 시작 전에는 매일 아침 일어나서 꼭 플랭크를 했었는데, 근 두달 동안 잊고 지냈다. <br />
+우테코 시작하고 내가 한 운동이라곤 걷기 뿐인 것 같다.<br />
+사실 그렇게 오래 걸리지도 않는 일인데 나는 왜 바쁘다는 핑계로 하지 않으려 했을까. <br />
+레벨 2때는 아침에 일어나서 플랭크하기를 다시 실천할 것이다.</p>
+
+<h3 id="삶의-균형">삶의 균형</h3>
+
+<p>방학 때 한 템포 떨어져서, 나의 삶을 돌아보니 우테코 교육에만 올인하다보니 내가 삶의 균형을 맞추지 못하고 있구나를 깨달았다. <br />
+삶의 균형이라는게 여러가지 방면인데 먼저 스스로의 삶에 대한 회고를 해보자면, 스스로를 잘 보살피지 못했던 것 같다.<br />
+열심히 해야겠다는 약간의 강박때문에 스스로로의 휴식을 일부러 피했던 두달이었다.<br />
+쉬는 것에 죄책감을 느껴서 계속 바쁘게 살려고 했다. <br />
+그러다보니 스스로의 감정이나 건강을 보살피지 못했다.</p>
+
+<p>또한 전반적인 나의 삶에서 (교육에 몰입하는 것은 좋지만) 이 때문에 내가 그때 그때 챙기지 못한 것들이 너무 많다.<br />
+우테코가 시작되고 바쁘다는 핑계로 친구들의 연락도 멀리하고, 내 체력 관리도 버리고, 스스로를 보살피지도 못하고…<br />
+여러 방면의 책임에 있어서 충실하지 못했다.  <br />
+물론 내가 어떤 삶을 살고있는지 대부분이 이해해주었기 때문에 트러블은 없었지만, 돌이켜 보니 주변에 미안함이 많았던 두달이었다.<br />
+그 때는 어땠는지 모르지만 지나고 보니 내가 조금 더 열의를 냈다면 챙길 수 있는 부분들이었는데 하는 아쉬움이 있다.</p>
+
+<p>방학 때 쉬면서 그동안 신경쓰지 못했던 친구들을 만나고, 쉼을 누리다 보니 지금 24살의 나의 삶도 있었구나를 느꼈다.<br />
+레벨 2때는 아침에 일어나서 적어도 30분 정도는 나만의 시간을 가지려 한다.<br />
+나를 돌아보고, 내가 챙기지 못한 부분은 없는지 돌아봐야지.</p>
+
+<p>10개월이라는 긴 기간을 끊임 없이 달리기 위해서 무리하지 않고 또 가끔은 내가 달리고 있는 현재의 풍경도 돌아볼 필요가 있다.</p>
+
+<h3 id="성장">성장</h3>
+
+<p>헐래벌떡 지나간 이 두달동안 나는 얼마나 성장했을까.<br />
+이 질문을 던지고 블로그를 이사하면서 내가 이 두달동안 썼던 블로그 글들을 보았다.<br />
+정말 아무것도 몰랐었구나.<br />
+일급 컬렉션, 불변 객체, 함수형 인터페이스 등등… <br />
+지금은 알고 있는 것들이 내가 원래 알고 있던 것들이 아니라 나의 노력에 의해 쌓여가고 있었구나를 느낄 수 있었다.<br />
+블로그 이사를 하면서 내가 정말 많이 배우고 성장했구나를 느꼈다.</p>
+
+<p>블로그도 엄청 열심히 썼었는데, 바쁜 미션을 진행하느라 내가 배운 내용을 그때 그때 정리하지 못했다.<br />
+레벨 2때는 TIL 처럼 간단히라도 오늘 내가 뭘 배웠는지 정리해야겠다.</p>
+
+<p>또한 기술적인 부분에만 성장이 아니라 나의 자신감도 한 층 성장했다.<br />
+내가 밥먹듯이 쓰는 내용인 것 같지만, 우테코 초반과 지금의 나를 비교해보면 나는 정말 당당한 사람이 되었다. <br />
+물론 완벽하지는 않고 가끔 주눅들 때가 있지만 🥲<br />
+주변 크루를 경쟁자가 아닌 동료로 바라보고, 모르는 것을 그럴수 있다고 여기니 스스로가 부끄럽지 않았다.<br />
+차차 자신감을 얻어가고, 또 크루들과 한 이슈에 대해 토론하거나 학습 로그 발표를 하면서, 나의 지식을 말하는 스킬도 조금씩 늘고 있다.</p>
+
+<h3 id="크루">크루</h3>
+
+<p>오프라인이 시작되면서 많은 크루들을 만나게 되었다.<br />
+교육장 내에서 오고 가는 크루들이랑 이야기하면서 새로운 사람의 이야기를 듣게 된다.<br />
+다양한 사람들이랑 이야기 해보는 것은 정말 즐거운 일인 것 같다. <br />
+또 오프라인이 시작되면서 데일리 크루들이랑 더 많은 시간을 보낼 수 있어 정말 좋았다.<br />
+한가지 아쉬운 것은 모든 데일리 크루들이랑 골고루 시간을 보내지 못했던 것이지만, <br />
+마지막 즈음에 같이 밥먹지 않았던 크루들을 찾아 같이 식사를 한 것도 정말 좋았다.<br />
+또 방학 때는 데일리 크루 몇명과 제주도를 갔는데, 가서 제주 풍경은 그렇게 많이 즐기지 못했으나,<br />
+사람들의 진솔한 이야기를 들을 수 있어서 너무 뜻깊었다.<br />
+여행을 즐기기보다는 사람과 더 많은 시간을 보냈지만 오히려 좋았다 !</p>
+
+<h3 id="학습-계획">학습 계획</h3>
+
+<p>마지막 체스 미션 때는 새롭게 배워야할 내용, 해야할 과제들이 너무 많아서 사실 쫓기듯 살았다.<br />
+7주차 회고에도 한번 썼는데, 이 때 내가 선택과 집중을 조금만 더 잘했더라면 하는 아쉬움이 있다.<br />
+레벨 2때는 내가 학습해야할 내용들에 대한 계획을 세우고 차근차근 선택과 집중을 해나가야지.</p>
+
+<h3 id="페어-프로그래밍">페어 프로그래밍</h3>
+
+<p>레벨 1 동안 총 4번의 페어프로그램을 진행했다.<br />
+페어 프로그래밍을 진행하면서 사람들과 소통하는 법을 배우고 있다.<br />
+요즘은 단순히 사람과 소통하는 법이 아니라 개발자와 협력하는 법을 배우게 되는 것 같다.<br />
+브라운과의 면담에서 얻은 깨달음이 있는데, 미션의 목적을 완성이 아니라 이를 통해 얻을 수 있는 부수적인 성장들을 누리라고 하셨다. <br />
+이후로 페어와 미션이 끝나면 서로 회고를 통해 발전할 수 있는 방향을 찾으려고 노력하고 있다.<br />
+페어프로그래밍은 정말 실력과 소프트웨어 스킬을 기르는데 정말 효율적인 학습법인 것 같다.</p>
+
+<p>페어프로그래밍 덕분에 누군가에게 나의 의견을 제대로 설명하는 연습을 하고있다. <br />
+서로의 의견이 다를 때 내가 왜 이렇게 생각하는지, 내가 아는 지식은 무엇인지를 강제로 말해야 한다.<br />
+처음에는 어버버 거렸는데, 이제는 익숙해져서 조금 자신감도 붙었다.<br />
+아직 완벽하지 않지만 많이 성장하고 있다.</p>
+
+<p>레벨 1동안의 모든 페어 프로그래밍은 난 만족스럽다 ! (페어도 그러겠지ㅎ?)<br />
+페어들과 미션을 즐겁게 진행하면서 서로에게 많이 배우고, 나의 부족함을 알게 해주었다.</p>
+
+<p>레벨 2때의 다짐을 더 적어보자면, 정말 찐한 회고를 통해 폭풍 성장을 이루는 것이다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>🕹 Level 1. 체스 미션 정리 - Service Layer, DAO와 Repository</title>
 	  <link>//Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository</link>
 	  <author></author>
@@ -1544,598 +1962,6 @@ Dealer에 대한 Player의 결과를 구하는 로직을 <code class="highlighte
 물론 다른 미션에서 상태패턴을 적용하라하면 잘 적용할 수 있을지는 모르겠으나,
 이번 미션을 통해 이렇게 상태에 따른 분기처리를 줄일 수 있구나, 
 디자인 패턴은 이런 장점이 있구나를 느낄 수 있었다.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>💡 위클리 회고 5, 6 주차</title>
-	  <link>//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</link>
-	  <author></author>
-	  <pubDate>2021-03-06T19:18:00+09:00</pubDate>
-	  <guid>//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</guid>
-	  <description><![CDATA[
-	     <h2 id="무슨일이-있었나">무슨일이 있었나?</h2>
-
-<ul>
-  <li>일주일 2번 오프라인 출근이 시작되었다.</li>
-  <li>온라인으로만 만나던 사람들을 3D로 처음 만났다.</li>
-  <li>출입증 사진을 찍었다.</li>
-  <li>3월2일-3월 4일 블랙잭  페어 프로그램을 진행하고 이후 개별 미션으로 찢어졌다.</li>
-  <li>학습 로그 말하기를 했다.</li>
-  <li>브라운이랑 면담을 했다.</li>
-  <li>테코톡 발표를 준비하고 있었는데 미뤄졌다.</li>
-  <li>데일리 주제로 레벨 1후, 우테코 수료 후의 나를 적어보는 시간을 가졌다.</li>
-  <li>3월 29일까지 완료해야하는 글쓰기 미션이 시작됐다.</li>
-  <li>교육장에 있으면서 많은 크루, 코치님과 이야기를 나누었다.</li>
-  <li>5주차는 정말 바빴다. 빠듯한 미션 후, 리팩토링과 공부한 내용을 정리하느라 조급했다.</li>
-  <li>6주차에는 출근날이 아닌날은 사람들이랑 만나서 모각코를 했다.</li>
-  <li>함수형 인터페이스에 대해 찐하게 공부했다.</li>
-  <li>상태패턴을 배웠다.</li>
-  <li>정말 오랜만에 뚝딱이들이랑 줌미팅을 했다.</li>
-</ul>
-
-<hr />
-
-<h2 id="어떤-것을-느꼈나">어떤 것을 느꼈나?</h2>
-<h3 id="크루들의-에너지">크루들의 에너지</h3>
-
-<p>매일 온라인으로만 보던 데일리 크루들을 오프라인으로 보니 처음에는 낯설았지만, 또 금방 적응돼서 정말 유쾌하고 즐거웠다.<br />
-또, 크루들과 함께 모여 공부하니 많은 에너지를 느끼고, 열심과 열정으로 가득한 크루들덕에 많은 동기부여를 받았다. 졸업하고 가장 아쉬웠던 것이 매일 학교에 남아서 동기들과 으쌰으쌰하며 공부했던 것이 내가 배움에 즐거움을 느끼는 이유 중 하나였는데, 우테코에 들어와서 더 열정적인 사람들과 함께 배움의 즐거움을 누리고 있다는게 너무 행복하다.<br />
-온라인으로는 궁금한 것들이 있지만 말하기 애매해서 그냥 삼켰던 프로그래밍 질문들을 오프라인에서는 바로바로 답이 오니 마음 편하게 질문할 수 있어서 오프라인의 유익함을 많이 느꼈다.<br />
-함께 공부하며 열정을 불태우는 환경 덕에, 스스로 뒤쳐지는 것이 아닌가 하는 불안감이 정말 싹 사라졌다. 오프라인 출근이 시작되고 크루들이 경쟁자가 아닌 10개월간 함께 으쌰으쌰할 동료라는 말이 이제 정말 진심으로 느껴졌다.</p>
-
-<h3 id="많이-웃었다">많이 웃었다.</h3>
-<p>(여기 글에 어울리는지는 모르겠으나) 우테코 출근 시작 부터 크루들과 정말 즐거운 생활을 했다. 정말 많이 웃고 유쾌했던 2주였다.</p>
-
-<h3 id="브라운과-면담">브라운과 면담</h3>
-<p><del>느낀점에다 적는게 맞는지는 모르겠으나</del> 브라운과 면담을 하면서 많은 것을 깨달았다. 또한 우테코 생활에 대한 자신감을 얻을 수 있었으며, 우테코를 시작하고 바꾼 나의 생활, 학습 태도에 확신을 얻을 수 있었다. 가장 인상 깊었던 부분은 <strong>페어와의 회고</strong>에 대한 부분이었다. 무조건 좋은 말이 아닌 상대방에 대한 객관적인 피드백은 그 사람을 더 성장하게 만들고, 우테코 미션의 목적 또한 미션 완수가 아닌 페어를 통해 함께 성장하는 것이다. 어떻게 하면 남에게 이로운 피드백을 줄 수 있을까에 대한 고민과 남에게 피드백을 주는데 두려움들이 면담을 통해 해소되었다. 
-또 좋은 학습 방법을 알려주셨는데, 어떤 개념을 완전히 내 것으로 만들기 위해서 스스로 동영상이나 녹음을 통해 설명하는 것이다. 이 말을 듣고 굉장히 혹했기에 한번 시도해 볼 계획이다.</p>
-
-<hr />
-
-<h2 id="잘한-것은-무엇인가">잘한 것은 무엇인가?</h2>
-
-<h3 id="깊게-공부하려고-노력한-것">깊게 공부하려고 노력한 것</h3>
-<p>저번 미션 학습 로그까지는 무조건 많이 쓰는 것이 많이 성장한 것이라 생각했다. 하지만 내가 적은 내용을 말하려다보니 내가 많이 배우려는 욕심만 부리고 그 개념들을 완벽히 체화하지 못했다는 것이다.<br />
-그래서 이번 미션부터는 정말 내가 누군가에게 설명이 가능하도록 내것으로 만들었다. 빠르게 보다는 천천히 꼭꼭 씹어 학습 태도를 취하려 노력하고 있다.</p>
-
-<h3 id="사람들과-많은-이야기를-나눈-것">사람들과 많은 이야기를 나눈 것</h3>
-
-<p>우테코에는 정말 좋은사람들이 많다. 사람들과 이야기를 나누면서, 기술적인 부분만 아니라 인간적으로도 많이 배운다. 다양한 사람들과 이야기를 나누면서 사람에 대해 배워갈 수 있어서 좋았다.
-또한 우테코에서 이야기를 나누다가, 또는 채팅으로 좋은 이야기들이 많이 오고 가는데, 그 중 계속 기억해두면 좋을 것 같은 문장들을 개인 슬랙에 저장해두기로 하였다. 
-이번주는 포비와 이야기할 수 있는 기회가 있었는데, 대화 속에서 많은 위로와 도전을 얻어서 조금 기록해 두었다.
-브라운과 면담도 바로바로 이렇게 적을걸 하는 아쉬움이 살짝 있다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111073627-c840bc00-8522-11eb-9f11-621f1971db13.png" alt="image" /></p>
-
-<h3 id="모각코한-것">모각코한 것</h3>
-<p>이번주 내내 사람들과 만나서 공부했다. 교육장에서, 또는 출근을 안하는 날은 카페에서 누군가와 함께 공부했다. 
-같이 만나서 공부하니 더 즐거웠고, 모르는 것을 함께 알아나가는 기쁨을 누릴 수 있어서 좋았다. 
-누군가의 궁금증이 내 궁금증이 되어 같이 고민하고 차근차근 공부해 나가는 재미를 느낄 수 있었다.</p>
-
-<h3 id="깃블로그를-판-것">깃블로그를 판 것</h3>
-<p>기록 권태기가 와서 벼르고 벼뤘던 깃블로그 이사를 실행하는 중이다.
-스스로 공부하는 내용을 좀 더 깊이있고 깔끔하게 정리하고자 하는 다짐과 함께 내 깃블로그가 탄생했다.
-커스텀 하느라 너무 많은 시간을 투자하는 것 같아 지금 이래도 되나하는 생각이 들긴하지만, 나의 권태 극복에 많은 도움이 되었다 생각해 잘한 선택인 것 같다.</p>
-
-<hr />
-
-<h2 id="아쉬운-것은-무엇인가">아쉬운 것은 무엇인가?</h2>
-
-<h3 id="내-지식에-대한-불확신">내 지식에 대한 불확신</h3>
-<p>솔직하게 돌아보면 나는 아직도 내가 아는 것에 자신이 없는 것 같다.<br />
-“나보다 저 사람이 더 맞을거야”라는 생각이 아직까지 강하다.<br />
-크루들을 보면 자신이 아는 지식을 정리한 글들을 공유해주는데, <br />
-나는 아직까지 내 글, 지식에 자신감이 없어서 그렇지 못하다.</p>
-
-<h3 id="레벨-1후-수료-후의-뚜렷한-목표가-없는-것">레벨 1후, 수료 후의 뚜렷한 목표가 없는 것</h3>
-
-<p>데일리 주제로 한번 스스로 레벨 1과 수료 후 어떻게 변화되어있을지 적어보는 시간을 가졌다. 정말 많은 생각이 들게하는 질문이었다. 최근 미션때문에, 오프라인 출근을 해서 스스로를 돌이켜보는 시간이 많이 없었다. 저 질문들에 선뜻 답하지 못하는 것은 내가 뚜렷한 목표없이 요즘을 살고 있는 것인가 하는 반성을 하게 됐다. 우테코 수료 후, 나는 어떤 개발자를 꿈꾸는가? 계속해서 고민해보고 목표를 세워야겠다.</p>
-
-<h3 id="지금껏-제대로된-회고를-진행하지-못한-것">지금껏 제대로된 회고를 진행하지 못한 것</h3>
-
-<p>브라운이랑 면담하면서 내가 그동안 상대방에게 유익한 피드백을 못주고 있었음을 깨달았다. 지금까지의 페어 모두 만족하지만 미션을 진행하기 급급해서 다른 부수적인 것들을 보지 못했다. 우테코에서 미션을 페어프로그래밍으로 진행하는 이유는 기술적인 부분만이 아닌, 소프트 스킬과 상대방이 보는 나의 객관적인 피드백을 들으며 성장하는 것이다. 면담 내용을 적기 위해 지금껏 미션을 돌아보니 스스로는 미션 완성에만 큰 목표를 두고 있었던 것 같다. 상대방을 기분 좋게 하는 피드백 보다 좋은 사람으로 만들 수 있는 피드백을 해야겠다. 이 내용을 가지고 브라운이랑 면담하면서 회고의 중요성을 많이 깨달았기에, 다음 미션부터는 페어와 사전 협의로 아주 찐한 회고를 할거다.</p>
-
-<h3 id="약간의-귀차니즘이-찾아와-기록하는-습관을-놓친-것">약간의 귀차니즘이 찾아와 기록하는 습관을 놓친 것</h3>
-<p>미션이 끝나고 너무 달려서였나, 내가 공부하거나 느낀 점들을 기록하기를 게을리했던 것 같다. 그래서 깃블로그를 팠다.</p>
-
-<hr />
-
-<h2 id="어떻게-달라질-것인가">어떻게 달라질 것인가</h2>
-<h3 id="기록하는-삶">기록하는 삶</h3>
-<p>이번주는 귀차니즘을 이겨내고, 블로그도 옮겼으니 새로운 마음으로 그날 배운 내용들을 간략하게라도 기록하자.</p>
-
-<h3 id="계획하는-삶">계획하는 삶</h3>
-<p>2주동안 그냥 정신없게 사느라 여러 방면에서 놓친 부분들이 많았다. 시간을 더 효율적으로 쓰기 위해 앞으로 내가 오늘 무슨 일을 할 것인지 아침마다 정리해보자.</p>
-
-<h3 id="페어와-찐한-회고">페어와 찐한 회고</h3>
-<p>화요일에 새로운 미션이 시작되는데, 이번에는 브라운과 면담한 대로 페어와 함께 성장을 위해 서로 솔직하고 찐한 회고를 약속할 것이다. 페어도 나와 동일한 마음이었으면 좋겠다.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>🕹 Level 1. 로또 미션 코드 리뷰 정리</title>
-	  <link>//lotto</link>
-	  <author></author>
-	  <pubDate>2021-03-01T19:18:00+09:00</pubDate>
-	  <guid>//lotto</guid>
-	  <description><![CDATA[
-	     <h2 id="1단계-피드백">1단계 피드백</h2>
-<h3 id="객체인-controller">객체인 Controller</h3>
-<p><img src="https://images.velog.io/images/new_wisdom/post/c00aaeae-a114-4634-ba8b-15d91ea499f6/image.png" style="zoom:50%;" /></p>
-
-<p>LottoFactory를 인스턴스 변수로 두지 않았던 이유는 
-Controller는 객체가 아니라 데이터를 가지면 안된다고 생각하고 있었다.<br />
-당연히 Domain만 객체라고 생각했었다. (모르는건 부끄러운게 아니다 🥲)</p>
-
-<p>하지만 생각해보니 Controller도 도메인과 뷰를 이어주는 동시에, 객체를 생성하는 책임이 있다.<br />
-인스턴스 변수로 가지고 있게 된다면 getLottoTickets 메소드에서 매번 객체를 생성할 필요가 없다.</p>
-
-<p>일단 이 코드에서 중요한 점은 어차피 지금 로또를 생성하는 책임을 컨트롤러에서 하고 있었으니<br />
-“불필요한 객체 생성을 방지하도록 인스턴스 변수로만들어서 재활용하자”가 목적이다.</p>
-
-<ul>
-  <li><a href="https://github.com/woowacourse/java-lotto/commit/ab16861d71a72d2016ef4cd232a5cf5b5af86ac9">반영한 커밋</a>
-    <h3 id="반복되는-상수-처리">반복되는 상수 처리</h3>
-    <p><img src="https://images.velog.io/images/new_wisdom/post/acf1e691-e345-41ee-a67b-e249b23f6547/image.png" style="zoom:50%;" /></p>
-  </li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/3fd15906-7210-4084-bf94-32f8d9a2141a/image.png" style="zoom:50%;" /></p>
-
-<p>미션 데드라인을 맞추기 위해 좀 더 꼼꼼히 확인을 못했던 부분인데,<br />
-로또 티켓을 만드는 LottoTicketFactory에 있는 상수 값들이 LottoNumber나 LottoTicket등 여러 곳에서 중복되어 쓰이고 있었다.<br />
-또 심지어 로또의 MAX 번호는 45인데, 49까지로 입력해 놓았다 🙃<br />
-덕분에 상수값 하나라도 꼼꼼히 확인해야겠다는 깨달음을 얻었다.</p>
-
-<p>중복되는 상수를 막으며, 각 객체가 알고 있어야 하는 값대로 상수를 두고<br />
-이를 import 해서 사용하도록 수정했다.</p>
-
-<h4 id="lottonumber">LottoNumber</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LottoNumber</span> <span class="kd">implements</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">LottoNumber</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MIN_LOTTO_NUMBER</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MAX_LOTTO_NUMBER</span> <span class="o">=</span> <span class="mi">45</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Pattern</span> <span class="n">NUMBER_PATTERN</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"^[0-9]*$"</span><span class="o">);</span>
-</code></pre></div></div>
-<h4 id="lottoticket">LottoTicket</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LottoTicket</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">LOTTO_TICKET_SIZE</span> <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>
-</code></pre></div></div>
-<h4 id="lottofactory">LottoFactory</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">lotto</span><span class="o">.</span><span class="na">domain</span><span class="o">.</span><span class="na">LottoNumber</span><span class="o">.</span><span class="na">MAX_LOTTO_NUMBER</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">lotto</span><span class="o">.</span><span class="na">domain</span><span class="o">.</span><span class="na">LottoNumber</span><span class="o">.</span><span class="na">MIN_LOTTO_NUMBER</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">lotto</span><span class="o">.</span><span class="na">domain</span><span class="o">.</span><span class="na">LottoTicket</span><span class="o">.</span><span class="na">LOTTO_TICKET_SIZE</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">lotto</span><span class="o">.</span><span class="na">domain</span><span class="o">.</span><span class="na">Money</span><span class="o">.</span><span class="na">LOTTO_PRICE</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LottoTicketFactory</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">START_INDEX</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-</code></pre></div></div>
-<ul>
-  <li><a href="https://github.com/woowacourse/java-lotto/commit/95988ad3982c06c1d6b105db83bd0fa9b559260a">반영한 커밋</a>
-    <h3 id="구매-금액-계산-법">구매 금액 계산 법</h3>
-    <p><img src="https://images.velog.io/images/new_wisdom/post/1c7743ed-6856-4410-809d-aa6c383c680d/image.png" style="zoom:50%;" /></p>
-  </li>
-</ul>
-
-<p>리팩토링 전 로직으로는 구매 금액을 입력 받을 때 만약 14500원이 들어오면 사용한 금액은<br />
-14장을 사는데 14000원만 들게 하고 500원이 남는 것은 예외라고 생각하지 않고 진행했다.<br />
-그런데 이 로직은 구매한 금액이 아닌 지불한 14500원으로 수익률을 계산하고 있다.<br />
-때문에 입력 금액과 구매 금액의 미일치 오류가 발생한다.</p>
-
-<p>피드백을 통해 lottoResult에서 구할 수 있는 티켓 개수와 상수 변수인 로또의 구매장수로<br />
-지불 금액을 구할 수 있음을 깨닫고 <code class="highlighter-rouge">showResult()</code> 에서 <code class="highlighter-rouge">money</code>를 매개변수로 받을 필요가 없음을 깨달았다.</p>
-
-<p>덕분에 money와의 연관관계를 하나 끊을 수 있고, <br />
-수익금 계산 시 입력 금액과 구매 금액 미일치로 인한 수익률 에러를 방지할 수 있다.</p>
-
-<ul>
-  <li><a href="https://github.com/woowacourse/java-lotto/commit/06cf1861eab0fcd0900218e06c38024fcae2d957">반영한 커밋</a></li>
-</ul>
-
-<h3 id="prize에서의-static-메서드-사용">Prize에서의 static 메서드 사용</h3>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/1c8c1eac-ab18-4280-b3ad-e5ab1ff285bb/image.png" style="zoom:50%;" /></p>
-
-<h4 id="리팩토링-전-prize">리팩토링 전 Prize</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Prize</span> <span class="nf">getPrizeType</span><span class="o">(</span><span class="kt">int</span> <span class="n">matchCount</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isBonusBall</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">isMatchCountEqualsPivot</span><span class="o">(</span><span class="n">matchCount</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">isBonusBall</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">SECOND_PRIZE</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">values</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">matchCount</span> <span class="o">==</span> <span class="n">matchCount</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="n">NO_PRIZE</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isMatchCountEqualsPivot</span><span class="o">(</span><span class="kt">int</span> <span class="n">matchCount</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">matchCount</span> <span class="o">==</span> <span class="n">BONUS_CHECK_PIVOT</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">calculatePrizeMoneySum</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Prize</span><span class="o">&gt;</span> <span class="n">lottoResults</span><span class="o">,</span> <span class="n">Money</span> <span class="n">money</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Money</span> <span class="n">moneySum</span> <span class="o">=</span> <span class="n">Money</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Prize</span> <span class="n">prize</span> <span class="o">:</span> <span class="n">Prize</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">Money</span> <span class="n">perPrizeMoneySum</span> <span class="o">=</span> <span class="n">prize</span><span class="o">.</span><span class="na">prizeMoney</span>
-                    <span class="o">.</span><span class="na">multiple</span><span class="o">(</span><span class="n">getCountByPrizeType</span><span class="o">(</span><span class="n">lottoResults</span><span class="o">,</span> <span class="n">prize</span><span class="o">));</span>
-            <span class="n">moneySum</span> <span class="o">=</span> <span class="n">moneySum</span><span class="o">.</span><span class="na">plus</span><span class="o">(</span><span class="n">perPrizeMoneySum</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">moneySum</span><span class="o">.</span><span class="na">getRate</span><span class="o">(</span><span class="n">money</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getCountByPrizeType</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Prize</span><span class="o">&gt;</span> <span class="n">lottoResults</span><span class="o">,</span> <span class="n">Prize</span> <span class="n">prize</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">lottoResults</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">prize</span><span class="o">))</span>
-                <span class="o">.</span><span class="na">count</span><span class="o">();</span>
-    <span class="o">}</span>
-
-</code></pre></div></div>
-
-<h4 id="리팩토링-전-lottoresult">리팩토링 전 LottoResult</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LottoResult</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Prize</span><span class="o">&gt;</span> <span class="n">lottoResults</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">LottoResult</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Prize</span><span class="o">&gt;</span> <span class="n">lottoResults</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">lottoResults</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">lottoResults</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculateProfitRate</span><span class="o">(</span><span class="n">Money</span> <span class="n">money</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Prize</span><span class="o">.</span><span class="na">calculatePrizeMoneySum</span><span class="o">(</span><span class="n">lottoResults</span><span class="o">,</span> <span class="n">money</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCountPerPrizeType</span><span class="o">(</span><span class="n">Prize</span> <span class="n">prize</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Prize</span><span class="o">.</span><span class="na">getCountByPrizeType</span><span class="o">(</span><span class="n">lottoResults</span><span class="o">,</span><span class="n">prize</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>LottoResult에서 <code class="highlighter-rouge">calculateProfitRate()</code>을 하기 위해  Prize의 도움을 받았다.<br />
-lottoResults가 Prize의 도움을 받지 않고 <code class="highlighter-rouge">List&lt;Prize&gt; lottoResults</code> 
-각각의 prize에게 메시지를 보내 스스로 계산할 수 있도록 코드를 다음과 같이 수정했었다.</p>
-
-<h4 id="lottoresult">LottoResult</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="n">Money</span> <span class="nf">getTotalProfit</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Money</span> <span class="n">totalProfit</span> <span class="o">=</span> <span class="n">Money</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Prize</span> <span class="n">prize</span> <span class="o">:</span> <span class="n">lottoResults</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">totalProfit</span> <span class="o">=</span> <span class="n">totalProfit</span><span class="o">.</span><span class="na">plus</span><span class="o">(</span><span class="n">prize</span><span class="o">.</span><span class="na">getPrizeMoney</span><span class="o">());</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">totalProfit</span><span class="o">;</span>
-    <span class="o">}</span>
-</code></pre></div></div>
-<ul>
-  <li><a href="https://github.com/woowacourse/java-lotto/commit/af0f1ff2915d6420b6935e1baa9510c1030c7daf">1차 반영 커밋</a></li>
-</ul>
-
-<p>하지만 리팩토링 후에도 아직 객체 스스로 할 수 있는일들이 남아있었다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/acb68cb8-5309-4c65-a040-2babdc96a770/image.png" style="zoom:50%;" /></p>
-
-<p>또 이때까지 로또 티켓과 당첨 티켓을 비교해 결과를 반환하는 책임을 <br />
-lott. Tickets가 가지고 있었다.<br />
-곰곰히 생각해보니 로또 티켓과 당첨 티켓을 비교해 결과를 반환하는 책임은 winningLotto가 맡는 것이 더 적합하다고 판단이 되었고,<br />
-winningLotto에서 prize를 체크하도록 책임을 이동하였다.</p>
-
-<p>최종적으로 LottoResult를 반환하는 것은 winnigLotto에서 담당하며,<br />
-또 Prize의 도움을 받지 않고 스스로 prize를 체크하도록 하였다.</p>
-
-<h4 id="리팩토링한-winniglotto의-메소드-일부">리팩토링한 WinnigLotto의 메소드 일부</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Prize</span> <span class="nf">matchPrize</span><span class="o">(</span><span class="n">LottoTicket</span> <span class="n">lottoTicket</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">matchCount</span> <span class="o">=</span> <span class="n">getMatchingCount</span><span class="o">(</span><span class="n">lottoTicket</span><span class="o">);</span>
-    <span class="kt">boolean</span> <span class="n">isBonusNumber</span> <span class="o">=</span> <span class="n">isContainBonusNumber</span><span class="o">(</span><span class="n">lottoTicket</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">Prize</span><span class="o">.</span><span class="na">findPrize</span><span class="o">(</span><span class="n">matchCount</span><span class="o">,</span> <span class="n">isBonusNumber</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="kd">private</span> <span class="kt">int</span> <span class="nf">getMatchingCount</span><span class="o">(</span><span class="n">LottoTicket</span> <span class="n">lottoTicket</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">lottoTicket</span><span class="o">.</span><span class="na">lottoTicket</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">winningTicket</span><span class="o">.</span><span class="na">lottoTicket</span><span class="o">()::</span><span class="n">contains</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">count</span><span class="o">();</span>
-<span class="o">}</span>
-
-<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isContainBonusNumber</span><span class="o">(</span><span class="n">LottoTicket</span> <span class="n">lottoTicket</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">lottoTicket</span><span class="o">.</span><span class="na">lottoTicket</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">anyMatch</span><span class="o">(</span><span class="n">lottoNumber</span> <span class="o">-&gt;</span> <span class="n">lottoNumber</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">bonusNumber</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<h4 id="리팩토링-후-prize에서-줄어든-static-메소드들">리팩토링 후 Prize에서 줄어든 static 메소드들</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">Prize</span> <span class="nf">findPrize</span><span class="o">(</span><span class="kt">int</span> <span class="n">matchCount</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isBonusNumber</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">isMatchCountEqualsPivot</span><span class="o">(</span><span class="n">matchCount</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">isBonusNumber</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">SECOND_PRIZE</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">values</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">matchCount</span> <span class="o">==</span> <span class="n">matchCount</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="n">NO_PRIZE</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isMatchCountEqualsPivot</span><span class="o">(</span><span class="kt">int</span> <span class="n">matchCount</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">matchCount</span> <span class="o">==</span> <span class="n">BONUS_CHECK_PIVOT</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="kd">public</span> <span class="n">Money</span> <span class="nf">getPrizeMoney</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">prizeMoney</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getMatchCount</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">matchCount</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><a href="https://github.com/woowacourse/java-lotto/commit/df62ef0a1e9ef8bf680d03556a0c44886d252c24">반영한 커밋1</a></li>
-  <li><a href="https://github.com/woowacourse/java-lotto/commit/e0acff81ab0893813483949504c22bd954271a46">반영한 커밋2</a></li>
-</ul>
-
-<h3 id="collectingandthen">collectingAndThen</h3>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/40036589-2ae0-4833-a4ed-8bf372d68844/image.png" style="zoom:50%;" /></p>
-
-<p>리뷰어님께서 수정해주신 코드는 <code class="highlighter-rouge">collectingAndThen</code>메소드를 사용했는데,<br />
-처음보는 메소드라 찾아보니 collecting을 진행한 후 그 결과로 메소드를 호출할 수 있는 메서드 였다.<br />
-stream map을 써서 객체 하나하나를 생성하고 이를 리스트로 바꿔,<br />
-또 객체를 생성하는 나의 로직에서 이 메서드를 사용하면<br />
-좀 더 간결하게 표현할 수 있었다.<br />
-사용법을 배웠으니, 앞으로 자주 사용할 것이다 👀<br />
-또 Collections의 다양한 API를 살펴보아야겠다.</p>
-
-<ul>
-  <li><a href="https://www.baeldung.com/java-8-collectors">참고</a></li>
-</ul>
-
-<h2 id="2단계-초기-리팩토링">2단계 초기 리팩토링</h2>
-<p><img src="https://images.velog.io/images/new_wisdom/post/b07190ba-4871-4c44-8f25-b7c17d1da072/image.png" style="zoom:50%;" /></p>
-
-<h3 id="lottocount-객체-추가">LottoCount 객체 추가</h3>
-<p>이번 리팩토링에서 <code class="highlighter-rouge">수동 로또 개수</code>를 입력 받고, 이 갯수 만큼 로또를 생성하고 출력해야했다.<br />
-원시값 포장의 의미도 담으면서 입력 받는 수동 로또 갯수에 대한 검증하고, <br />
-이에 대한 상태와 행위를 한 곳에서 관리 하기 위해 <code class="highlighter-rouge">LottoCount</code> 객체를 만들게 되었다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LottoCount</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">manualCount</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">autoCount</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">LottoCount</span><span class="o">(</span><span class="kt">int</span> <span class="n">manualCount</span><span class="o">,</span> <span class="kt">int</span> <span class="n">totalCount</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">validateLottoCount</span><span class="o">(</span><span class="n">manualCount</span><span class="o">,</span> <span class="n">totalCount</span><span class="o">);</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">manualCount</span> <span class="o">=</span> <span class="n">manualCount</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">autoCount</span> <span class="o">=</span> <span class="n">totalCount</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="na">manualCount</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">validateLottoCount</span><span class="o">(</span><span class="kt">int</span> <span class="n">manualCount</span><span class="o">,</span> <span class="kt">int</span> <span class="n">totalCount</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">manualCount</span> <span class="o">&gt;</span> <span class="n">totalCount</span> <span class="o">||</span> <span class="n">manualCount</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"[ERROR] 구매 가능한 로또 개수 범위가 아닙니다."</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getManualCount</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">manualCount</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAutoCount</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">autoCount</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="exception">Exception</h3>
-<p>화요일 강의인 Exception이 내게는 많은 배움을 주어서, <br />
-이번 요구사항인 사용자 입력값에 대한 예외처리를 신경썼다.<br />
-이전에는 Custom Exception을 만들어서 각 객체마다 예외 처리를 해주었으나,</p>
-
-<ul>
-  <li>리팩토링 전 Custom Class
-```java
-package lotto.exception;</li>
-</ul>
-
-<p>import lotto.view.ErrorView;</p>
-
-<p>public class IllegalMoneyException extends IllegalArgumentException {
-    public IllegalMoneyException() {
-        ErrorView.printIllegalMoneyErrorMessage();
-    }
-}</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>각 Custom Exception 클래스가 따로 처리하는 일이 없고,   
-메세지도 super에게 전달하는 것이 아닌 `ErrorView`라는 객체를 통해 출력하고 있기 때문에    
-필요성을 못느끼게 되어 자바의 기본 예외를 사용하도록 리팩토링을 진행했다.  
-또 객체 단위로 묶어서 에러 메세지를 보내던 부분은   
-각 예외 사항에 맞게 에러 메시지를 보내도록 수정했다.  
-
-#### LottoTicketFactory -&gt; AutoNumbersFactory
-요구사항에 따라 리팩토링을 진행하면서 `LottoTickets`를 생성해내던 LottoTicketfactory의 역할에 대한 의문이 들었다.   
-처음 리팩토링에서는 객체를 많이 변경하지 않기 위해 수동 로또 번호들을 받고 자동 로또 갯수를 받아서  
-`LottoTicketFactory`에서 자동 로또 숫자들을 만들고 `LottoTickets`를 생성하는 역할로 진행했는데,  
-로또 티켓들 객체를 생성하기 위해 또 다른 `LottoTicketFactory`를 생성하는 것이 좋지 못한 방안이라는 생각이 들었다.  
-
-때문에 LottoTickets 객체를 생성할 때 로또 번호들의 리스트들을 받아서   
-(`List&lt;List&lt;LottoNumber&gt;&gt; lottoNumbersGroup`) `LottoTickets` 안에서 로또 티켓들을 생성하는 방식으로 변경했다.
-그리고 기존 `LottoTicketFactory`는 `AutoNumbersFactory`로 변경하여  
-자동 로또 숫자 리스트를 만들어내는 역할로 변경해보았다 !   
-
-#### LottoNumber
-0223 수업 때 로또 넘버의 범위에 제한이 있으니, 이를 미리 캐싱해서 사용하는 방법을 생각해보라고 하셨다.  
-생각을 해보고 캐싱하는 방법을 찾아보니 `HashMap`을 이용해서 캐싱을 구현할 수 있음을 깨달았다.  
-이로 생성자를 `private`로 막아 불필요한 객체 생성을 막고,   
-`static block`에 의해 미리 캐싱된 `LottoNumber`에서 키값으로 접근해 해당 로또넘버를 가져오는 형식으로 리팩토링을 진행했다.  
-
-* LottoNumber 캐시 적용 부분
-```java
-static {
-    IntStream.range(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER + 1)
-            .forEach(i -&gt; CACHE_LOTTO_NUMBERS.put(i, new LottoNumber(i)));
-}
-
-public static LottoNumber valueOf(int index) {
-    validateLottoNumber(index);
-    return CACHE_LOTTO_NUMBERS.get(index);
-}
-</code></pre></div></div>
-
-<h2 id="2단계-피드백">2단계 피드백</h2>
-
-<h3 id="정적-팩터리-메소드">정적 팩터리 메소드</h3>
-<p><img src="https://images.velog.io/images/new_wisdom/post/6f036cee-daa9-49b9-95c1-5b1925020fd1/image.png" style="zoom:50%;" /></p>
-
-<p>정적 팩터리 메서드에 대해 정리는 했었으나,<br />
-사실 언제 써야하고 언제 쓰지 말아야할지 아직 감이 안왔다 해야하나 🥲</p>
-
-<p>그런데 크루들이랑 얘기를 해보니, <br />
-정답은 없으나 자신이 쓰는 명분을 가지는게 좋을 것 같다는 결론을 내렸다.<br />
-사실 이때까지 정적 팩터리 메서드의 사용성을 제대로 인지하지 못하고 있었던 것 같다.<br />
-static이라는 명분 때문에 객체를 공유한다고 생각했으나,<br />
-정적 팩터리 메서드 내에서 새로운 객체를 생성해 반환한다면<br />
-상태를 공유하지 않는 것이다.</p>
-
-<p>왜 static이라는 명목 때문에 정적 팩터리 메서드가 무조건<br />
-공유되는 객체를 만든다고만 생각했을까 🥲</p>
-
-<p>때문에 이번 리팩토링에서는 정적 팩터리 메서드를 적극 사용해 보았다.</p>
-
-<h3 id="많은-책임을-지고-있던-lottocontroller">많은 책임을 지고 있던 LottoController</h3>
-<p><img src="https://images.velog.io/images/new_wisdom/post/12a6e507-efd1-4f00-9ba6-fd9c57bb9ab3/image.png" style="zoom:50%;" /></p>
-
-<p>이 당시 내가 구현한 LottoController는</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">LottoTickets</span> <span class="nf">buyLottoTickets</span><span class="o">(</span><span class="n">LottoCount</span> <span class="n">lottoCount</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">LottoNumber</span><span class="o">&gt;&gt;</span> <span class="n">lottoNumbersGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-    <span class="n">lottoNumbersGroup</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">createAllManualLottoTicket</span><span class="o">(</span><span class="n">lottoCount</span><span class="o">.</span><span class="na">getManualLottoCount</span><span class="o">()));</span>
-    <span class="n">lottoNumbersGroup</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">createAutoNumbers</span><span class="o">(</span><span class="n">lottoCount</span><span class="o">.</span><span class="na">getAutoLottoCount</span><span class="o">()));</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nf">LottoTickets</span><span class="o">(</span><span class="n">lottoNumbersGroup</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>이런식으로 LottoTicket에 해당하는 <code class="highlighter-rouge">List&lt;LottoNumber&gt;</code>도 Controller에서 만들고,<br />
-이를 가지고 LottoTickets까지 만들어 낸다.<br />
-또 보다싶이 <code class="highlighter-rouge">List&lt;List&lt;LottoNumber&gt;&gt;</code>를 만들어 내기 위해 복잡한 코드를 가지고 있었다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">LottoNumber</span><span class="o">&gt;&gt;</span> <span class="nf">createAllManualLottoTicket</span><span class="o">(</span><span class="kt">int</span> <span class="n">manualLottoCount</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">OutputView</span><span class="o">.</span><span class="na">printInputManualLottoNumbers</span><span class="o">();</span>
-    <span class="k">return</span> <span class="n">IntStream</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">manualLottoCount</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">mapToObj</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">InputView</span><span class="o">.</span><span class="na">inputNumbers</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">input</span> <span class="o">-&gt;</span> <span class="n">LottoNumber</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">ParseUtil</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">input</span><span class="o">)))</span>
-                    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">()))</span>
-            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>이에 대해 남겨주신 피드백은 다음과 같다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/001e2dd8-9190-4b5f-a7de-2517dd7e6387/image.png" style="zoom:50%;" /></p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/3d3587e8-af0a-43a5-a164-a3fc966295f0/image.png" style="zoom:50%;" /></p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/9413baaf-ec08-45c4-a999-d47ef4092193/image.png" style="zoom:50%;" /></p>
-
-<p>이로 인해 전반적으로 많은 수정이 일어났다.<br />
-LottoTicket에 <code class="highlighter-rouge">auto()</code>, <code class="highlighter-rouge">manual()</code> 정적 팩터리 메서드를 만들고,<br />
-LottoTickets에도 <code class="highlighter-rouge">auto()</code> 정적 팩터리 메서드를 만들어 <br />
-LottoController에서 생성하고 있던 책임을 분배했다.</p>
-
-<h4 id="lottoticket---auto-manual">LottoTicket - auto(), manual()</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">LottoTicket</span> <span class="nf">auto</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nf">LottoTicket</span><span class="o">(</span><span class="n">LottoNumbersFactory</span><span class="o">.</span><span class="na">generateAutoLottoNumbers</span><span class="o">());</span>
-<span class="o">}</span>
-
-<span class="kd">public</span> <span class="kd">static</span> <span class="n">LottoTicket</span> <span class="nf">manual</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">lottoNumberStrings</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">lottoNumberStrings</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">LottoNumber</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">ParseUtil</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
-            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">collectingAndThen</span><span class="o">(</span><span class="n">toList</span><span class="o">(),</span> <span class="nl">LottoTicket:</span><span class="o">:</span><span class="k">new</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>LottoTicket에서 <code class="highlighter-rouge">List&lt;String&gt;</code>을 받아 수동 로또 티켓을 생성하도록 리팩토링 해보았다 !</p>
-<h4 id="lottotickets---auto">LottoTickets - auto()</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">LottoTickets</span> <span class="nf">auto</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Stream</span><span class="o">.</span><span class="na">generate</span><span class="o">(</span><span class="nl">LottoTicket:</span><span class="o">:</span><span class="n">auto</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">limit</span><span class="o">(</span><span class="n">count</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">collectingAndThen</span><span class="o">(</span><span class="n">toList</span><span class="o">(),</span> <span class="nl">LottoTickets:</span><span class="o">:</span><span class="k">new</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<p>덕분에 LottoContoller에 있던 많은 책임이 분배되었다고 생각하고(?),
-각 메서드 코드도 간결해졌다고 느낀다.</p>
-
-<h4 id="lottocontroller-일부">LottoController 일부</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">LottoTickets</span> <span class="nf">buyLottoTickets</span><span class="o">(</span><span class="n">LottoCount</span> <span class="n">lottoCount</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">LottoTickets</span> <span class="n">lottoTickets</span> <span class="o">=</span> <span class="n">createManualLottoTickets</span><span class="o">(</span><span class="n">lottoCount</span><span class="o">.</span><span class="na">getManualCount</span><span class="o">());</span>
-    <span class="n">lottoTickets</span><span class="o">.</span><span class="na">combine</span><span class="o">(</span><span class="n">LottoTickets</span><span class="o">.</span><span class="na">auto</span><span class="o">(</span><span class="n">lottoCount</span><span class="o">.</span><span class="na">getAutoCount</span><span class="o">()));</span>
-    <span class="k">return</span> <span class="n">lottoTickets</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="kd">private</span> <span class="n">LottoTickets</span> <span class="nf">createManualLottoTickets</span><span class="o">(</span><span class="kt">int</span> <span class="n">manualCount</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">OutputView</span><span class="o">.</span><span class="na">printInputManualLottoNumbers</span><span class="o">();</span>
-    <span class="k">return</span> <span class="n">Stream</span><span class="o">.</span><span class="na">generate</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">LottoTicket</span><span class="o">.</span><span class="na">manual</span><span class="o">(</span><span class="n">InputView</span><span class="o">.</span><span class="na">inputNumbers</span><span class="o">()))</span>
-                <span class="o">.</span><span class="na">limit</span><span class="o">(</span><span class="n">manualCount</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">collectingAndThen</span><span class="o">(</span><span class="n">toList</span><span class="o">(),</span> <span class="nl">LottoTickets:</span><span class="o">:</span><span class="k">new</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="lottotickets">LottoTickets</h3>
-<p><img src="https://images.velog.io/images/new_wisdom/post/3f3db20b-c6f6-4134-b43c-35174ea78954/image.png" style="zoom:50%;" /></p>
-
-<p>피드백을 듣고 생각해보니 LottoTickets를 나는 단순히 LottoTicket의 모음이라고만 생각했었다.<br />
-(약간 Repository로 생각했던 것 같다.)</p>
-
-<h4 id="리펙토링-전-lottotickets">리펙토링 전 LottoTickets</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">LottoTicket</span><span class="o">&gt;</span> <span class="n">lottoTickets</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="nf">LottoTickets</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">LottoNumber</span><span class="o">&gt;&gt;</span> <span class="n">lottoNumbersGroup</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">lottoTickets</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">createLottoTickets</span><span class="o">(</span><span class="n">lottoNumbersGroup</span><span class="o">));</span>
-<span class="o">}</span>
-
-<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">LottoTicket</span><span class="o">&gt;</span> <span class="nf">lottoTickets</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">unmodifiableList</span><span class="o">(</span><span class="n">lottoTickets</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">LottoTicket</span><span class="o">&gt;</span> <span class="nf">createLottoTickets</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">LottoNumber</span><span class="o">&gt;&gt;</span> <span class="n">lottoNumbersGroup</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">lottoNumbersGroup</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">LottoTicket:</span><span class="o">:</span><span class="k">new</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>고민해보니 이전에 아래와 같이 WinningTicket에서 당첨 결과를 산출했었는데,</p>
-<h4 id="리펙토링-전-winniglotto">리펙토링 전 WinnigLotto</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">LottoResult</span> <span class="nf">checkPrizes</span><span class="o">(</span><span class="n">LottoTickets</span> <span class="n">lottoTickets</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">lottoTickets</span><span class="o">.</span><span class="na">lottoTickets</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">matchPrize</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">collectingAndThen</span><span class="o">(</span><span class="n">toList</span><span class="o">(),</span> <span class="nl">LottoResult:</span><span class="o">:</span><span class="k">new</span><span class="o">));</span>
-<span class="o">}</span>
-
-<span class="kd">public</span> <span class="n">Prize</span> <span class="nf">matchPrize</span><span class="o">(</span><span class="n">LottoTicket</span> <span class="n">lottoTicket</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">matchCount</span> <span class="o">=</span> <span class="n">getMatchingCount</span><span class="o">(</span><span class="n">lottoTicket</span><span class="o">);</span>
-    <span class="kt">boolean</span> <span class="n">isBonusNumber</span> <span class="o">=</span> <span class="n">isContainBonusNumber</span><span class="o">(</span><span class="n">lottoTicket</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">Prize</span><span class="o">.</span><span class="na">findPrize</span><span class="o">(</span><span class="n">matchCount</span><span class="o">,</span> <span class="n">isBonusNumber</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="kd">private</span> <span class="kt">int</span> <span class="nf">getMatchingCount</span><span class="o">(</span><span class="n">LottoTicket</span> <span class="n">lottoTicket</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">lottoTicket</span><span class="o">.</span><span class="na">lottoTicket</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">winningTicket</span><span class="o">.</span><span class="na">lottoTicket</span><span class="o">()::</span><span class="n">contains</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">count</span><span class="o">();</span>
-<span class="o">}</span>
-
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isContainBonusNumber</span><span class="o">(</span><span class="n">LottoTicket</span> <span class="n">lottoTicket</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">lottoTicket</span><span class="o">.</span><span class="na">lottoTicket</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">anyMatch</span><span class="o">(</span><span class="n">lottoNumber</span> <span class="o">-&gt;</span> <span class="n">lottoNumber</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">bonusNumber</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>이렇게 모든 메서드에서 LottoTicket의 값을 꺼내오고 있었다.<br />
-때문에 LottoTickets에 WinnigLotto를 주어 각 LottoTicket에게 비교하라는 메시지를 주는것이 더 옳다고 생각해서<br />
-LottoTickets에서 결과를 비교하는 역할을 부여하게 되었다.</p>
-
-<p>또 Controller에서 로또 티켓을 생성하는 역할을 덜기 위해 메서드들이 바로 LottoTickets를 반환하도록 하면서<br />
-<code class="highlighter-rouge">ManualLottoTickets</code>와 <code class="highlighter-rouge">LottoTickets.auto</code>를생성하는데<br />
-생성된 이 두 <code class="highlighter-rouge">LottoTickets</code>들을 합치는 역할도 필요하다고 생각해서 <br />
-<code class="highlighter-rouge">combine()</code>할 수 있는 기능을 추가했다.</p>
-
-<p>그런데 WinnigLotto에 있던 것들을 LottoTickets로 분배하니 WinningLotto의<br />
-역할이 다 빼앗겨 버린건 아닐까 고민이 되었지만,</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/044fae6a-acce-474a-8d3d-5b031dfe7196/image.png" style="zoom:50%;" /></p>
-
-<p>리뷰어 분께서 괜찮다고 말씀해주셨다.</p>
-
-<p>미션을 진행하면 할수록 아직 배울 것이 많고 나의 부족함을 느낀다.<br />
-배울 것이 많다는 것은 느낄 성취감이 많다는 것이니 앞으로 화이팅하자 🏃‍♂️</p>
 
 	  ]]></description>
 	</item>
