@@ -1,0 +1,37 @@
+<h4 id="controller-인터페이스-분리">Controller 인터페이스 분리</h4>
+
+<p>https://www.baeldung.com/spring-interface-driven-controllers</p>
+
+<hr />
+
+<h3 id="setviewname-에서-redirect-forward-키워드를-사용하였을-때">setViewName 에서 redirect, forward 키워드를 사용하였을 때</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebMvcConfiguration</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+    <span class="cm">/**
+     * https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-config-view-controller
+     *
+     * "/" 요청 시 hi.html 페이지 응답하기
+     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addViewControllers</span><span class="o">(</span><span class="n">ViewControllerRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">addViewController</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="na">setViewName</span><span class="o">(</span><span class="s">"hi"</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>현재 템플릿 엔진으로 handlebar를 사용하고 있다.<br />
+handlebar에서는 view로 내보낼 파일을 찾을 때 <code class="highlighter-rouge">templates</code> 폴더에 있는 view 파일을 찾는다.<br />
+하지만 ViewName에서 <code class="highlighter-rouge">redirect</code> 또는 <code class="highlighter-rouge">forward</code> 키워드를 사용하면 templates 폴더에서 파일을 찾지 않고 
+URL path로 요청을 보내게 된다.</p>
+
+<hr />
+
+<h3 id="interceptor">Interceptor</h3>
+
+<p>prehandle이 true면 Controller를 타기 전 인터셉트가 끝났다 !</p>
+
+<hr />
+
+<h3 id="handlermethodargumentresolver-이란">HandlerMethodArgumentResolver 이란?</h3>
+
+<p>HandlerMethodArgumentResolver은 컨트롤러 메서드에서 특정 조건에 맞는 파라미터가 있을 때 원하는 값을 바인딩해주는 인터페이</p>

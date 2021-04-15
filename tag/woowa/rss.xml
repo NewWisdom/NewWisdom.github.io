@@ -12,6 +12,196 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📋 프로가 되기 위한 웹기술 입문 1-3</title>
+	  <link>//webbasic13</link>
+	  <author></author>
+	  <pubDate>2021-04-14T19:18:00+09:00</pubDate>
+	  <guid>//webbasic13</guid>
+	  <description><![CDATA[
+	     <h2 id="1-웹-애플리케이션이란-무엇인가">1. 웹 애플리케이션이란 무엇인가?</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">데스크톱 애플리케이션</th>
+      <th style="text-align: center">웹 애플리케이션</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">처리 주체</td>
+      <td style="text-align: center">자신의 PC</td>
+      <td style="text-align: center">서버</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">화면 표시</td>
+      <td style="text-align: center">운영체제 상에서 표시</td>
+      <td style="text-align: center">웹 브라우저에서 표시</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">설치</td>
+      <td style="text-align: center">필요</td>
+      <td style="text-align: center">불필요</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="2-웹은-어떻게-발전했는가">2. 웹은 어떻게 발전했는가?</h2>
+
+<h3 id="www-등장의-배경">WWW 등장의 배경</h3>
+
+<p>이메일이나 파일 전송 기술보다 더 편리하게 정보를 공유하자! <br />
+정보를 텍스트파일만으로 표현하게 만드는 것이 HTTP이다. <br />
+네트워크 상에서 링크된 하이퍼 링크의 연결을 WWW라고 부르기 시작했다. <br />
+WWW에서는 웹 서버가 네트워크 상에 공개하는 하이퍼 텍스트를 축적하고 웹 클라이언트 요청에 따라 필요한 HTML 파일을 건네준다.</p>
+
+<p>텍스트 중심으로 표현되던 웹 페이지를 문자와 그림과 함께 표현할 수 있게 만든 것이 NCSA 모자이크라는 웹 브라우저이다.</p>
+
+<h3 id="웹에서-클라이언트와-서버의-역할-분담">웹에서 클라이언트와 서버의 역할 분담</h3>
+
+<p>다양한 콘텐츠를 불특정 다수에게 공개하려면 콘텐츠를 한 곳에 관리해야한다.<br />
+WWW에서는 사람들의 PC를 웹 클라이언트로, 멀리 떨어져 있는 웹 서버와 웹 클라이언트 사이를 인터넷으로 연결한다.</p>
+
+<h3 id="url의-역할과-구조">URL의 역할과 구조</h3>
+
+<p>콘텐츠를 고유하게 저장하기 위한 구조. <br />
+스킴, 호스트명, 경로명으로 구성되어 있다.</p>
+
+<h3 id="http의-역할">HTTP의 역할</h3>
+
+<p>웹서버와 웹 클라이언트가 통신하기 위한 규약.4</p>
+
+<h3 id="cgi-등장의-배경과-역할">CGI 등장의 배경과 역할</h3>
+
+<p>동적인 페이지 요구에 따라 CGI가 등장하고,<br />
+웹 서버가 클라이언트로부터 받은 요청을 웹 서버상에서 작동하는 프로그램을 보낸다.</p>
+
+<h3 id="서블릿-등장의-배경">서블릿 등장의 배경</h3>
+
+<p>CGI를 이용한 웹 애플리케이션은 개발 언어의 문제와, 성능 문제를 가지고 있다.<br />
+웹 브라우저에서 요청이 도착할 때마다 CGI를 통해 프로세스를 기동하여 성능이 저하되었다.</p>
+
+<p><strong>서블릿은 자바로 만들어진 HTML 등의 웹 콘텐츠를 생성하기 위한 프로그램.</strong><br />
+CGI와 같은 개념이지만 콘텐츠를 생성하는 언어가 자바이며 객체지향을 지원하기 떄문에 대규모 애플리케이션 개발에 적합하다.<br />
+또한 웹서버와 같은 프로세스 속에서 콘텐츠를 생성하는 프로그램이 작동하기 때문에 CGI 처럼 새로운 프로세스를 매번 기동할 필요가 없다.</p>
+
+<p>자바는 JVM 덕분에 한 프로그램을 운영체제와 상관없이 어디에서나 동작시킬 수 있다.</p>
+
+<h3 id="jsp-등장의-배경">JSP 등장의 배경</h3>
+
+<p>서블릿을 통해 출력되는 HTML을 상상하기 어려웠다.</p>
+
+<p>JSP는 서블릿과 달리 출력되는 HTML에 거의 근접한 형태이다.<br />
+JSP 내부에 적힌 자바 프로그램을 스크립틀릿이라고 한다.</p>
+
+<p><strong>서블릿은 자바 코드에 HTML을 넣고, JSP는 HTML에 자바 코드를 넣는다.</strong></p>
+
+<h3 id="웹-애플리케이션-프레임워크의-필요성">웹 애플리케이션 프레임워크의 필요성</h3>
+
+<p>서블릿이나 JSP 만으로 웹 애플리케이션을 만드려면 코드량이 굉장히 늘어난다.</p>
+
+<p>프레임워크는 재사용할 수 있는 부분을 늘려 애플리케이션 개발을 용이하게 하는 것이다.<br />
+이로 인해 애플리케이션을 단기간에 개발할 수 있다.</p>
+
+<hr />
+
+<h2 id="3-http를-이해하자">3. HTTP를 이해하자</h2>
+
+<h3 id="http-요청의-구조">HTTP 요청의 구조</h3>
+
+<p><strong>요청 라인</strong></p>
+
+<ul>
+  <li>메서드 : 요청의 종류</li>
+  <li>URL : 무엇을 원하는가</li>
+  <li>HTTP 버전 : 버전에 따라 이용할 수 있는 메서드의 종류와 요청 헤더의 종류가 달라지므로 어떤 버전에 따른 요청인지 나타냄</li>
+</ul>
+
+<p><strong>대표적인 헤더</strong></p>
+
+<ul>
+  <li>
+    <p>Accept : 웹 클라이언트가 받을 수 있는 데이터의 종류</p>
+  </li>
+  <li>
+    <p>Accept-Language : 웹 클라이언트가 받을 수 있는 자연 언어의 종류</p>
+  </li>
+  <li>
+    <p>User-Agent : 웹 브라우저의 종류와 버전</p>
+  </li>
+  <li>
+    <p>Host : 요청을 보낸 곳의 호스트명과 포트 번호</p>
+
+    <p>HTTP는 한 요청에 한 리소스만 취득할 수 있다.</p>
+  </li>
+</ul>
+
+<h3 id="http-응답의-구조">HTTP 응답의 구조</h3>
+
+<ul>
+  <li>상태라인 : HTTP 버전, 상태 코드, 응답 구분</li>
+  <li>메시지 헤더 : 응답에 관한 부가적인 정보</li>
+  <li>메시지 본문 : HTML 파일 내용이 그대로 담김</li>
+</ul>
+
+<h3 id="ip-주소">IP 주소</h3>
+
+<p>인터넷에 접속된 모든 컴퓨터는 IP 주소라는 숫자로 식별된다.<br />
+하지만 인간이 IP 주소를 기억하기에는 어렵다.</p>
+
+<p>IP 주소는 전세계에 하나만 있어야 한다.<br />
+이 IP 주소는 대량의 IP 주소를 확보해 놓은 인터넷 서비스 프로바이더(ISP)로부터 할당받는다.</p>
+
+<h3 id="호스트명을-ip-주소로-변환하는-시스템dns">호스트명을 IP 주소로 변환하는 시스템(DNS)</h3>
+
+<p>도메인명과 IP 주소의 대응표를 가진 컴퓨터를 인터넷상에 배치하여 도메인명에 대응하는 IP 주소를 가르쳐준다.<br />
+도메인명에 대응하는 DNS 서버는 분산 관리 되고 있다.</p>
+
+<h3 id="get-요청과-post-요청의-차이">GET 요청과 POST 요청의 차이</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">GET</th>
+      <th style="text-align: center">POST</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">매개변수 저장 장소</td>
+      <td style="text-align: center">URL</td>
+      <td style="text-align: center">BODY</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">보안</td>
+      <td style="text-align: center">낮음 (URL이 노출됨)</td>
+      <td style="text-align: center">비교적 높음 (서버 로그에 남지 않음)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">매개변수의 길이</td>
+      <td style="text-align: center">255 문자 이내로 제한될 가능성</td>
+      <td style="text-align: center">제한 없음</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">매개변수의 보존 재현</td>
+      <td style="text-align: center">용이</td>
+      <td style="text-align: center">어려움</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="퍼센트-인코딩을-이용한-표현">퍼센트 인코딩을 이용한 표현</h3>
+
+<p>한글로 매개변수를 전달할 경우, 문자 코드로 나타낸 16진수 값 각 앞머리에 %를 붙여 표시하는 퍼센트 인코딩을 사용한다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📖 테스트로 배우는 스프링</title>
 	  <link>//til1</link>
 	  <author></author>
@@ -1616,155 +1806,6 @@ effectively final은 final로 선언되지 않아도 컴파일러가 해당 변�
 
 <h3 id="enum-map">Enum Map</h3>
 
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📝 Java8 Lambda, Stream API 강의 정리</title>
-	  <link>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
-	  <author></author>
-	  <pubDate>2021-03-16T19:18:00+09:00</pubDate>
-	  <guid>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
-	  <description><![CDATA[
-	     <h2 id="함수형-프로그래밍의-장점-">함수형 프로그래밍의 장점 ?</h2>
-
-<h3 id="관심사의-분리">관심사의 분리</h3>
-
-<p>관심사의 분리란 무엇일까? 예제를 들어보자.</p>
-
-<p><code class="highlighter-rouge">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);</code> 리스트에 있는 <strong>원소마다 콜론을 추가</strong>하려 한다.</p>
-
-<h4 id="이때-foreach-를-사용한다면-">이때 <code class="highlighter-rouge">forEach()</code> 를 사용한다면 ?</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">ForEach</span><span class="err">를</span><span class="n">_</span><span class="err">활용하여</span><span class="n">_</span><span class="err">콜론을</span><span class="n">_</span><span class="err">추가하는</span><span class="n">_</span><span class="err">문자열</span><span class="n">_</span><span class="err">작성</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">StringBuilder</span> <span class="n">stringBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-
-        <span class="k">for</span> <span class="o">(</span><span class="n">Integer</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">number</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">" : "</span><span class="o">);</span>
-        <span class="o">}</span>
-
-        <span class="k">if</span> <span class="o">(</span><span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">3</span><span class="o">,</span> <span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-</code></pre></div></div>
-
-<p>나는 <strong>원소마다 콜론 추가하는 것</strong>을 원하는데, forEach문을 작성하니 이를 어떻게(How) 구현할지에 집중하고 있는 것 같다.</p>
-
-<h4 id="그렇다면-함수형-프로그래밍의-일종인-stream을-사용한다면-">그렇다면 함수형 프로그래밍의 일종인 Stream을 사용한다면 ?</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="n">Stream</span><span class="err">을</span><span class="n">_</span><span class="err">활용하여</span><span class="n">_</span><span class="err">콜론을</span><span class="n">_</span><span class="err">추가하는</span><span class="n">_</span><span class="err">문자열</span><span class="n">_</span><span class="err">작성</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">valueOf</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">joining</span><span class="o">(</span><span class="n">COLON_DELIMITER</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>요소마다 콜론을 결합하는 것</strong>을 메소드를 사용함으로서 개발자인 내가 무엇을(What)을 수행할 것인지에 집중할 수 있다.</p>
-
-<h3 id="side-effect가-발생하지-않는다">Side Effect가 발생하지 않는다.</h3>
-
-<ul>
-  <li>Side Effect란 ? 함수 내의 실행으로 인해 함수 외부가 영향을 받는 것</li>
-</ul>
-
-<p>함수형 프로그래밍의 특징은 지역 변수만을 변경할 수 있고, 매개변수를 변경하지 않는다. <br />
-즉, 함수는 같은 인수값으로 함수를 호출했을 때 항상 같은 값을 반환한다. (이 때 다른 값을 반환하는 Random, Scanner 등은 함수가 아니다).<br />
-만약 함수에 참조하는 객체가 있다면 그 객체는 불변이어야 하며, 해당 객체의 모든 참조 필드도 불변 객체를 직접 참조해야 한다. <br />
-함수 내에서 생성한 객체의 필드는 갱신할 수 있지만, 새로 생성한 필드의 갱신은 외부에 노출되면 안된다. <br />
-또한 다음에 메서드를 다시 호출한 결과에 영향을 미치지 않으며, 어떠한 예외도 일으키지 않아야 한다. <br />
-값이 변경되는 것을 허용한 객체를 멀티 스레드 프로그램에서 접근한다면, 값이 일정하지 않을 것이다.</p>
-
-<p>하지만 단순히 구조만으로 순수성이 보장되지는 않고, 입력에 참조값이 오는 경우는 Side-Effect가 생긴다. 
-이에 대한 내용은 <strong>참조 투명성</strong>을 살펴보자.</p>
-
-<h4 id="참조-투명성">참조 투명성</h4>
-
-<p>참조 투명성은 함수가 함수 외부의 영향을 받지 않는 것을 의미한다.<br />
-또, 함수의 결과는 입력 파라미터에만 의존하고, 함수 외부 세계(입력 콘솔, 파일, 데이터 베이스 등)에서 데이터를 읽지 않는다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">a</span><span class="o">++;</span>
-  <span class="o">}</span>
-  <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>위 예제의 경우 원시 타입인 a의 값을 바꾸었는데, 자바의 원시타입의 매개변수는 call by value (메서드 호출 시 기본 자료형의 값을 인자로 전달하는 방식) 형태로 전달이 되어, 함수를 벗어나도 a에는 영향이 없다.<br />
-여기서 인자로 참조 변수를 넣어주면 어떤 일이 발생할 수 있을까?</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">position</span><span class="o">(</span><span class="n">Position</span> <span class="n">a</span><span class="o">,</span> <span class="n">Position</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">a</span><span class="o">.</span><span class="na">setX</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getX</span><span class="o">())</span>
-  <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>이렇게 참조 변수를 넘겨주면 함수 안에서 참조 변수의 값을 바꿀 수도 있기 때문에 side effect가 발생할 수 있다.<br />
-함수형 프로그래밍은 이런 Side Effect가 발생하지 않는, 참조 투명성이어야 한다.</p>
-
-<h3 id="일급-객체">일급 객체</h3>
-
-<p>함수형 프로그래밍은 함수인 메서드가 일급 객체임을 말하는데, 일급 객체는 다음과 같은 특성을 가진다.</p>
-
-<ul>
-  <li>변수나 데이터에 할당할 수 있어야 한다.</li>
-  <li>객체의 매개변수로 넘길 수 있어야 한다.</li>
-  <li>객체의 반환 값으로 리턴할 수 있어야 한다.</li>
-</ul>
-
-<p>자바8 이전까지, 메서드는 일급 객체가 아니었지만, 자바8의 익명 함수의 등장으로 메서드도 일급 객체로 다룰 수 있게 되었다.<br />
-또 이 익명 함수를 좀 더 단순화 한 것이 바로 람다 표현식(lambda expression)이다.</p>
-
-<h3 id="boxing과-unboxing">Boxing과 UnBoxing</h3>
-
-<p>원시 타입이 래퍼 클래스로 변환하는 것을 Boxing이라고 하며,<br />
-래퍼 클래스를 원시 타입으로 형변환 하는 것을 UnBoxing이라고 한다. <br />
-JDK1.5부터는 래퍼 클래스와 기본 자료형 사이의 변환을 자동으로 해주는 Auto Boxing과 Auto UnBoxing 기능을 지원한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">Integer</span> <span class="n">integer</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// Auto Boxing</span>
-<span class="n">Integer</span> <span class="n">integer1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">777</span><span class="o">);</span> <span class="c1">// 명시적 Boxing</span>
-
-<span class="kt">int</span> <span class="n">primitive</span> <span class="o">=</span> <span class="n">integer</span><span class="o">;</span> <span class="c1">// Auto UnBoxing</span>
-</code></pre></div></div>
-
-<p>#### Auto Boxing이 일어나는 예</p>
-
-<p>자바에서는 래퍼 클래스에 대한 연산이 시도될 때, 연산을 하려는 두 객체를 Auto Unboxing을 하여 원시타입으로 변환 후,<br />
-연산을 수행하게 된다. 래퍼 클래스와 원시 타입 간 연산도 동일하다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="n">Integer</span> <span class="n">integer127</span> <span class="o">=</span> <span class="mi">127</span><span class="o">;</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
-  <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">127</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">==</span> <span class="n">integer127</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
-<span class="o">);</span>
-
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
-  <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">128</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">integer127</span><span class="o">))</span>
-  <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
-<span class="o">);</span>
-</code></pre></div></div>
-
-<p>두 스트림 연산에서 원시 타입 <code class="highlighter-rouge">int</code> 인 값들의 Stream을 만들고 각각 래퍼 클래스 <code class="highlighter-rouge">Integer</code> 와 비교를 할 때 Auto Boxing이 일어난다.<br />
-이때, <code class="highlighter-rouge">findFirst().get()</code> 을 하게 된다면 래퍼 클래스가 반환된다.<br />
-이렇게 되면 각각 원시 타입에 Auto Boxing이 일어나니, <br />
-원시 타입에 대한 스트림은 기본형 특화 스트림 (IntStream, LongStream, DoubleStream)을 사용하는 것이 성능상 좋다.</p>
-
-<p>➕ 수업 예제에서 이 부분이 왜 127과 128로 나누었을까 크루들이랑 이야기를 했다.<br />
-Integer 래퍼 클래스는 127까지 인스턴스를 미리 생성해 두기 때문에 <code class="highlighter-rouge">==</code> 연산자로도 비교가 가능하지만 (주소값을 비교하는 것이다),<br />
-128부터는 새로운 인스턴스를 반환하기 때문에 동일성 검사인 <code class="highlighter-rouge">equals()</code> 를 사용해 반환한다.</p>
-
-<h3 id="참고-자료">참고 자료</h3>
-
-<ul>
-  <li><a href="https://jinwooe.wordpress.com/2017/12/21/%EB%B6%80%EC%88%98-%ED%9A%A8%EA%B3%BC-side-effect-%EC%B0%B8%EC%A1%B0-%ED%88%AC%EB%AA%85%EC%84%B1-referential-transparency/">부수 효과 (Side Effect), 참조 투명성 (Referential Transparency)</a></li>
-</ul>
 
 	  ]]></description>
 	</item>
