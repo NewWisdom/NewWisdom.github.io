@@ -34,4 +34,72 @@ URL path로 요청을 보내게 된다.</p>
 
 <h3 id="handlermethodargumentresolver-이란">HandlerMethodArgumentResolver 이란?</h3>
 
-<p>HandlerMethodArgumentResolver은 컨트롤러 메서드에서 특정 조건에 맞는 파라미터가 있을 때 원하는 값을 바인딩해주는 인터페이</p>
+<p>HandlerMethodArgumentResolver은 컨트롤러 메서드에서 특정 조건에 맞는 파라미터가 있을 때 원하는 값을 바인딩해주는 인터페이스</p>
+
+<hr />
+
+<h3 id="pojo-싱글톤-템플릿-메서드-패턴">POJO, 싱글톤, 템플릿 메서드 패턴</h3>
+
+<hr />
+
+<p>Bean으로 등록하는 객체의 기준. 
+어떤 객체를 Bean으로 등록하는지</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416104700381.png" alt="image-20210416104700381" /></p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416104808222.png" alt="image-20210416104808222" /></p>
+
+<p>스프링이 관리하는 빈ㄴ을 사용하지 않을 경우 어떤 점이 불편핮ㄴ지</p>
+
+<hr />
+
+<h3 id="dto-pojo-javabean-각각의-개념은">DTO POJO JavaBean 각각의 개념은?</h3>
+
+<p>각 용어를 사용하는 Context를 파악해야 한다</p>
+
+<hr />
+
+<h3 id="jdbc-vs-spring-jdbc">JDBC vs Spring JDBC</h3>
+
+<p>스프링 JDBC 사용 시 JDBC Template 활용</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416115041836.png" alt="image-20210416115041836" /></p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416115049139.png" alt="image-20210416115049139" /></p>
+
+<p>JDBC를 활용하기 위해서 등 JDBC 템플릿이있따.</p>
+
+<p>제이디비씨는 자바 API</p>
+
+<p>애플리케이션은 DB에 종속적이지 않은 코드를 구현할 수 있다. (전체적인 개념 상으로는 )</p>
+
+<p>JDBC TEmplate을 활용한다면 코드량이 확 줄어든다. 
+JDBC 템플릿에 다 구현이 되어있다.</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416115416563.png" alt="image-20210416115416563" /></p>
+
+<p>어느 DB에 연결되는거지????? 
+H2라는 인메모리 디비에 저장이 됨</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416115602442.png" alt="image-20210416115602442" /></p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416115619106.png" alt="image-20210416115619106" /></p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210416115854601.png" alt="image-20210416115854601" /></p>
+
+<p>jdbctemplate이 데이터 소스에 의존</p>
+
+<hr />
+
+<h3 id="웨-선생">웨 선생</h3>
+
+<p>인프라 레이어라는 개념이 있다. 이는 Persistence Layer 개념을 포함한다.<br />
+Layered 아키텍쳐에서는 각 계층에서 도메인 변경에 대한 영향을 최소화 하는 것을 목표로 한다.</p>
+
+<p>domain 패키지에 repostitory 인터페이스만 두고, 이에 대한 구현체는 인프라 영역인 DAO에 둔다.</p>
+
+<p>왜 repository가 도메인 영역인가?</p>
+
+<p>Repository는 도메인에 대한 상태 관리이니 이를 도메인에 두자.<br />
+이 비즈니스 로직에 대한 도메인들은 Persistence Layer에서 가져온다.</p>
+

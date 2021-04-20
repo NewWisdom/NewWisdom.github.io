@@ -12,6 +12,1261 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📋 통합 테스트 VS 단위 테스트</title>
+	  <link>//unit-test-vs</link>
+	  <author></author>
+	  <pubDate>2021-04-16T19:18:00+09:00</pubDate>
+	  <guid>//unit-test-vs</guid>
+	  <description><![CDATA[
+	     <h2 id="통합-테스트">통합 테스트</h2>
+
+<p>실제 운영 환경에서 사용될 클래스들을 통합하여 테스트한다.<br />
+기능 검증이 아닌 스프링 프레임워크에서 전체적으로 플로우가 제대로 동작하는지 검증하기 위해 사용한다.</p>
+
+<h4 id="장점">장점</h4>
+
+<ul>
+  <li>스프링 부트 컨테이너를 띄워 테스트하기 때문에 운영환경과 가장 유사한 테스트가 가능하다.</li>
+  <li>전체적인 Flow를 쉽게 테스트 할 수 있다.</li>
+</ul>
+
+<h4 id="단점">단점</h4>
+
+<ul>
+  <li>애플리케이션의 설정, 모든 Bean을 로드하기 때문에 시간이 오래걸리고 무겁다.</li>
+  <li>테스트 단위가 커 디버깅이 어렵다.</li>
+</ul>
+
+<h3 id="springboottest"><strong>@SpringBootTest</strong></h3>
+
+<ul>
+  <li>통합 테스트를 제공하는 기본적인 스프링 부트 테스트 어노테이션.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="nd">@ActiveProfiles</span><span class="o">(</span><span class="s">"test"</span><span class="o">)</span>
+<span class="nd">@Transactional</span>
+<span class="kd">class</span> <span class="nc">ChessServiceImplTest</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="springboottest-의-파라미터들">@SpringBootTest 의 파라미터들</h4>
+
+<ul>
+  <li><strong>value</strong>: 테스트가 실행되기 전에 적용할 프로퍼티 주입.(기존의 프로퍼티 오버라이드)</li>
+  <li><strong>properties</strong> : 테스트가 실행되기 전에 {key=value} 형식으로 프로퍼티 추가.</li>
+  <li><strong>classes</strong> : ApplicationContext에 로드할 클래스 지정. (지정하지 않으면 @SpringBootConfiguration을 찾아서 로드)</li>
+  <li><strong>webEnvironment</strong> : 어플리케이션이 실행될 때의 웹 환경을 설정. (기본값은 Mock 서블릿을 로드하여 구동)</li>
+</ul>
+
+<p><strong>➕ webEnvironment</strong></p>
+
+<ul>
+  <li><strong>MOCK</strong> : <code class="highlighter-rouge">ServletContainer</code>를 테스트용으로 띄우지않고 서블릿을 mocking 한 것이 동작한다. (내장 톰캣이 구동되지 않는다.) <br />
+MockMvc는 브라우저에서 요청과 응답을 의미하는 객체로서 Controller 테스테 사용을 용이하게 해주는 라이브러리</li>
+  <li><strong>RANDOM_PORT</strong> : 임의의 Port Listener. EmbeddedWebApplicationContext를 로드하며 실제 서블릿 환경을 구성</li>
+</ul>
+
+<h4 id="activeprofiles">@ActiveProfiles</h4>
+
+<p>원하는 프로파일 환경 값 설정이 가능하다. (프로파일 전략)</p>
+
+<h4 id="transactional">@Transactional</h4>
+
+<p>테스트 완료 후 자동으로 Rollback 처리가 된다. <br />
+하지만 <code class="highlighter-rouge">WebEnvironment.RANDOM_PORT, DEFINED_PORT</code>를 사용하면 실제 테스트 서버는 별도의 스레드에서 테스트를 수행하기 떄문에 트랜잭션이 롤백되지 않는다. (왜?)</p>
+
+<hr />
+
+<h2 id="단위-테스트">단위 테스트</h2>
+
+<h4 id="장점-1">장점</h4>
+
+<ul>
+  <li>WebApplication 관련된 Bean들만 등록하기 때문에 통합 테스트보다 빠르다.</li>
+  <li>통합 테스트를 진행하기 어려운 테스트를 진행 가능하다.</li>
+</ul>
+
+<h4 id="단점-1">단점</h4>
+
+<ul>
+  <li>요청부터 응답까지 모든 테스트를 Mock 기반으로 테스트하기 때문에 실제 환경에서는 제대로 동작하지 않을 수 있다.</li>
+</ul>
+
+<h3 id="webmvctest">@WebMvcTest</h3>
+
+<ul>
+  <li>MVC를 위한 테스트로, 웹 상에서 요청과 응답에 대한 테스트.</li>
+  <li>MVC 관련된 설정인 <code class="highlighter-rouge">@Controller, @ControllerAdvice, @JsonCompoent와 Filter, WebMvcConfiguer, HandlerMetohdAgumentResolver</code>만 빈으로 등록된다.</li>
+  <li>때문에 Service, Repository 와 같은 웹 계층 아래 빈들은 등록되지 않아 의존성도 끊긴다.</li>
+  <li>테스트에 사용하는 의존성이 있다면 @MockBean으로 만들어 사용한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebMvcTest</span><span class="o">(</span><span class="n">ChessController</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">ChessControllerTest</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">CHESS_GAME_TEST_ID</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="nd">@MockBean</span>
+    <span class="n">ChessService</span> <span class="n">chessService</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"게임 리스트 조회 테스트"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">getGames</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">ChessGameManager</span><span class="o">&gt;</span> <span class="n">chessGameManagers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">ChessGameManager</span> <span class="n">chessGameManager</span> <span class="o">=</span> <span class="n">ChessGameManagerFactory</span><span class="o">.</span><span class="na">createRunningGame</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">);</span>
+        <span class="n">chessGameManagers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">chessGameManager</span><span class="o">);</span>
+
+        <span class="n">given</span><span class="o">(</span><span class="n">chessService</span><span class="o">.</span><span class="na">findRunningGames</span><span class="o">()).</span><span class="na">willReturn</span><span class="o">(</span><span class="k">new</span> <span class="n">ChessGameManagerBundle</span><span class="o">(</span><span class="n">chessGameManagers</span><span class="o">));</span>
+
+        <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/games"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.runningGames."</span> <span class="o">+</span> <span class="n">CHESS_GAME_TEST_ID</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">value</span><span class="o">(</span><span class="s">"WHITE"</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"새로운 게임 시작 테스트"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">gameStart</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ChessGameManager</span> <span class="n">chessGameManager</span> <span class="o">=</span> <span class="n">ChessGameManagerFactory</span><span class="o">.</span><span class="na">createRunningGame</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">);</span>
+
+        <span class="n">given</span><span class="o">(</span><span class="n">chessService</span><span class="o">.</span><span class="na">start</span><span class="o">()).</span><span class="na">willReturn</span><span class="o">(</span><span class="n">chessGameManager</span><span class="o">);</span>
+
+        <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/game/start"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.id"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.color"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="s">"WHITE"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.piecesAndPositions.size()"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="mi">32</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"게임 점수 조회 테스트"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">getScore</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ChessGameStatistics</span> <span class="n">chessGameStatistics</span> <span class="o">=</span> <span class="n">ChessGameStatistics</span><span class="o">.</span><span class="na">createNotStartGameResult</span><span class="o">();</span>
+
+        <span class="n">given</span><span class="o">(</span><span class="n">chessService</span><span class="o">.</span><span class="na">getStatistics</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">)).</span><span class="na">willReturn</span><span class="o">(</span><span class="n">chessGameStatistics</span><span class="o">);</span>
+
+        <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/game/"</span> <span class="o">+</span> <span class="n">CHESS_GAME_TEST_ID</span> <span class="o">+</span> <span class="s">"/score"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.matchResult"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="s">"무승부"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.colorsScore.size()"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"해당 게임 로딩 테스트"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">loadGame</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ChessGameManager</span> <span class="n">chessGameManager</span> <span class="o">=</span> <span class="n">ChessGameManagerFactory</span><span class="o">.</span><span class="na">createRunningGame</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">);</span>
+
+        <span class="n">given</span><span class="o">(</span><span class="n">chessService</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">)).</span><span class="na">willReturn</span><span class="o">(</span><span class="n">chessGameManager</span><span class="o">);</span>
+
+        <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/game/"</span> <span class="o">+</span> <span class="n">CHESS_GAME_TEST_ID</span> <span class="o">+</span> <span class="s">"/load"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.id"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.color"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="s">"WHITE"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.piecesAndPositions.size()"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="mi">32</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">movePiece</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="k">new</span> <span class="n">MoveRequestDto</span><span class="o">(</span><span class="s">"a2"</span><span class="o">,</span> <span class="s">"a3"</span><span class="o">));</span>
+
+        <span class="n">given</span><span class="o">(</span><span class="n">chessService</span><span class="o">.</span><span class="na">isEnd</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">)).</span><span class="na">willReturn</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="n">given</span><span class="o">(</span><span class="n">chessService</span><span class="o">.</span><span class="na">nextColor</span><span class="o">(</span><span class="n">CHESS_GAME_TEST_ID</span><span class="o">)).</span><span class="na">willReturn</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span><span class="o">);</span>
+
+        <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">MockMvcRequestBuilders</span>
+                <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="s">"/game/"</span> <span class="o">+</span> <span class="n">CHESS_GAME_TEST_ID</span> <span class="o">+</span> <span class="s">"/move"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">content</span><span class="o">).</span><span class="na">header</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.end"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="kc">false</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$.nextColor"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="s">"BLACK"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">given - willReturn</code> : 특정행위에 대한 반환 값을 지정하여 실제 객체처럼 동작하게 한다.</li>
+</ul>
+
+<h3 id="jdbctest">@JdbcTest</h3>
+
+<ul>
+  <li>JDBC 기반 구성 요소에만 초점을 맞춘 JDBC 테스트 어노테이션</li>
+  <li>테스트를 위한 <code class="highlighter-rouge">JdbcTemplate</code>이 생성된다.</li>
+  <li>기본적으로 트랜잭션이 이루어진다.</li>
+  <li>in-memory database가 설정된다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@JdbcTest</span>
+<span class="kd">class</span> <span class="nc">JdbcTemplateChessDaoTest</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">DEFAULT_CHESS_GAME_ID</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="n">ChessGame</span> <span class="n">chessGame</span><span class="o">;</span>
+    <span class="n">ChessGameManager</span> <span class="n">sampleGame</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">JdbcTemplate</span> <span class="n">jdbcTemplate</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">JdbcTemplateChessDao</span> <span class="n">jdbcTemplateChessDao</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="nf">JdbcTemplateChessDaoTest</span><span class="o">(</span><span class="n">JdbcTemplate</span> <span class="n">jdbcTemplate</span><span class="o">,</span> <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"dataSource"</span><span class="o">)</span> <span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">jdbcTemplate</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">jdbcTemplateChessDao</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JdbcTemplateChessDao</span><span class="o">(</span><span class="n">jdbcTemplate</span><span class="o">,</span> <span class="n">dataSource</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@BeforeEach</span>
+    <span class="kt">void</span> <span class="nf">beforeEach</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">"RKBQKBKRPPPPPPPP................................pppppppprkbqkbkr"</span><span class="o">;</span> <span class="c1">// move a2 a3 한 번 진행</span>
+        <span class="n">chessGame</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChessGame</span><span class="o">(</span><span class="n">DEFAULT_CHESS_GAME_ID</span><span class="o">,</span> <span class="n">WHITE</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">sample</span><span class="o">);</span>
+        <span class="n">sampleGame</span> <span class="o">=</span> <span class="n">ChessGameManagerFactory</span><span class="o">.</span><span class="na">loadingGame</span><span class="o">(</span><span class="n">chessGame</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"체스 게임을 저장한다."</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">save</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">newId</span> <span class="o">=</span> <span class="n">jdbcTemplateChessDao</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">chessGame</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">newId</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"id로 체스 게임을 찾는다."</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">findById</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">jdbcTemplateChessDao</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">DEFAULT_CHESS_GAME_ID</span><span class="o">).</span><span class="na">isPresent</span><span class="o">()).</span><span class="na">isTrue</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"체스 게임 정보를 업데이트한다."</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">update</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">sampleGame</span><span class="o">.</span><span class="na">move</span><span class="o">(</span><span class="n">Position</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"a2"</span><span class="o">),</span> <span class="n">Position</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"a4"</span><span class="o">));</span>
+
+        <span class="n">jdbcTemplateChessDao</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="k">new</span> <span class="n">ChessGame</span><span class="o">(</span><span class="n">sampleGame</span><span class="o">));</span>
+
+        <span class="n">ChessGame</span> <span class="n">expectedChessGame</span> <span class="o">=</span> <span class="n">jdbcTemplateChessDao</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">DEFAULT_CHESS_GAME_ID</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+        <span class="n">ChessGameManager</span> <span class="n">expectedChessGameManager</span> <span class="o">=</span> <span class="n">ChessGameManagerFactory</span><span class="o">.</span><span class="na">loadingGame</span><span class="o">(</span><span class="n">expectedChessGame</span><span class="o">);</span>
+        <span class="n">Square</span> <span class="n">a4</span> <span class="o">=</span> <span class="n">expectedChessGameManager</span><span class="o">.</span><span class="na">getBoard</span><span class="o">().</span><span class="na">findByPosition</span><span class="o">(</span><span class="n">Position</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"a4"</span><span class="o">));</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">a4</span><span class="o">.</span><span class="na">getPiece</span><span class="o">().</span><span class="na">getClass</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">Pawn</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">a4</span><span class="o">.</span><span class="na">getPiece</span><span class="o">().</span><span class="na">getColor</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">WHITE</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">findAllOnRunning</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">ChessGame</span><span class="o">&gt;</span> <span class="n">allOnRunning</span> <span class="o">=</span> <span class="n">jdbcTemplateChessDao</span><span class="o">.</span><span class="na">findAllOnRunning</span><span class="o">();</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">allOnRunning</span><span class="o">.</span><span class="na">size</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">delete</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//when</span>
+        <span class="n">jdbcTemplateChessDao</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">DEFAULT_CHESS_GAME_ID</span><span class="o">);</span>
+
+        <span class="c1">//then</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">jdbcTemplateChessDao</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">DEFAULT_CHESS_GAME_ID</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📋 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술 강의 노트</title>
+	  <link>//spring-core-lecture</link>
+	  <author></author>
+	  <pubDate>2021-04-16T19:18:00+09:00</pubDate>
+	  <guid>//spring-core-lecture</guid>
+	  <description><![CDATA[
+	     <p>객체의 의존 관리는 스프링이 한다.<br />
+스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다.</p>
+
+<h3 id="chessservice에서-chessdao-의존하기">ChessService에서 ChessDao 의존하기</h3>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420104423745.png" alt="image-20210420104423745" /></p>
+
+<p>변경에 취약하다</p>
+
+<p>의존 관계를 개발자가 직접 관리하려면 복잡하다.<br />
+스프링 컨테이너가 관리해준다.</p>
+
+<h3 id="컨테이너">컨테이너</h3>
+
+<p>담아놓는 용기<br />
+스프링에서는 스프링이 활용할 객체들을 담아놓은 용기를 말한다.</p>
+
+<h3 id="bean으로-등록하는-기준">Bean으로 등록하는 기준?</h3>
+
+<p>프로그램 별로 공통적으로 쓸 수 있는 대상 
+레이어에 대한 객체들을 재사용할 수 있는데 이들을 빈으로 관리한다.<br />
+상태가 없는 객체를 빈으로 등록한다.  -&gt; 빈으로 등록 하려면 상태가 없어야 한다.</p>
+
+<p>설정의 메타 데이터(Configuration Metadata)를 이용해 스프링 컨테이너에 담아놓는다.<br />
+컨테이너에 담으면 빈으로 등록된다.</p>
+
+<h3 id="스프링이-객체를-관리하게-하려면">스프링이 객체를 관리하게 하려면</h3>
+
+<ul>
+  <li>객체 관리 대상 알려주기</li>
+  <li>객체들 간의 의존성 정의하기</li>
+</ul>
+
+<h3 id="컨테이너-설정-방법---빈-등록-방법">컨테이너 설정 방법 - 빈 등록 방법</h3>
+
+<p>@ComponentScan : 등록할 빈을 스캔할 classpath를 지정 (@SpringBootApplication 내부에 속해있는 애너테이션)</p>
+
+<p>@Component : ComponentScan 클래스 하위에 특정 애너테이션이 붙은 클래스를 스프링 빈으로 지정</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420110038067.png" alt="image-20210420110038067" /></p>
+
+<h3 id="의존성-주입">의존성 주입</h3>
+
+<h4 id="생성자-주입without-스프링-컨테이너">생성자 주입(without 스프링 컨테이너)</h4>
+
+<h4 id="수정자-주입without-스프링-컨테이너">수정자 주입(without 스프링 컨테이너)</h4>
+
+<p>필드를 통해 주입할 수도 있다.<br />
+스프링에서는 XML, 어노테이션, 자바 클래스를 통해 의존성을 주입할 수 있다.</p>
+
+<p>@Autowired를 붙여준다. 생성자 매개변수의 값이 필요하구나를 알 수 있다.</p>
+
+<p>특정 컴포넌트 어노테이션을 붙인다고 해서 특정 의미가 부여되는 것은 아니고,</p>
+
+<p>Repository는 도메인 객체의 생명주기를 관리하며 Public Operation을 제공합니다. 이에 Domain Layer에 해당합니다. 도메인 모델과 생애주기가 같기 때문이죠. 
+실제 구현체인 SimpleJpaRepository는 Infrastructure Layer에 해당합니다. 
+이렇게 추상에 의존하고 구체에 의존하지 않도록 구성함으로써(DIP) 유연성있는 시스템을 구성할 수 있습니다.
+반면, DAO는 CRUD와 1:1로 매칭되어 Persistence Operation을 적극적으로 드러냅니다.
+즉, repository는 도메인 모델의 일부로 보며 추상인 반면, dao는 추상이 필수는 아니라고 생각합니다.</p>
+
+<blockquote>
+  <p>http://egloos.zum.com/aeternum/v/1160846</p>
+</blockquote>
+
+<blockquote>
+  <p>https://stackoverflow.com/questions/8550124/what-is-the-difference-between-dao-and-repository-patterns</p>
+</blockquote>
+
+<p>빈은 기본적으로 싱글턴 스코프</p>
+
+<p>컨테이너는 개념적인 것 컨텍스트는 객체의 일원</p>
+
+<p>갠적으로 어노테이션은 막붙이기 좋고(빠르게 개발하기)
+xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈에 들어와서 좋았습니다.</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420114253606.png" alt="image-20210420114253606" /></p>
+
+<h3 id="서비스-레이어는-어떤-역할을-할까요">서비스 레이어는 어떤 역할을 할까요?</h3>
+
+<p>도메인 로직들의 순서를 보장하면서, 서비스 트랜잭션 관리를 한다.<br />
+객체들의 비지니스 플로우를 관리해준다.<br />
+비지니스 로직은 도메인으로!</p>
+
+<h3 id="pojo">Pojo</h3>
+
+<p>스프링에서 스프링 빈으로 관리하고 싶은 객체<br />
+스프링 설정이 가해지기 전 상태의 객체를 POJO라고 한다.</p>
+
+<p>포조는 순수한 자바 객체를 의미</p>
+
+<p>Java Bean :</p>
+
+<p>자바빈은 포조라고 할 수 있지만 포조는 자바빈이라고 하긴 애매하다.</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420120440979.png" alt="image-20210420120440979" /></p>
+
+<p>뷰 컨트롤러를 분리했다고 보면 됨 그런 차원에서 의미가 있따.</p>
+
+<p>맞아유 config가 코드 양이 좀 더 짧은 거 같아서 더 좋은 거 같아여! 어차피 configuration은 대부분 만들어 놓으니 다른 클래스 안만들어도 되구!</p>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📋 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술 강의 노트</title>
+	  <link>//spring3</link>
+	  <author></author>
+	  <pubDate>2021-04-16T19:18:00+09:00</pubDate>
+	  <guid>//spring3</guid>
+	  <description><![CDATA[
+	     <h2 id="3-회원-관리-예제---백엔드-개발">3. 회원 관리 예제 - 백엔드 개발</h2>
+
+<hr />
+
+<h3 id="비즈니스-요구사항">비즈니스 요구사항</h3>
+
+<ul>
+  <li>데이터 : 회원 ID, 이름</li>
+  <li>기능 : 회원 등록, 조회</li>
+  <li>아직 데이터 저장소가 선정되지 않음</li>
+</ul>
+
+<h4 id="일반적인-웹-애플리케이션-계층-구조">일반적인 웹 애플리케이션 계층 구조</h4>
+
+<ul>
+  <li>컨트롤러 : 웹 MVC의 컨트롤러 역할</li>
+  <li>서비스 : 핵심 비즈니스 로직 구현</li>
+  <li>레포지토리 : 데이터베이스에 접근, 도메인 객체를 DB에 저장하고 관리</li>
+  <li>도메인 : 비즈니스</li>
+</ul>
+
+<h4 id="클래스-의존-관계">클래스 의존 관계</h4>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/114995962-5371f080-9ed9-11eb-9f24-561a7af4dd46.png" alt="image" style="zoom:33%;" /></p>
+
+<p>회원을 저장하는 것은 Repository 인터페이스.<br />
+일단은 메모리 구현체.<br />
+DBMS를 자유롭게 바꿔 끼우기 위해 인터페이스로 구현하였음.</p>
+
+<p><strong>Member Domain</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>MemberRepository</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberRepository</span> <span class="o">{</span>
+    <span class="n">Member</span> <span class="nf">save</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">);</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">);</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findByNames</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">findById()</code>, <code class="highlighter-rouge">findByNames()</code> 은 null을 반환할 수 있으니 Optional로 감싸서 반환한다.</li>
+</ul>
+
+<p><strong>MemoryMemberRepository</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemoryMemberRepository</span> <span class="kd">implements</span> <span class="n">MemberRepository</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">,</span> <span class="n">Member</span><span class="o">&gt;</span> <span class="n">store</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">sequence</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Member</span> <span class="nf">save</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(++</span><span class="n">sequence</span><span class="o">);</span>
+        <span class="n">store</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">member</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">member</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">store</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">id</span><span class="o">));</span> <span class="c1">// null이어도 감쌀 수 있다. 클라에서 무언갈 할 수 있</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findByNames</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">store</span><span class="o">.</span><span class="na">values</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">member</span> <span class="o">-&gt;</span> <span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">name</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">findAny</span><span class="o">();</span> <span class="c1">// 루프를 돌면서 없으면 optional에 null이 포함되서 반환</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">store</span><span class="o">.</span><span class="na">values</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>MemoryMemberRepositoryTest</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemoryMemberRepositoryTest</span> <span class="o">{</span>
+    <span class="n">MemoryMemberRepository</span> <span class="n">repository</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MemoryMemberRepository</span><span class="o">();</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">save</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"spring"</span><span class="o">);</span>
+
+        <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+        <span class="n">Member</span> <span class="n">result</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">member</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">findByName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Member</span> <span class="n">member1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member1</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"spring1"</span><span class="o">);</span>
+        <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+
+        <span class="n">Member</span> <span class="n">member2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member2</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"spring2"</span><span class="o">);</span>
+        <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member2</span><span class="o">);</span>
+
+        <span class="n">Member</span> <span class="n">result</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="na">findByNames</span><span class="o">(</span><span class="s">"spring1"</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">result</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+    <span class="o">}</span>
+  
+  <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">findAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Member</span> <span class="n">member1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member1</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"spring1"</span><span class="o">);</span>
+        <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+
+        <span class="n">Member</span> <span class="n">member2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member2</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"spring2"</span><span class="o">);</span>
+        <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member2</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>모든 테스트는 메서드마다 독립적으로 실행되어야 한다.<br />
+순서에 의존도가 생기면 안된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@AfterEach</span>
+<span class="kt">void</span> <span class="nf">afterAll</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">repository</span><span class="o">.</span><span class="na">clearStore</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>때문에 하나의 테스트가 실행될 때 마다 초기화를 진행해준다.</p>
+
+<p>테스트 코드없이 개발은 불가능하다.</p>
+
+<p><strong>MemberService</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MemoryMemberRepository</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">join</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">validateDuplicatedMember</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+        <span class="n">memberRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">validateDuplicatedMember</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 중복 회원은 안된다.</span>
+        <span class="n">memberRepository</span><span class="o">.</span><span class="na">findByNames</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">m</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"이미 존재하는 회원입니다."</span><span class="o">);</span>
+                <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findMembers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findOne</span><span class="o">(</span><span class="n">Long</span> <span class="n">memberId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>하지만 Optional을 바로 반환하는 것은 좋지 않다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 중복 회원은 안된다.</span>
+<span class="n">memberRepository</span><span class="o">.</span><span class="na">findByNames</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+  <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">m</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"이미 존재하는 회원입니다."</span><span class="o">);</span>
+  <span class="o">});</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">ifPresent()</code> 를 사용해 바로 확인.</p>
+
+<ul>
+  <li>서비스 클래스는 비즈니스적인 네이밍을 써야한다.</li>
+</ul>
+
+<p><strong>그런데 서비스 테스트와 레포지토리 테스트에서 각각의 MemoryMemberRepository 인스턴스를 생성해 테스트하고 있다.</strong><br />
+현재는 static으로 선언되어 있지만, 이치에 맞지 않는 현상. <br />
+생성자를 통해 외부에서 주입하도록 한다.</p>
+
+<p><strong>생성자 주입(DI)</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@BeforeEach</span>
+<span class="kt">void</span> <span class="nf">beforeEach</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">memberRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MemoryMemberRepository</span><span class="o">();</span>
+    <span class="n">memberService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MemberService</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>각 테스트 실행 전에 호출되며 테스트가 서로 영향 없이 항상 새로운 객체를 생성하고 의존관계도 새로 맺어준다.</p>
+
+<p>Controller 에서 요청을 받고, Service에서 비즈니스 로직을 처리하고, Repository에서 데이터를 저장하고 이게 정형화된 로직이다.</p>
+
+<p>스프링이 관리를 하면 애플리케이션이 포함된 하위 패키지 내에서 스프링이 컴포넌트를 스캔한다.<br />
+스프링은 스프링 컨테이너에 스프링 빈을 등록할 때, 기본으로 싱글톤으로 등록한다. (메모리도 절약된다.)</p>
+
+<h2 id="4-스프링-빈과-의존관계">4. 스프링 빈과 의존관계</h2>
+
+<hr />
+
+<h3 id="컴포넌트-스캔과-자동-의존관계-설정">컴포넌트 스캔과 자동 의존관계 설정</h3>
+
+<p>생성자에 <code class="highlighter-rouge">@Autowired</code>가 있으면 스프링이 연관된 객체를 스프링 컨테이너에서 찾아서 넣어준다.<br />
+객체 의존 관계를 외부에서 넣어주는 것을 DI라고 한다.</p>
+
+<h4 id="스프링-빈을-등록하는-방법">스프링 빈을 등록하는 방법</h4>
+
+<ul>
+  <li>컴포넌트 스캔과 자동 의존관계 설정</li>
+  <li>자바 코드로 직접 스프링 빈 등록하기</li>
+</ul>
+
+<p><code class="highlighter-rouge">@Component </code> 가 있으면 스프링 빈으로 자동 등록된다. (@Controller, @Service, @Repository). 
+생성자에 <code class="highlighter-rouge">@Autowired</code> 를 사용하면 객체 생성 시점에 스프링 컨테이너에서 해당 스프링 빈을 찾아서 주입한다.<br />
+생성자가 1개만 있으면 <code class="highlighter-rouge">@Autowired</code> 는 생략 가능하다.</p>
+
+<p>스프링은 스프링 빈을 등록할 때 기본으로 싱글톤으로 등록한다. (유일하게 하나만 등록). <br />
+따라서 같은 스프링 빈이면 모두 같은 인스턴스다.</p>
+
+<p><code class="highlighter-rouge">@Autowired</code> 를 통한 DI는 스프링이 관리하는 객체(빈)에서만 동작한다.</p>
+
+<p>DI에는 필드 주입, setter 주입, 생성자 주입 3가지가 있는데, <br />
+의존 관계가 동적으로 변하는 경우는 거의 없으므로 생성자 주입을 권장한다.</p>
+
+<h2 id="5-회원-관리-예제---웹-mvc-개발">5. 회원 관리 예제 - 웹 MVC 개발</h2>
+
+<hr />
+
+<p>요청이 올 경우 스프링 컨테이너에서 컨트롤러를 찾고 없으면 static 파일을 찾는다.</p>
+
+<h2 id="6-스프링-db-접근-기술">6. 스프링 DB 접근 기술</h2>
+
+<hr />
+
+<p>jdbc만 사용할 경우 중복이 너무 많으니 spring에서는 jdbc templates를 제공한다.</p>
+
+<p>sql을 다루지 않고, 쿼리 없이 객체를 db에 저장할 수 있다.</p>
+
+<p>jpa를 편리하게 쓸 수 있도록 감싼 것이 스프링 JPA</p>
+
+<h3 id="solid---개방-폐쇄-원칙ocp">SOLID - 개방 폐쇄 원칙(OCP)</h3>
+
+<p>확장에는 열려있고, 수정과 변경에는 닫혀있다.<br />
+스프링의 DI를 사용하면 기존 코드는 전혀 손대지 않고, 설정만으로 구현 클래스를 변경할 수 있다.</p>
+
+<h3 id="스프링-통합-테스트">스프링 통합 테스트</h3>
+
+<p>지금까지는 순수 자바 코드만으로 테스트를 진행했는데,<br />
+스프링 부트가 모든 정보가 들고 있으니 스프링 컨테이너와 DB까지 연결한 통합 테스트를 진행해야 한다.</p>
+
+<p>스프링 통합 테스트는 DI가 아닌 필드 인젝션을 사용한다.<br />
+테스트를 다른데서도 쓰이는 것이 아니라 한 클래스 내에서 사용하고 끝이기 때문이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberServiceIntegrationTest</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="n">MemberService</span> <span class="n">memberService</span><span class="o">;</span>
+    <span class="nd">@Autowired</span>
+    <span class="n">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="err">회원가입</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// given</span>
+        <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+
+        <span class="c1">// when</span>
+        <span class="n">Long</span> <span class="n">saveId</span> <span class="o">=</span> <span class="n">memberService</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+        <span class="c1">// then</span>
+        <span class="n">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">memberService</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">saveId</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">findMember</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="err">중복회원예외</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//given</span>
+        <span class="n">Member</span> <span class="n">member1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member1</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"spring"</span><span class="o">);</span>
+
+        <span class="n">Member</span> <span class="n">member2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+        <span class="n">member2</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"spring"</span><span class="o">);</span>
+
+        <span class="c1">// when</span>
+        <span class="n">memberService</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+
+        <span class="c1">// then</span>
+        <span class="n">assertThatThrownBy</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">memberService</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">member2</span><span class="o">);</span>
+        <span class="o">}).</span><span class="na">isInstanceOf</span><span class="o">(</span><span class="n">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="n">IllegalArgumentException</span> <span class="n">e</span> <span class="o">=</span> <span class="n">assertThrows</span><span class="o">(</span><span class="n">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">memberService</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">member2</span><span class="o">));</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"이미 존재하는 회원입니다."</span><span class="o">)).</span><span class="na">isTrue</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">@SpringBootTest</code> : 스프링 컨테이너와 테스트를 함께 실행한다.</li>
+  <li><code class="highlighter-rouge">@Transactional</code> : 각각의 테스트 시작 전에 트랜잭션을 시작하고, 테스트 완료 후에 항상 롤백한다. 이렇게 하면 DB에 데이터가 남지 않으므로 다음 테스트에 영향을 주지 않는다</li>
+  <li><code class="highlighter-rouge">@Commit</code> : 테스트 케이스가 끝나면 커밋한다.</li>
+</ul>
+
+<h3 id="jdbc-templates">JDBC Templates</h3>
+
+<p>JDBC Templates를 바로 주입받을 수 없다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">JdbcTemplateMemberRepository</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">jdbcTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JdbcTemplate</span><span class="o">(</span><span class="n">dataSource</span><span class="o">);</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>JDBC Template은 템플릿 메서드 패턴이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="s">"select * from member where id = ?"</span><span class="o">,</span> <span class="n">memberRowMapper</span><span class="o">(),</span> <span class="n">id</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">findAny</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">RowMapper</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">memberRowMapper</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">rowNum</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+    <span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">"id"</span><span class="o">));</span>
+    <span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">));</span>
+    <span class="k">return</span> <span class="n">member</span><span class="o">;</span>
+  <span class="o">};</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>query 수행 결과는 RowMapper로 맵핑을 해주어야 한다.<br />
+객체 생성은 RowMapper에서 한다.</p>
+
+<h3 id="jpa">JPA</h3>
+
+<p>기존의 반복 코드는 물론, SQL도 JPA가 직접 만들어서 실행해준다.<br />
+SQL과 데이터 중심의 설계에서 객체 중심의 설계로 패러다임을 전환 할 수 있다.<br />
+JPA를 사용하면 개발 생산성을 크게 높일 수 있다.<br />
+JPA는 객체와 관계형 데이터 베이스를 맵핑하는 ORM이다.</p>
+
+<p><strong>build.gradle</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dependencies {
+implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+implementation 'org.springframework.boot:spring-boot-starter-web'
+implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+runtimeOnly 'com.h2database:h2'
+testImplementation('org.springframework.boot:spring-boot-starter-test') {
+exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+}
+}
+</code></pre></div></div>
+
+<p>spring-boot-starter-data-jpa 는 내부에 jdbc 관련 라이브러리를 포함하기 때문에 jdbc는 제거해도 된다.</p>
+
+<p>JPA는 인터페이스다. Hibernate는 이의 구현체이다.</p>
+
+<p><strong>Member</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>데이터의 id를 자동으로 생성해주는 것을 identity 전략이라고 한다.</p>
+
+<p><strong>JpaMemberRepository</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select m from Member m"</span><span class="o">,</span> <span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">"select m from Member m"</code> : jpql이라는 쿼리. 객체를 대상으로 쿼리를 날린다. 자동으로 쿼리문이 된다.</li>
+</ul>
+
+<p>JPA를 사용하면 항상 Transaction이 있어야 한다.  서비스 계층에 트랜잭션을 추가한다.<br />
+스프링은 해당 클래스의 메서드를 실행할 때 트랜잭션을 시작하고, 메서드가 정상 종료되면 트랜잭션을 커밋한다. 만약 런타임 예외가 발생하면 롤백한다. JPA를 통한 모든 데이터 변경은 트랜잭션 안에서 실행해야 한다.</p>
+
+<h3 id="스프링-data-jpa">스프링 Data JPA</h3>
+
+<p>스프링 부트와 JPA만 사용해도 개발 생산성이 정말 많이 증가하고, 개발해야할 코드도 확연히 준다. <br />
+여기에 스프링 데이터 JPA를 사용하면, 리포지토리에 구현 클래스 없이 인터페이스 만으로 개발을 완료할 수 있습니다. <br />
+그리고 반복 개발해온 기본 CRUD 기능도 스프링 데이터 JPA가 모두 제공합니다. <br />
+따라서 개발자는 핵심 비즈니스 로직을 개발하는데, 집중할 수 있습니다.<br />
+실무에서 관계형 데이터베이스를 사용한다면 스프링 데이터 JPA는 이제 선택이 아니라 필수 입니다</p>
+
+<p>스프링 데이터 JPA는 JPA를 편리하게 사용하도록 도와주는 기술이다.</p>
+
+<p>스프링 JPA가 인터페이스에 대한 구현체를 자동으로 만들어낸다.</p>
+
+<p>구현 클래스 작성 필요 없이 인터페이스 이름 만으로도 개발이 가능하다.</p>
+
+<p>실무에서는 JPA와 스프링 데이터 JPA를 기본으로 사용하고, 복잡한 동적 쿼리는 Querydsl이라는 라이브러리를 사용하면 된다. Querydsl을 사용하면 쿼리도 자바 코드로 안전하게 작성할 수 있고, 동적 쿼리도 편리하게 작성할 수 있다. 이 조합으로 해결하기 어려운 쿼리는 JPA가 제공하는 네이티브 쿼리를 사용하거나, 앞서 학습한 스프링 JdbcTemplate를 사용하면 된다.</p>
+
+<h2 id="7-aop">7. AOP</h2>
+
+<hr />
+
+<h4 id="필요한-상황">필요한 상황</h4>
+
+<ul>
+  <li>모든 메소드의 호출 시간을 측정하고 싶을 때</li>
+  <li>공통 관심 사항 vs 핵심 관심 사항</li>
+  <li>회원 가입 시간, 회원 조회 시간을 측정하고 싶을 때</li>
+</ul>
+
+<p><strong>메서드 별로 수행 시간을 찍어본다.</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Long</span> <span class="nf">join</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+   <span class="k">try</span> <span class="o">{</span>
+     <span class="n">validateDuplicateMember</span><span class="o">(</span><span class="n">member</span><span class="o">);</span> <span class="c1">//중복 회원 검증</span>
+     <span class="n">memberRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+     <span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">();</span>
+     <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+       <span class="kt">long</span> <span class="n">finish</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+       <span class="kt">long</span> <span class="n">timeMs</span> <span class="o">=</span> <span class="n">finish</span> <span class="o">-</span> <span class="n">start</span><span class="o">;</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"join "</span> <span class="o">+</span> <span class="n">timeMs</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="nf">findMembers</span><span class="o">()</span> <span class="o">{</span>
+   <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+   <span class="k">try</span> <span class="o">{</span>
+   	 <span class="k">return</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+   <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+     <span class="kt">long</span> <span class="n">finish</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+     <span class="kt">long</span> <span class="n">timeMs</span> <span class="o">=</span> <span class="n">finish</span> <span class="o">-</span> <span class="n">start</span><span class="o">;</span>
+     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"findMembers "</span> <span class="o">+</span> <span class="n">timeMs</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+   <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>문제</strong></p>
+
+<ul>
+  <li>회원가입, 회원 조회 시간을 측정하는 기능은 핵심 관심 사항이 아니다.</li>
+  <li>시간을 측정하는 로직은 공통 관심 사항이다.</li>
+  <li>시간을 측정하는 로직과 핵심 비즈니스의 로직이 섞여서 유지보수가 어렵다.</li>
+  <li>시간을 측정하는 로직을 별도의 공통 로직으로 만들기 매우 어렵다.</li>
+  <li>시간을 측정하는 로직을 변경할 때 모든 로직을 찾아가면서 변경해야 한다.</li>
+</ul>
+
+<h3 id="aop-aspect-oriented-programming-적용">AOP (Aspect Oriented Programming) 적용</h3>
+
+<p>공통 관심 사항과 핵심 관심 사항을 분리한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TimeTraceAop</span> <span class="o">{</span>
+
+    <span class="nd">@Around</span><span class="o">(</span><span class="s">"execution(* hello.hellospring..*(..))"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">execute</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"START: "</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="kt">long</span> <span class="n">finish</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+            <span class="kt">long</span> <span class="n">timeMs</span> <span class="o">=</span> <span class="n">finish</span> <span class="o">-</span> <span class="n">start</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"END: "</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">timeMs</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>회원가입, 회원 조회등 핵심 관심사항과 시간을 측정하는 공통 관심 사항을 분리한다.</li>
+  <li>시간을 측정하는 로직을 별도의 공통 로직으로 만들었다.</li>
+  <li>핵심 관심 사항을 깔끔하게 유지할 수 있다.</li>
+  <li>변경이 필요하면 이 로직만 변경하면 된다.</li>
+  <li>원하는 적용 대상을 선택할 수 있다 (@Around(“execution(* hello.hellospring.service.*(..))”))</li>
+</ul>
+
+<p>AOP가 있으면 프록시를 만들어 가짜 빈을 만든다.<br />
+가짜 빈에서 joinPoint.proceed()가 일어나면 실제 빈을 호출해준다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/115102809-6ee80480-9f88-11eb-950e-c9d5ac92b6be.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/115102816-7dceb700-9f88-11eb-918c-fede0fa4ec8e.png" alt="image" /></p>
+
+<p>콘솔에 출력해보면 실제 MemberService가 아닌 Proxy가 출력되는 것을 볼 수 있다.</p>
+
+<h2 id="참고-자료">참고 자료</h2>
+
+<hr />
+
+<ul>
+  <li><a href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EC%9E%85%EB%AC%B8-%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8/dashboard">스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술</a></li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📋 프로가 되기 위한 웹기술 입문 4</title>
+	  <link>//webbasic4</link>
+	  <author></author>
+	  <pubDate>2021-04-15T19:18:00+09:00</pubDate>
+	  <guid>//webbasic4</guid>
+	  <description><![CDATA[
+	     <h2 id="4-cgi에서-웹-애플리케이션으로">4. CGI에서 웹 애플리케이션으로</h2>
+
+<hr />
+
+<h3 id="리다이렉트의-구조">리다이렉트의 구조</h3>
+
+<p>상태코드 302일 경우 <code class="highlighter-rouge">Location</code> 헤더에 표시된 URL에 다시 요청을 발행한다.<br />
+이처럼 처음 요청한 URL과 다른 URL로 유도하는 것을 <strong>리다이렉트</strong>라고 한다.</p>
+
+<h3 id="상태-유지-프로토콜과-무상태-프로토콜의-차이">상태 유지 프로토콜과 무상태 프로토콜의 차이</h3>
+
+<p>FTP는 서버가 앞선 요청을 기억하는 상태 유지 프로토콜이다.<br />
+상태 유지 프로토콜은 통신 절차가 많아 오버헤드가 크다.</p>
+
+<p>HTTP는 상태를 가지 않는 무상태 프로토콜이다.<br />
+상태를 유지하지 않을 경우 오버헤드가 적지만 상태를 유지하지 않으니, 로그인 같은 인증에 대한 상태 관리를 하기 어려웠다.</p>
+
+<h3 id="쿠키의-개념과-구현-방법">쿠키의 개념과 구현 방법</h3>
+
+<p>쿠키는 무상태 프로토콜안 HTTP의 규격을 확장해 웹 애플리케이션과 웹 브라우저 사이에서 정보를 교환할 수 있게한다.<br />
+요청을 할 때 웹 브라우저의 상태를 <code class="highlighter-rouge">Cookie</code> 라는 헤더에 실어 보낸다.</p>
+
+<h4 id="쿠키의-문제점">쿠키의 문제점</h4>
+
+<p>요청 헤더, 응답 헤더에 쿠키를 설정하기 때문에 보안상의 위협이 있다.</p>
+
+<h3 id="세션의-개념과-구현-방법">세션의 개념과 구현 방법</h3>
+
+<p>세션이란 일련의 처리 흐름을 말한다.<br />
+이 처리 흐름이 한 번에 완료 되지 않는다면 세션에 상태를 추가해야 한다.<br />
+이러한 세션의 상태는 웹 서버에서 관리하고 세션 ID만을 주고 받는다.<br />
+세션 ID는 단순한 숫자(또는 문자열) 이므로 쿠키를 이용해 관리한다.</p>
+
+<p>로그인과 같은 세션을 개시할 때 웹 서버가 새로운 세션 ID를 발행하고, 쿠키에 저장되어 브라우저에 전달된다.<br />
+이후 요청부터는 브라우저는 쿠키를 서버에 보내 인증을 성공한다.</p>
+
+<p>쿠키에 세션ID만 저장함으로써 쿠키에 저장할 수 있는 정보량의 제한을 무시할 수 있고, 안정성을 높인다.</p>
+
+<h2 id="5-웹-애플리케이션의-구성-요소">5. 웹 애플리케이션의 구성 요소</h2>
+
+<hr />
+
+<p>웹 애플리케이션은 클라이언트와 서버가 HTTP를 통해 통신함에 따라 구현된다.</p>
+
+<h4 id="-프로그램-vs-애플리케이션-vs-서버-vs-프로세스">➕ 프로그램 VS 애플리케이션 VS 서버 VS 프로세스</h4>
+
+<h5 id="프로그램">프로그램</h5>
+
+<p>컴퓨터가 실행하는 처리의 순서를 지시한 것.<br />
+소스코드 자체를 프로그램이라고 할 때도 많다.</p>
+
+<h5 id="애플리케이션">애플리케이션</h5>
+
+<p>워드프로세서, 표 계산 등 컴퓨터 상에서 작동하며, 사용자에게 기능을 제공하기 위한 것. <br />
+웹 애플리케이션 또한 웹을 이용해 특정 목적을 달성하기 위한 소프트웨어</p>
+
+<h5 id="서버">서버</h5>
+
+<p>특정 기능을 제공하는 데 특화된 소프트웨어.<br />
+단독으로 시스템을 구성하지는 못한다. <br />
+애플리케이션을 비롯한 다른 소프트웨어와 조합하여 사용하여야 한다.<br />
+서버를 이용하는 것이 클라이언트이다.</p>
+
+<h5 id="프로세스">프로세스</h5>
+
+<p>컴퓨터 상에서 작동하고 있는 소프트웨어</p>
+
+<h3 id="웹-서버">웹 서버</h3>
+
+<h3 id="애플리케이션-서버">애플리케이션 서버</h3>
+
+<h4 id="서블릿이나-jsp는-어디에서-작동하는가">서블릿이나 JSP는 어디에서 작동하는가?</h4>
+
+<p>자바 프로그램은 컴퓨터가 직접 실행하는 것이 아니라 JVM이라는 가상의 컴퓨터가 실행한다.<br />
+때문에 JVM도 컴퓨터가 볼 때는 하나의 프로세스로, 웹 서버, 데이터베이스와 마찬가지로 독립된 프로세스로 동작한다.</p>
+
+<p>JVM에서는 애플리케이션 서버라는 소프트웨어가 작동되고, 이 서버가 서블릿이나 JSP를 작동시킨다.<br />
+CGI는 웹 서버로 요청이 올 때마다 새로운 프로세스가 기동되었다가 종료되는 1회용 모델이지만,<br />
+애플리케이션 서버는 항상 프로세스가 상주해 있고 웹 서버로부터 요청을 받아 서블릿이나 JSP를 실행하는 재사용 모델이다.</p>
+
+<h4 id="웹-서버와-애플리케이션-서버의-연동">웹 서버와 애플리케이션 서버의 연동</h4>
+
+<h4 id="톰캣">톰캣</h4>
+
+<p>아파치에서 개발한 오픈 소스 애플리케이션 서버. <br />
+웹 서버와 연동하기 위해 톰캣은 아파치용으로 mode_jk라는 연동 모듈을 제공하며, 아파치 확장 기능으로 탑재해 연동을 구현한다.</p>
+
+<p>아파치에 도착한 HTTP 요청을 mod_jk가 톰캣으로 전송하고, 톰캣이 이 기반에서 작동하는 웹 애플리케이션에 전달한다.<br />
+웹 애플리케이션이 처리를 실행하고, 애플리케이션 서버로 결과를 되돌려준다.<br />
+애플리케이션 서버는 mod_jk에 결과를 되돌려주고 아파치가 웹 브라우저로 HTTP 응답을 되돌려준다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/115107234-93ea7080-9fa4-11eb-9799-6535c498c9f9.png" alt="image" /></p>
+
+<p>또한 여러 대의 애플리케이션 서버를 다른 노드에 배치해 분담시킬 수도 있다.</p>
+
+<h4 id="웹-서버와-애플리케이션-서버의-분담">웹 서버와 애플리케이션 서버의 분담</h4>
+
+<ul>
+  <li>웹 서버 : 정적인 데이터를 처리한다.</li>
+  <li>애플리케이션 서버 : 동적 데이터를 처리한다.</li>
+</ul>
+
+<p>이와 같이 서버 사이드에서 프로세스 두개가 연동한다.<br />
+클라이언트가 페이지에 따라 요구를 보낼 프로세스가 제각각이면 골치아프니, 클라이언트의 HTTP 요청을 웹 서버가 전부 받고,<br />
+애플리케이션 서버가처리해야 할 요청만 웹 서버가 전달한다.</p>
+
+<p>이 두 서버를 분리함으로써<br />
+처리는 가벼운 대신 횟수가 많은 정적 콘텐츠에 대한 요청은 웹 서버, <br />
+횟수는 적지만 처리량이 무거운 동적 컨텐츠 요청은 애플리케이션으로 분담한다.</p>
+
+<p>사실 대부분의 애플리케이션 서버는 웹 서버 기능도 가지고 있다.</p>
+
+<h3 id="데이터-베이스-서버">데이터 베이스 서버</h3>
+
+<p>대량의 정보를 기록하고 빠르게 검색, 집계할 수 있는 소프트웨어 (Database Management System)</p>
+
+<h4 id="sql">SQL</h4>
+
+<p>Structured Query Language (구조적 질의 언어). <br />
+무엇을(SELECT), 어디에서(WHERE), 어떻게(GROUP BY 등) 추출할 것인지 표현하는 작업에 특화되어 있다.</p>
+
+<h4 id="데이터베이스와-클라이언트의-관계">데이터베이스와 클라이언트의 관계</h4>
+
+<p>데이터베이스는 독립적으로 작동하는 프로세스이고, 쿼리를 통해 결과를 취득하는 쪽도 프로세스이다. <br />
+웹 애플리케이션에서는 웹 애플리케이션 프로그램이 SQL을 발행한다. <br />
+만약 고객이 상품의 리스트를 조회하고 싶을 때 상품 목록을 HTML에 매번 직접 기술하는 것이 아닌,<br />
+요청이 들어올 때마다 데이터 베이스에서 목록을 조회해온다.</p>
+
+<h4 id="데이터베이스-서버의-분리">데이터베이스 서버의 분리</h4>
+
+<p>DBMS는 여러 애플리케이션에서 동시에 이용되기 때문에 단독 프로세스로 작동한다.<br />
+즉 웹 서버와 데이터베이스 서버는 다른 프로세스로서 작동한다.<br />
+일반적으로는 웹 서버를 작동시킬 컴퓨터와 데이터베이스를 작동시킬 컴퓨터를 따로 준비해 각 프로세스를 각 컴퓨터에서 실행한다.<br />
+이 경우, 처리가 분산되어 부하가 줄어들며 새로운 시스템이 구축되더라도 여러 클라이언트가 DB 서버를 이용하기 편리해진다.</p>
+
+<h4 id="웹-애플리케이션과-데이터-베이스의-통신">웹 애플리케이션과 데이터 베이스의 통신</h4>
+
+<p>웹 브라우저와 웹 서버가 HTTP를 사용해 통신하듯이,<br />
+웹 애플리케이션과 데이터베이스가 통신할 경우에도 고유의 통신 프로토콜을 사용해 통신한다.</p>
+
+<h2 id="6-웹-애플리케이션을-효율적으로-개발하는-방법">6. 웹 애플리케이션을 효율적으로 개발하는 방법</h2>
+
+<hr />
+
+<h3 id="서블릿jsp만으로는-부족한가">서블릿/JSP만으로는 부족한가?</h3>
+
+<h4 id="웹-애플리케이션-대부분에서-자바를-사용하는-이유">웹 애플리케이션 대부분에서 자바를 사용하는 이유</h4>
+
+<ul>
+  <li>역사 깊은 언어</li>
+  <li>객체지향, 재사용적</li>
+  <li>오픈 소스 라이브러리와 프레임워크의 양과 질이 충실</li>
+  <li>수많은 개발 지원 도구가 오픈소스로 제공</li>
+</ul>
+
+<h4 id="서블릿과-jsp의-연동">서블릿과 JSP의 연동</h4>
+
+<p>서블릿은 HTTP 요청을 받아 브라우저에 되돌려줄 HTML을 자바 프로그램에서 출력할 수 있게 한 것.<br />
+JSP는 HTML 속에 자바를 스크립틀릿으로 심을 수 있게 한 것이다. <br />
+JSP만을 이용할 경우, 처리가 복잡한 웹 애플리케이션을 만들 때 JSP 안에 기술되는 코드가 늘어나 개발 관리가 힘들어진다.</p>
+
+<p>이 문제를 해결하기 위해 HTML 표시는 JSP가, 애플리케이션에서 처리하는 부분은 서블릿이 담당하게 한다.</p>
+
+<pre><code class="language-web.xml">&lt;!-- 서블릿 정의 --&gt;
+&lt;servlet&gt;
+	&lt;servlet-name&gt;login&lt;/servlet-name&gt;
+	&lt;servlet-class&gt;kr.co.wiki.webtext.pizza.servlet.LoginServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+
+&lt;!-- 서블릿 매핑 --&gt;
+&lt;servlet-mapping&gt;
+	&lt;servlet-name&gt;login&lt;/servlet-name&gt;
+	&lt;servlet-pattern&gt;login.do&lt;/servlet-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">doPost</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">res</span><span class="o">)</span>
+<span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+
+    <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"realname"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"mypassword"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="포워드-vs-리다이렉트">포워드 vs 리다이렉트</h4>
+
+<p>서블릿에서 JSP로 이동은 브라우저를 통하지 않고 애플리케이션 서버 내에서만 진행된다.<br />
+웹 애플리케이션에서는 이와 같은 이동을 포워드라고 하며 리다이렉트와는 구분된다.</p>
+
+<ul>
+  <li>리다이렉트 : 상태코드 302를 통해 이동할 URL을 알려주어 클라이언트에서 서버로 다시 요청을 보낸다. (요청이 2번 일어남)</li>
+  <li>포워드 : 애플리케이션 서버 내에서만 이동 처리가 진행되어 서버측 처리 결과가 클라이언트로 돌아온다. (요청이 1번 일어남)</li>
+</ul>
+
+<h4 id="요청-스코프">요청 스코프</h4>
+
+<p>서블릿과 JSP 사이에서 정보를 공유하기 위한 방식이다.<br />
+즉, 포워드 한 곳과 포워드 된 곳 사이에서 정보를 공유하기 위한 방식이다.</p>
+
+<h4 id="요청-매개변수와의-차이">요청 매개변수와의 차이</h4>
+
+<ul>
+  <li>요청 매개변수 : HTTP 메서드를 통해 클라이언트에서 웹 애플리케이션에 문자열로 전달된다. 서블릿이나 JSP에서 참조는 할 수 있지만 받은 값은 변경할 수 없다.</li>
+  <li>요청 스코프 : 애플리케이션 서버에서 제공된는 구조로, 포워드 전후에 자바 객체를 공유할 수 있다. 하지만 HTTP 요청을 1회 처리하는 동안만 유효하므로 요청 처리가 종료되면 요청 스코프에 담겼던 정보는 사라진다. 즉 리다이렉트에서는 정보를 인계할 수 없다.</li>
+</ul>
+
+<h4 id="요청-스코프가-필요한-이유">요청 스코프가 필요한 이유</h4>
+
+<p>세션은 보존한 정보를 언제 해제해야 할지 모른다.<br />
+이를 세션 타임아웃으로 해결할 수 있지만 세션은 메모리도 많이 소비하는 단점이 있다.</p>
+
+<h4 id="세션-스코프와-요청-스코프의-차이">세션 스코프와 요청 스코프의 차이</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">세션 스코프</th>
+      <th style="text-align: center">요청 스코프</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">유효 범위</td>
+      <td style="text-align: center">세션 시작, 종료 또는 타임아웃 될 때까지</td>
+      <td style="text-align: center">요청 받은 다음 응답을 돌려줄 때까지</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">시작과 종료</td>
+      <td style="text-align: center">웹 애플리케이션이 제어</td>
+      <td style="text-align: center">애플리케이션 서버가 제어</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">주된 용도</td>
+      <td style="text-align: center">사용자 정보의 보존</td>
+      <td style="text-align: center">페이지 이동전후의 보존</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="웹-애플리케이션의-아키텍쳐">웹 애플리케이션의 아키텍쳐</h3>
+
+<p>건축을 할 때 꼼꼼한 설계를 하듯, 소프트웨어도 개발 초기에 전체적인 구조를 철저히 검토해야한다.</p>
+
+<ul>
+  <li>아키텍처 : 소프트웨어는 필연적으로 닮은 부분이 나타나는데, 이런 설계 스타일과 설계에 바탕을 둔 전체 구조</li>
+</ul>
+
+<h4 id="-자바를-부품화하기-위한-방법---javabeans">➕ 자바를 부품화하기 위한 방법 - JavaBeans</h4>
+
+<p>자바 클래스를 부품화하기 위한 것으로, 웹 애플리케이션에서는 단순히 데이터를 보존하기 위한 클래스 정도의 의미밖에 없다.<br />
+웹 애플리케이션의 자바빈즈는 필드에 대응하는 세터와 게터가 존재한다.</p>
+
+<p>애플리케이션의 고유 처리를 비즈니이라고 한다.<br />
+비즈니스 로직은 사용자 인터페이스에 영향받지 않고 존재하는 부분이다.<br />
+ex) 회원 관리 서비스를 웹 애플리케이션이 아니라 GUI 애플리케이션으로 구현한다면, 화면 구현 방법은 달라지지만 로그인 처리는 같다.</p>
+
+<h3 id="jdbc를-통한-db-접근">JDBC를 통한 DB 접근</h3>
+
+<p>웹 애플리케이션에서 데이터베이스로부터 정보를 얻기 위한 API로 JDBC를 사용한다.</p>
+
+<ul>
+  <li>데이터 소스 획득 : 데이텁베이스에 대한 접속을 구하기 위한 객체</li>
+  <li>연결 획득</li>
+  <li>SQL의 실행</li>
+  <li>SQL 실행 결과의 취득</li>
+</ul>
+
+<h4 id="jdbc를-사용할-경우-단점">JDBC를 사용할 경우 단점</h4>
+
+<p>단순한 쿼리에도 방대한 코드를 작성해야한다.</p>
+
+<h3 id="mvc--layered-architecture">MVC + Layered Architecture</h3>
+
+<p>Layered Architecture은 시스템을 계층화하고 하위 레이어가 제공하는 기능을 상위 레이어가 이용함으로 각 레이어 구조를 단순화한다.<br />
+각 레이어를 먼제 3 계층으로 분리한다.</p>
+
+<ul>
+  <li>프레젠테이션 레이어 : 사용자와의 인터페이스를 담당하는 레이어</li>
+  <li>비즈니스 로직 레이어 : 애플리케이션에서 구현해야 할 고유의 작업을 처리하기 위한 레이어</li>
+  <li>데이터 엑세스 레이어 : 비즈니스 로직 레이어와 데이터베이스를 중개하기 위한 레이어. 비즈니스 로직에서 분리해 데이터베이스 연결 절차를 의식하지 않게 해준다.</li>
+</ul>
+
+<p>컨트롤러와 뷰는 프레젠테이션 레이어이며, 모델은 비즈니스 로직 레이어와 데이터 엑세스 레이어가 된다.</p>
+
+<h3 id="dao-패턴을-이용한-데이터-액세스-레이어의-구현">DAO 패턴을 이용한 데이터 액세스 레이어의 구현</h3>
+
+<p>DAO의 역할은 <strong>데이터베이스 접속을 은폐하는 것</strong>이다.</p>
+
+<h3 id="rdb와-객체의-임피던스-불일치">RDB와 객체의 임피던스 불일치</h3>
+
+<p>OR 매핑은 <strong>프로그래밍 언어의 객체와 관계형 데이터베이스를 대응시킨다.</strong><br />
+관계형 데이터 베이스는 여러 개의 테이블과 그 관계를 이용해 정보를 관리한다.<br />
+객체와 관계형 데이터베이스는 본질적으로는 같은 정보이지만, 표현 방법에는 큰 차이가 있을 수 있다.<br />
+이를 <strong>임피던스 불일치</strong>라고 한다.</p>
+
+<p>이런 임피던스 불일치릃 해결해주는 것이 바로 OR 매핑 프레임 워크이다.<br />
+(이 밖에도 데이터베이스와의 접속을 관리하거나, 정보를 캐싱해 데이터베이스 접속을 빠르게 하는 등의 기능도 제공힌다.)</p>
+
+<p>아이바티스를 이용하면 SQL이나 테이블의 구성이 변경되더라도 소스코드가 아니라 SQL 앱 파일만 바꾸면 되어 변경하기 쉽다.</p>
+
+<h3 id="프레임워크-이용의-장점과-단점">프레임워크 이용의 장점과 단점</h3>
+
+<h4 id="장점">장점</h4>
+
+<ul>
+  <li>설계, 개발 공수의 절감 : 아이바티스는 데이터베이스 연결에 관한 대부분의 처리를 대신 해준다.</li>
+  <li>품질 향상</li>
+  <li>테스트 공수의 절감</li>
+</ul>
+
+<h4 id="단점">단점</h4>
+
+<ul>
+  <li>학습 비용의 증대</li>
+  <li>설계의 자유도 저하</li>
+  <li>장기적인 기술력의 저하</li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📋 프로가 되기 위한 웹기술 입문 1-3</title>
 	  <link>//webbasic13</link>
 	  <author></author>
@@ -19,6 +1274,8 @@
 	  <guid>//webbasic13</guid>
 	  <description><![CDATA[
 	     <h2 id="1-웹-애플리케이션이란-무엇인가">1. 웹 애플리케이션이란 무엇인가?</h2>
+
+<hr />
 
 <table>
   <thead>
@@ -47,9 +1304,9 @@
   </tbody>
 </table>
 
-<hr />
-
 <h2 id="2-웹은-어떻게-발전했는가">2. 웹은 어떻게 발전했는가?</h2>
+
+<hr />
 
 <h3 id="www-등장의-배경">WWW 등장의 배경</h3>
 
@@ -64,6 +1321,11 @@ WWW에서는 웹 서버가 네트워크 상에 공개하는 하이퍼 텍스트�
 
 <p>다양한 콘텐츠를 불특정 다수에게 공개하려면 콘텐츠를 한 곳에 관리해야한다.<br />
 WWW에서는 사람들의 PC를 웹 클라이언트로, 멀리 떨어져 있는 웹 서버와 웹 클라이언트 사이를 인터넷으로 연결한다.</p>
+
+<ul>
+  <li>클라이언트 : 웹 클라이언트라는 컴퓨터 상에서 웹 브라우저라는 소프트웨어가 작동</li>
+  <li>서버 : 우베 서버라는 컴퓨터 상에서 웹 서버라는 소프트웨어가 작동</li>
+</ul>
 
 <h3 id="url의-역할과-구조">URL의 역할과 구조</h3>
 
@@ -90,6 +1352,10 @@ CGI와 같은 개념이지만 콘텐츠를 생성하는 언어가 자바이며 �
 
 <p>자바는 JVM 덕분에 한 프로그램을 운영체제와 상관없이 어디에서나 동작시킬 수 있다.</p>
 
+<p>CGI는 프로세스를 기동시켜 동적 컨텐츠를 만들어내고, 서블릿은 스레드를 실행시킨다.</p>
+
+<p><a href="https://dannykim-5603.tistory.com/75">CGI와 서블릿 그리고 톰캣</a> 다음 글을 참고하자.</p>
+
 <h3 id="jsp-등장의-배경">JSP 등장의 배경</h3>
 
 <p>서블릿을 통해 출력되는 HTML을 상상하기 어려웠다.</p>
@@ -106,9 +1372,9 @@ JSP 내부에 적힌 자바 프로그램을 스크립틀릿이라고 한다.</p>
 <p>프레임워크는 재사용할 수 있는 부분을 늘려 애플리케이션 개발을 용이하게 하는 것이다.<br />
 이로 인해 애플리케이션을 단기간에 개발할 수 있다.</p>
 
-<hr />
-
 <h2 id="3-http를-이해하자">3. HTTP를 이해하자</h2>
+
+<hr />
 
 <h3 id="http-요청의-구조">HTTP 요청의 구조</h3>
 
@@ -1089,768 +2355,6 @@ ChessGame에 대해서는 DAO와 Service 간에 데이터 전달에서 DTO를 �
 이 문제를 해결하기 위해서 객체에서 View에서 필요한 속성만을 뽑아서 DTO로 만들어 계층 간 데이터를 전달한다.</p>
 
 <p><em>하지만 도메인에서 특정 속성만을 뽑아 데이터를 전달하고 싶다면, 추후에 Lombok을 통해 필요한 속성만을 전달할 수 있다.</em></p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📝 객체지향 설계 강의 노트</title>
-	  <link>//%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%84%A4%EA%B3%84-%EA%B0%95%EC%9D%98-%EB%85%B8%ED%8A%B8</link>
-	  <author></author>
-	  <pubDate>2021-03-23T19:18:00+09:00</pubDate>
-	  <guid>//%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%84%A4%EA%B3%84-%EA%B0%95%EC%9D%98-%EB%85%B8%ED%8A%B8</guid>
-	  <description><![CDATA[
-	     <p><img src="https://user-images.githubusercontent.com/43840561/114287351-1fde3300-9aa1-11eb-851c-61060904867d.png" alt="image" style="zoom: 67%;" /></p>
-
-<p>랜덤넘버는 구현체이니까  Number로 받자</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287370-38e6e400-9aa1-11eb-94d8-e5f4a08b1f16.png" alt="image" style="zoom:67%;" /></p>
-
-<p>이러면 모두가 움직이는데 ?</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287377-4bf9b400-9aa1-11eb-9bec-94738f02d078.png" alt="image" style="zoom:67%;" /></p>
-
-<h3 id="의존성-주입-di">의존성 주입 DI</h3>
-
-<p>스프링 프레임 워크는 DI를 구현하도록 강제되어 있다.<br />
-의존성 주입을 위해서는 스프링을 써야한다는 말이 있는데 그렇지 않다.</p>
-
-<p>스프링 프레임 워크를 쓰지 않은 채로 DI를 해본 적이 있습니까 ?</p>
-
-<h4 id="생성자-의존성-주입">생성자 의존성 주입</h4>
-
-<p>❓ randomNumbers를 객체의 변수로 두고있는데, move()의 인수로 넘겨받는 것은 어떨까요?<br />
--&gt; 상관 없음</p>
-
-<p>move 메서드를 사용할 때마다 객체를 생성해야하니</p>
-
-<p>인자가 많아졌을 떄는 생성자를 전달하는 것이 좋을 수도..</p>
-
-<p>❓ 의존성 주입을 위한 setter는 괜찮나요 ?<br />
--&gt; 어떤 객체냐에 따라 다른데, 지금은 Cars의 상태 데이터를 가지고 있는 현제 예시에서는 
-final로 선언해주는 것이 좋다.  setter 써도 상관은 없다.</p>
-
-<p>Dependency Injection인데 객체가 다른 객체에 의존하는 것을 외부에서 주입하는 경우를 DI라고 하지 않을까여..?</p>
-
-<p>setter를 사용하는 부분은 전략패턴이 좋은 예시가 되지않을까요?</p>
-
-<p>저는 내부 로직을 객체로 추출할 수 있을때 추출한 후 주입받아 사용하는 식으로 변경할 때  ‘DI한다’ 하는거 같아요</p>
-
-<p>객체지향적 설계는 기본적으로 객체간의 협력을 만들어내는 일이고, 이를 가능하게 하기 위해서는 객체간의 의존성이 필요해요.<br />
--&gt; 그럼 setter를 활용할 수 있지않을까용</p>
-
-<p>의존성을 DI가 아닌 내부에서 만들어 줄 수도 있지만, 이렬 결우 강한 결합성을 가지기 때문에 변경에 자유롭지 않아 DI가 필요하다고 생각해요</p>
-
-<h3 id="유지보수하기-좋은-코드">유지보수하기 좋은 코드</h3>
-
-<p>작은 코드가 유지보수하기 쉽다.<br />
-클래스가 작으면 메서드와 프러퍼티가 더 가까이 있을 수 있기 때문에 응집도가 높아진다.<br />
-간단히 말해 각각 메서드가 모든 필드를 사용한다.</p>
-
-<h3 id="불변-객체로-만드세요">불변 객체로 만드세요</h3>
-
-<p>함수형 프로그래밍은 side eggect를 만들지 않는다.<br />
-가변 객체는 말고 불변 객체를 만들어야 side effect가 생기지 않는다.<br />
-불변 객체로 만들다보면 인스턴스가 많아져서 성능이 떨어진다 .</p>
-
-<p>-&gt; 이는 캐싱 전략을 통해 해소하자</p>
-
-<p>불변 객체로 만들다 성능 이슈가 생기면 가변 객체나 캐싱을 사용해라</p>
-
-<p>모든 클래스를 불변으로 만들면 유지보수가 쉽다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287403-7fd4d980-9aa1-11eb-9ad9-fb92c32a2374.png" alt="image" style="zoom:67%;" /></p>
-
-<p>현재 불변 객체가 아니다. <br />
-Position이 final이 아니다. <br />
-c메소드들이 car를 리턴하도록 변경한다  ?</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287412-8f542280-9aa1-11eb-9727-f9e93b5a60a3.png" alt="image" style="zoom:67%;" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287413-9418d680-9aa1-11eb-9567-4f945bf8cc3d.png" alt="image" style="zoom:67%;" /></p>
-
-<p>요거는 가변 객체</p>
-
-<p>사이드 이펙트가 밝생할 수 있다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287422-a72ba680-9aa1-11eb-85b9-2b8b618d9288.png" alt="image" style="zoom:50%;" /></p>
-
-<p>값을 바꾸면 계속 새로운 객체를 만들죠 ?</p>
-
-<p>무슨 개소리야 할 수 있지만 분명히 다르다.  근데 계속 객체를 할당 받아야 하네</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287441-bca0d080-9aa1-11eb-8e21-85791e04d06c.png" alt="image" style="zoom: 67%;" /></p>
-
-<p>상태가 바뀌면 계속 새로운 것을 반환해주어야 하니…</p>
-
-<p>불변 객체는 list 내부의 상태 데이터를 추가하고 뺴는 것도 불변 객체 이다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/114287451-d510eb00-9aa1-11eb-97a0-e90cf46af43a.png" alt="image" style="zoom:67%;" /></p>
-
-<p>이렇게 clear하는 것도 허용이다.</p>
-
-<p>❓그렇다면, 메모리의 주솟값이 불변이면, 메모리의 주솟값이 참조하고 있는 값이 변경되도 불변이다 라고 보는 건가요?<br />
--&gt; 그렇다.</p>
-
-<h4 id="불변-객체와-상수-객체의-차이에-대해-공부해-보세요">불변 객체와 상수 객체의 차이에 대해 공부해 보세요.</h4>
-
-<h3 id="불변-객체로-구현하면-좋은-점">불변 객체로 구현하면 좋은 점</h3>
-
-<ul>
-  <li>식별자 가변성 문제가 없다.</li>
-  <li>실패 원자성이 있다 - 완전하고 견고한 상태의 객체를 가지거나, 실패하거나 둘 중 하나만 가능하다.</li>
-  <li>시간적 결합을 제거할 수 있다. - 가변 객체가 많은 경우 연산들의 순서를 일일이 기억해야한다.</li>
-  <li>사이드 이펙트를 제거할 수 있다.</li>
-  <li>null 참조를 없앨 수 있다.</li>
-  <li>스레드 세이프하다.</li>
-  <li>더 작고 더 단순한 객체를 구현할 수 있다.</li>
-</ul>
-
-<h3 id="public-상수를-사용하지-마세요-">public 상수를 사용하지 마세요.. ?</h3>
-
-<p>상수라고 불리는 <code class="highlighter-rouge">public static final</code> 프로퍼티는 객체 사이의 데이터를 공유하기 위해 사용한다.<br />
-사용하지 말라는 이유는 객체들은 어떤 것도 공유해서는 안되기 때문이다.<br />
-독립적이어야 하며, 닫혀 있어야 한다.</p>
-
-<p>하지만 일반적으로는 public 상수를 쓰는게 관례이다.</p>
-
-<p><strong>상수를 쓸거면 객체로 만들어라??</strong><br />
-OOP에서 퍼블릭 상수를 절대로 사용하지 말라고 한다.<br />
-사소한 상수라도 항상 작은 클래스를 이용해 대체할 것을 추천한다. <br />
-enum도 public static final을 쓰는 건데 쓰지 마라!</p>
-
-<p><strong>그냥 설계가 완벽하다 싶을 때 도전해라 ^^</strong></p>
-
-<p>인스턴스 변수는 4개 이하로… 근데. 
-번외로 데코레이터 필드는 허용된다고 생각합니다.</p>
-
-<p>position, name의 클래스 접근자를 없애는 것은 ??<br />
-그러면 패키지 내부의 결합도를 낮출 수 있고, 인터페이스로 다 만들려면 너무 많아지는 문제점 해결</p>
-
-<p>스프링 프레임 뭐크는 객체들의 의존성을 없앤다.</p>
-
-<p>스프링 프레임워크를 위한 강의였따.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>💡 위클리 회고 7 주차</title>
-	  <link>//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8</link>
-	  <author></author>
-	  <pubDate>2021-03-21T19:18:00+09:00</pubDate>
-	  <guid>//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8</guid>
-	  <description><![CDATA[
-	     <h2 id="무슨일이-있었나">무슨일이 있었나?</h2>
-
-<ul>
-  <li>모각코를 계속 했다.</li>
-  <li>내가 데일리 마스터로 윷놀이를 준비했다.</li>
-  <li>스트림에 대한 강의를 들었다.</li>
-  <li>레벨 1 마지막 미션인 체스 미션이 시작되었다.</li>
-  <li>새로운 페어인 오즈를 첫날은 온라인으로, 이후는 오프라인으로 만나서 진행했다.</li>
-  <li>이번 체스 미션 난이도는 극악이었다.</li>
-  <li>미션 시작 금요일 새벽에 3단계까지 구현했다.</li>
-  <li>이주동안 핸드폰을 거의 안봐 개인적으로 몇몇 중요한 연락을 놓쳤다.</li>
-  <li>즐거운 하루들이었으나 스스로는 정신이 없었다.</li>
-  <li>데일리에서 멤수타2를 했다.</li>
-  <li>집 서류 문제로 7주차, 집주인에게 며칠동안 시달렸다. 꽤 스트레스였다.</li>
-  <li>엘레강트 오브젝트 강의를 들었다.</li>
-  <li>웹 미션이 주어졌다.</li>
-  <li>교육장에서 다같이 재밌게 얘기하면서 미션을 진행했다.</li>
-</ul>
-
-<hr />
-
-<h2 id="아쉬운-것은-무엇인가">아쉬운 것은 무엇인가?</h2>
-
-<h3 id="미션에-대한-조급함">미션에 대한 조급함</h3>
-
-<p>맨 처음 미션 때 완벽한 설계를 꿈꾸지 말고 일단 구현부터 시작해야한다는 교훈을 얻었기에,<br />
-이번 미션도 그렇게 라이브하게 구현하려하였다.<br />
-또 이번 미션은 어렵다 보니 구현을 생각해내는데 정말 어려웠는데, 기간 내에 끝낼 수 있을까하는 걱정때문에 스스로는 조금 조급했다.<br />
-그러다 보니 여러 객체가 얽히고 섥히고 . . .  한 클래스가 엄청 장황해지며 무수한 인덴트가 나오는 불상사를 겪었다. <br />
-교육장에서 늦게까지 남은 크루들이랑 이야기를 하다가 우리 코드는 웃음 거리가 되기도 했다 ㅎㅎ</p>
-
-<p>미션을 끝낸 후, 페어와 회고를 하면서 이번 미션을 돌이켜 보았다.<br />
-둘 다 구체적인 설계없이 구현을 하려다 보니 객체의 책임을 명확히 분리하지 못했다고 느꼈다.<br />
-미션을 완료해놓고 주말에 각자 리팩토링을 진행하고 다시 이야기를 나누어봤는데,<br />
-이미 메서드를 만들어놓고 쓰지 않은 부분도 수두룩 했다. <br />
-설계를 해놓지 않고 구현에 들어간 문제라고 생각했다.<br />
-근데 또 돌이켜 보면 이번 체스 미션은 너무 장황해서 구현이 없이는 어떻게 객체를 분리해야할지 감이 안왔을 것 같다.</p>
-
-<p>그래서 얻은 교훈은 적당한 가벼운 설계와 구현 방향을 이야기 나눈 후 구현부터 들어가자!이다.</p>
-
-<p>또 미션에 대한 조급함 때문에 스스로 구현이 급급했고,<br />
-미션 도중에 구현에 대해 서로 어떻게 생각하는지 페어와 많은 이야기를 나누지 못했던 부분이 아쉽다.<br />
-회고 하면서 내가 너무 조급해서 페어의 의견을 여러번 묻지 못했다고 스스로 생각했다고 말했다.<br />
-페어는 그렇게 느끼지 못했다고는 하지만, 나는 이번 미션에서 나의 조급함 때문에 제대로 소통하지 못하는 나의 문제점을 발견했다.</p>
-
-<h3 id="우선-순위-설정을-하지-못했다">우선 순위 설정을 하지 못했다</h3>
-
-<p>8주차에는 정말 많은 과제들이 쏟아졌다.<br />
-자스부터 SQL, 글쓰기, 리팩토링 등… 또 개인적인 할일들이 넘쳐났다.<br />
-정신이 없어서, 그리고 내 주변 크루들은 지금 ‘이걸’하니까 나도 거기에 맞춰 내 할일들을 진행했다.<br />
-그랬더니 리팩토링이 많이 늦어졌다.<br />
-또한 리팩토링이 늦어져 PR이 늦어지니 조급함이 들기도 했다.<br />
-이번주 나는 왜이렇게 조급했나를 돌이켜보니 우선순위를 설정하지 않고 손에 잡히는 일들을 먼저 끝내려 했다는 것이다.</p>
-
-<h3 id="선택과-집중을-하지-못했다">선택과 집중을 하지 못했다.</h3>
-
-<p>크루들이랑 농담 삼아 ‘선집(선택과 집중)’ 하자라는 말을 하는데,<br />
-2주 동안 선택과 집중을 제대로 하지 못했다.<br />
-글쓰기를 조금 하다가 자스르 조금 하다가, 리팩토링을 조금 하다가, 퀴즈를 풀다가… 
-조급해서 여기 저기에 손을 댔던 것들이 나의 한 가지 일에 대한 집중을 떨어뜨렸고, 결국 비효율적인 시간 관리가 되었다.</p>
-
-<h3 id="스스로를-돌아보지-못했다">스스로를 돌아보지 못했다</h3>
-
-<p>바쁜 나날들을 살고, 또 계속해서 사람들을 만나면서 스스로 어떤 감정을 느끼고 있고 어떤 상태인지 돌아보지 못했다.<br />
-주말에 예은 언니를 만나 이런 저런 이야기를 하고 여러 일을 겪으면서 아 내가 지금 꽤 지쳐있구나를 느꼈다.<br />
-공부하기 급급하고 일정을 소화해야한다는 욕심 때문에 2주동안 나를 챙기지 못했다.<br />
-나 정말 지쳐있구나를 느끼고 나서 혼자만의 시간을 가지고, 잠시 쉼을 가졌다.<br />
-잠깐이었지만 이런 시간이 필요하구나를 느꼈다.</p>
-
-<p>사실 전반적으로 아쉬운 부분이 많았던 2주였다.<br />
-제일 큰 문제는 내게 주어진 일정들을 우선순위를 매기지 않고 일정관리를 하지 못함이라고 생각했다.<br />
-이로 인해 부수적인 문제들이 생겼고.</p>
-
-<hr />
-
-<h2 id="잘한-것은-무엇인가">잘한 것은 무엇인가?</h2>
-
-<h3 id="나의-문제점을-많이-발견했다">나의 문제점을 많이 발견했다</h3>
-
-<p>사실 전반적으로 아쉬운 부분이 많았던 2주였다.<br />
-제일 큰 문제는 내게 주어진 일정들을 우선순위를 매기지 않고 일정관리를 하지 못함이라고 생각했다.<br />
-이로 인해 부수적인 문제들이 생겼고.<br />
-그래도 이런 시행착오를 겪으면서 내가 앞으로 변해야할지 깨달을 수 있는 좋은 시간들이었다.<br />
-회고하면서 여러가지 중요성을 깨달을 수 있다는 것은 큰 깨달음이다.</p>
-
-<hr />
-
-<h2 id="어떻게-달라질-것인가">어떻게 달라질 것인가</h2>
-
-<h3 id="미션에-대한-조급함을-버리기">미션에 대한 조급함을 버리기</h3>
-
-<p>미션의 목적은 완성이 아니라 성장임을 다시한번 되새겨야겠다.<br />
-미션을 진행하면서 얻을 수 있는 성장을 제대로 누려보자.</p>
-
-<h3 id="우선-순위-설정">우선 순위 설정</h3>
-<p>내가 해야할 일 중 가장 중요한 일 순서대로 우선순위를 설정하고 차근 차근 해나가자.<br />
-‘다른 사람들이 지금 이걸 하니까’가 아니라 내게 중요한 순서대로 해나가자.</p>
-
-<h3 id="선택과-집중">선택과 집중</h3>
-
-<p>우선 순위를 정한 후 그 일을 선택했다면 그 일에만 집중하자.</p>
-
-<h3 id="자기관리">자기관리</h3>
-
-<p>미션, 공부도 중요하지만 이 열정을 꾸준히 이어나갈 수 있는 것은 나를 계속해서 돌아보고<br />
-지치지 않도록 관리하는 것이다. 체력이나 멘탈이나 뭐든.<br />
-가끔은 쉬기도 하고 혼자만의 시간을 가지면서 힐링해야겠다.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📝 엘레강트 오브젝트 뽀개기 1 강의 정리</title>
-	  <link>//%EC%97%98%EB%A0%88%EA%B0%95%ED%8A%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%BD%80%EA%B0%9C%EA%B8%B0-1-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
-	  <author></author>
-	  <pubDate>2021-03-20T19:18:00+09:00</pubDate>
-	  <guid>//%EC%97%98%EB%A0%88%EA%B0%95%ED%8A%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%BD%80%EA%B0%9C%EA%B8%B0-1-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
-	  <description><![CDATA[
-	     <p>강의를 들으며 정리하기 ✍️</p>
-
-<h2 id="엘레강트-오브젝트">엘레강트 오브젝트</h2>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111856837-ca66a880-8970-11eb-903f-b93200975d2e.png" alt="image" style="zoom:50%;" /></p>
-
-<ul>
-  <li>
-    <p>문자열과 원시값을 포장해라</p>
-  </li>
-  <li>
-    <p>반환 값은 모두 일급 컬렉션</p>
-
-    <p><img src="https://user-images.githubusercontent.com/43840561/111856864-fc780a80-8970-11eb-9ada-2c99c659bcfd.png" alt="image" style="zoom:50%;" /></p>
-  </li>
-</ul>
-
-<h3 id="인자의-값으로-null을-절대-허용하지-마세요">인자의 값으로 null을 절대 허용하지 마세요</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;</span> <span class="nf">find</span><span class="o">(</span><span class="n">String</span> <span class="n">mask</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">mask</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-<span class="c1">// .</span>
-<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-<span class="c1">// .</span>
-<span class="o">}</span> <span class="o">}</span>
-</code></pre></div></div>
-
-<p>null을 체크하는 로직을 구현하는 것은 객체를 무시하는 것이다.<br />
-mask 객체를 존중했다면 조건의 존재 여부를 객체 스스로 결정하게 했을 것이다.<br />
-이를 위해 <strong>원시 값과 문자열을 포장</strong>하면 null을 허용하지 않을 수 있다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111857492-216e7c80-8975-11eb-8c28-ef1e68a6c3ba.png" alt="image" /></p>
-
-<p>이 부분이 randomNumber를 무시하는 것이 아닌가.<br />
-randomNumber를 객체로 만든다. (원시값 포장).</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111857526-77432480-8975-11eb-92c2-3abaeb7ccbd3.png" alt="image" style="zoom:50%;" /></p>
-
-<p>객체에게 메시지를 보내도록 리팩토링한다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111857586-e02a9c80-8975-11eb-84d0-74f7930af1bc.png" alt="image" style="zoom:50%;" /></p>
-
-<p>테스트 가능하게 오버라이딩.</p>
-
-<p>RandomNumber의 null 체크 안해줘도 되나 ? <br />
-이 메서드가 외부에 쓰인다면 고민해봐야하지만, 내부에서만 move가 호출되면 
-null 체크를 굳이 안해줘도 좋다. 
-내가 컨트롤할 수 있는 범위라면 안해도 될 것 같다.<br />
-<code class="highlighter-rouge">move()</code> 를 사용하는 범위가 어디까지인지에 따라 null 체크 여부가 달린 것 같다.</p>
-
-<h3 id="final이거나-abstract-이거나">final이거나 abstract 이거나</h3>
-
-<p>상속은 객체들의 관계를 복잡하게 만드니 최대한 자제하고,<br />
-final이나 abstract로 만들어라</p>
-
-<p>변수에 <code class="highlighter-rouge">final</code> 을 붙이면 재할당이 불가능하지만, 메서드에 붙이면 오버라이딩이 불가하다.<br />
-클래스에 <code class="highlighter-rouge">final</code> 은 상속을 불가능하게 한다.</p>
-
-<p>final 클래스가 테스트 가능하도록 하는 법.
-인터페이스로 만든다.</p>
-
-<p>RandomNumber 클래스를 final로 만들고 Number 인터페이스를 만든다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111857934-5e883e00-8978-11eb-8472-ac523772cb3b.png" alt="image" style="zoom:67%;" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111857943-7069e100-8978-11eb-8e53-dd4b5f7d6b2c.png" alt="image" /></p>
-
-<p><img src="https://user-images.githubusercontent.com/43840561/111858087-862bd600-8979-11eb-91b5-49a3004f38d8.png" alt="image" style="zoom:50%;" /></p>
-
-<p>그러면 이렇게 Number 인터페이스와 의존 관계를 맺는다. <br />
-인터페이스와 의존 관계를 맺는게 final 클래스와 의존 관계를 맺는 것 보다 테스트가 더 용이하다.</p>
-
-<p>클래스에 final을 붙이는 것은 좋은 습관이다.<br />
-final을 테스트하고 싶으면 인터페이스를 추출하면 된다.</p>
-
-<p>인터페이스 구현체가 여러개가 되면 중복들이 많아지는데, 
-이 중복을 어떻게 없애나 ?<br />
-인터페이스 구현체 중간에 추상 클래스를 둔다.<br />
-Car - 인터페이스 <br />
-AbstractCar - 추상 클래스<br />
-Sonatar - 클래스</p>
-
-<p>이러면 추상 클래스의 필요성을 느낄 수 있을 것이다.</p>
-
-<p>근데 default 메소드를 사용하면 안되나 ?</p>
-
-<p>포비는 default 를 남용하지 않는다.  추상 클래스를 쓰는게 더 좋다.</p>
-
-<p>중복을 제거할 때 추상 클래스의 인스턴스 변수, 즉 인스턴스에 종속된 메서드면 default 메서드를 만들기 어려울 수 있다.  default 메서드를 만들 수 있는 경우, 없는 경우가 있으니 잘 구별.<br />
-추상 클래스는 상태를 가지니 상태를 활용할 수 있다.</p>
-
-<p>상속 때 부모 클래스에 있는 인스턴스 변수를 private로 막아라 ! <br />
-그래야 캡슐화가 잘 되었다고 한다. <br />
-접근할 때는 메서드를 통해 접근해라</p>
-
-<h3 id="-er로-끝나는-이름을-사용하지-마세요">-er로 끝나는 이름을 사용하지 마세요</h3>
-
-<p>클래스 이름을 지을 때 좋은 가이드.</p>
-
-<p>클래스는 객체를 만들어 내는 역할일 뿐이다 (객체의 Factory).<br />
-클래스는 객체를 만들고, 추적하고, 적절한 시점에 파괴한다 (라이프 사이클 관리).</p>
-
-<p>클래스를 객체의 템플릿으로 바라보는 것은 클래스를 수동적인 존재로 만드는 것이다.<br />
-클래스는 객체의 능동적인 관리자이다.<br />
-객체를 꺼내거나 반환하는 저장소이다.</p>
-
-<h4 id="클래스-이름을-짓는-방식">클래스 이름을 짓는 방식</h4>
-
-<p>클래스의 객체들이 <strong>무엇을 하는지</strong> 가 아닌, <strong>무엇인지</strong> 에 기반해 지어라.</p>
-
-<ul>
-  <li><strong>무엇을 하는지</strong>로 이름을 지은 잘못된 예</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashFormatter</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">dollars</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">CashFormatter</span><span class="o">(</span><span class="kt">int</span> <span class="n">dollars</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="n">dollars</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">format</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"$ %d"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">dollars</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>무엇인지를 기반으로 객체의 역량을 나타내도록 이름을 지어야 한다.</p>
-
-<ul>
-  <li><strong>무엇인지</strong></li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">dollars</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="kt">int</span> <span class="n">dollars</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="n">dollars</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">usd</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"$ %d"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">dollars</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>객체는 객체의 외부 세계와 내부 세계를 이어주는 연결장치가 아니고,<br />
-내부에 캡슐화된 데이터를 다루기 위해 요청할 수 있는 절차의 집합도 아니다.<br />
-객체는 <strong>캡슐화된 데이터의 대표자</strong>이다.</p>
-
-<p>무엇인지로 객체를 추출하면 무엇을 하는지까지 포괄하는 것이 아닌가. <br />
-무엇을 하는지는 수동적인 존재가 된다.</p>
-
-<p>메서드에서는 protected를 사용할 수 있는데 변수에는 사용하지 않는 것이 좋다.<br />
-DTO는 모르겠는데 도메인 객체에서는 무조건 인스턴스 변수는 private여야 한다.</p>
-
-<p>“무엇인지” 생각하지 않고 “무엇을 하는지”를 먼저 생각하고 설계하지 말라</p>
-
-<p>처음에 메세지를 정하고 객체의 협력을 구상해야하는데 이를 하기 위해는 “무엇을 하는지”가 아니라 객체가 “무엇인지” 부터 생각을 해야하는 것 같아요. 객체가 무엇인지 생각하고 책임을 부여하면서 “무엇을 하는지” 가 된다.</p>
-
-<p>이미 er과 or을 가지고 있는 것들은 써도 되지만, 나머지는 자제하라</p>
-
-<p>CashFormatter가 아닌 FomattedCash는 어때 ?<br />
-CashFormatter는<code class="highlighter-rouge">format()</code> 이외의 기능을 가지면 부자연스럽기 때문이다.</p>
-
-<h3 id="메서드-이름을-신중하게-선택하세요">메서드 이름을 신중하게 선택하세요</h3>
-
-<p>메서드 명은 무조건 동사가 아니다.</p>
-
-<h4 id="빌더builder의-이름은-명사로">빌더(builder)의 이름은 명사로</h4>
-
-<p>반환타입이 void가 아닌 메서드로, 무언가를 만들어 새로운 객체를 반환한다.<br />
-이 메서드의 명은 항상 <strong>명사</strong>여야 한다.<br />
-형용사를 덧붙여 메서드의 의미를 좀 더 풍부하게 설명하는 명사로 나타낼 수도 있다.</p>
-
-<p>Ex) float speed(), Employee employee(), String parsedCell()</p>
-
-<h4 id="조정자manipulator의-이름은-동사로">조정자(manipulator)의 이름은 동사로</h4>
-
-<p>반환타입이 void인 메서드로 엔티티를 수정하는 메서드이다.<br />
-이 메서드 명은 항상 <strong>동사</strong>여야 한다.<br />
-부사를 덧붙여 메서드의 문맥과 목적에 관한 풍부한 정보를 제송하는 동사로 나타낼 수 있다.</p>
-
-<p>ex) void save(String content), void quicklyPrint(int id);</p>
-
-<h4 id="잘못된-예시">잘못된 예시</h4>
-
-<p>boolean put(String key, Float value);</p>
-
-<p>이 메서드는 <code class="highlighter-rouge">PutOperation</code> 과 같은 클래스를 추가해 <code class="highlighter-rouge">save()</code> , <code class="highlighter-rouge">success()</code> 메서드로 분리한다.</p>
-
-<h4 id="빌더와-조정자로-분리---빌더는-명사다">빌더와 조정자로 분리 - 빌더는 명사다</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Bakery</span> <span class="o">{</span>
-    <span class="n">Food</span> <span class="nf">cookBrownie</span><span class="o">();</span>
-    <span class="n">Drink</span> <span class="nf">brewCupOfCoffee</span><span class="o">(</span><span class="n">String</span> <span class="n">flavor</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><code class="highlighter-rouge">cookBrownie()</code> , <code class="highlighter-rouge">brewCupOfCoffee()</code> 는 실제로는 객체의 메서드가 아니고, 프로시저이다.<br />
-객체는 자신의 의무를 수행하는 방법을 알고 있고, 존중해줘야하는 살아있는 유기체이다.<br />
-단순한 명령에 따르지 않고, 계약에 기반해 일하고 싶어한다.</p>
-
-<p>하지만 관념적인 부분은 포기해도 괜찮다 !</p>
-
-<p>getXxx()는 내부적으로 xxx를 가지고 있을 것이라는 것을 드러내지만,<br />
-명사를 사용하면 그 메서드 내부에 로직이 있는지를 숨길 수 있다.</p>
-
-<h4 id="빌더와-조정자로-분리---조정자는-동사다">빌더와 조정자로 분리 - 조정자는 동사다</h4>
-
-<p>ex) DJ에게 음악을 틀어달라고 요청할 때</p>
-
-<ul>
-  <li>방법 1. 음악을 틀어주세요.</li>
-  <li>방법 2. 음악을 틀고, 현재 볼륨 상태를 말해주세요.</li>
-</ul>
-
-<p>이 중 방법 1가 더 객체를 존중하고 있다.<br />
-그 객체가 알아서 하겠지 ! 를 생각해라. 객체를 믿어라.</p>
-
-<p>print도 매개변수가 다르니 <code class="highlighter-rouge">print()</code> 로 통일할 수 있다.</p>
-
-<h4 id="빌더와-조정자로-분리-3---빌더와-조정자-혼합하기">빌더와 조정자로 분리 3 - 빌더와 조정자 혼합하기</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Document</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="nf">write</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">content</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>값을 반환하고 있는 write를 빌더와 조정자로 분리한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Document</span> <span class="o">{</span>
-    <span class="n">OutputPipe</span> <span class="nf">output</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="kd">class</span> <span class="nc">OutputPipe</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">content</span><span class="o">);</span>
-    <span class="kt">int</span> <span class="nf">bytes</span><span class="o">();</span>
-    <span class="kt">long</span> <span class="nf">time</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="빌더와-조정자로-분리---boolean-값을-반환하는-경우-형용사로-지어라">빌더와 조정자로 분리 - Boolean 값을 반환하는 경우 형용사로 지어라</h4>
-
-<p>빌더이지만, 가독성을 위해 형용사로 지어라.</p>
-
-<h3 id="생성자-하나를-주-생성자로-만드세요">생성자 하나를 주 생성자로 만드세요</h3>
-
-<p><strong>클래스는 2~3개의 메서드와 5~10개의 생성</strong>자를 포함해야한다.</p>
-
-<p>생성자가 많고 메서드가 적을 수록 응집도가 높고 견고한 클래스가 된다.<br />
-생성자가 많을 수록 클라이언트가 클래스를 더 편하게 사용할 수 있다.</p>
-
-<ul>
-  <li>주 생성자 : 프로퍼티를 초기화한다. 오직 주 생성자만 담당한다.</li>
-  <li>부 생성자 : 주 생성자를 호출한다.</li>
-</ul>
-
-<p>인자수가 적은 수부터 많은 순으로, 주 생성자는 마지막에 둔다.</p>
-
-<p>테스트를 위한 생성자는 좋다 ! 하지만 메서드 추가는 옳지 않다 !
-생성자 여러개를 테스트 할 때 다른 타입 매개변수의 생성자 동등성을 테스트 하면 된다.</p>
-
-<p><em>뷰에서 List 정도로 가공은 할 수 있을 것 같다.</em></p>
-
-<p>좋은 객체는 모든 메서드가 각각 모든 인스턴스 변수를 사용하고 있다 (100%는 어렵다).</p>
-
-<h3 id="문서를-작성하는-대신-테스트를-만들어라">문서를 작성하는 대신 테스트를 만들어라</h3>
-
-<p>주석이 없어도 클래스명과 메서드만을 봐도 무슨일을 하는지 알 수 있게,<br />
-테스트를 통해  메서드의 의도를 알도록 하라.</p>
-
-<p>깔끔하게 만든다라는 것은 단위 테스트도 만든다는 의미이다.<br />
-단위 테스트는 클래스의 일부이고 독립적인 개체가 아니다.</p>
-
-<h3 id="생성자에-코드를-넣지-마세요">생성자에 코드를 넣지 마세요</h3>
-
-<p>인자에 손을 대지 말라는 의미이다.</p>
-
-<ul>
-  <li>잘못된 예시</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">dollars</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="n">String</span> <span class="n">dlr</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">dlr</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>생성자에 코드가 있을 경우 객체 변환과 관련한 예외를 제어할 수 없다.</p>
-
-<ul>
-  <li>좋은 예시</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Number</span> <span class="n">dollars</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="n">String</span> <span class="n">dlr</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringAsInteger</span><span class="o">(</span><span class="n">dlr</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StringAsInteger</span> <span class="kd">extends</span> <span class="n">Number</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">source</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">StringAsInteger</span><span class="o">(</span><span class="n">String</span> <span class="n">txt</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">source</span> <span class="o">=</span> <span class="n">txt</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">intValue</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">source</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">...</span> <span class="o">}</span>
-</code></pre></div></div>
-
-<p>이렇게 리팩토링을 하면 실제로 객체를 사용하는 시점까지의 객체 변환 작업은 연기된다.<br />
-생성자에 코드가 없을 경우 성능 최적화가 더 쉬워 실행 속도가 더 빨라진다.</p>
-
-<p>진정한 객체지향에서 인스턴스화란 더 작은 객체들을 조합해서 더 큰 객체를 만드는 것이다.</p>
-
-<p>객체의 변환을 뒤로 미뤄 파싱이 여러번 실행되지 않도록  데코레이터(decorator)를 추가해 파싱 결과를 캐싱할 수 있다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CachedNumber</span> <span class="kd">extends</span> <span class="n">Number</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Number</span> <span class="n">origin</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">cached</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="mi">1</span><span class="o">);</span>
-    <span class="kd">public</span> <span class="nf">CachedNumber</span><span class="o">(</span><span class="n">Number</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">origin</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">intValue</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">cached</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">cached</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">origin</span><span class="o">.</span><span class="na">intValue</span><span class="o">());</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">cached</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">...</span> <span class="o">}</span>
-</code></pre></div></div>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cash</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Number</span> <span class="n">dollars</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Cash</span><span class="o">(</span><span class="n">String</span> <span class="n">dlr</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">dollars</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CachedNumber</span><span class="o">(</span><span class="k">new</span> <span class="n">StringAsInteger</span><span class="o">(</span><span class="n">dlr</span><span class="o">));</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📝 Java8 Lambda, Stream API 강의 정리</title>
-	  <link>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</link>
-	  <author></author>
-	  <pubDate>2021-03-16T19:18:00+09:00</pubDate>
-	  <guid>//Java8-Lambda,-Stream-API-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC</guid>
-	  <description><![CDATA[
-	     <h2 id="함수형-프로그래밍의-장점-">함수형 프로그래밍의 장점 ?</h2>
-
-<h3 id="관심사의-분리">관심사의 분리</h3>
-
-<p>관심사의 분리란 무엇일까? 예제를 들어보자.</p>
-
-<p><code class="highlighter-rouge">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);</code> 리스트에 있는 <strong>원소마다 콜론을 추가</strong>하려 한다.</p>
-
-<h4 id="이때-foreach-를-사용한다면-">이때 <code class="highlighter-rouge">forEach()</code> 를 사용한다면 ?</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">ForEach</span><span class="err">를</span><span class="n">_</span><span class="err">활용하여</span><span class="n">_</span><span class="err">콜론을</span><span class="n">_</span><span class="err">추가하는</span><span class="n">_</span><span class="err">문자열</span><span class="n">_</span><span class="err">작성</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">StringBuilder</span> <span class="n">stringBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-
-        <span class="k">for</span> <span class="o">(</span><span class="n">Integer</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">number</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">" : "</span><span class="o">);</span>
-        <span class="o">}</span>
-
-        <span class="k">if</span> <span class="o">(</span><span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">3</span><span class="o">,</span> <span class="n">stringBuilder</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-</code></pre></div></div>
-
-<p>나는 <strong>원소마다 콜론 추가하는 것</strong>을 원하는데, forEach문을 작성하니 이를 어떻게(How) 구현할지에 집중하고 있는 것 같다.</p>
-
-<h4 id="그렇다면-함수형-프로그래밍의-일종인-stream을-사용한다면-">그렇다면 함수형 프로그래밍의 일종인 Stream을 사용한다면 ?</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="n">Stream</span><span class="err">을</span><span class="n">_</span><span class="err">활용하여</span><span class="n">_</span><span class="err">콜론을</span><span class="n">_</span><span class="err">추가하는</span><span class="n">_</span><span class="err">문자열</span><span class="n">_</span><span class="err">작성</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">valueOf</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">joining</span><span class="o">(</span><span class="n">COLON_DELIMITER</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>요소마다 콜론을 결합하는 것</strong>을 메소드를 사용함으로서 개발자인 내가 무엇을(What)을 수행할 것인지에 집중할 수 있다.</p>
-
-<h3 id="side-effect가-발생하지-않는다">Side Effect가 발생하지 않는다.</h3>
-
-<ul>
-  <li>Side Effect란 ? 함수 내의 실행으로 인해 함수 외부가 영향을 받는 것</li>
-</ul>
-
-<p>함수형 프로그래밍의 특징은 지역 변수만을 변경할 수 있고, 매개변수를 변경하지 않는다. <br />
-즉, 함수는 같은 인수값으로 함수를 호출했을 때 항상 같은 값을 반환한다. (이 때 다른 값을 반환하는 Random, Scanner 등은 함수가 아니다).<br />
-만약 함수에 참조하는 객체가 있다면 그 객체는 불변이어야 하며, 해당 객체의 모든 참조 필드도 불변 객체를 직접 참조해야 한다. <br />
-함수 내에서 생성한 객체의 필드는 갱신할 수 있지만, 새로 생성한 필드의 갱신은 외부에 노출되면 안된다. <br />
-또한 다음에 메서드를 다시 호출한 결과에 영향을 미치지 않으며, 어떠한 예외도 일으키지 않아야 한다. <br />
-값이 변경되는 것을 허용한 객체를 멀티 스레드 프로그램에서 접근한다면, 값이 일정하지 않을 것이다.</p>
-
-<p>하지만 단순히 구조만으로 순수성이 보장되지는 않고, 입력에 참조값이 오는 경우는 Side-Effect가 생긴다. 
-이에 대한 내용은 <strong>참조 투명성</strong>을 살펴보자.</p>
-
-<h4 id="참조-투명성">참조 투명성</h4>
-
-<p>참조 투명성은 함수가 함수 외부의 영향을 받지 않는 것을 의미한다.<br />
-또, 함수의 결과는 입력 파라미터에만 의존하고, 함수 외부 세계(입력 콘솔, 파일, 데이터 베이스 등)에서 데이터를 읽지 않는다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">a</span><span class="o">++;</span>
-  <span class="o">}</span>
-  <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>위 예제의 경우 원시 타입인 a의 값을 바꾸었는데, 자바의 원시타입의 매개변수는 call by value (메서드 호출 시 기본 자료형의 값을 인자로 전달하는 방식) 형태로 전달이 되어, 함수를 벗어나도 a에는 영향이 없다.<br />
-여기서 인자로 참조 변수를 넣어주면 어떤 일이 발생할 수 있을까?</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">position</span><span class="o">(</span><span class="n">Position</span> <span class="n">a</span><span class="o">,</span> <span class="n">Position</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">a</span><span class="o">.</span><span class="na">setX</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getX</span><span class="o">())</span>
-  <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>이렇게 참조 변수를 넘겨주면 함수 안에서 참조 변수의 값을 바꿀 수도 있기 때문에 side effect가 발생할 수 있다.<br />
-함수형 프로그래밍은 이런 Side Effect가 발생하지 않는, 참조 투명성이어야 한다.</p>
-
-<h3 id="일급-객체">일급 객체</h3>
-
-<p>함수형 프로그래밍은 함수인 메서드가 일급 객체임을 말하는데, 일급 객체는 다음과 같은 특성을 가진다.</p>
-
-<ul>
-  <li>변수나 데이터에 할당할 수 있어야 한다.</li>
-  <li>객체의 매개변수로 넘길 수 있어야 한다.</li>
-  <li>객체의 반환 값으로 리턴할 수 있어야 한다.</li>
-</ul>
-
-<p>자바8 이전까지, 메서드는 일급 객체가 아니었지만, 자바8의 익명 함수의 등장으로 메서드도 일급 객체로 다룰 수 있게 되었다.<br />
-또 이 익명 함수를 좀 더 단순화 한 것이 바로 람다 표현식(lambda expression)이다.</p>
-
-<h3 id="boxing과-unboxing">Boxing과 UnBoxing</h3>
-
-<p>원시 타입이 래퍼 클래스로 변환하는 것을 Boxing이라고 하며,<br />
-래퍼 클래스를 원시 타입으로 형변환 하는 것을 UnBoxing이라고 한다. <br />
-JDK1.5부터는 래퍼 클래스와 기본 자료형 사이의 변환을 자동으로 해주는 Auto Boxing과 Auto UnBoxing 기능을 지원한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">Integer</span> <span class="n">integer</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// Auto Boxing</span>
-<span class="n">Integer</span> <span class="n">integer1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">777</span><span class="o">);</span> <span class="c1">// 명시적 Boxing</span>
-
-<span class="kt">int</span> <span class="n">primitive</span> <span class="o">=</span> <span class="n">integer</span><span class="o">;</span> <span class="c1">// Auto UnBoxing</span>
-</code></pre></div></div>
-
-<p>#### Auto Boxing이 일어나는 예</p>
-
-<p>자바에서는 래퍼 클래스에 대한 연산이 시도될 때, 연산을 하려는 두 객체를 Auto Unboxing을 하여 원시타입으로 변환 후,<br />
-연산을 수행하게 된다. 래퍼 클래스와 원시 타입 간 연산도 동일하다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="n">Integer</span> <span class="n">integer127</span> <span class="o">=</span> <span class="mi">127</span><span class="o">;</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
-  <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">127</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">==</span> <span class="n">integer127</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
-<span class="o">);</span>
-
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
-  <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">128</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">integer127</span><span class="o">))</span>
-  <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
-<span class="o">);</span>
-</code></pre></div></div>
-
-<p>두 스트림 연산에서 원시 타입 <code class="highlighter-rouge">int</code> 인 값들의 Stream을 만들고 각각 래퍼 클래스 <code class="highlighter-rouge">Integer</code> 와 비교를 할 때 Auto Boxing이 일어난다.<br />
-이때, <code class="highlighter-rouge">findFirst().get()</code> 을 하게 된다면 래퍼 클래스가 반환된다.<br />
-이렇게 되면 각각 원시 타입에 Auto Boxing이 일어나니, <br />
-원시 타입에 대한 스트림은 기본형 특화 스트림 (IntStream, LongStream, DoubleStream)을 사용하는 것이 성능상 좋다.</p>
-
-<p>➕ 수업 예제에서 이 부분이 왜 127과 128로 나누었을까 크루들이랑 이야기를 했다.<br />
-Integer 래퍼 클래스는 127까지 인스턴스를 미리 생성해 두기 때문에 <code class="highlighter-rouge">==</code> 연산자로도 비교가 가능하지만 (주소값을 비교하는 것이다),<br />
-128부터는 새로운 인스턴스를 반환하기 때문에 동일성 검사인 <code class="highlighter-rouge">equals()</code> 를 사용해 반환한다.</p>
-
-<h3 id="참고-자료">참고 자료</h3>
-
-<ul>
-  <li><a href="https://jinwooe.wordpress.com/2017/12/21/%EB%B6%80%EC%88%98-%ED%9A%A8%EA%B3%BC-side-effect-%EC%B0%B8%EC%A1%B0-%ED%88%AC%EB%AA%85%EC%84%B1-referential-transparency/">부수 효과 (Side Effect), 참조 투명성 (Referential Transparency)</a></li>
-</ul>
 
 	  ]]></description>
 	</item>

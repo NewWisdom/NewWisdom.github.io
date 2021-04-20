@@ -1,0 +1,60 @@
+<h2 id="controlleradvice--restcontrolleradvice">@ControllerAdvice / @RestControllerAdvice</h2>
+
+<p>Controller, RestController 전역에 적용되는 코드를 작성할 수 있게 해주는 어노테이션.  <br />
+특정 패키지를 명시할 경우 적용되는 Controller의 범위도 제한할 수 있다.<br />
+ <code class="highlighter-rouge">@RestControllerAdvice(basePackages = “com.rest.api”)</code></p>
+
+<p>이 어노테이션을 활용하여 API 처리 중 특정한 Exception이 발생할 경우 공통으로 처리한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionAdvice</span> <span class="o">{</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">RuntimeException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorMessageResponseDto</span><span class="o">&gt;</span> <span class="nf">handle</span><span class="o">(</span><span class="n">RuntimeException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="k">new</span> <span class="n">ErrorMessageResponseDto</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>@RestControllerAdvice : <code class="highlighter-rouge">@ControllerAdvice</code>+ <code class="highlighter-rouge">@ResponseBody</code>. RESTful API로 Exception을 처리하는데 더 편리한 어노테이션.</li>
+</ul>
+
+<p><code class="highlighter-rouge">@Controller</code>에서 예외가 발생해도 <code class="highlighter-rouge">@RestControllerAdvice</code>에서 잡을 수 있고, <br />
+<code class="highlighter-rouge">@RestController</code>에서의 예외가 발생해도 <code class="highlighter-rouge">@ControllerAdvice</code>가 잡아줄 수 있다.</p>
+
+<h2 id="태그">태그</h2>
+
+<ul>
+  <li>Spring</li>
+</ul>
+
+<hr />
+
+<h2 id="rest-api-디자인">REST API 디자인</h2>
+
+<ul>
+  <li>URL은 동사보다는 명사로 <strong>정보의 자원</strong>을 표현해야 한다.</li>
+  <li><strong>자원에 대한 행위는 HTTP 메소드로</strong> 표현한다.</li>
+  <li>슬래시 (/)는 계층 관계를 나타내는데 사용한다.</li>
+  <li>밑줄 (_) 대신 하이픈(-)을 사용한다.</li>
+  <li>리소스 간의 관계는 <code class="highlighter-rouge">리소스명/리소스 ID/관계가 있는 다른 리소스명</code></li>
+  <li>객체들의 집합인 <strong>Collection</strong>(복수로 표현), 한 객체를 의미하는 <strong>Document</strong> 로 구성한다.</li>
+  <li>참고 : <a href="https://meetup.toast.com/posts/92">REST API 제대로 알고 사용하기</a></li>
+</ul>
+
+<h2 id="태그-1">태그</h2>
+
+<ul>
+  <li>REST API</li>
+</ul>
+
+<hr />
+
+<h2 id="단위-테스트">단위 테스트</h2>
+
+<h2 id="참고">참고</h2>
+
+<p><a href="https://jojoldu.tistory.com/226">SpringBoot @MockBean, @SpyBean 소개</a></p>
+
+<p>https://wedul.site/131</p>
+

@@ -8,6 +8,96 @@
     
       
       <item>
+        <title>체스피드백</title>
+        
+          <description>&lt;h2 id=&quot;controlleradvice--restcontrolleradvice&quot;&gt;@ControllerAdvice / @RestControllerAdvice&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Mon, 19 Apr 2021 00:00:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/%E1%84%8E%E1%85%A6%E1%84%89%E1%85%B3%E1%84%91%E1%85%B5%E1%84%83%E1%85%B3%E1%84%87%E1%85%A2%E1%86%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/%E1%84%8E%E1%85%A6%E1%84%89%E1%85%B3%E1%84%91%E1%85%B5%E1%84%83%E1%85%B3%E1%84%87%E1%85%A2%E1%86%A8</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 통합 테스트 VS 단위 테스트</title>
+        
+          <description>&lt;h2 id=&quot;통합-테스트&quot;&gt;통합 테스트&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 16 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/unit-test-vs</link>
+        <guid isPermaLink="true">http://localhost:4000/unit-test-vs</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술 강의 노트</title>
+        
+          <description>&lt;p&gt;객체의 의존 관리는 스프링이 한다.&lt;br /&gt;
+스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 16 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-core-lecture</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-core-lecture</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술 강의 노트</title>
+        
+          <description>&lt;h2 id=&quot;3-회원-관리-예제---백엔드-개발&quot;&gt;3. 회원 관리 예제 - 백엔드 개발&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 16 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring3</link>
+        <guid isPermaLink="true">http://localhost:4000/spring3</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Weekly1</title>
+        
+          <description>
+</description>
+        
+        <pubDate>Fri, 16 Apr 2021 00:00:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/weekly1</link>
+        <guid isPermaLink="true">http://localhost:4000/weekly1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 프로가 되기 위한 웹기술 입문 4</title>
+        
+          <description>&lt;h2 id=&quot;4-cgi에서-웹-애플리케이션으로&quot;&gt;4. CGI에서 웹 애플리케이션으로&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Thu, 15 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/webbasic4</link>
+        <guid isPermaLink="true">http://localhost:4000/webbasic4</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>체스미션</title>
         
           <description>&lt;h4 id=&quot;controller-인터페이스-분리&quot;&gt;Controller 인터페이스 분리&lt;/h4&gt;
