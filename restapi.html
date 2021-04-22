@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>💡 위클리 회고 7 주차</title>
+    <title>📋 REST API에 대하여</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,21 +34,21 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8" />
+        <link rel="canonical" href="http://localhost:4000//restapi" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="💡 위클리 회고 7 주차" />
+    <meta property="og:title" content="📋 REST API에 대하여" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8" />
+    <meta property="og:url" content="http://localhost:4000//restapi" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="💡 위클리 회고 7 주차" />
+    <meta name="twitter:title" content="📋 REST API에 대하여" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8" />
+    <meta name="twitter:url" content="http://localhost:4000//restapi" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
 
     <script type="application/ld+json">
@@ -56,8 +56,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "💡 위클리 회고 7 주차",
-    "url": "http://localhost:4000//%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8",
+    "name": "📋 REST API에 대하여",
+    "url": "http://localhost:4000//restapi",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
@@ -114,7 +114,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">💡 위클리 회고 7 주차</h1>
+        <h1 class="post-title">📋 REST API에 대하여</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -123,7 +123,7 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-03-21">21 Mar 2021</time>
+            <time class="post-date" datetime="2021-04-21">21 Apr 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
@@ -149,113 +149,97 @@
 
         <section class="post-content">
 
-            <h2 id="무슨일이-있었나">무슨일이 있었나?</h2>
+            <h2 id="rest-api-구성">REST API 구성</h2>
+
+<p>REST : Representational State Transfer라는 용어의 약자</p>
 
 <ul>
-  <li>모각코를 계속 했다.</li>
-  <li>내가 데일리 마스터로 윷놀이를 준비했다.</li>
-  <li>스트림에 대한 강의를 들었다.</li>
-  <li>레벨 1 마지막 미션인 체스 미션이 시작되었다.</li>
-  <li>새로운 페어인 오즈를 첫날은 온라인으로, 이후는 오프라인으로 만나서 진행했다.</li>
-  <li>이번 체스 미션 난이도는 극악이었다.</li>
-  <li>미션 시작 금요일 새벽에 3단계까지 구현했다.</li>
-  <li>이주동안 핸드폰을 거의 안봐 개인적으로 몇몇 중요한 연락을 놓쳤다.</li>
-  <li>즐거운 하루들이었으나 스스로는 정신이 없었다.</li>
-  <li>데일리에서 멤수타2를 했다.</li>
-  <li>집 서류 문제로 7주차, 집주인에게 며칠동안 시달렸다. 꽤 스트레스였다.</li>
-  <li>엘레강트 오브젝트 강의를 들었다.</li>
-  <li>웹 미션이 주어졌다.</li>
-  <li>교육장에서 다같이 재밌게 얘기하면서 미션을 진행했다.</li>
+  <li><strong>자원</strong> : URI</li>
+  <li><strong>행위</strong> : HTTP METHOD</li>
+  <li><strong>표현</strong></li>
 </ul>
 
 <hr />
 
-<h2 id="아쉬운-것은-무엇인가">아쉬운 것은 무엇인가?</h2>
+<h2 id="rest-의-특징">REST 의 특징</h2>
 
-<h3 id="미션에-대한-조급함">미션에 대한 조급함</h3>
-
-<p>맨 처음 미션 때 완벽한 설계를 꿈꾸지 말고 일단 구현부터 시작해야한다는 교훈을 얻었기에,<br />
-이번 미션도 그렇게 라이브하게 구현하려하였다.<br />
-또 이번 미션은 어렵다 보니 구현을 생각해내는데 정말 어려웠는데, 기간 내에 끝낼 수 있을까하는 걱정때문에 스스로는 조금 조급했다.<br />
-그러다 보니 여러 객체가 얽히고 섥히고 . . .  한 클래스가 엄청 장황해지며 무수한 인덴트가 나오는 불상사를 겪었다. <br />
-교육장에서 늦게까지 남은 크루들이랑 이야기를 하다가 우리 코드는 웃음 거리가 되기도 했다 ㅎㅎ</p>
-
-<p>미션을 끝낸 후, 페어와 회고를 하면서 이번 미션을 돌이켜 보았다.<br />
-둘 다 구체적인 설계없이 구현을 하려다 보니 객체의 책임을 명확히 분리하지 못했다고 느꼈다.<br />
-미션을 완료해놓고 주말에 각자 리팩토링을 진행하고 다시 이야기를 나누어봤는데,<br />
-이미 메서드를 만들어놓고 쓰지 않은 부분도 수두룩 했다. <br />
-설계를 해놓지 않고 구현에 들어간 문제라고 생각했다.<br />
-근데 또 돌이켜 보면 이번 체스 미션은 너무 장황해서 구현이 없이는 어떻게 객체를 분리해야할지 감이 안왔을 것 같다.</p>
-
-<p>그래서 얻은 교훈은 적당한 가벼운 설계와 구현 방향을 이야기 나눈 후 구현부터 들어가자!이다.</p>
-
-<p>또 미션에 대한 조급함 때문에 스스로 구현이 급급했고,<br />
-미션 도중에 구현에 대해 서로 어떻게 생각하는지 페어와 많은 이야기를 나누지 못했던 부분이 아쉽다.<br />
-회고 하면서 내가 너무 조급해서 페어의 의견을 여러번 묻지 못했다고 스스로 생각했다고 말했다.<br />
-페어는 그렇게 느끼지 못했다고는 하지만, 나는 이번 미션에서 나의 조급함 때문에 제대로 소통하지 못하는 나의 문제점을 발견했다.</p>
-
-<h3 id="우선-순위-설정을-하지-못했다">우선 순위 설정을 하지 못했다</h3>
-
-<p>8주차에는 정말 많은 과제들이 쏟아졌다.<br />
-자스부터 SQL, 글쓰기, 리팩토링 등… 또 개인적인 할일들이 넘쳐났다.<br />
-정신이 없어서, 그리고 내 주변 크루들은 지금 ‘이걸’하니까 나도 거기에 맞춰 내 할일들을 진행했다.<br />
-그랬더니 리팩토링이 많이 늦어졌다.<br />
-또한 리팩토링이 늦어져 PR이 늦어지니 조급함이 들기도 했다.<br />
-이번주 나는 왜이렇게 조급했나를 돌이켜보니 우선순위를 설정하지 않고 손에 잡히는 일들을 먼저 끝내려 했다는 것이다.</p>
-
-<h3 id="선택과-집중을-하지-못했다">선택과 집중을 하지 못했다.</h3>
-
-<p>크루들이랑 농담 삼아 ‘선집(선택과 집중)’ 하자라는 말을 하는데,<br />
-2주 동안 선택과 집중을 제대로 하지 못했다.<br />
-글쓰기를 조금 하다가 자스르 조금 하다가, 리팩토링을 조금 하다가, 퀴즈를 풀다가… 
-조급해서 여기 저기에 손을 댔던 것들이 나의 한 가지 일에 대한 집중을 떨어뜨렸고, 결국 비효율적인 시간 관리가 되었다.</p>
-
-<h3 id="스스로를-돌아보지-못했다">스스로를 돌아보지 못했다</h3>
-
-<p>바쁜 나날들을 살고, 또 계속해서 사람들을 만나면서 스스로 어떤 감정을 느끼고 있고 어떤 상태인지 돌아보지 못했다.<br />
-주말에 예은 언니를 만나 이런 저런 이야기를 하고 여러 일을 겪으면서 아 내가 지금 꽤 지쳐있구나를 느꼈다.<br />
-공부하기 급급하고 일정을 소화해야한다는 욕심 때문에 2주동안 나를 챙기지 못했다.<br />
-나 정말 지쳐있구나를 느끼고 나서 혼자만의 시간을 가지고, 잠시 쉼을 가졌다.<br />
-잠깐이었지만 이런 시간이 필요하구나를 느꼈다.</p>
-
-<p>사실 전반적으로 아쉬운 부분이 많았던 2주였다.<br />
-제일 큰 문제는 내게 주어진 일정들을 우선순위를 매기지 않고 일정관리를 하지 못함이라고 생각했다.<br />
-이로 인해 부수적인 문제들이 생겼고.</p>
+<ul>
+  <li>Uniform Interface</li>
+  <li>Stateless</li>
+  <li>Caching</li>
+  <li>Client-Server</li>
+  <li>Hierarchical system</li>
+  <li>Code on demand</li>
+</ul>
 
 <hr />
 
-<h2 id="잘한-것은-무엇인가">잘한 것은 무엇인가?</h2>
+<h2 id="rest-api-디자인-가이드">REST API 디자인 가이드</h2>
 
-<h3 id="나의-문제점을-많이-발견했다">나의 문제점을 많이 발견했다</h3>
+<p><strong>URI는 자원을 표현하는데 집중하고 행위에 대한 정의는 HTTP 메소드를 통해 나타낸다.</strong></p>
 
-<p>사실 전반적으로 아쉬운 부분이 많았던 2주였다.<br />
-제일 큰 문제는 내게 주어진 일정들을 우선순위를 매기지 않고 일정관리를 하지 못함이라고 생각했다.<br />
-이로 인해 부수적인 문제들이 생겼고.<br />
-그래도 이런 시행착오를 겪으면서 내가 앞으로 변해야할지 깨달을 수 있는 좋은 시간들이었다.<br />
-회고하면서 여러가지 중요성을 깨달을 수 있다는 것은 큰 깨달음이다.</p>
+<ul>
+  <li>URI는 정보의 자원을 표현해야 한다 : 리소스명은 동사보다 명사를 사용한다.</li>
+  <li>자원에 대한 행위는 HTTP 메소드로 표현한다.</li>
+</ul>
+
+<p><strong>URI 설계 시 주의 사항</strong></p>
+
+<ul>
+  <li>슬래시 (/)는 계층 관계를 나타내는 데 사용한다.</li>
+  <li>마지막 문자로 슬래시를 포함하지 않는다.</li>
+  <li>긴 URL 경로의 가독성을 높이기 위해서 하이픈(-)을 사용한다.</li>
+  <li>밑줄(_)은 URL에 사용하지 않는다.</li>
+  <li>URL은 소문자를 사용한다.</li>
+  <li>파일 확장자는 URI에 포함시키지 않는다.</li>
+</ul>
+
+<p><strong>리소스 간의 관계를 표현하는 방법</strong></p>
+
+<ul>
+  <li><code class="highlighter-rouge">/리소스명/리소스 ID/관계가 있는 다른 리소스명</code></li>
+  <li>관계명이 복잡할 경우 서브 리소스에 명시적으로 표현한다. ex) <code class="highlighter-rouge">GET : /users/{userid}/likes/devices</code></li>
+</ul>
+
+<p><strong>Colllection과 Document</strong></p>
+
+<ul>
+  <li><strong>Colllection</strong> : 문서들의 집합, 객체들의 집합. 복수로 사용한다.</li>
+  <li><strong>Document</strong> : 단순한 문서 혹은 한 객체</li>
+</ul>
 
 <hr />
 
-<h2 id="어떻게-달라질-것인가">어떻게 달라질 것인가</h2>
+<h2 id="http-응답-상태-코드">HTTP 응답 상태 코드</h2>
 
-<h3 id="미션에-대한-조급함을-버리기">미션에 대한 조급함을 버리기</h3>
+<p><strong>200</strong></p>
 
-<p>미션의 목적은 완성이 아니라 성장임을 다시한번 되새겨야겠다.<br />
-미션을 진행하면서 얻을 수 있는 성장을 제대로 누려보자.</p>
+<ul>
+  <li>200 : 클라이언트의 요청을 정상적으로 수행함</li>
+  <li>201 : 클라이언트가 어떠한 리소스 생성을 요청, 해당 리소스가 성공적으로 생성됨(POST를 통한 리소스 생성 작업 시)</li>
+</ul>
 
-<h3 id="우선-순위-설정">우선 순위 설정</h3>
-<p>내가 해야할 일 중 가장 중요한 일 순서대로 우선순위를 설정하고 차근 차근 해나가자.<br />
-‘다른 사람들이 지금 이걸 하니까’가 아니라 내게 중요한 순서대로 해나가자.</p>
+<p><strong>400</strong></p>
 
-<h3 id="선택과-집중">선택과 집중</h3>
+<ul>
+  <li>400 : 클라이언트의 요청이 부적절 할 경우 사용하는 응답 코드</li>
+  <li>401 : 클라이언트가 인증되지 않은 상태에서 보호된 리소스를 요청했을 때 사용하는 응답 코드</li>
+  <li>403 : 유저 인증상태와 관계 없이 응답하고 싶지 않은 리소스를 클라이언트가 요청했을 때 사용하는 응답 코드</li>
+  <li>404 : 서버가 요청한 페이지(Resource)를 찾을 수 없을 경우 사용하는 응답 코드</li>
+</ul>
 
-<p>우선 순위를 정한 후 그 일을 선택했다면 그 일에만 집중하자.</p>
+<p><strong>ect</strong></p>
 
-<h3 id="자기관리">자기관리</h3>
+<ul>
+  <li>301 : 클라이언트가 요청한 리소스에 대한 URI가 변경 되었을 때 사용하는 응답 코드</li>
+  <li>500 : 서버에 문제가 있을 경우 사용하는 응답 코드</li>
+</ul>
 
-<p>미션, 공부도 중요하지만 이 열정을 꾸준히 이어나갈 수 있는 것은 나를 계속해서 돌아보고<br />
-지치지 않도록 관리하는 것이다. 체력이나 멘탈이나 뭐든.<br />
-가끔은 쉬기도 하고 혼자만의 시간을 가지면서 힐링해야겠다.</p>
+<hr />
+
+<h3 id="참고">참고</h3>
+
+<p><a href="https://meetup.toast.com/posts/92">REST API 제대로 알고 사용하기 : NHN Cloud Meetup</a></p>
 
 
         </section>
@@ -288,15 +272,15 @@
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=💡 위클리 회고 7 주차&amp;url=http://localhost:4000%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📋 REST API에 대하여&amp;url=http://localhost:4000restapi"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000restapi"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000restapi"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -317,20 +301,13 @@
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%84%A4%EA%B3%84-%EA%B0%95%EC%9D%98-%EB%85%B8%ED%8A%B8">
-            <section class="post">
-                <h2>📝 객체지향 설계 강의 노트</h2>
-                <p>랜덤넘버는 구현체이니까 Number로 받자 이러면 모두가 움직이는데 ? ### 의존성 주입 DI 스프링 프레임 워크는...</p>
-            </section>
-        </a>
-    
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/%EC%97%98%EB%A0%88%EA%B0%95%ED%8A%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%BD%80%EA%B0%9C%EA%B8%B0-1-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/spring-core-lecture">
             <section class="post">
-                <h2>📝 엘레강트 오브젝트 뽀개기 1 강의 정리</h2>
-                <p>강의를 들으며 정리하기 ✍️ 엘레강트 오브젝트 문자열과 원시값을 포장해라 반환 값은 모두 일급 컬렉션 인자의...</p>
+                <h2>📋 Spring Core 막 적은 강의 노트</h2>
+                <p>객체의 의존 관리는 스프링이 한다. 스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다. ChessService에서 ChessDao...</p>
             </section>
         </a>
     

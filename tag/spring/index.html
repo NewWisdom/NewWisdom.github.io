@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>Author</title>
+    <title>Welcome To New Wisdom's Log !</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,31 +34,31 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//author/woowa/page5/" />
+        <link rel="canonical" href="http://localhost:4000//tag/spring/" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Author" />
+    <meta property="og:title" content="Welcome To New Wisdom's Log !" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//author/woowa/page5/" />
-    <meta property="og:image" content="/assets/images/cover4.jpg" />
+    <meta property="og:url" content="http://localhost:4000//tag/spring/" />
+    <meta property="og:image" content="/assets/images/cover2.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Author" />
+    <meta name="twitter:title" content="Welcome To New Wisdom's Log !" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//author/woowa/page5/" />
-    <meta name="twitter:image:src" content="/assets/images/cover4.jpg" />
+    <meta name="twitter:url" content="http://localhost:4000//tag/spring/" />
+    <meta name="twitter:image:src" content="/assets/images/cover2.jpg" />
 
     <script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "Author",
-    "url": "http://localhost:4000//author/woowa/page5/",
-    "image": "/assets/images/cover4.jpg",
+    "name": "Welcome To New Wisdom's Log !",
+    "url": "http://localhost:4000//tag/spring/",
+    "image": "/assets/images/cover2.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
     </script>
@@ -68,7 +68,7 @@
 
 
 </head>
-<body class="paged archive-template nav-closed">
+<body class="tag-template nav-closed">
 
     <!-- The blog navigation links -->
     <div class="nav">
@@ -79,7 +79,7 @@
     <ul>
         <li class="nav-home " role="presentation"><a href="/">Home</a></li>
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
-        <li class="nav-woowa  nav-current" role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
         <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
         <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
@@ -98,46 +98,44 @@
     <div class="site-wrapper">
 
         <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
-        <!-- < default}} -->
+        <!-- dynamically overriding backgrounds for tags as well as descriptions -->
+
+
+<!-- default -->
 <!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
 
-<!-- The big featured header -->
-
-<!-- Everything inside the #author tags pulls data from the author -->
-<!-- #author  -->
-    <header class="main-header author-head " style="background-image: url(/assets/images/cover4.jpg) ">
-        <nav class="main-nav overlay clearfix">
-            <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
-            
-                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
-            
-        </nav>
-    </header>
-
-    <section class="author-profile inner">
+<!-- If we have a tag cover, display that - else blog cover - else nothing -->
+<header class="main-header tag-head " style="background-image: url(/assets/images/cover2.jpg) ">
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
         
-            
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
-    </section>
-<!-- /author -->
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Spring</h1>
+            <h2 class="page-description">
+            
+			    A 1-post collection
+            
+            </h2>
+        </div>
+    </div>
+</header>
 
 <!-- The main content area on the homepage -->
 <main id="content" class="content" role="main">
 
-    <!-- The tag below includes the post loop - partials/loop.hbs  -->
+    <!-- The tag below includes the post loop - partials/loop.hbs -->
         <!-- Previous/next page links - only displayed on page 2+ -->
     <div class="extra-pagination inner">
         
             <nav class="pagination" role="pagination">
     
-        
-            <a class="newer-posts" href="/author/woowa/page4/" title="Previous Page">&laquo; Newer Posts</a>
-      
-    
-    <span class="page-number"> Page 5 of 5 </span>
-    
+    <span class="page-number"> Page 1 of 1 </span>
+     
 </nav>
-
         
     </div>
 
@@ -145,10 +143,10 @@
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/racingcar">🕹 Level 1. 자동차 경주 미션 코드 리뷰 정리</a></h2>
+            <h2 class="post-title"><a href="/spring-core-lecture">📋 Spring Core 막 적은 강의 노트</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>우테코 레벨 1 난생 처음으로 코드리뷰를 받게 되었다. 사실 TDD도 처음이고, 누군가 내 코드를 읽고 피드백 받는 것 또한 처음인데 이런 기회가 정말 감사하면서도 떨렸던 첫... <a class="read-more" href="/racingcar">&raquo;</a></p>
+            <p>객체의 의존 관리는 스프링이 한다. 스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다. ChessService에서 ChessDao 의존하기 변경에 취약하다 의존 관계를 개발자가 직접 관리하려면 복잡하다. 스프링 컨테이너가... <a class="read-more" href="/spring-core-lecture">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -166,42 +164,15 @@
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/spring'>Spring</a>
                     
                 
             
-            <time class="post-date" datetime="2021-02-15">15 Feb 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/precourse">🪐 프리코스 이후의 삶과 최종 합격</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>얼마만에 블로그 포스팅인지 🥲 우아한 테크코스 최종 합격 통보를 받게 되었으나, SOPT 앱잼으로 프로젝트가 시작되고 더불어 이사를 가면서 정리할 것들이 많아 정말 정신 없는 연말, 연초를... <a class="read-more" href="/precourse">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-01-17">17 Jan 2021</time>
+            <time class="post-date" datetime="2021-04-20">20 Apr 2021</time>
         </footer>
     </article>
     
@@ -210,14 +181,9 @@
     
         <nav class="pagination" role="pagination">
     
-        
-            <a class="newer-posts" href="/author/woowa/page4/" title="Previous Page">&laquo; Newer Posts</a>
-      
-    
-    <span class="page-number"> Page 5 of 5 </span>
-    
+    <span class="page-number"> Page 1 of 1 </span>
+     
 </nav>
-
     
 
 

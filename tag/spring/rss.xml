@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+   
+      <title>NewWisdom.github.io/</title>
+   
+   <link>http://localhost:4000</link>
+   <description>블로그 이사중... 아직 정리가 안되었음...</description>
+   <language>ko-KR</language>
+   <managingEditor> </managingEditor>
+   <atom:link href="rss" rel="self" type="application/rss+xml" />
+   
+	<item>
+	  <title>📋 Spring Core 막 적은 강의 노트</title>
+	  <link>//spring-core-lecture</link>
+	  <author></author>
+	  <pubDate>2021-04-20T19:18:00+09:00</pubDate>
+	  <guid>//spring-core-lecture</guid>
+	  <description><![CDATA[
+	     <p>객체의 의존 관리는 스프링이 한다.<br />
+스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다.</p>
+
+<h3 id="chessservice에서-chessdao-의존하기">ChessService에서 ChessDao 의존하기</h3>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420104423745.png" alt="image-20210420104423745" /></p>
+
+<p>변경에 취약하다</p>
+
+<p>의존 관계를 개발자가 직접 관리하려면 복잡하다.<br />
+스프링 컨테이너가 관리해준다.</p>
+
+<h3 id="컨테이너">컨테이너</h3>
+
+<p>담아놓는 용기<br />
+스프링에서는 스프링이 활용할 객체들을 담아놓은 용기를 말한다.</p>
+
+<h3 id="bean으로-등록하는-기준">Bean으로 등록하는 기준?</h3>
+
+<p>프로그램 별로 공통적으로 쓸 수 있는 대상 
+레이어에 대한 객체들을 재사용할 수 있는데 이들을 빈으로 관리한다.<br />
+상태가 없는 객체를 빈으로 등록한다.  -&gt; 빈으로 등록 하려면 상태가 없어야 한다.</p>
+
+<p>설정의 메타 데이터(Configuration Metadata)를 이용해 스프링 컨테이너에 담아놓는다.<br />
+컨테이너에 담으면 빈으로 등록된다.</p>
+
+<h3 id="스프링이-객체를-관리하게-하려면">스프링이 객체를 관리하게 하려면</h3>
+
+<ul>
+  <li>객체 관리 대상 알려주기</li>
+  <li>객체들 간의 의존성 정의하기</li>
+</ul>
+
+<h3 id="컨테이너-설정-방법---빈-등록-방법">컨테이너 설정 방법 - 빈 등록 방법</h3>
+
+<p>@ComponentScan : 등록할 빈을 스캔할 classpath를 지정 (@SpringBootApplication 내부에 속해있는 애너테이션)</p>
+
+<p>@Component : ComponentScan 클래스 하위에 특정 애너테이션이 붙은 클래스를 스프링 빈으로 지정</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420110038067.png" alt="image-20210420110038067" /></p>
+
+<h3 id="의존성-주입">의존성 주입</h3>
+
+<h4 id="생성자-주입without-스프링-컨테이너">생성자 주입(without 스프링 컨테이너)</h4>
+
+<h4 id="수정자-주입without-스프링-컨테이너">수정자 주입(without 스프링 컨테이너)</h4>
+
+<p>필드를 통해 주입할 수도 있다.<br />
+스프링에서는 XML, 어노테이션, 자바 클래스를 통해 의존성을 주입할 수 있다.</p>
+
+<p>@Autowired를 붙여준다. 생성자 매개변수의 값이 필요하구나를 알 수 있다.</p>
+
+<p>특정 컴포넌트 어노테이션을 붙인다고 해서 특정 의미가 부여되는 것은 아니고,</p>
+
+<p>Repository는 도메인 객체의 생명주기를 관리하며 Public Operation을 제공합니다. 이에 Domain Layer에 해당합니다. 도메인 모델과 생애주기가 같기 때문이죠. 
+실제 구현체인 SimpleJpaRepository는 Infrastructure Layer에 해당합니다. 
+이렇게 추상에 의존하고 구체에 의존하지 않도록 구성함으로써(DIP) 유연성있는 시스템을 구성할 수 있습니다.
+반면, DAO는 CRUD와 1:1로 매칭되어 Persistence Operation을 적극적으로 드러냅니다.
+즉, repository는 도메인 모델의 일부로 보며 추상인 반면, dao는 추상이 필수는 아니라고 생각합니다.</p>
+
+<blockquote>
+  <p>http://egloos.zum.com/aeternum/v/1160846</p>
+</blockquote>
+
+<blockquote>
+  <p>https://stackoverflow.com/questions/8550124/what-is-the-difference-between-dao-and-repository-patterns</p>
+</blockquote>
+
+<p>빈은 기본적으로 싱글턴 스코프</p>
+
+<p>컨테이너는 개념적인 것 컨텍스트는 객체의 일원</p>
+
+<p>갠적으로 어노테이션은 막붙이기 좋고(빠르게 개발하기)
+xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈에 들어와서 좋았습니다.</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420114253606.png" alt="image-20210420114253606" /></p>
+
+<h3 id="서비스-레이어는-어떤-역할을-할까요">서비스 레이어는 어떤 역할을 할까요?</h3>
+
+<p>도메인 로직들의 순서를 보장하면서, 서비스 트랜잭션 관리를 한다.<br />
+객체들의 비지니스 플로우를 관리해준다.<br />
+비지니스 로직은 도메인으로!</p>
+
+<h3 id="pojo">Pojo</h3>
+
+<p>스프링에서 스프링 빈으로 관리하고 싶은 객체<br />
+스프링 설정이 가해지기 전 상태의 객체를 POJO라고 한다.</p>
+
+<p>포조는 순수한 자바 객체를 의미</p>
+
+<p>Java Bean :</p>
+
+<p>자바빈은 포조라고 할 수 있지만 포조는 자바빈이라고 하긴 애매하다.</p>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420120440979.png" alt="image-20210420120440979" /></p>
+
+<p>뷰 컨트롤러를 분리했다고 보면 됨 그런 차원에서 의미가 있따.</p>
+
+<p>맞아유 config가 코드 양이 좀 더 짧은 거 같아서 더 좋은 거 같아여! 어차피 configuration은 대부분 만들어 놓으니 다른 클래스 안만들어도 되구!</p>
+
+
+	  ]]></description>
+	</item>
+
+
+</channel>
+</rss>

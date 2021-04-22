@@ -12,6 +12,192 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📋 @componentscan과 빈 주입 방법</title>
+	  <link>//responsebody</link>
+	  <author></author>
+	  <pubDate>2021-04-20T19:18:00+09:00</pubDate>
+	  <guid>//responsebody</guid>
+	  <description><![CDATA[
+	     <h2 id="componentscan">@Componentscan</h2>
+
+<p>현재 패키지 이하에서 <code class="highlighter-rouge">@Component</code> 이 부여된 클래스들을 자동으로 Scan하여 Bean으로 등록해주는 어노테이션.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f2944a55-db65-4eb2-b103-3105b120bbb9/image.png" style="zoom:67%;" /></p>
+
+<p><code class="highlighter-rouge">@SpringBootApplication</code>에 포함되어 애플리케이션을 실행하면 <code class="highlighter-rouge">@Component</code>들을 스캔한다.</p>
+
+<p>참고로 우리가 자주 사용하는 <code class="highlighter-rouge">@Service, @Repository, @Controller</code>들도 내부에 <code class="highlighter-rouge">@Component</code>를 가지고 있다.</p>
+
+<hr />
+
+<h2 id="스프링의-di-방법">스프링의 DI 방법</h2>
+
+<h3 id="di">DI</h3>
+
+<h4 id="강한-결합">강한 결합</h4>
+
+<p>객체 내부에서 다른 객체를 생성할 경우, 강한 결합도를 가지고 있다고 말한다.<br />
+A 클래스에서 B라는 객체를 직접 생성하다가, B 객체를 C 객체로 바꾸고 싶을 때 A 클래스도 수정해야하기 때문이다.</p>
+
+<h4 id="느슨한-결합">느슨한 결합</h4>
+
+<p>외부에서 생성된 객체를 인터페이스를 통해 넘겨받아 결합도를 낮춘 것을 느슨한 결합이라고 한다.<br />
+런타임시에 의존 관계가 결정되기 때문에 유연한 구조를 가진다.</p>
+
+<h3 id="1-생성자-주입constructor-injection">1. 생성자 주입(Constructor Injection)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StationConstructorService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">StationRepository</span> <span class="n">stationRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">StationConstructorService</span><span class="o">(</span><span class="n">StationRepository</span> <span class="n">stationRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">stationRepository</span> <span class="o">=</span> <span class="n">stationRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">stationRepository</span><span class="o">.</span><span class="na">sayHi</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>스프링 4.3 부터는 단일 생성자인 경우 생성자에 <code class="highlighter-rouge">@Authowired</code>를 붙이지 않아도 된다.</p>
+
+<h3 id="2-필드-주입field-injection">2. 필드 주입(Field Injection)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StationFieldService</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">StationRepository</span> <span class="n">stationRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">stationRepository</span><span class="o">.</span><span class="na">sayHi</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>필드에 <code class="highlighter-rouge">@Autowired</code> 어노테이션을 붙여준다.</p>
+
+<h3 id="3-수정자-주입setter-injection">3. 수정자 주입(Setter Injection)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StationSetterService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">StationRepository</span> <span class="n">stationRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">stationRepository</span><span class="o">.</span><span class="na">sayHi</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStationRepository</span><span class="o">(</span><span class="n">StationRepository</span> <span class="n">stationRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">stationRepository</span> <span class="o">=</span> <span class="n">stationRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>setter에 <code class="highlighter-rouge">@Autowired</code> 어노테이션을 붙여준다.</p>
+
+<h3 id="필드-주입대신-생성자-주입을-권고하는-이유">필드 주입대신 생성자 주입을 권고하는 이유</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/c301577d-d47d-4254-ae0c-0419ce315106/image.png" style="zoom:67%;" /></p>
+
+<p>인텔리제이에서 필드 주입을 사용할 경우 생성자 주입으로 변경할 것을 권고한다.<br />
+그 이유는 무엇일까?</p>
+
+<h4 id="순환-참조를-방지할-수-있다">순환 참조를 방지할 수 있다.</h4>
+
+<p>극단적인 예로 객체 A가 객체 B를 참조하고, 다시 객체 B가 객체 A를 참조한다고 하자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GameService</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">ChessService</span> <span class="n">chessService</span><span class="o">;</span>
+
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChessService</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">GameService</span> <span class="n">gameervice</span><span class="o">;</span>
+
+		<span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>필드 주입과 생성자 주입은 빈을 주입하는 순서에 차이가 있다.</p>
+
+<p><strong>필드 주입</strong>은 빈을 생성 후 어노테이션이 붙은 필드에 해당하는 빈을 찾아서 주입한다.<br />
+빈 생성이 먼저 일어나고, 필드에 대한 주입을 수행하는 것이다.</p>
+
+<p><strong>생성자 주입</strong>은 생성자로 객체를 생성하는 시점에 필요한 빈을 주입한다.<br />
+먼저 빈을 생성하지 않고, 생성자의 인자에 사용되는 빈을 찾거나 빈 팩터리에서 만드는 순서이다.</p>
+
+<p>때문에 객체 생성 시점에 빈을 주입하는 생성자 주입은 순환 참조에 대한 오류를 겪을 수 있다.<br />
+순환된 참조 관계를 가지는 객체들이 생성되지 않은 시점에서 빈을 참조하기 때문이다.</p>
+
+<p>하지만 객체의 순환 참조가 일어난다는 것은 애초에 잘못된 설계라고 할 수 있다.<br />
+때문에 <strong>오히려 생성자 주입을 사용하여 순환 참조가 되는 설계를 막아야 한다.</strong></p>
+
+<h3 id="immutable">Immutable</h3>
+
+<p>필드 주입과 수정자 주입은 해당 필드를 <code class="highlighter-rouge">final</code>로 선언할 수 없다.<br />
+즉 가변 객체로만 사용이 가능한 것이다.</p>
+
+<p>하지만 생성자 주입은 필드를 <code class="highlighter-rouge">final</code>로 선언할 수 있다.<br />
+이로 인해 가변 객체로 인해 발생할 수 있는 오류를 사전에 막는다.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📋 Spring에서 request 처리 과정</title>
+	  <link>//request</link>
+	  <author></author>
+	  <pubDate>2021-04-20T19:18:00+09:00</pubDate>
+	  <guid>//request</guid>
+	  <description><![CDATA[
+	     <h2 id="spring에서-request-처리-과정">Spring에서 request 처리 과정</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a2caaa9e-bde3-4b10-9e44-8a5a8629c200/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li><strong>DispatcherServlet</strong> : 클라이언트의 요청을 전달 받아 요청에 맞는 컨트롤러가 반환한 결과값을 View에 전달하여 알맞은 응답 생성</li>
+  <li><strong>HandlerMapping</strong> : 클라이언트의 요청 URL을 어떤 컨트롤러가 처리할지 결정</li>
+  <li><strong>Controller</strong> : 클라이언트의 요청을 처리한 뒤, 결과를 DispatcherServlet에 반환</li>
+  <li><strong>ModelAndView</strong> : 컨트롤러가 처리한 결과 정보 및 뷰 선택에 필요한 정보를 담음</li>
+  <li><strong>ViewResolver</strong> : 컨트롤러의 처리 결과를 생성할 뷰를 결정</li>
+  <li><strong>View</strong> : 컨트롤러의 처리 결과 화면을 생성, JSP 또는 템플릿 엔진을 뷰로 사용</li>
+</ul>
+
+<ol>
+  <li>클라이언트가 서버에 요청을 하면 <strong>DispatcherServlet</strong>이 요청을 가로챈다.</li>
+  <li>요청을 가로챈 <strong>DispatcherServlet</strong>은 HandlerMapping에게 어떤 컨트롤러에게 요청을 위임하면 좋을지 물어본다. <br />
+(HandlerMapping은 <code class="highlighter-rouge">@Controller</code>로 등록한 것들을 스캔해서 찾아 놓았다.)</li>
+  <li>요청에 매핑된 <strong>Controller</strong>가 있다면 @RequestMapping을 통하여 요청을 처리할 메서드에 도달한다.  <br />
+(이는 HandlerAdapter가 책임진다.)</li>
+  <li><strong>Controller</strong>에서는 해당 요청을 처리할 Service에게 비즈니스 로직을 위임한다.</li>
+  <li><strong>Service</strong>에서는 DB 접근이 필요할 경우 DB 처리를 DAO에게 위임한다.</li>
+  <li><strong>DAO</strong>는 데이터 정보를 받아 Service에게 돌려준다.<br />
+(결과로 받은 Entity 객체를 가지고 Response에 필요한 <strong>DTO</strong> 객체로 변환한다.)</li>
+  <li>모든 비즈니스 로직을 끝낸 <strong>Service</strong>가 결과물을 <strong>Controller</strong>에 넘긴다.</li>
+  <li>결과물을 받은 <strong>Controller</strong>는 필요에 따라 Model 객체에 결과물을 넣거나, View 정보를 담아 <strong>DispatcherServlet</strong>에게 보낸다.</li>
+  <li><strong>DispatcherServlet</strong>은 <strong>ViewResolver</strong>에게 받은 뷰에 대한 정보를 넘긴다.</li>
+  <li><strong>ViewResolver</strong>는 해당 View를 찾아 <strong>DispatcherServlet</strong>에게 알려준다.<br />
+(serffix, prefix를 붙여주는 것도 ViewResolver에서 수행한다.)</li>
+  <li><strong>DispatcherServlet</strong>은 응답할 View에게 Render를 지시하고 <strong>View</strong>는 응답 로직을 처리한다.</li>
+  <li><strong>DispatcherServlet</strong>이 클라이언트에게 렌더링된 View를 응답한다.</li>
+</ol>
+
+<hr />
+
+<h3 id="참고">참고</h3>
+
+<p><a href="https://jeong-pro.tistory.com/96">Spring MVC 구조의 처리 과정을 설명해보시오. (MVC process)</a></p>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📋 통합 테스트 VS 단위 테스트</title>
 	  <link>//unit-test-vs</link>
 	  <author></author>
@@ -277,306 +463,6 @@ MockMvc는 브라우저에서 요청과 응답을 의미하는 객체로서 Cont
 <ul>
   <li><a href="https://goddaehee.tistory.com/212?category=367461">[스프링부트 (10)] SpringBoot Test(3) - 단위 테스트(@WebMvcTest, @DataJpaTest, @RestClientTest 등)</a></li>
 </ul>
-
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📖 테스트로 배우는 스프링</title>
-	  <link>//til1</link>
-	  <author></author>
-	  <pubDate>2021-04-13T19:18:00+09:00</pubDate>
-	  <guid>//til1</guid>
-	  <description><![CDATA[
-	     <h4 id="스프링을-왜-배울까-">스프링을 왜 배울까 ?</h4>
-
-<p>잘 동작하는 웹 애플리케이션을 만들기 위해</p>
-
-<h4 id="웹-애플리케이션이란-">웹 애플리케이션이란 ?</h4>
-
-<p>웹 기반으로 동작하는 애플리케이션 -&gt; 웹 기능이 필요하다.<br />
-웹을 활용하려면 네트워크가 필요하다 근데 직접 구현하려면 너무 방대해진다.<br />
-그래서 프레임 워크를 활용해야한다.</p>
-
-<h4 id="프레임워크-">프레임워크 ?</h4>
-
-<p>구현해놓고 재사용한다.<br />
-프레임워크가 있으면 비즈니스 로직만 구현하면 서비스가 만들어진다.</p>
-
-<hr />
-
-<h2 id="테스트로-배우는-스프링">테스트로 배우는 스프링</h2>
-
-<p>왜 테스트로 스프링을 배울까. <br />
-테스트는 기능을 익히기 위한 수단이다.</p>
-
-<h2 id="1-초간단-스프링-프로젝트">1. 초간단 스프링 프로젝트</h2>
-
-<h3 id="resourcesschemasql">resources/schema.sql</h3>
-
-<p>Spring의 기본 값으로 ClassPath 루트에 <strong>schema.sql, data,sql</strong>이 있다면 서버 시작 시 실행될 SQL 문을 미리 정의할 수 있다.</p>
-
-<ul>
-  <li><strong>schema.sql</strong> : DDL</li>
-  <li><strong>data.sql</strong> : DML</li>
-</ul>
-
-<p>개발 단계에서는 in-memory-db인 h2를 기본으로 사용하므로, 굳이 물리적인 DB를 연결하지 않아도 DB 작업이 가능하다.</p>
-
-<h3 id="restcontroller">@RestController</h3>
-
-<p><strong>@Controller와 @ResponseBody</strong>를 합쳐 놓은 어노테이션이다.<br />
-메소드마다 @ResponseBody를 붙여주지 않아도 된다.</p>
-
-<h4 id="controller와의-차이">@Controller와의 차이?</h4>
-
-<p>@Controller는 주로 View를 반환하기 위해 사용한다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client가 요청을 보냄 
--&gt; DispatcherServlet과 Handler Mapping이 요청을 인터셉트 
--&gt; Controller에 의해 요청을 처리하고, DispatcherServlet이 Model과 View를 적절히 Client에 반환
-</code></pre></div></div>
-
-<p>View를 반환하기 위해서는 ViewResolver가 사용되며, ViewResolver 설정에 맞게 View를 찾아 렌더링한다.<br />
-여기서, <strong>@ResponseBody</strong> 를 사용할 경우 자바 객체를 HTTP 응답의 Body의 내용(Json)으로 매핑을 한다. <br />
-이럴경우 ViewResolver 대신 HttpMessageConverter가 동작한다.<br />
-HttpMessageConverter에는 여러 Converter가 등록되어 있는데, 반환 타입에 따라 사용되는 Converter가 달라진다.</p>
-
-<h4 id="restcontroller는">@RestController는…</h4>
-
-<p>@RestController는 REST 요청에 대한 응답을 줄 때 사용하며, Json 형태로 객체 데이터를 반환한다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client가 요청을 보냄 
--&gt; DispatcherServlet과 Handler Mapping이 요청을 인터셉트 
--&gt; RestController에 의해 요청을 처리하고, 데이터 반환
-</code></pre></div></div>
-
-<h3 id="repository">@Repository</h3>
-
-<p>퍼시스턴스 레이어, 영속성을 가지는 속성.<br />
-DB나 파일같은 외부 I/O 작업을 처리한다.
-@Repository, @Service, @Controller는 특정한 기능에 대한 @Component의 구체화된 형태이다.</p>
-
-<hr />
-
-<h2 id="2-spring-mvc">2. Spring MVC</h2>
-
-<h3 id="request-mapping">Request Mapping</h3>
-
-<p>URL, HTTP method, request parameters, headers, media types에 대한 맵핑을 할 수 있다.</p>
-
-<ul>
-  <li><code class="highlighter-rouge">@GetMapping</code></li>
-  <li><code class="highlighter-rouge">@PostMapping</code></li>
-  <li><code class="highlighter-rouge">@PutMapping</code></li>
-  <li><code class="highlighter-rouge">@DeleteMapping</code></li>
-  <li><code class="highlighter-rouge">@PatchMapping</code></li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/http-method/users"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span> <span class="nf">showUser</span><span class="o">()</span> <span class="o">{</span>
-  <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">),</span>
-    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">)</span>
-  <span class="o">);</span>
-  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="uri-patterns">URI patterns</h3>
-
-<ul>
-  <li><code class="highlighter-rouge">"/resources/ima?e.png"</code> -path 세그먼트에서 한 문자 일치</li>
-  <li><code class="highlighter-rouge">"/resources/*.png"</code> -path 세그먼트에서 0 개 이상의 문자와 일치</li>
-  <li><code class="highlighter-rouge">"/resources/**"</code> -여러 path 세그먼트 일치</li>
-  <li><code class="highlighter-rouge">"/projects/{project}/versions"</code> -path 세그먼트를 일치시키고 변수로 캡처</li>
-  <li><code class="highlighter-rouge">"/projects/{project:[a-z]+}/versions"</code> -정규식과 일치하고 변수를 캡처</li>
-</ul>
-
-<h3 id="producible-media-types">Producible Media Types</h3>
-
-<p>수신 하고자하는 데이터 포맷을 정의.  <br />
-요청에 ‘Accept’ Header가 produces에 명시한 MediaType과 일치해야 요청이 매칭된다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/users"</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span> <span class="nf">showUser</span><span class="o">()</span> <span class="o">{</span>
-  <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">),</span>
-    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">)</span>
-  <span class="o">);</span>
-  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="consumable-media-types">Consumable Media Types</h3>
-
-<p>출력하고자 하는 데이터 포맷을 정의.   <br />
-Content-Type 요청 헤더가 consumes에 명시한 MediaType과 일치해야 요청이 매칭된다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/users"</span><span class="o">,</span> <span class="n">consumes</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span> 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addUser</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">// ...</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="parameters-headers">Parameters, headers</h3>
-
-<p>요청 매핑의 범위를 좁힌다.</p>
-
-<p><strong>특정 param</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/message"</span><span class="o">,</span> <span class="n">params</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">messageForParam</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>Header 조건</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/message"</span><span class="o">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="s">"HEADER=hi"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">messageForHeader</span><span class="o">()</span> <span class="o">{</span>
-  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"hi"</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="method-arguments">Method Arguments</h3>
-
-<p>컨트롤러의 메서드 인수.</p>
-
-<p><strong>@RequestParam</strong></p>
-
-<p>http://127.0.0.1/users?name=amazzi 와 같은 요청 처리.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span> <span class="nf">requestParam</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">)</span> <span class="n">String</span> <span class="n">userName</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="n">userName</span><span class="o">,</span> <span class="s">"email"</span><span class="o">),</span>
-    <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="n">userName</span><span class="o">,</span> <span class="s">"email"</span><span class="o">)</span>
-  <span class="o">);</span>
-  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><code class="highlighter-rouge">value</code> 옵션을 주어 파라미터 명이 name인 것을 userName에 할당.</p>
-
-<p><strong>@PathVariable</strong></p>
-
-<p>http://127.0.0.1/users/1 와 같은 요청 처리.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{id}"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">pathVariable</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="s">"이름"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>@RequestParam</strong>, <strong>@PathVariable</strong> 이 둘을 복합적으로 사용하기도 한다.</p>
-
-<p><strong>@RequestBody</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/users/body"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span> <span class="nf">requestBody</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">User</span> <span class="n">newUser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="mi">1L</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">());</span>
-  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="n">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"/users/"</span> <span class="o">+</span> <span class="n">newUser</span><span class="o">.</span><span class="na">getId</span><span class="o">())).</span><span class="na">body</span><span class="o">(</span><span class="n">newUser</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><code class="highlighter-rouge">HttpMessageConverter</code>구현 을 사용하여 선언 된 메서드 인수 형식으로 변환.</p>
-
-<h3 id="return-values">Return Values</h3>
-
-<h4 id="string">String</h4>
-
-<p>Spring + View template을 사용할 때 흔히 사용하는 타입.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">String</span> <span class="nf">users</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"data"</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
-    <span class="k">return</span> <span class="s">"/users/data"</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>모델에 데이터를 Map으로 담고 반환 타입을 String으로 뷰 이름을 지정하면 뷰로 데이터가 전송된다.</p>
-
-<h4 id="void">void</h4>
-
-<p>스프링에서는 뷰 이름을 지정해주지 않아도 URL을 보고 자동으로 뷰 네임을 지정해주기도 한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/user/address"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">void</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="responsebody">@ResponseBody</h4>
-
-<p>Json 형태로 데이터를 반환한다.<br />
-객체를 반환타입으로 지정할 경우 클라이언트는 객체의 Json 형태의 데이터를 받는다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/message"</span><span class="o">)</span>
-<span class="nd">@ResponseBody</span>
-<span class="kd">public</span> <span class="n">String</span> <span class="nf">string</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="s">"message"</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
-<span class="nd">@ResponseBody</span>
-<span class="kd">public</span> <span class="n">User</span> <span class="nf">responseBodyForUser</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{id}"</span><span class="o">)</span>
-<span class="nd">@ResponseBody</span>
-<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">responseEntity</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"email"</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>전체 응답 (HTTP 헤더 및 본문 포함)을 지정하는 반환 값은 <code class="highlighter-rouge">HttpMessageConverter</code>구현을 통해 변환.</p>
-
-<h3 id="exceptions">Exceptions</h3>
-
-<p><strong>@Controller</strong>및 <strong>@ControllerAdvice</strong> 를 가진 클래스는 컨트롤러 메서드의 예외를 처리하는 메서드를 가질 수 있다 .</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/exceptions"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionsController</span> <span class="o">{</span>
-
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/hello"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span> <span class="nf">exceptionHandler</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nf">CustomException</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/hi"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span> <span class="nf">exceptionHandler2</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nf">HelloException</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">CustomException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">handle</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"CustomException"</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>클래스 내 정의한 <strong>@ExceptionHandler</strong>는 해당 컨트롤러에서만 사용이 가능하다.<br />
-<strong>전역적인 예외 처리</strong>는 아래와 같이 클래스를 하나 만들고 <strong>@ControllerAdvice</strong> 를 선언한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ControllerAdvice</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloAdvice</span> <span class="o">{</span>
-    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">HelloException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">handle</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="s">"HelloException"</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="참고자료">참고자료</h3>
-
-<p><a href="https://ooeunz.tistory.com/101">[Spring] Spring MVC: Controller return 타입</a></p>
 
 
 	  ]]></description>

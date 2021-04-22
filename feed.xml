@@ -8,16 +8,62 @@
     
       
       <item>
-        <title>체스피드백</title>
+        <title>📋 REST API에 대하여</title>
         
-          <description>&lt;h2 id=&quot;controlleradvice--restcontrolleradvice&quot;&gt;@ControllerAdvice / @RestControllerAdvice&lt;/h2&gt;
+          <description>&lt;h2 id=&quot;rest-api-구성&quot;&gt;REST API 구성&lt;/h2&gt;
 
 </description>
         
-        <pubDate>Mon, 19 Apr 2021 00:00:00 +0900</pubDate>
+        <pubDate>Wed, 21 Apr 2021 19:18:00 +0900</pubDate>
         <link>
-        http://localhost:4000/%E1%84%8E%E1%85%A6%E1%84%89%E1%85%B3%E1%84%91%E1%85%B5%E1%84%83%E1%85%B3%E1%84%87%E1%85%A2%E1%86%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/%E1%84%8E%E1%85%A6%E1%84%89%E1%85%B3%E1%84%91%E1%85%B5%E1%84%83%E1%85%B3%E1%84%87%E1%85%A2%E1%86%A8</guid>
+        http://localhost:4000/restapi</link>
+        <guid isPermaLink="true">http://localhost:4000/restapi</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Spring Core 막 적은 강의 노트</title>
+        
+          <description>&lt;p&gt;객체의 의존 관리는 스프링이 한다.&lt;br /&gt;
+스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 20 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-core-lecture</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-core-lecture</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 @componentscan과 빈 주입 방법</title>
+        
+          <description>&lt;h2 id=&quot;componentscan&quot;&gt;@Componentscan&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Tue, 20 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/responsebody</link>
+        <guid isPermaLink="true">http://localhost:4000/responsebody</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Spring에서 request 처리 과정</title>
+        
+          <description>&lt;h2 id=&quot;spring에서-request-처리-과정&quot;&gt;Spring에서 request 처리 과정&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Tue, 20 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/request</link>
+        <guid isPermaLink="true">http://localhost:4000/request</guid>
       </item>
       
     
@@ -40,22 +86,6 @@
       <item>
         <title>📋 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술 강의 노트</title>
         
-          <description>&lt;p&gt;객체의 의존 관리는 스프링이 한다.&lt;br /&gt;
-스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Fri, 16 Apr 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/spring-core-lecture</link>
-        <guid isPermaLink="true">http://localhost:4000/spring-core-lecture</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📋 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술 강의 노트</title>
-        
           <description>&lt;h2 id=&quot;3-회원-관리-예제---백엔드-개발&quot;&gt;3. 회원 관리 예제 - 백엔드 개발&lt;/h2&gt;
 
 </description>
@@ -64,20 +94,6 @@
         <link>
         http://localhost:4000/spring3</link>
         <guid isPermaLink="true">http://localhost:4000/spring3</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Weekly1</title>
-        
-          <description>
-</description>
-        
-        <pubDate>Fri, 16 Apr 2021 00:00:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/weekly1</link>
-        <guid isPermaLink="true">http://localhost:4000/weekly1</guid>
       </item>
       
     
@@ -123,36 +139,6 @@
         <link>
         http://localhost:4000/webbasic13</link>
         <guid isPermaLink="true">http://localhost:4000/webbasic13</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📖 테스트로 배우는 스프링</title>
-        
-          <description>&lt;h4 id=&quot;스프링을-왜-배울까-&quot;&gt;스프링을 왜 배울까 ?&lt;/h4&gt;
-
-</description>
-        
-        <pubDate>Tue, 13 Apr 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/til1</link>
-        <guid isPermaLink="true">http://localhost:4000/til1</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>💡 Level 1를 돌아봅니다</title>
-        
-          <description>&lt;p&gt;일단 raw하게 적어보는 Level 1 회고 🙃&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Mon, 12 Apr 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/level1</link>
-        <guid isPermaLink="true">http://localhost:4000/level1</guid>
       </item>
       
     
@@ -219,21 +205,6 @@
     
       
       <item>
-        <title>💡 위클리 회고 7 주차</title>
-        
-          <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
-
-</description>
-        
-        <pubDate>Sun, 21 Mar 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-7-%EC%A3%BC%EC%B0%A8</guid>
-      </item>
-      
-    
-      
-      <item>
         <title>📝 엘레강트 오브젝트 뽀개기 1 강의 정리</title>
         
           <description>&lt;p&gt;강의를 들으며 정리하기 ✍️&lt;/p&gt;
@@ -289,21 +260,6 @@
         <link>
         http://localhost:4000/Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</link>
         <guid isPermaLink="true">http://localhost:4000/Level-1.-%EB%B8%94%EB%9E%99%EC%9E%AD-%EB%AF%B8%EC%85%98-%EC%BD%94%EB%93%9C-%EB%A6%AC%EB%B7%B0-%EC%A0%95%EB%A6%AC</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>💡 위클리 회고 5, 6 주차</title>
-        
-          <description>&lt;h2 id=&quot;무슨일이-있었나&quot;&gt;무슨일이 있었나?&lt;/h2&gt;
-
-</description>
-        
-        <pubDate>Sat, 06 Mar 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</link>
-        <guid isPermaLink="true">http://localhost:4000/%EC%9C%84%ED%81%B4%EB%A6%AC-%ED%9A%8C%EA%B3%A0-5,-6-%EC%A3%BC%EC%B0%A8</guid>
       </item>
       
     
@@ -389,25 +345,6 @@
     
       
       <item>
-        <title>💡 위클리 회고 4 주차</title>
-        
-          <description>&lt;p&gt;약간 의식의 흐름대로😛 작성하는 이번주 회고 🌼&lt;/p&gt;
-&lt;h3 id=&quot;리팩토링&quot;&gt;리팩토링&lt;/h3&gt;
-&lt;p&gt;1차 미션이 머지되고 2차 미션을 위한 리팩토링을 거치는 중이었는데,&lt;br /&gt;
-화요일 강의에서 Exception에 대해 배우면서,&lt;br /&gt;
-LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 28 Feb 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/weekly4</link>
-        <guid isPermaLink="true">http://localhost:4000/weekly4</guid>
-      </item>
-      
-    
-      
-      <item>
         <title>📖 Stream 부수기</title>
         
           <description>&lt;p&gt;코드를 짜다보면 가독성과 간결함을 위해 stream을 자주 쓰게 된다.&lt;br /&gt;
@@ -436,23 +373,6 @@ LottoNumber에 대한 캐시 적용을 도전해보라고 하셨다.&lt;/p&gt;
         <link>
         http://localhost:4000/exception</link>
         <guid isPermaLink="true">http://localhost:4000/exception</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>💡 위클리 회고 3 주차</title>
-        
-          <description>&lt;p&gt;이제 매주마다 회고를 간략하게라도 작성하려 한다.&lt;br /&gt;
-막상 주 단위로 회고를 작성하려니 이번주 뭔가 많은 걸 느꼈다고 생각하고&lt;br /&gt;
-한 주를 돌아보며 몰아서 적으려 하니 어떤 걸 적으려 했는지 잘 기억이 안나는 것 같다 🥲&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 21 Feb 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/weekly3</link>
-        <guid isPermaLink="true">http://localhost:4000/weekly3</guid>
       </item>
       
     
