@@ -39,9 +39,9 @@
     
       
       <item>
-        <title>📋 @componentscan과 빈 주입 방법</title>
+        <title>📋 스프링의 DI 방법 (생성자 주입 VS 필드 주입)</title>
         
-          <description>&lt;h2 id=&quot;componentscan&quot;&gt;@Componentscan&lt;/h2&gt;
+          <description>&lt;h2 id=&quot;스프링의-di-방법&quot;&gt;스프링의 DI 방법&lt;/h2&gt;
 
 </description>
         

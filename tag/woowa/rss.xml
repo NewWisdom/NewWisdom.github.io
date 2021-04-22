@@ -243,25 +243,13 @@ xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈�
 	</item>
 
 	<item>
-	  <title>📋 @componentscan과 빈 주입 방법</title>
+	  <title>📋 스프링의 DI 방법 (생성자 주입 VS 필드 주입)</title>
 	  <link>//responsebody</link>
 	  <author></author>
 	  <pubDate>2021-04-20T19:18:00+09:00</pubDate>
 	  <guid>//responsebody</guid>
 	  <description><![CDATA[
-	     <h2 id="componentscan">@Componentscan</h2>
-
-<p>현재 패키지 이하에서 <code class="highlighter-rouge">@Component</code> 이 부여된 클래스들을 자동으로 Scan하여 Bean으로 등록해주는 어노테이션.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/f2944a55-db65-4eb2-b103-3105b120bbb9/image.png" style="zoom:67%;" /></p>
-
-<p><code class="highlighter-rouge">@SpringBootApplication</code>에 포함되어 애플리케이션을 실행하면 <code class="highlighter-rouge">@Component</code>들을 스캔한다.</p>
-
-<p>참고로 우리가 자주 사용하는 <code class="highlighter-rouge">@Service, @Repository, @Controller</code>들도 내부에 <code class="highlighter-rouge">@Component</code>를 가지고 있다.</p>
-
-<hr />
-
-<h2 id="스프링의-di-방법">스프링의 DI 방법</h2>
+	     <h2 id="스프링의-di-방법">스프링의 DI 방법</h2>
 
 <h3 id="di">DI</h3>
 
