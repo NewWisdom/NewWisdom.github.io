@@ -94,7 +94,7 @@ A 클래스에서 B라는 객체를 직접 생성하다가, B 객체를 C 객체
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>setter에 <code class="highlighter-rouge">@Autowired</code> 어노테이션을 붙여준다.</p>
+<p>setter를 통해 의존성을 주입하는 방법으로 setter에 <code class="highlighter-rouge">@Autowired</code> 어노테이션을 붙여준다.</p>
 
 <h3 id="필드-주입대신-생성자-주입을-권고하는-이유">필드 주입대신 생성자 주입을 권고하는 이유</h3>
 
@@ -107,24 +107,87 @@ A 클래스에서 B라는 객체를 직접 생성하다가, B 객체를 C 객체
 
 <p>극단적인 예로 객체 A가 객체 B를 참조하고, 다시 객체 B가 객체 A를 참조한다고 하자.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GameService</span> <span class="o">{</span>
-    <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">ChessService</span> <span class="n">chessService</span><span class="o">;</span>
+<p>먼저 <strong>필드 주입</strong>의 경우 순환 참조에서 어떤 문제를 일으키는지 보겠다.</p>
 
-    <span class="c1">// ...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FunctionalInterface</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GameService</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">gameMethod</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChessService</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GameServiceImpl</span> <span class="kd">implements</span> <span class="n">GameService</span> <span class="o">{</span>
     <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">GameService</span> <span class="n">gameervice</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">PieceService</span> <span class="n">pieceService</span><span class="o">;</span>
 
-		<span class="c1">// ...</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">gameMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">pieceService</span><span class="o">.</span><span class="na">pieceMethod</span><span class="o">();</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>필드 주입과 생성자 주입은 빈을 주입하는 순서에 차이가 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FunctionalInterface</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PieceService</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">pieceMethod</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PieceServiceImpl</span> <span class="kd">implements</span> <span class="n">PieceService</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">GameServiceImpl</span> <span class="n">gameServiceImpl</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pieceMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">gameServiceImpl</span><span class="o">.</span><span class="na">gameMethod</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><strong>테스트</strong></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4bd9b5b9-a0a7-44e7-9931-3b9acebede2d/image.png" style="zoom:67%;" /></p>
+
+<p>위와 같이 간단한 테스를 해보았을 때, 애플리케이션 구동은 잘 되지만 서로의 메소드를 계속해서 호출하고 있기 때문에 <code class="highlighter-rouge">StackOverflowError</code> 가 발생한다.<br />
+어쨌든 순환 참조가 일어났음에도 스프링 컨테이너가 동작하는 애플리케이션 자체는 문제없이 구동된다.</p>
+
+<p>그렇다면 생성자 주입의 경우는 어떠할까?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GameServiceImpl</span> <span class="kd">implements</span> <span class="n">GameService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">PieceServiceImpl</span> <span class="n">pieceService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">GameServiceImpl</span><span class="o">(</span><span class="n">PieceServiceImpl</span> <span class="n">pieceService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pieceService</span> <span class="o">=</span> <span class="n">pieceService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">gameMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">pieceService</span><span class="o">.</span><span class="na">pieceMethod</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PieceServiceImpl</span> <span class="kd">implements</span> <span class="n">PieceService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">GameServiceImpl</span> <span class="n">gameServiceImpl</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PieceServiceImpl</span><span class="o">(</span><span class="n">GameServiceImpl</span> <span class="n">gameServiceImpl</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">gameServiceImpl</span> <span class="o">=</span> <span class="n">gameServiceImpl</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pieceMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">gameServiceImpl</span><span class="o">.</span><span class="na">gameMethod</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/cfb25981-3055-4aef-9b36-568e12ad4760/image.png" style="zoom:67%;" /></p>
+
+<p>로그로 순환참조가 일어나고 있음을 보여주면서 컨테이너가 빈들을 등록하지도 못한채, 애플리케이션 구동 자체도 실패하였다.</p>
+
+<p>여기서 이런 차이점을 보이는 이유는 필드 주입과 생성자 주입은 빈을 주입하는 순서에 차이가 있기 때문이다.</p>
 
 <p><strong>필드 주입</strong>은 빈을 생성 후 어노테이션이 붙은 필드에 해당하는 빈을 찾아서 주입한다.<br />
 빈 생성이 먼저 일어나고, 필드에 대한 주입을 수행하는 것이다.</p>
@@ -133,10 +196,17 @@ A 클래스에서 B라는 객체를 직접 생성하다가, B 객체를 C 객체
 먼저 빈을 생성하지 않고, 생성자의 인자에 사용되는 빈을 찾거나 빈 팩터리에서 만드는 순서이다.</p>
 
 <p>때문에 객체 생성 시점에 빈을 주입하는 생성자 주입은 순환 참조에 대한 오류를 겪을 수 있다.<br />
-순환된 참조 관계를 가지는 객체들이 생성되지 않은 시점에서 빈을 참조하기 때문이다.</p>
+순환된 참조 관계를 가지는 객체들이 생성되지 않은 시점에서 빈을 참조하기 때문이다.<br />
+이렇게 보면 어찌됐든 애플리케이션을 구동 시키는 필드 주입이 더 좋다고 생각할 수 있다.</p>
 
 <p>하지만 객체의 순환 참조가 일어난다는 것은 애초에 잘못된 설계라고 할 수 있다.<br />
-때문에 <strong>오히려 생성자 주입을 사용하여 순환 참조가 되는 설계를 막아야 한다.</strong></p>
+때문에 <strong>오히려 생성자 주입을 사용하여 순환 참조가 되는 설계를 막을 수 있도록 하자.</strong></p>
+
+<h3 id="테스트-코드-작성에-용이">테스트 코드 작성에 용이</h3>
+
+<p>만약 필드 주입을 사용해 작성된 클래스라면, 순수한 자바 코드로만, 스프링같은 DI 프레임 워크 위에서 동작하지 않는 단위 테스트에서 의존 관계를 가지는 객체를 생성해서 주입할 수 있는 방법이 없다.<br />
+외부에 노출 된 정보가 없기 때문에 스프링 컨테이너가 생성해서 주입해주는 방식으로는 의존 관계를 가지고 있는 메소드를 단위 테스트 할 경우 <code class="highlighter-rouge">NullPointerException</code> 이 발생한다.<br />
+하지만 생성자 주입 방식의 경우 테스트 코드를 작성할 때 원하는 구현체를 생성자에 넘겨주면 되기 때문에 테스트에 더 용이하다고 할 수 있다.</p>
 
 <h3 id="immutable">Immutable</h3>
 
@@ -145,6 +215,12 @@ A 클래스에서 B라는 객체를 직접 생성하다가, B 객체를 C 객체
 
 <p>하지만 생성자 주입은 필드를 <code class="highlighter-rouge">final</code>로 선언할 수 있다.<br />
 이로 인해 가변 객체로 인해 발생할 수 있는 오류를 사전에 막는다.</p>
+
+<hr />
+
+<h3 id="참고">참고</h3>
+
+<p><a href="https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/">스프링 - 생성자 주입을 사용해야 하는 이유, 필드인젝션이 좋지 않은 이유</a></p>
 
 	  ]]></description>
 	</item>
