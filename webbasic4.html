@@ -468,6 +468,44 @@ ex) 회원 관리 서비스를 웹 애플리케이션이 아니라 GUI 애플리
   <li>장기적인 기술력의 저하</li>
 </ul>
 
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Crew</span> <span class="kd">extends</span> <span class="n">Person</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">nickName</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">person</span> <span class="p">...</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">crew</span> <span class="p">...</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">P</span><span class="p">.</span><span class="o">*</span><span class="p">,</span> <span class="k">C</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span> <span class="n">person</span> <span class="n">P</span> <span class="k">JOIN</span> <span class="n">crew</span> <span class="k">C</span>
+<span class="k">ON</span> <span class="n">P</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="k">C</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Crew</th>
+      <th style="text-align: center">Team</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Crew PK</td>
+      <td style="text-align: center">Team PK</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Team Fk</td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
 
 
         </section>

@@ -233,7 +233,7 @@ MockMvc는 브라우저에서 요청과 응답을 의미하는 객체로서 Cont
 
 <ul>
   <li>MVC를 위한 테스트로, 웹 상에서 요청과 응답에 대한 테스트.</li>
-  <li>MVC 관련된 설정인 <code class="highlighter-rouge">@Controller, @ControllerAdvice, @JsonCompoent와 Filter, WebMvcConfiguer, HandlerMetohdAgumentResolver</code>만 빈으로 등록된다.</li>
+  <li>MVC 관련된 설정인 <code class="highlighter-rouge">@Controller, @ControllerAdvice, @JsonCompoent와 Filter, WebMvcConfiguer, HandlerMetohdAgumentResolver</code>만 빈으로 등록된다. (디스패쳐 서블릿에서 사용되는 아이들만 주입받는다.)</li>
   <li>때문에 Service, Repository 와 같은 웹 계층 아래 빈들은 등록되지 않아 의존성도 끊긴다.</li>
   <li>테스트에 사용하는 의존성이 있다면 @MockBean으로 만들어 사용한다.</li>
 </ul>

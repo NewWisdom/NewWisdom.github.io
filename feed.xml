@@ -8,6 +8,50 @@
     
       
       <item>
+        <title>🌱 서로 다른 표기법을 맞춰주는 @JsonProperty, @JsonNaming</title>
+        
+          <description>&lt;h4 id=&quot;이-글을-쓴-배경&quot;&gt;이 글을 쓴 배경…&lt;/h4&gt;
+
+</description>
+        
+        <pubDate>Fri, 30 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-json-property</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-json-property</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Spring MVC 강의 노트 -1</title>
+        
+          <description>&lt;h3 id=&quot;웹서버&quot;&gt;웹서버&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Tue, 27 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-mvc-1</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-mvc-1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>🌱 Spring Validation</title>
+        
+          <description>&lt;p&gt;##&lt;/p&gt;
+</description>
+        
+        <pubDate>Wed, 21 Apr 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-validation</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-validation</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📋 REST API에 대하여</title>
         
           <description>&lt;h2 id=&quot;rest-api-구성&quot;&gt;REST API 구성&lt;/h2&gt;
