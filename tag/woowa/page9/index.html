@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>The Purpose of Education</title>
+    <title>Welcome To New Wisdom's Log !</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,31 +34,31 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//the-purpose-of-education" />
+        <link rel="canonical" href="http://localhost:4000//tag/woowa/page9/" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="The Purpose of Education" />
+    <meta property="og:title" content="Welcome To New Wisdom's Log !" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//the-purpose-of-education" />
-    <meta property="og:image" content="/assets/images/cover5.jpg" />
+    <meta property="og:url" content="http://localhost:4000//tag/woowa/page9/" />
+    <meta property="og:image" content="/assets/images/cover2.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="The Purpose of Education" />
+    <meta name="twitter:title" content="Welcome To New Wisdom's Log !" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//the-purpose-of-education" />
-    <meta name="twitter:image:src" content="/assets/images/cover5.jpg" />
+    <meta name="twitter:url" content="http://localhost:4000//tag/woowa/page9/" />
+    <meta name="twitter:image:src" content="/assets/images/cover2.jpg" />
 
     <script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "The Purpose of Education",
-    "url": "http://localhost:4000//the-purpose-of-education",
-    "image": "/assets/images/cover5.jpg",
+    "name": "Welcome To New Wisdom's Log !",
+    "url": "http://localhost:4000//tag/woowa/page9/",
+    "image": "/assets/images/cover2.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
     </script>
@@ -68,7 +68,7 @@
 
 
 </head>
-<body class="home-template nav-closed">
+<body class="paged archive-template nav-closed">
 
     <!-- The blog navigation links -->
     <div class="nav">
@@ -79,7 +79,7 @@
     <ul>
         <li class="nav-home " role="presentation"><a href="/">Home</a></li>
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
-        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-woowa  nav-current" role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
         <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
         <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
@@ -98,118 +98,135 @@
     <div class="site-wrapper">
 
         <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
-        <!-- default -->
+        <!-- dynamically overriding backgrounds for tags as well as descriptions -->
 
-<!-- The comment above "< default" means - insert everything in this file into -->
-    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
 
-<!-- Everything inside the #post tags pulls data from the post -->
-<!-- #post -->
+<!-- default -->
+<!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
 
-<header class="main-header post-head " style="background-image: url(/assets/images/cover5.jpg) ">
-    <nav class="main-nav  overlay  clearfix">
+<!-- If we have a tag cover, display that - else blog cover - else nothing -->
+<header class="main-header tag-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav overlay clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
         
             <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
     </nav>
-    <div class = "amazzi">    
-        <h1 class="post-title">The Purpose of Education</h1>
-            <section class="post-meta">
-            <!-- <a href='/'></a> -->
-
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Woowa</h1>
+            <h2 class="page-description">
             
-                
+                우아한 테크 코스의 기록
             
-            <time class="post-date" datetime="1948-12-12">12 Dec 1948</time>
-                <!-- [[tags prefix=" on "]] -->
-                
-                on
-                
-                    
-                       <a href='/tag/speeches'>Speeches</a>,
-                    
-                
-                    
-                       <a href='/tag/fiction'>Fiction</a>
-                    
-                
-                
-            </section>
+            </h2>
+        </div>
     </div>
 </header>
 
-<main class="content" role="main">
+<!-- The main content area on the homepage -->
+<main id="content" class="content" role="main">
 
-    <article class="post tag-speeches">
-
-        <header class="post-header">
-            
-        </header>
+    <!-- The tag below includes the post loop - partials/loop.hbs -->
+        <!-- Previous/next page links - only displayed on page 2+ -->
+    <div class="extra-pagination inner">
         
-        <br>
+            <nav class="pagination" role="pagination">
+    
+        
+            <a class="newer-posts" href="/tag/woowa/page8/" title="Previous Page">&laquo; Newer Posts</a>
+      
+    
+    <span class="page-number"> Page 9 of 9 </span>
+     
+</nav>
+        
+    </div>
 
-        <section class="post-content">
-
-            <p>As I engage in the so-called “bull sessions” around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the “brethren” think that education should equip them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.</p>
-
-<p>It seems to me that education has a two-fold function to perform in the life of man and in society: the one is utility and the other is culture. Education must enable a man to become more efficient, to achieve with increasing facility the ligitimate goals of his life.</p>
-
-<p>Education must also train one for quick, resolute and effective thinking. To think incisively and to think for one’s self is very difficult. We are prone to let our mental life become invaded by legions of half truths, prejudices, and propaganda. At this point, I often wonder whether or not education is fulfilling its purpose. A great majority of the so-called educated people do not think logically and scientifically. Even the press, the classroom, the platform, and the pulpit in many instances do not give us objective and unbiased truths. To save man from the morass of propaganda, in my opinion, is one of the chief aims of education. Education must enable one to sift and weigh evidence, to discern the true from the false, the real from the unreal, and the facts from the fiction.</p>
-
-<p>The function of education, therefore, is to teach one to think intensively and to think critically. But education which stops with efficiency may prove the greatest menace to society. The most dangerous criminal may be the man gifted with reason, but with no morals.</p>
-
-<p>The late Eugene Talmadge, in my opinion, possessed one of the better minds of Georgia, or even America. Moreover, he wore the Phi Beta Kappa key. By all measuring rods, Mr. Talmadge could think critically and intensively; yet he contends that I am an inferior being. Are those the types of men we call educated?</p>
-
-<p>We must remember that intelligence is not enough. Intelligence plus character–that is the goal of true education. The complete education gives one not only power of concentration, but worthy objectives upon which to concentrate. The broad education will, therefore, transmit to one not only the accumulated knowledge of the race but also the accumulated experience of social living.</p>
-
-<p>If we are not careful, our colleges will produce a group of close-minded, unscientific, illogical propagandists, consumed with immoral acts. Be careful, “brethren!” Be careful, teachers!</p>
-
-
+    <!-- This is the post loop - each post will be output using this markup -->
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5">📖 내가 정리한 JUnit5</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>우테코 level1 1주차 - JUnit을 활용한 단위 테스트 이론 및 실습 단위테스트에 대해서 배웠다. 허나 나는 단위 테스트는 처음이라 👀 처음 배운 JUnit5를 익히기 위해 정리해본다.... <a class="read-more" href="/%EB%82%B4%EA%B0%80-%EC%A0%95%EB%A6%AC%ED%95%9C-JUnit5">&raquo;</a></p>
         </section>
-
-        <footer class="post-footer">
-
-            <!-- Everything inside the #author tags pulls data from the author -->
-            <!-- #author-->
+        <footer class="post-meta">
             
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
                 
             
 
-            <!-- Add Disqus Comments -->
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/java'>Java</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-02-04">04 Feb 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/precourse">🪐 프리코스 이후의 삶과 최종 합격</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>얼마만에 블로그 포스팅인지 🥲 우아한 테크코스 최종 합격 통보를 받게 되었으나, SOPT 앱잼으로 프로젝트가 시작되고 더불어 이사를 가면서 정리할 것들이 많아 정말 정신 없는 연말, 연초를... <a class="read-more" href="/precourse">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
             
 
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-01-17">17 Jan 2021</time>
         </footer>
-
     </article>
+    
+
+    <!-- Previous/next page links - displayed on every page -->
+    
+        <nav class="pagination" role="pagination">
+    
+        
+            <a class="newer-posts" href="/tag/woowa/page8/" title="Previous Page">&laquo; Newer Posts</a>
+      
+    
+    <span class="page-number"> Page 9 of 9 </span>
+     
+</nav>
+    
+
 
 </main>
-
-<aside class="read-next">
-
-    <!-- [[! next_post ]] -->
-    
-        <a class="read-next-story " style="background-image: url(/assets/images/cover4.jpg)" href="/i-have-a-dream">
-            <section class="post">
-                <h2>I Have a Dream</h2>
-                <p>I am happy to join with you today in what will go down in history...</p>
-            </section>
-        </a>
-    
-    <!-- [[! /next_post ]] -->
-    <!-- [[! prev_post ]] -->
-    
-        <a class="read-next-story prev " style="background-image: url(/assets/images/cover6.jpg)" href="/out-to-sea">
-            <section class="post">
-                <h2>Out to Sea</h2>
-                <p>I had this story from one who had no business to tell it to me,...</p>
-            </section>
-        </a>
-    
-    <!-- [[! /prev_post ]] -->
-</aside>
-
-<!-- /post -->
 
 
         <!-- The tiny footer at the very bottom -->
