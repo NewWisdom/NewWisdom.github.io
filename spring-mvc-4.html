@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📋 Spring MVC - 4. MVC 프레임워크 만들기</title>
+    <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//spring-mvc-4" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📋 Spring MVC - 4. MVC 프레임워크 만들기" />
+    <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta property="og:url" content="http://localhost:4000//spring-mvc-4" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📋 Spring MVC - 4. MVC 프레임워크 만들기" />
+    <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta name="twitter:url" content="http://localhost:4000//spring-mvc-4" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📋 Spring MVC - 4. MVC 프레임워크 만들기",
+    "url": "http://localhost:4000//spring-mvc-4",
+    "image": "/assets/images/woowa.jpg",
+    "description": "블로그 이사중... 아직 정리가 안되었음..."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📋 Spring MVC - 4. MVC 프레임워크 만들기</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-05-04">04 May 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="mvc-프레임워크-만들기">MVC 프레임워크 만들기</h2>
+
+<h2 id="프론트-컨트롤러-패턴">프론트 컨트롤러 패턴</h2>
+
+<p>프론트 컨트롤러도 서블릿이다.<br />
+요청을 모두 받고 요청에 맞는 컨트롤러를 호출한다.</p>
+
+<h3 id="특징">특징</h3>
+
+<p>프론트 컨트롤러 서블릿 하나로 클라이언트의 요청을 받고, 요청에 맞는 컨트롤러를 찾아서 호출한다.<br />
+입구를 하나로 묶는다.<br />
+프론트 컨트롤러를 제외한 나머지 컨트롤러는 서블릿을 사용하지 않아도 된다.</p>
+
+<h3 id="스프링-웹-mvc와-프론트-컨트롤러">스프링 웹 MVC와 프론트 컨트롤러</h3>
+
+<p>스프링 웹 MVC의 핵심도 바로 FrontController이다. (DispatcherServlet이 프론트 컨트롤러 패턴으로 되어있다.)</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/b2493682-0c37-4a1c-93c4-f2ffd02e7862/image.png" style="zoom: 67%;" /></p>
+
+<p>ControllerV1을 인터페이스로 만들고 이를 구현한 Controller들을 만든다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberFormControllerV1</span> <span class="kd">implements</span> <span class="n">ControllerV1</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">viewPath</span> <span class="o">=</span> <span class="s">"/WEB-INF/views/new-form.jsp"</span><span class="o">;</span>
+        <span class="n">RequestDispatcher</span> <span class="n">requestDispatcher</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">viewPath</span><span class="o">);</span> <span class="c1">// 컨트롤러에서 뷰로 이동</span>
+        <span class="n">requestDispatcher</span><span class="o">.</span><span class="na">forward</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span> <span class="c1">// 서블릿에서 JSP를 호출한다.</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="frontcontrollerservletv1">FrontControllerServletV1</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"frontControllerServletV1"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/front-controller/v1/*"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FrontControllerServletV1</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ControllerV1</span><span class="o">&gt;</span> <span class="n">controllerMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="nf">FrontControllerServletV1</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ControllerV1</span><span class="o">&gt;</span> <span class="n">controllerMap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v1/members/new-form"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberFormControllerV1</span><span class="o">());</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v1/members/save"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberSaveControllerV1</span><span class="o">());</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v1/members"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberListControllerV1</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+        <span class="n">ControllerV1</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">controllerMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">requestURI</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">controller</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">resp</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">SC_NOT_FOUND</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">controller</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Controller 정보를 가진 서블릿인 FrontContoller를 구현한다.</p>
+
+<ul>
+  <li><strong>urlPatterns</strong> :  “/front-controller/v1/”를 포함한 하위 모든 요청을 하나의 서블릿에서 받아들인다.</li>
+  <li><strong>controllerMap</strong> : key-매핑 URL, value-호출될 컨트롤러</li>
+  <li><strong>service()</strong> : reqeustURI를 조회하여 실제 호출할 컨트롤러를 찾고 해당 컨트롤러를 실행(<code class="highlighter-rouge">process()</code>)한다.</li>
+</ul>
+
+<p>여러 Controller와 서블릿이 하나의 JSP를 재사용하고 있다.</p>
+
+<hr />
+
+<h2 id="view-분리">View 분리</h2>
+
+<p>Controller에서 View로 이동하는 부분이 중복된다.<br />
+Controller는 MyView만 반환해주면 된다.</p>
+
+<h4 id="controllerv2">ControllerV2</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ControllerV2</span> <span class="o">{</span>
+    <span class="n">MyView</span> <span class="nf">process</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>인터페이스를 구현하므로 반환 타입을 맞출 수 있다.</li>
+</ul>
+
+<h4 id="myview">MyView</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyView</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">viewPath</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyView</span><span class="o">(</span><span class="n">String</span> <span class="n">viewPath</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">viewPath</span> <span class="o">=</span> <span class="n">viewPath</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">render</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">RequestDispatcher</span> <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">viewPath</span><span class="o">);</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="na">forward</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="memberformcontrollerv2">MemberFormControllerV2</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberFormControllerV2</span> <span class="kd">implements</span> <span class="n">ControllerV2</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">MyView</span> <span class="nf">process</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MyView</span><span class="o">(</span><span class="s">"/WEB-INF/views/new-form.jsp"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>viewPath를 가지고 있는 MyView 객체를 반환한다.</li>
+</ul>
+
+<h4 id="frontcontrollerservletv2">FrontControllerServletV2</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"frontControllerServletV2"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/front-controller/v2/*"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FrontControllerServletV2</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ControllerV2</span><span class="o">&gt;</span> <span class="n">controllerMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="nf">FrontControllerServletV2</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ControllerV2</span><span class="o">&gt;</span> <span class="n">controllerMap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v2/members/new-form"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberFormControllerV2</span><span class="o">());</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v2/members/save"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberSaveControllerV2</span><span class="o">());</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v2/members"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberListControllerV2</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+        <span class="n">ControllerV2</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">controllerMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">requestURI</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">controller</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">resp</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">SC_NOT_FOUND</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">MyView</span> <span class="n">view</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+        <span class="n">view</span><span class="o">.</span><span class="na">render</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="model-추가">Model 추가</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9a6ede47-f242-4b1f-a88e-08f055df0508/image.png" style="zoom:67%;" /></p>
+
+<h3 id="서블릿-종속성-추가">서블릿 종속성 추가</h3>
+
+<p>컨트롤러 입장에서 <code class="highlighter-rouge">HttpServletRequest</code>, <code class="highlighter-rouge">HttpServletResponse</code>가 필요하지 않다.<br />
+요청 파라미터를 Map으로 넘기면 컨트롤러가 서블릿이 아니어도 동작할 수 있다.</p>
+
+<h3 id="뷰-이름-중복-제거">뷰 이름 중복 제거</h3>
+
+<p>현재 컨트롤러에서 지정하는 뷰 이름에는 중복(<code class="highlighter-rouge">/WEB-INF/views/</code>)이 존재한다.<br />
+컨트롤러는 뷰의 논리 이름을 반환하고, 물리 이름은 프론트 컨트롤러에서 처리하도록 변경해보자.<br />
+논리적 물리적 이름을 구분하면 나중에 변경할 때 컨트롤러를 변경할 일이 없다.</p>
+
+<h3 id="modelview">ModelView</h3>
+
+<p>Model을 전달하기 위해서 <code class="highlighter-rouge">request.setAttribute()</code> 를 사용하여 데이터를 저장하고 뷰에 전달했다.<br />
+서블릿의 종속성을 제거하기 위해, Model을 따로 만들고 View 이름까지 전달하는 객체를 만든다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ModelView</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">viewName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="nf">ModelView</span><span class="o">(</span><span class="n">String</span> <span class="n">viewName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">viewName</span> <span class="o">=</span> <span class="n">viewName</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="controllerv3">ControllerV3</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ControllerV3</span> <span class="o">{</span>
+    <span class="n">ModelView</span> <span class="nf">process</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>ModelView를 반환하도록 한다.</li>
+</ul>
+
+<h4 id="membersavecontrollerv3">MemberSaveControllerV3</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberSaveControllerV3</span> <span class="kd">implements</span> <span class="n">ControllerV3</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="n">MemberRepository</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">ModelView</span> <span class="nf">process</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">paramMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"username"</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">paramMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"age"</span><span class="o">));</span>
+
+        <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">age</span><span class="o">);</span>
+        <span class="n">memberRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+        <span class="n">ModelView</span> <span class="n">mv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelView</span><span class="o">(</span><span class="s">"save-result"</span><span class="o">);</span>
+        <span class="n">mv</span><span class="o">.</span><span class="na">getModel</span><span class="o">().</span><span class="na">put</span><span class="o">(</span><span class="s">"member"</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mv</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>논리 이름을 ModelView 객체에 넣어 생성하도록 한다.</li>
+  <li>모델에 뷰에 필요한 객체를 담고 ModelView 객체를 반환한다.</li>
+</ul>
+
+<h4 id="frontcontrollerservletv3-일부">FrontControllerServletV3 일부</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+        <span class="n">ControllerV3</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">controllerMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">requestURI</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">controller</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">resp</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">SC_NOT_FOUND</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// param Map</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="n">createParamMap</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+        <span class="n">ModelView</span> <span class="n">mv</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">paramMap</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">viewName</span> <span class="o">=</span> <span class="n">mv</span><span class="o">.</span><span class="na">getViewName</span><span class="o">();</span> <span class="c1">// 논리 이름 ex) new-form</span>
+        <span class="n">MyView</span> <span class="n">view</span> <span class="o">=</span> <span class="n">viewResolver</span><span class="o">(</span><span class="n">viewName</span><span class="o">);</span>
+        <span class="n">view</span><span class="o">.</span><span class="na">render</span><span class="o">(</span><span class="n">mv</span><span class="o">.</span><span class="na">getModel</span><span class="o">(),</span> <span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">createParamMap</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">req</span><span class="o">.</span><span class="na">getParameterNames</span><span class="o">().</span><span class="na">asIterator</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">paramName</span> <span class="o">-&gt;</span> <span class="n">paramMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">paramName</span><span class="o">,</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">paramName</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="n">paramMap</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">MyView</span> <span class="nf">viewResolver</span><span class="o">(</span><span class="n">String</span> <span class="n">viewName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">MyView</span> <span class="n">view</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyView</span><span class="o">(</span><span class="s">"/WEB-INF/views/"</span> <span class="o">+</span> <span class="n">viewName</span> <span class="o">+</span> <span class="s">".jsp"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">view</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">createParamMap()</code> : HttpServletRequest의 파라미터 정보를 Map으로 변경한다.</li>
+  <li><code class="highlighter-rouge">viewResolver()</code> : 컨트롤러가 반환한 논리 뷰 이름을 실제 물리 뷰 경로로 변경한다.</li>
+  <li><code class="highlighter-rouge">view.render(mv.getModel(), req, resp)</code> : 뷰 객체를 통해  HTML 화면을 렌더링한다.</li>
+</ul>
+
+<h4 id="myview-1">MyView</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">render</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">model</span><span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">modelToRequestAttribute</span><span class="o">(</span><span class="n">model</span><span class="o">,</span> <span class="n">req</span><span class="o">);</span>
+    <span class="n">RequestDispatcher</span> <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">viewPath</span><span class="o">);</span>
+    <span class="n">dispatcher</span><span class="o">.</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="단순하고-실용적인-컨트롤러">단순하고 실용적인 컨트롤러</h2>
+
+<p>컨트롤러 인터페이스를 구현하면서 항상 ModelView 객체를 생성하고 반환해야 하는 부분이 번거롭다.<br />
+컨트롤러는 View의 이름만 변경하도록, 실용성 있도록 변경한다.</p>
+
+<h4 id="controllerv4">ControllerV4</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ControllerV4</span> <span class="o">{</span>
+    <span class="cm">/**
+     *
+     * @param paramMap
+     * @param model
+     * @return viewName
+     */</span>
+
+    <span class="n">String</span> <span class="nf">process</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">model</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>view 이름을 반환하도록 변경한다.</li>
+</ul>
+
+<p>####</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberSaveControllerV4</span> <span class="kd">implements</span> <span class="n">ControllerV4</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="n">MemberRepository</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">paramMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"username"</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">paramMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"age"</span><span class="o">));</span>
+        <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">age</span><span class="o">);</span>
+        <span class="n">memberRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"member"</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">"save-result"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Controller에서는 필요한 값을 꺼내고, 비즈니스 로직을 호출한 후 viewName만을 반환한다.</li>
+</ul>
+
+<h4 id="frontcontrollerservletv4">FrontControllerServletV4</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"frontControllerServletV4"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/front-controller/v2/*"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FrontControllerServletV4</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ControllerV4</span><span class="o">&gt;</span> <span class="n">controllerMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="nf">FrontControllerServletV4</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ControllerV4</span><span class="o">&gt;</span> <span class="n">controllerMap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v2/members/new-form"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberFormControllerV4</span><span class="o">());</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v2/members/save"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberSaveControllerV4</span><span class="o">());</span>
+        <span class="n">controllerMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v2/members"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberListControllerV4</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+        <span class="n">ControllerV4</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">controllerMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">requestURI</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">controller</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">resp</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">SC_NOT_FOUND</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// param Map</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="n">createParamMap</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+      	<span class="c1">// model </span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">String</span> <span class="n">viewName</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">paramMap</span><span class="o">,</span> <span class="n">model</span><span class="o">);</span>
+
+        <span class="n">MyView</span> <span class="n">view</span> <span class="o">=</span> <span class="n">viewResolver</span><span class="o">(</span><span class="n">viewName</span><span class="o">);</span>
+        <span class="n">view</span><span class="o">.</span><span class="na">render</span><span class="o">(</span><span class="n">model</span><span class="o">,</span> <span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">createParamMap</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">req</span><span class="o">.</span><span class="na">getParameterNames</span><span class="o">().</span><span class="na">asIterator</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">paramName</span> <span class="o">-&gt;</span> <span class="n">paramMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">paramName</span><span class="o">,</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">paramName</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="n">paramMap</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">MyView</span> <span class="nf">viewResolver</span><span class="o">(</span><span class="n">String</span> <span class="n">viewName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">MyView</span> <span class="n">view</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyView</span><span class="o">(</span><span class="s">"/WEB-INF/views/"</span> <span class="o">+</span> <span class="n">viewName</span> <span class="o">+</span> <span class="s">".jsp"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">view</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>프론트 컨트롤러에서 model을 만들고 각 Controller에 paramMap과 model을 넘겨 처리를 하고, viewName을 반환받는다.</li>
+  <li>modelView에서 model을 꺼낼 필요가 없다.</li>
+</ul>
+
+<p>하지만, 지금 ControllerV4 인터페이스로 받을 수 있는 컨트롤러를 제한하고 있다.</p>
+
+<hr />
+
+<h2 id="유연한-controller---어댑터-패턴">유연한 Controller - 어댑터 패턴</h2>
+
+<p>지금까지의 프론트 컨트롤러는 한가지 인터페이스만 사용이 가능했었다. <br />
+어떠한 컨트롤러도 호환이 가능하도록 어댑터 패턴을 사용한다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/0f169df9-469c-4e38-b61c-2cf42f872444/image.png" alt="" /></p>
+
+<ul>
+  <li>핸들러 어댑터 : 중간에 어댑터 역할을 하는 어댑터가 추가되었다. 이 덕분에 다양한 종류의 컨트롤러를 호출할 수 있다.</li>
+  <li>기존에는 프론트 컨트롤러가 바로 컨트롤러를 호출하였지만, 이제는 어댑터를 통해서 호출한다.</li>
+  <li>핸들러 : 컨트롤러의 좀 더 넓은 범위. 어댑터가 있기 때문에 컨트롤러 개념 뿐만 아니라 해당하는 어댑터만 있으면 처리가 가능하다.</li>
+</ul>
+
+<h4 id="myhandleradapter">MyHandlerAdapter</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyHandlerAdapter</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">);</span>
+    <span class="n">ModelView</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">supports(Object handler)</code> : 어댑터가 해당 컨트롤러를 처리할 수 있는지 반환</li>
+  <li><code class="highlighter-rouge">handle(...)</code> : 어댑터는 실제 컨트롤러를 호출하고 결과로 ModelView를 반환한다.</li>
+  <li>만약 컨트롤러가 ModelView를 반환하지 못하면, 어댑터가 직접 생성한다.</li>
+  <li>프론트 컨트롤러가 아닌 어댑터가 실제 컨트롤러를 호출한다.</li>
+</ul>
+
+<h4 id="controllerv3handleradapter">ControllerV3HandlerAdapter</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerV3HandlerAdapter</span> <span class="kd">implements</span> <span class="n">MyHandlerAdapter</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">handler</span> <span class="k">instanceof</span> <span class="n">ControllerV3</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">ModelView</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">ControllerV3</span> <span class="n">controller</span> <span class="o">=</span> <span class="o">(</span><span class="n">ControllerV3</span><span class="o">)</span> <span class="n">handler</span><span class="o">;</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="n">createParamMap</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+        <span class="n">ModelView</span> <span class="n">mv</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">paramMap</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mv</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">createParamMap</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">getParameterNames</span><span class="o">().</span><span class="na">asIterator</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">paramName</span> <span class="o">-&gt;</span> <span class="n">paramMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">paramName</span><span class="o">,</span>
+                        <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">paramName</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="n">paramMap</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>supports()로 ControllerV3 타입인지 확인하고 맞다면 호출한다.</li>
+</ul>
+
+<p>####</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"frontControllerServletV5"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/front-controller/v5/*"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FrontControllerServletV5</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">handlerMappingMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MyHandlerAdapter</span><span class="o">&gt;</span> <span class="n">handlerAdapters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="nf">FrontControllerServletV5</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">initHandlerMappingMap</span><span class="o">();</span>
+        <span class="n">initHandlerAdapters</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">initHandlerMappingMap</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">handlerMappingMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v5/v3/members/new-form"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberFormControllerV3</span><span class="o">());</span>
+        <span class="n">handlerMappingMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v5/v3/members/save"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberSaveControllerV3</span><span class="o">());</span>
+        <span class="n">handlerMappingMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/front-controller/v5/v3/members"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">MemberListControllerV3</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">initHandlerAdapters</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">handlerAdapters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ControllerV3HandlerAdapter</span><span class="o">());</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">// 요청 정보로 핸들러를 가져온다.</span>
+        <span class="n">Object</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">getHandler</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">handler</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">resp</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">SC_NOT_FOUND</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 어댑터를 찾는다.</span>
+        <span class="n">MyHandlerAdapter</span> <span class="n">adapter</span> <span class="o">=</span> <span class="n">getHandlerAdapter</span><span class="o">(</span><span class="n">handler</span><span class="o">);</span>
+
+        <span class="n">ModelView</span> <span class="n">mv</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">viewName</span> <span class="o">=</span> <span class="n">mv</span><span class="o">.</span><span class="na">getViewName</span><span class="o">();</span> <span class="c1">// 논리 이름 ex) new-form</span>
+        <span class="n">MyView</span> <span class="n">view</span> <span class="o">=</span> <span class="n">viewResolver</span><span class="o">(</span><span class="n">viewName</span><span class="o">);</span>
+        
+        <span class="n">view</span><span class="o">.</span><span class="na">render</span><span class="o">(</span><span class="n">mv</span><span class="o">.</span><span class="na">getModel</span><span class="o">(),</span> <span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">MyHandlerAdapter</span> <span class="nf">getHandlerAdapter</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">MyHandlerAdapter</span> <span class="n">adapter</span> <span class="o">:</span> <span class="n">handlerAdapters</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">adapter</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">handler</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">adapter</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"handler adapter를 찾을 수 없습니다. handler "</span> <span class="o">+</span> <span class="n">handler</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">Object</span> <span class="nf">getHandler</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+        <span class="n">Object</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">handlerMappingMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">requestURI</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">handler</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">createParamMap</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">req</span><span class="o">.</span><span class="na">getParameterNames</span><span class="o">().</span><span class="na">asIterator</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">paramName</span> <span class="o">-&gt;</span> <span class="n">paramMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">paramName</span><span class="o">,</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">paramName</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="n">paramMap</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">MyView</span> <span class="nf">viewResolver</span><span class="o">(</span><span class="n">String</span> <span class="n">viewName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">MyView</span> <span class="n">view</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyView</span><span class="o">(</span><span class="s">"/WEB-INF/views/"</span> <span class="o">+</span> <span class="n">viewName</span> <span class="o">+</span> <span class="s">".jsp"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">view</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>생성자 : 핸들러 매핑과 어댑터를 초기화한다.</li>
+  <li>매핑 정보인 handlerMappingMap 이 Object Map으로 아무 타입이나 받을 수 있다.</li>
+  <li>핸들러 매핑</li>
+  <li>핸들러를 처리할 수 있는 어댑터 조회</li>
+  <li>어댑터 호출</li>
+</ul>
+
+<h4 id="controllerv4handleradapter-예제">ControllerV4HandlerAdapter 예제</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerV4HandlerAdapter</span> <span class="kd">implements</span> <span class="n">MyHandlerAdapter</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">handler</span> <span class="k">instanceof</span> <span class="n">ControllerV4</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">ModelView</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">ControllerV4</span> <span class="n">controller</span> <span class="o">=</span> <span class="o">(</span><span class="n">ControllerV4</span><span class="o">)</span> <span class="n">handler</span><span class="o">;</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="n">createParamMap</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+      
+        <span class="c1">//  viewName만 반환할 경우 ModelView 객체로 만들어주는 역할도 한다.</span>
+        <span class="n">String</span> <span class="n">viewName</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">paramMap</span><span class="o">,</span> <span class="n">model</span><span class="o">);</span>
+
+        <span class="n">ModelView</span> <span class="n">mv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelView</span><span class="o">(</span><span class="n">viewName</span><span class="o">);</span>
+        <span class="n">mv</span><span class="o">.</span><span class="na">setModel</span><span class="o">(</span><span class="n">model</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mv</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">createParamMap</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">paramMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">getParameterNames</span><span class="o">().</span><span class="na">asIterator</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">paramName</span> <span class="o">-&gt;</span> <span class="n">paramMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">paramName</span><span class="o">,</span>
+                        <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">paramName</span><span class="o">)));</span>
+        <span class="k">return</span> <span class="n">paramMap</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>어댑터가 호출하는 ControllerV4는 viewName만 반환하는데, 이때 어댑터에서 이를 ModelView 객체로 만들어 반환한다.</li>
+</ul>
+
+<p>프론트 컨트롤러 입장에서는 핸들러 어댑터에만 의존하고 있다.</p>
+
+<p>이 MVC 프레임 워크는 역할과 구현이 분리되어 있다.  <br />
+모든 것을 인터페이스로 만들고 구현하고 싶은 부분만 주입하면 완벽! (스프링 MVC는 뷰와 뷰리졸버 다 인터페이스로 구현되어있다.)
+어떤 핸들러를 추가하고 싶어도 우리는 핸들러어댑터만 구현해주면 된다!</p>
+
+<h4 id="ex-requestmapping">ex) @RequestMapping()</h4>
+
+<p>RequestMappingHandlerAdapter : 위 어노테이션이 붙은 핸들러를 처리해주는 어댑터</p>
+
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📋 Spring MVC - 4. MVC 프레임워크 만들기&amp;url=http://localhost:4000spring-mvc-4"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000spring-mvc-4"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000spring-mvc-4"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/kotlin1">
+            <section class="post">
+                <h2>📋 Kotlin을 정복해봅시다 1</h2>
+                <p>## 코틀린이란? * 자바 플랫폼에서 돌아가는 새로운 프로그래밍 언어 * 간결하고 실용적 * 자바 코드와의...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/spring-mvc-5">
+            <section class="post">
+                <h2>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</h2>
+                <p>스프링 MVC 전체 구조 지금껏 만들었던 프레임 워크 &lt;-&gt; 스프링 MVC FrontController - DispatcherServlet HandlerMappingMap...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

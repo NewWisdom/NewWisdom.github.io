@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>🌱 Spring Validation</title>
+    <title>🌱 @Valid와 @Validated</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -40,13 +40,13 @@
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="🌱 Spring Validation" />
+    <meta property="og:title" content="🌱 @Valid와 @Validated" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
     <meta property="og:url" content="http://localhost:4000//spring-validation" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="🌱 Spring Validation" />
+    <meta name="twitter:title" content="🌱 @Valid와 @Validated" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
     <meta name="twitter:url" content="http://localhost:4000//spring-validation" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
@@ -56,7 +56,7 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "🌱 Spring Validation",
+    "name": "🌱 @Valid와 @Validated",
     "url": "http://localhost:4000//spring-validation",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
@@ -81,6 +81,7 @@
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
         <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
         <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
         <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
         <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
@@ -114,7 +115,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">🌱 Spring Validation</h1>
+        <h1 class="post-title">🌱 @Valid와 @Validated</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -129,7 +130,11 @@
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
                     
                 
                 
@@ -483,7 +488,7 @@
 
 <p>여기서 주의할 점이 있다. 바로 예외에 관한 부분인데,<br />
 <strong><code class="highlighter-rouge">@Valid</code> 는 검증에 실패하면 <code class="highlighter-rouge">MethodArgumentNotValidException</code> 를 던지고, <br />
-<code class="highlighter-rouge">@Validated </code>는 검증에 실패하면 <code class="highlighter-rouge">ConstraintViolationException</code> 를 던진다.</strong></p>
+클래스 단에 붙은 <code class="highlighter-rouge">@Validated </code>는 검증에 실패하면 <code class="highlighter-rouge">ConstraintViolationException</code> 를 던진다.</strong></p>
 
 <p>지금으로써는 각 예외를 잡아서 핸들링 해주었다.</p>
 
@@ -535,7 +540,7 @@
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=🌱 Spring Validation&amp;url=http://localhost:4000spring-validation"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=🌱 @Valid와 @Validated&amp;url=http://localhost:4000spring-validation"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>

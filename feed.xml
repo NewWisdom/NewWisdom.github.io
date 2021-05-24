@@ -8,6 +8,81 @@
     
       
       <item>
+        <title>📋 Kotlin을 정복해봅시다 1</title>
+        
+          <description>&lt;h2 id=&quot;코틀린이란&quot;&gt;코틀린이란?&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sun, 16 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/kotlin1</link>
+        <guid isPermaLink="true">http://localhost:4000/kotlin1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Spring MVC - 4. MVC 프레임워크 만들기</title>
+        
+          <description>&lt;h2 id=&quot;mvc-프레임워크-만들기&quot;&gt;MVC 프레임워크 만들기&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Tue, 04 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-mvc-4</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-mvc-4</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</title>
+        
+          <description>&lt;h2 id=&quot;스프링-mvc-전체-구조&quot;&gt;스프링 MVC 전체 구조&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Mon, 03 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-mvc-5</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-mvc-5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</title>
+        
+          <description>&lt;h2 id=&quot;서블릿-jsp-mvc-패턴&quot;&gt;서블릿, JSP, MVC 패턴&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Mon, 03 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-mvc-3</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-mvc-3</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Spring MVC - 2. 서블릿</title>
+        
+          <description>&lt;h2 id=&quot;예제&quot;&gt;예제&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Mon, 03 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-mvc-2</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-mvc-2</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📋 배포 1단계 퀴즈 답</title>
         
           <description>&lt;h2 id=&quot;브라우저에서-googlecom를-요청할-때-통신-과정이-어떻게-이루어질까요&quot;&gt;브라우저에서 &lt;a href=&quot;https://www.google.com/url?q=http://google.com&amp;amp;sa=D&amp;amp;source=editors&amp;amp;ust=1619888368939000&amp;amp;usg=AFQjCNG8-uuzqgCTbtG39f_utwyeum7dGw&quot;&gt;google.com&lt;/a&gt;를 요청할 때 통신 과정이 어떻게 이루어질까요?&lt;/h2&gt;
@@ -23,7 +98,7 @@
     
       
       <item>
-        <title>🌱 Spring Validation</title>
+        <title>🌱 @Valid와 @Validated</title>
         
           <description>&lt;h2 id=&quot;valid와-validated&quot;&gt;@Valid와 @Validated&lt;/h2&gt;
 
@@ -53,9 +128,9 @@
     
       
       <item>
-        <title>📋 Spring MVC 강의 노트 -1</title>
+        <title>📋 Spring MVC - 1. 웹 서버, 웹 애플리케이션 서버</title>
         
-          <description>&lt;h3 id=&quot;웹서버&quot;&gt;웹서버&lt;/h3&gt;
+          <description>&lt;h2 id=&quot;웹-서버-웹-애플리케이션-서버&quot;&gt;웹 서버, 웹 애플리케이션 서버&lt;/h2&gt;
 
 </description>
         

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</title>
+    <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//spring-mvc-5" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴" />
+    <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta property="og:url" content="http://localhost:4000//spring-mvc-5" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴" />
+    <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta name="twitter:url" content="http://localhost:4000//spring-mvc-5" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴",
+    "url": "http://localhost:4000//spring-mvc-5",
+    "image": "/assets/images/woowa.jpg",
+    "description": "블로그 이사중... 아직 정리가 안되었음..."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-05-03">03 May 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="스프링-mvc-전체-구조">스프링 MVC 전체 구조</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6b0d1860-915b-4819-9d2f-9521353e2142/image.png" style="zoom:80%;" /></p>
+
+<h4 id="지금껏-만들었던-프레임-워크---스프링-mvc">지금껏 만들었던 프레임 워크 &lt;-&gt; 스프링 MVC</h4>
+
+<ul>
+  <li>FrontController - DispatcherServlet</li>
+  <li>HandlerMappingMap - HandlerMapping</li>
+  <li>MyHandlerAdapter - HandlerAdapter</li>
+  <li>ModelView - ModelAndView</li>
+  <li>ViewResolver - ViewResolver</li>
+  <li>MyView - View</li>
+</ul>
+
+<h3 id="dispatcherservlet">DispatcherServlet</h3>
+
+<p>DispacherServlet 도 부모 클래스에서 HttpServlet 을 상속 받아서 사용하고, 서블릿으로 동작한다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/630a4870-d2a9-4dec-a4c3-ccfe49db023a/image.png" style="zoom:67%;" /></p>
+
+<p>스프링 부트는 DispatcherServlet를 자동으로 등록하면서 모든 경로에 대해서 매핑한다.</p>
+
+<h4 id="요청의-흐름">요청의 흐름</h4>
+
+<p>DispatcherServlet이 호출되면 <code class="highlighter-rouge">service()</code> 가 호출된다.<br />
+최종적으로는 DispatcherServlet.doDispatch()` 가 호출된다.</p>
+
+<h4 id="dodispatch">doDispatch()</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/cbfe84c7-a2f8-4bf1-a082-42c141b2e287/image.png" style="zoom:67%;" /></p>
+
+<p>DispatcherServlet의 doDispatch()의 주요 부분들을 살펴보자!</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/0e644c4e-cd85-405a-a1ea-f063768df8a1/image.png" alt="" /></p>
+
+<ul>
+  <li>ModelAndView</li>
+  <li>getHandler() : 핸들러를 가져온다.
+    <ul>
+      <li>핸들러가 없으면 404로 셋팅을 한다.</li>
+    </ul>
+  </li>
+  <li>getHandlerAdapter() : 핸들러 어댑터를 가져온다.</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/536712af-32f3-41fc-af6f-5d885365747d/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>핸들러 어댑터로 핸들러 호출하고 ModelAndView 반환</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/eef62fa6-513d-4ed3-b7a3-18ad10ae0074/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>view 렌더링 호출</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/5a04d84a-5b0c-456c-baa1-ddf4401c2f36/image.png" alt="" /></p>
+
+<ul>
+  <li>ViewResolver를 통해서 view를 찾아 반환</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/56d8ddca-3457-4b3a-a7b8-c462504d98d8/image.png" alt="" /></p>
+
+<ul>
+  <li>View 렌더링</li>
+</ul>
+
+<h3 id="스프링-mvc-구조">스프링 MVC 구조</h3>
+
+<ol>
+  <li>핸들러 조회 : 핸들러 매핑을 통해 요청 URL에 매핑된 핸들러 조회</li>
+  <li>핸들러 어댑터 조회 : 핸들러를 실행할 수 있는 핸들러 어댑터 조회</li>
+  <li>핸들러 어댑터 실행 : 핸들러 어댑터 실행</li>
+  <li>핸들러 실행 : 핸들러 어댑터가 실제 핸들러 실행</li>
+  <li>ModelAndView 반환 : 핸들러 어댑터는 핸들러가 반환하는 정보를 ModelAndView로 변환해서 반환</li>
+  <li>viewResolver 호출 : JSP의 경우 <code class="highlighter-rouge">InternalResourceViewResolver</code> 가 자동으로 등록되고 사용됨</li>
+  <li>view 반환 : 뷰 리졸버는 뷰의 논리 이름을 물리 이름으로 바꾸고 렌더링 역할을 담당하는 뷰 객체 반환
+    <ul>
+      <li>JSP의 경우 InternalResourceViewResolver(JstlView) 를 반환하고 내부에 forward() 로직이 있다.</li>
+    </ul>
+  </li>
+  <li>뷰 렌더링 : 뷰를 통해서 뷰를 렌더링 한다.</li>
+</ol>
+
+<p>가장 큰 장점은 DispatcherServlet  코드의 변경 없이 원하는 기능을 변경하거나 확장할 수 있다.<br />
+대부분 확장 가능하도록 인터페이스로 제공한다.</p>
+
+<p>하지만 사실 우리가 확장할 컨트롤러는 거의 없다.</p>
+
+<hr />
+
+<h2 id="핸들러-매핑과-핸들러-어댑터">핸들러 매핑과 핸들러 어댑터</h2>
+
+<h3 id="과거-controller-인터페이스">과거 Controller 인터페이스</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Controller</span> <span class="o">{</span>
+    <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">@Component</code> :  ““/springmvc/old-controller: 라는 이름의 스프링 빈으로 등록</li>
+  <li>빈의 이름으로<strong>URL</strong>을 매핑</li>
+</ul>
+
+<h4 id="위-컨트롤러가-호출되는-방식">위 컨트롤러가 호출되는 방식</h4>
+
+<ul>
+  <li><strong>HandlerMapping</strong>(핸들러 매핑)
+    <ul>
+      <li>핸들러 매핑에서 이 컨트롤러를 찾을 수 있어야 함
+ ex) <strong>스프링 빈의 이름으로 핸들러를 찾을 수 있는 핸들러 매핑</strong> 필요</li>
+    </ul>
+  </li>
+  <li><strong>HandlerAdapter</strong>(핸들러 어댑터)
+    <ul>
+      <li>핸들러 매핑을 통해서 찾은 핸들러를 실행할 수 있는 핸들러 어댑터가 필요
+ ex) Controller 인터페이스를 실행할 수 있는 핸들러 어댑터를 찾고 실행해야 함</li>
+    </ul>
+  </li>
+  <li>스프링은 이미 필요한 핸들러 매핑과 핸들러 어댑터를 대부분 구현해두었다.</li>
+</ul>
+
+<h4 id="스프링-부트가-자동으로-등록하는-핸들러-매핑과-핸들러-어댑터">스프링 부트가 자동으로 등록하는 핸들러 매핑과 핸들러 어댑터</h4>
+
+<ul>
+  <li><strong>HandlerMapping</strong>
+    <ul>
+      <li>RequestMappingHandlerMapping : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용 - 가장 우선순위가 높음</li>
+      <li>BeanNameUrlHandlerMapping : 스프링 빈의 이름으로 핸들러를 찾는다. 
+(위 예제의 @Component)</li>
+    </ul>
+  </li>
+  <li><strong>HandlerAdapter</strong>
+    <ul>
+      <li>RequestMappingHandlerAdapter : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용 - 가장 우선순위가 높음</li>
+      <li>HttpRequestHandlerAdapter : HttpRequestHandler 처리</li>
+      <li>SimpleControllerHandlerAdapter : Controller 인터페이스(애노테이션X, 과거에 사용) 처리</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="1-핸들러-매핑으로-핸들러-조회"><strong>1.</strong> <strong>핸들러 매핑으로 핸들러 조회</strong></h5>
+
+<p>HandlerMapping 을 순서대로 실행해서, 핸들러를 찾는다.</p>
+
+<p>빈이름으로 핸들러를 찾아야하기 때문에 빈이름으로핸들러를찾아주는 BeanNameUrlHandlerMapping가 실행에 성공하고 핸들러인 OldController 를 반환한다.</p>
+
+<h5 id="2-핸들러-어댑터-조회"><strong>2.</strong> <strong>핸들러 어댑터 조회</strong></h5>
+
+<p>HandlerAdapter 의 supports() 를 순서대로 호출한다. SimpleControllerHandlerAdapter 가 Controller 인터페이스를 지원하므로 대상이 된다.</p>
+
+<h5 id="3-핸들러-어댑터-실행"><strong>3.</strong> <strong>핸들러 어댑터 실행</strong></h5>
+
+<p>DispatcherServlet이 조회한 SimpleControllerHandlerAdapter 를 실행하면서 핸들러 정보도 함께 넘겨준다.</p>
+
+<p>SimpleControllerHandlerAdapter 는 핸들러인 OldController 를 내부에서 실행하고, 그 결과를 반환한다.</p>
+
+<h3 id="httprequesthandler"><strong>HttpRequestHandler</strong></h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HttpRequestHandler</span> <span class="o">{</span>
+         <span class="kt">void</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li><strong>서블릿과 가장 유사한 형태</strong>의 핸들러</li>
+</ul>
+
+<h5 id="1-핸들러-매핑으로-핸들러-조회-1"><strong>1.</strong> <strong>핸들러 매핑으로 핸들러 조회</strong></h5>
+
+<p>HandlerMapping 을 순서대로 실행해서, 핸들러를 찾는다.</p>
+
+<p>빈이름으로 핸들러를 찾아야하기 때문에 빈이름으로 핸들러를찾아주는 BeanNameUrlHandlerMapping 가 실행에 성공하고 핸들러인 MyHttpRequestHandler 를 반환한다.</p>
+
+<h5 id="2-핸들러-어댑터-조회-1"><strong>2.</strong> <strong>핸들러 어댑터 조회</strong></h5>
+
+<p>HandlerAdapter 의 supports() 를 순서대로 호출한다.
+HttpRequestHandlerAdapter 가 HttpRequestHandler 인터페이스를 지원하므로 대상이 된다.</p>
+
+<h5 id="3-핸들러-어댑터-실행-1"><strong>3.</strong> <strong>핸들러 어댑터 실행</strong></h5>
+
+<p>DispatcherServlet이 조회한 HttpRequestHandlerAdapter 를 실행하면서 핸들러 정보도 함께 넘겨준다.</p>
+
+<p>HttpRequestHandlerAdapter 는 핸들러인 MyHttpRequestHandler 를 내부에서 실행하고, 그 결과를 반환한다.</p>
+
+<hr />
+
+<h2 id="뷰-리졸버">뷰 리졸버</h2>
+
+<h4 id="application-properties">application-properties</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+</code></pre></div></div>
+
+<p>스프링 부트는 <code class="highlighter-rouge">InternalResourceViewResolver</code> 라는 뷰 리졸버를 자동으로 등록한다.<br />
+이때 <code class="highlighter-rouge">application.properties</code> 에 등록한 <code class="highlighter-rouge">spring.mvc.view.prefix</code> , <code class="highlighter-rouge">spring.mvc.view.suffix</code> 설정 정보를 사용해서 등록한다.</p>
+
+<h4 id="스프링-부트가-자동으로-등록하는-뷰-리졸버">스프링 부트가 자동으로 등록하는 뷰 리졸버</h4>
+
+<ul>
+  <li>BeanNameViewResolver : 빈 이름으로 뷰를 찾아서 반환</li>
+  <li>InternalResourceViewResolver : JSP를 처리할 수 있는 뷰를 반환</li>
+</ul>
+
+<p><strong>1.</strong> <strong>핸들러 어댑터 호출</strong><br />
+핸들러 어댑터를 통해 논리 뷰 이름을 획득</p>
+
+<p><strong>2. ViewResolver 호출</strong></p>
+
+<p>new-form 이라는 뷰 이름으로 viewResolver를 순서대로 호출
+InternalResourceViewResolver 가 호출됨</p>
+
+<h5 id="3-internalresourceviewresolver"><strong>3. InternalResourceViewResolver</strong></h5>
+
+<p>내부에서 자원을 찾을 수 있음을 의미한다.<br />
+이 뷰 리졸버는 InternalResourceView 를 반환</p>
+
+<h5 id="4-뷰---internalresourceview">4. <strong>뷰</strong> <strong>- InternalResourceView</strong></h5>
+
+<p>InternalResourceView 는 JSP처럼 포워드 forward() 를 호출해서 처리할 수 있는 경우에 사용</p>
+
+<h5 id="5-viewrender">5. view.render()</h5>
+
+<p>view.render() 가 호출되고 InternalResourceView 는 forward() 를 사용해서 JSP를 실행한다</p>
+
+<p>Thymeleaf 뷰 템플릿을 사용하면 ThymeleafViewResolver 를 등록해야 한다. <br />
+최근에는 라이브러리만 추가하면 스프링 부트가 이런 작업도 모두 자동화해준다.</p>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴&amp;url=http://localhost:4000spring-mvc-5"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000spring-mvc-5"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000spring-mvc-5"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/spring-mvc-4">
+            <section class="post">
+                <h2>📋 Spring MVC - 4. MVC 프레임워크 만들기</h2>
+                <p>## MVC 프레임워크 만들기 ## 프론트 컨트롤러 패턴 프론트 컨트롤러도 서블릿이다. 요청을 모두 받고 요청에...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/spring-mvc-3">
+            <section class="post">
+                <h2>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</h2>
+                <p>서블릿, JSP, MVC 패턴 서블릿으로 만들어보고, JSP로 만들어보고 마지막으로 MVC로 만들어 볼 것이다! 서블릿으로 만들었을...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

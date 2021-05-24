@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📋 Spring MVC - 2. 서블릿</title>
+    <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//spring-mvc-2" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📋 Spring MVC - 2. 서블릿" />
+    <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta property="og:url" content="http://localhost:4000//spring-mvc-2" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📋 Spring MVC - 2. 서블릿" />
+    <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta name="twitter:url" content="http://localhost:4000//spring-mvc-2" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📋 Spring MVC - 2. 서블릿",
+    "url": "http://localhost:4000//spring-mvc-2",
+    "image": "/assets/images/woowa.jpg",
+    "description": "블로그 이사중... 아직 정리가 안되었음..."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📋 Spring MVC - 2. 서블릿</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-05-03">03 May 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="예제">예제</h2>
+
+<p>스프링을 사용하지는 않지만 스프링 부트 프로젝트를 만든다. <br />
+서블릿은 톰캣 같은 WAS를 직접 설치하고, 그 위에 서블릿 코드를 클래스 파일로 빌드해서 올린 다음 톰캣 서버를 실행해야 했는데,<br />
+스프링 부트는 톰캣 서버를 내장하고 있으니, 이로 진행한다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d9e7d412-01b4-4131-9aed-28fbf9acbe6e/image.png" alt="" /></p>
+
+<p>보통은 Jar를 선택하지만, JSP를 돌리기 위해 War를 선택한다.</p>
+
+<h4 id="helloservlet">HelloServlet</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 서블릿이 호출되면 이 service가 호출된다.</span>
+<span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"helloServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/hello"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">service</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"HelloServlet"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Request : "</span> <span class="o">+</span> <span class="n">req</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Response : "</span> <span class="o">+</span> <span class="n">resp</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="s">"hello"</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HelloServlet
+Request : org.apache.catalina.connector.RequestFacade@de1a8e6
+Response : org.apache.catalina.connector.ResponseFacade@2b3735f6
+amazzi
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">@WebServlet</code> : 서블릿 어노테이션</li>
+  <li><code class="highlighter-rouge">@ServletComponentScan</code> : 스프링이 자동으로 서블릿을 찾아 등록해준다.</li>
+  <li>HTTP 요청이 오면 서블릿 컨테이너인 WAS가 HTTP 요청, 응답 객체를 서블릿에 던져준다.</li>
+  <li><code class="highlighter-rouge">req.getParameter()</code> :  요청에서 해당 Parameter를 가져온다.</li>
+  <li><code class="highlighter-rouge">resp.setCharacterEncoding("utf-8");</code> : 헤더에 CharacterEncoding을 지정한다.</li>
+  <li><code class="highlighter-rouge">resp.getWriter().write();</code> : <code class="highlighter-rouge">write()</code> 에 바디에 담을 데이터를 넣어준다.</li>
+</ul>
+
+<h4 id="-requestfacade">🤔 RequestFacade?</h4>
+
+<p>HttpServletRequest는 인터페이스이다.<br />
+여러가지 WAS 서버들이 이 인터페이스의 구현체를 구현하고 있어 다양한 WAS를 사용할 수 있는 것이다.</p>
+
+<h4 id="http-요청-메시지-로그로-확인하기">HTTP 요청 메시지 로그로 확인하기</h4>
+
+<p>application-properties에 다음을 추가한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logging.level.org.apache.coyote.http11=debug
+</code></pre></div></div>
+
+<h4 id="웹-애플리케이션-서버의-요청-응답-구조">웹 애플리케이션 서버의 요청 응답 구조</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1d33b3a2-3565-4487-b17d-c7af286c3c30/image.png" style="zoom:80%;" /></p>
+
+<hr />
+
+<h2 id="httpservletrequest">HttpServletRequest</h2>
+
+<p>서블릿은 개발자가 HTTP 요청 메시지를 편리하게 사용할 수 있도록 개발자 대신에 HTTP 요청 메시지를 파싱한다. <br />
+그리고 결과를 HttpServletRequest 객체에 담아서 제공한다.</p>
+
+<ul>
+  <li>START LINE
+    <ul>
+      <li>HTTP 메소드</li>
+      <li>URL</li>
+      <li>쿼리 스트링</li>
+      <li>스키마, 프로토콜</li>
+    </ul>
+  </li>
+  <li>HEADER
+    <ul>
+      <li>헤더 조회</li>
+    </ul>
+  </li>
+  <li>BODY
+    <ul>
+      <li>form 파라미터의 형식 조회</li>
+      <li>message body 데이터 직접 조회</li>
+    </ul>
+  </li>
+  <li>부가 기능
+    <ul>
+      <li>임시 저장소 기능
+        <ul>
+          <li>해당 HTTP 요청이 시작부터 끝날 때 까지 유지되는 임시 저장소 기능</li>
+          <li>저장: request.setAttribute(name, value)</li>
+          <li>조회: request.getAttribute(name)</li>
+        </ul>
+      </li>
+      <li>세션 관리 기능
+        <ul>
+          <li>request.getSession(create: true)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="기본-사용">기본 사용</h4>
+
+<h4 id="start-line">Start Line</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">()</span> <span class="o">=</span> <span class="n">GET</span>
+<span class="n">request</span><span class="o">.</span><span class="na">getProtocal</span><span class="o">()</span> <span class="o">=</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="n">request</span><span class="o">.</span><span class="na">getScheme</span><span class="o">()</span> <span class="o">=</span> <span class="n">http</span>
+<span class="n">request</span><span class="o">.</span><span class="na">getRequestURL</span><span class="o">()</span> <span class="o">=</span> <span class="nl">http:</span><span class="c1">//localhost:8080/request-header</span>
+<span class="n">request</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">()</span> <span class="o">=</span> <span class="o">/</span><span class="n">request</span><span class="o">-</span><span class="n">header</span>
+<span class="n">request</span><span class="o">.</span><span class="na">getQueryString</span><span class="o">()</span> <span class="o">=</span> <span class="n">username</span><span class="o">=</span><span class="n">hello</span>
+<span class="n">request</span><span class="o">.</span><span class="na">isSecure</span><span class="o">()</span> <span class="o">=</span> <span class="kc">false</span>
+</code></pre></div></div>
+
+<h4 id="헤더-정보">헤더 정보</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">request</span><span class="o">.</span><span class="na">getHeaderNames</span><span class="o">().</span><span class="na">asIterator</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">headerName</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">headerName</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span>
+                <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="n">headerName</span><span class="o">)));</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"--- Headers - end ---"</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>이 외에도 Header 정보를 추출하는 메서드들이 있다.</p>
+
+<ul>
+  <li>request.getServerName()</li>
+  <li>request.getServerPort()</li>
+  <li>request.getLocale()</li>
+  <li>request.getCookies()</li>
+  <li>request.getContentType()</li>
+  <li>request.getCharacterEncoding()</li>
+</ul>
+
+<hr />
+
+<h2 id="http-요청-데이터---get-쿼리-파라미터">HTTP 요청 데이터 - GET 쿼리 파라미터</h2>
+
+<p>메시지 바디 없이, URL의 <strong>쿼리 파라미터</strong>를 사용해서 데이터를 전달하는 방법. <br />
+예) 검색, 필터, 페이징등에서 많이 사용</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:8080/request-param?username=hello&amp;age=20
+</code></pre></div></div>
+
+<p>쿼리파라미터는URL에다음과같이 ?를시작으로보낼수있다.추가파라미터는 &amp;로구분하면된다.</p>
+
+<h4 id="requestparamservlet">RequestParamServlet</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * 파라미터 전송 기능
+ * http://localhost:8080/request-param?username=hello&amp;age=20
+ */</span>
+
+<span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"requestParamServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/request-param"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RequestParamServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"1. 전체 파라미터 조회"</span><span class="o">);</span>
+        <span class="n">req</span><span class="o">.</span><span class="na">getParameterNames</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">asIterator</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">forEachRemaining</span><span class="o">(</span><span class="n">paramName</span> <span class="o">-&gt;</span>
+                        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">paramName</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">paramName</span><span class="o">)));</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"2. 단일 파라미터 조회 (더 많이 쓰는 방식)"</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"username"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"3. 파라미터 이름이 같은 여러개 값이 있을 경우"</span><span class="o">);</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">usernames</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameterValues</span><span class="o">(</span><span class="s">"username"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="http-요청-데이터---post-html-form">HTTP 요청 데이터 - POST HTML Form</h2>
+
+<p>메시지 바디에 데이터가 들어가기 때문에 content-type이 있다. <br />
+<code class="highlighter-rouge">content-type : application/x-www-form-urlencoded </code><br />
+바디에 쿼리 파리미터 형식으로 데이터를 전달한다. <code class="highlighter-rouge">username=hello&amp;age=20</code></p>
+
+<h4 id="hello-formhtml-일부">hello-form.html 일부</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/request-param"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    username: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"username"</span><span class="nt">/&gt;</span> age: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"age"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>전송<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>이전에 만들었던 <strong>requestParamServlet</strong>에 요청을 보내면,</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/3d6eaa71-b5b2-4166-9aa3-6b3aaf8bf97a/image.png" style="zoom: 50%;" /></p>
+
+<p>다음과 같은 결과를 얻는다! <br />
+그런데 <strong>requestParamServlet</strong>는 쿼리 파라미터만 조회하는데 ?</p>
+
+<p>application/x-www-form-urlencoded 형식은 쿼리 파라미터 형식과 같다.<br />
+따라서 <strong>쿼리 파라미터 조회 메서드를 그대로 사용</strong>하면 된다.
+서버 입장에서는 둘의 형식이 동일하므로, request.getParameter() 로 편리하게 구분없이 조회할 수 있다.</p>
+
+<p>request.getParameter() 는 GET URL 쿼리 파라미터 형식도 지원하고, POST HTML Form 형식도 둘 다 지원한다.</p>
+
+<h4 id="-postman으로-테스트할-경우">💡 POSTMAN으로 테스트할 경우</h4>
+
+<p>Form 데이터를 입력하기 귀찮은데, 이때 <strong>Content-type</strong>을 <code class="highlighter-rouge">application/x-www-form-urlencoded</code> 로 설정한다.</p>
+
+<hr />
+
+<h2 id="http-요청-데이터---api-메시지-바디">HTTP 요청 데이터 - API 메시지 바디</h2>
+
+<p><strong>HTTP message body</strong>에 데이터를 직접 담아서 요청한다. <br />
+HTTP API에서 주로 JSON을 사용한다.</p>
+
+<h3 id="단순-텍스트">단순 텍스트</h3>
+
+<h4 id="requestbodystringservlet---raw한-string">RequestBodyStringServlet - Raw한 String</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"requestBodyStringServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/request-body-string"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RequestBodyStringServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">ServletInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span> <span class="c1">// byte 코드를 얻음</span>
+        <span class="n">String</span> <span class="n">messageBody</span> <span class="o">=</span> <span class="n">StreamUtils</span><span class="o">.</span><span class="na">copyToString</span><span class="o">(</span><span class="n">inputStream</span><span class="o">,</span> <span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span> <span class="c1">// 스프링이 제공하는 유틸리티</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>HTML form도 이렇게 조회할 수 있지만 번거로우니 쿼리 파라미터 조회를 사용하자!</p>
+
+<h3 id="json">JSON</h3>
+
+<ul>
+  <li>content-type: <strong>application/json</strong></li>
+</ul>
+
+<h4 id="hellodata">HelloData</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloData</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">userName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="requestbodyjsonservlet">RequestBodyJsonServlet</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"requestBodyJsonServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/request-body-json"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RequestBodyJsonServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">ObjectMapper</span> <span class="n">objectMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">ServletInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span> <span class="c1">// byte 코드를 얻음</span>
+        <span class="n">String</span> <span class="n">messageBody</span> <span class="o">=</span> <span class="n">StreamUtils</span><span class="o">.</span><span class="na">copyToString</span><span class="o">(</span><span class="n">inputStream</span><span class="o">,</span> <span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span> <span class="c1">// 스프링이 제공하는 유틸리티</span>
+
+        <span class="n">HelloData</span> <span class="n">helloData</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">messageBody</span><span class="o">,</span> <span class="n">HelloData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>JSON 결과를 파싱해서 객체로 변환하려면 Jackson, Gson 같은 JSON 변환 라이브러리를 추가해서 사용해야 한다. <br />
+스프링 부트로 Spring MVC를 선택하면 기본으로 Jackson 라이브러리( ObjectMapper)를 제공한다.</p>
+
+<hr />
+
+<h2 id="httpservletresponse---기본-사용법">HTTPServletResponse - 기본 사용법</h2>
+
+<p>개발자가 직접 응답 객체를 만들기는 번거롭지 않게 서블릿이 제공해준다!</p>
+
+<ul>
+  <li>HTTP 응답코드 지정</li>
+  <li>헤더 생성</li>
+  <li>바디 생성 등등…</li>
+</ul>
+
+<h4 id="responseheaderservlet">ResponseHeaderServlet</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"responseHeaderServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/response-header"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResponseHeaderServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">//[status-line] 상태코드 지정</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">SC_OK</span><span class="o">);</span> <span class="c1">//200</span>
+        <span class="c1">//[response-headers] 응답 헤더 지정</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"text/plain;charset=utf-8"</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Cache-Control"</span><span class="o">,</span> <span class="s">"no-cache, no-store, must-revalidate"</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Pragma"</span><span class="o">,</span> <span class="s">"no-cache"</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"my-header"</span><span class="o">,</span> <span class="s">"hello"</span><span class="o">);</span>
+        <span class="c1">//[Header 편의 메서드] content(response); cookie(response); redirect(response);</span>
+        <span class="c1">//[message body] 응답 바디 지정</span>
+        <span class="n">PrintWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ok"</span><span class="o">);</span>
+
+        <span class="c1">//Content-Type: text/plain;charset=utf-8</span>
+        <span class="c1">//Content-Length: 2</span>
+        <span class="c1">//response.setHeader("Content-Type", "text/plain;charset=utf-8");</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">"text/plain"</span><span class="o">);</span> 
+        <span class="n">resp</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span> 
+        <span class="c1">//response.setContentLength(2); //(생략시 자동 생성)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="쿠키-설정하기">쿠키 설정하기</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Set-Cookie: myCookie=good; Max-Age=600; </span>
+<span class="n">response</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Set-Cookie"</span><span class="o">,</span> <span class="s">"myCookie=good; Max-Age=600"</span><span class="o">);</span> 
+
+<span class="c1">// 또는 </span>
+<span class="n">Cookie</span> <span class="n">cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cookie</span><span class="o">(</span><span class="s">"myCookie"</span><span class="o">,</span> <span class="s">"good"</span><span class="o">);</span> 
+<span class="n">cookie</span><span class="o">.</span><span class="na">setMaxAge</span><span class="o">(</span><span class="mi">600</span><span class="o">);</span> <span class="c1">//600초</span>
+<span class="n">response</span><span class="o">.</span><span class="na">addCookie</span><span class="o">(</span><span class="n">cookie</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="redirect-설정하기">Redirect 설정하기</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Status Code 302</span>
+<span class="c1">//Location: /basic/hello-form.html</span>
+<span class="n">response</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">SC_FOUND</span><span class="o">);</span> <span class="c1">//302</span>
+<span class="n">response</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Location"</span><span class="o">,</span> <span class="s">"/basic/hello-form.html"</span><span class="o">);</span>
+
+<span class="c1">// 또는</span>
+<span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="s">"/basic/hello-form.html"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="http-요청-데이터">HTTP 요청 데이터</h2>
+
+<h3 id="단순-텍스트-html">단순 텍스트, HTML</h3>
+
+<h4 id="httpservletresponse">HttpServletResponse</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"responseHtmlServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/response-html"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HttpServletResponse</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">// Content-Type: text:html; charset=utf-8</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">"text:html"</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
+        <span class="n">PrintWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"&lt;html&gt;"</span><span class="o">);</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"&lt;body&gt;"</span><span class="o">);</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" &lt;div&gt;이건 아니지&lt;/div&gt;"</span><span class="o">);</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"&lt;/body&gt;"</span><span class="o">);</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"&lt;/html&gt;"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>간단하지만, HTML을 일일히 작성해주어야 한다?</p>
+
+<h3 id="api-json">API JSON</h3>
+
+<h4 id="responsejsonservlet">ResponseJsonServlet</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"responseJsonServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/response-json"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResponseJsonServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ObjectMapper</span> <span class="n">objectMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">//Content-Type: application/json</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"content-type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
+        <span class="n">HelloData</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HelloData</span><span class="o">();</span>
+        <span class="n">data</span><span class="o">.</span><span class="na">setUserName</span><span class="o">(</span><span class="s">"mazzi"</span><span class="o">);</span>
+        <span class="n">data</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+        
+        <span class="c1">// JSON으로 변환</span>
+        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>(사실 스프링 쓰면 이렇게 길어지지도 않는다.)</p>
+
+<hr />
+
+<p>✍️ 김영님의 <strong>스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</strong> 강의 노트 ✍️</p>
+
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📋 Spring MVC - 2. 서블릿&amp;url=http://localhost:4000spring-mvc-2"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000spring-mvc-2"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000spring-mvc-2"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/spring-mvc-3">
+            <section class="post">
+                <h2>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</h2>
+                <p>## 서블릿, JSP, MVC 패턴 서블릿으로 만들어보고, JSP로 만들어보고 마지막으로 MVC로 만들어 볼 것이다! ###...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/deploy-answer">
+            <section class="post">
+                <h2>📋 배포 1단계 퀴즈 답</h2>
+                <p>브라우저에서 google.com를 요청할 때 통신 과정이 어떻게 이루어질까요? 1. 주소창에 google.com를 입력하고 Enter를 누른다. 2....</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>
