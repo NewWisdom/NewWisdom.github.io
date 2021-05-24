@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>New Wisdom's Log !</title>
+    <title>Author</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,31 +34,31 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//" />
+        <link rel="canonical" href="http://localhost:4000//author/techotalk/" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="New Wisdom's Log !" />
+    <meta property="og:title" content="Author" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//" />
-    <meta property="og:image" content="/assets/images/cover1.jpg" />
+    <meta property="og:url" content="http://localhost:4000//author/techotalk/" />
+    <meta property="og:image" content="/assets/images/cover4.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="New Wisdom's Log !" />
+    <meta name="twitter:title" content="Author" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//" />
-    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+    <meta name="twitter:url" content="http://localhost:4000//author/techotalk/" />
+    <meta name="twitter:image:src" content="/assets/images/cover4.jpg" />
 
     <script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "New Wisdom's Log !",
-    "url": "http://localhost:4000//",
-    "image": "/assets/images/cover1.jpg",
+    "name": "Author",
+    "url": "http://localhost:4000//author/techotalk/",
+    "image": "/assets/images/cover4.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
     </script>
@@ -68,7 +68,7 @@
 
 
 </head>
-<body class="home-template nav-closed">
+<body class="author-template nav-closed">
 
     <!-- The blog navigation links -->
     <div class="nav">
@@ -77,10 +77,10 @@
         <span class="hidden">Close</span>
     </a>
     <ul>
-        <li class="nav-home  nav-current" role="presentation"><a href="/">Home</a></li>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
         <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
-        <li class="nav-techotalk " role="presentation"><a href="/tag/techotalk">Techotalk</a></li>
+        <li class="nav-techotalk  nav-current" role="presentation"><a href="/tag/techotalk">Techotalk</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
         <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
         <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
@@ -100,41 +100,42 @@
     <div class="site-wrapper">
 
         <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
-        <!-- < default -->
+        <!-- < default}} -->
 <!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
 
-<!-- The big featured header  -->
-<header class="main-header "
-        style="background-image: url(/assets/images/cover1.jpg) ">
-    <nav class="main-nav overlay clearfix">
-        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+<!-- The big featured header -->
+
+<!-- Everything inside the #author tags pulls data from the author -->
+<!-- #author  -->
+    <header class="main-header author-head " style="background-image: url(/assets/images/cover4.jpg) ">
+        <nav class="main-nav overlay clearfix">
+            <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+            
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+            
+        </nav>
+    </header>
+
+    <section class="author-profile inner">
         
-            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+            
         
-    </nav>
-    <div class="vertical">
-        <div class="main-header-content inner">
-            <h1 class="page-title">Welcome To New Wisdom's Log !</h1>
-            <h2 class="page-description">블로그 이사중... 아직 정리가 안되었음...</h2>
-        </div>
-    </div>
-    <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
-</header>
+    </section>
+<!-- /author -->
 
 <!-- The main content area on the homepage -->
 <main id="content" class="content" role="main">
 
-    <!-- The tag below includes the post loop - partials/loop.hbs -->
+    <!-- The tag below includes the post loop - partials/loop.hbs  -->
         <!-- Previous/next page links - only displayed on page 2+ -->
     <div class="extra-pagination inner">
         
             <nav class="pagination" role="pagination">
     
-    <span class="page-number"> Page 1 of 10 </span>
-     
-        <a class="older-posts" href="/page2/" title="Next Page">Older Posts &raquo;</a>
-     
+    <span class="page-number"> Page 1 of 1 </span>
+    
 </nav>
+
         
     </div>
 
@@ -171,156 +172,15 @@
         </footer>
     </article>
     
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/kotlin1">📋 Kotlin을 정복해봅시다 1</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>코틀린이란? 자바 플랫폼에서 돌아가는 새로운 프로그래밍 언어 간결하고 실용적 자바 코드와의 상호 운용성을 중시 코틀린 컴파일러가 생성한 바이트코드는 일반적인 자바 코드와 똑같이 효율적으로 실행 정적 타입... <a class="read-more" href="/kotlin1">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/kotlin'>Kotlin</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-05-16">16 May 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/spring-mvc-4">📋 Spring MVC - 4. MVC 프레임워크 만들기</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>MVC 프레임워크 만들기 프론트 컨트롤러 패턴 프론트 컨트롤러도 서블릿이다. 요청을 모두 받고 요청에 맞는 컨트롤러를 호출한다. 특징 프론트 컨트롤러 서블릿 하나로 클라이언트의 요청을 받고, 요청에 맞는... <a class="read-more" href="/spring-mvc-4">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/springboot'>Springboot</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-05-04">04 May 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/spring-mvc-5">📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>스프링 MVC 전체 구조 지금껏 만들었던 프레임 워크 &lt;-&gt; 스프링 MVC FrontController - DispatcherServlet HandlerMappingMap - HandlerMapping MyHandlerAdapter - HandlerAdapter ModelView - ModelAndView ViewResolver - ViewResolver... <a class="read-more" href="/spring-mvc-5">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/springboot'>Springboot</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-05-03">03 May 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/spring-mvc-3">📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>서블릿, JSP, MVC 패턴 서블릿으로 만들어보고, JSP로 만들어보고 마지막으로 MVC로 만들어 볼 것이다! 서블릿으로 만들었을 때 일부 예제 @WebServlet(name = "memberListServlet", urlPatterns = "/servlet/members") public class... <a class="read-more" href="/spring-mvc-3">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/springboot'>Springboot</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-05-03">03 May 2021</time>
-        </footer>
-    </article>
-    
 
     <!-- Previous/next page links - displayed on every page -->
     
         <nav class="pagination" role="pagination">
     
-    <span class="page-number"> Page 1 of 10 </span>
-     
-        <a class="older-posts" href="/page2/" title="Next Page">Older Posts &raquo;</a>
-     
+    <span class="page-number"> Page 1 of 1 </span>
+    
 </nav>
+
     
 
 
