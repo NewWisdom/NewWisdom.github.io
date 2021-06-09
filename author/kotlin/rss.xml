@@ -407,6 +407,13 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h3 id="as-키워드-사용해도-되나여"><code class="highlighter-rouge">as</code> 키워드 사용해도 되나여?</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">val results = resultBoard.values as List&lt;GameResult&gt;</code></li>
+  <li>자바의 타입 변환과 같은 것</li>
+</ul>
+
 <hr />
 
 <h3 id="참고-자료">참고 자료</h3>

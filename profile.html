@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>📌 시간 복잡도</title>
+    <title>📋 스프링 부트 Profile로 다른 환경 구성</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,21 +34,21 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//time" />
+        <link rel="canonical" href="http://localhost:4000//profile" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="📌 시간 복잡도" />
+    <meta property="og:title" content="📋 스프링 부트 Profile로 다른 환경 구성" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//time" />
+    <meta property="og:url" content="http://localhost:4000//profile" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="📌 시간 복잡도" />
+    <meta name="twitter:title" content="📋 스프링 부트 Profile로 다른 환경 구성" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//time" />
+    <meta name="twitter:url" content="http://localhost:4000//profile" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
 
     <script type="application/ld+json">
@@ -56,8 +56,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "📌 시간 복잡도",
-    "url": "http://localhost:4000//time",
+    "name": "📋 스프링 부트 Profile로 다른 환경 구성",
+    "url": "http://localhost:4000//profile",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
@@ -116,7 +116,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">📌 시간 복잡도</h1>
+        <h1 class="post-title">📋 스프링 부트 Profile로 다른 환경 구성</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -125,13 +125,17 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-06-01">01 Jun 2021</time>
+            <time class="post-date" datetime="2021-06-09">09 Jun 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
                 
                     
-                       <a href='/tag/techotalk'>Techotalk</a>
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
                     
                 
                 
@@ -151,51 +155,124 @@
 
         <section class="post-content">
 
-            <h3 id="알고리즘이란">알고리즘이란?</h3>
+            <h2 id="profile">Profile?</h2>
 
 <ul>
-  <li>문제를 해결하기 위한 방법</li>
+  <li>애플리케이션 일부 configuration을 분리하고 싶을 때 사용</li>
+  <li>애플리케이션 일부 configuration을 특정 환경에서만 가능하게 하고 싶을 때 사용</li>
+  <li>개발 환경에 따라 설정값을 달르게 로딩할 때</li>
 </ul>
 
-<h3 id="예시">예시</h3>
-
-<h4 id="건너뛰기-혹은-살펴보기-전략">건너뛰기 혹은 살펴보기 전략</h4>
+<h2 id="profile-1">@Profile</h2>
 
 <ul>
-  <li>자취방 구하기</li>
-  <li>맛있는 음식점 찾아다니기</li>
-  <li>마음에 드는 옷 고르기</li>
-</ul>
+  <li>
+    <p><code class="highlighter-rouge">@Component, @Configuration, @ConfigurationProperties</code>을 <code class="highlighter-rouge">@Profile</code>와 함께 선언
+```java
+@Configuration
+@Profile(“production”)
+public class ProductionConfiguration {</p>
 
-<h3 id="시간-복잡도">시간 복잡도</h3>
-
-<ul>
-  <li>문제를 해결하는데 걸리는 시간과 입력의 함수 관계</li>
-  <li>계산법 = 핵심이 되는 연산이 무엇일까?</li>
-  <li>항상 최악의 경우를 시간복잡도로 쓴다.</li>
-  <li>최선의 경우는 어떤 알고리즘을 써도 만족스러운 경우가 나오기 때문에 최악의 경우를 시간복잡도로 사용</li>
-</ul>
-
-<h4 id="현실적-알고리즘">현실적 알고리즘</h4>
-
-<ul>
-  <li>Polynomial complexity (P 문제)</li>
-  <li>sorting. dp</li>
-</ul>
-
-<h4 id="비현실적-알고리즘">비현실적 알고리즘</h4>
-
-<ul>
-  <li>Nondeterministic Polynomial complexity (NP 문제)</li>
-  <li>소인수 분해 문제
-    <ul>
-      <li>ex) 21이 어떤 수들의 곱인지 구하는 것은 오래걸림</li>
-      <li>q와 p의 곱을 n이라하고 이를 공개키로 둔다.</li>
-    </ul>
+    <p>// …</p>
   </li>
-  <li>해밀턴 경로 문제</li>
-  <li>컴퓨터로도 풀 수 없다</li>
-  <li>너무 오래 걸려</li>
+</ul>
+
+<p>}</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 어플리케이션 실행시 `spring.profiles.active` 프로퍼티로 프로파일을 지정하면 해당 프로파일이 적용된 빈만 등록됨
+
+**application-properties**
+</code></pre></div></div>
+<p>spring.profiles.active=dev,hsqldb</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+
+#### Example
+
+1. application-properties에 다음과 같이 정의
+</code></pre></div></div>
+<p>spring.profiles.active=prod</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. `@Profile` 어노테이션과 함께 `@Configuration` 등록
+
+&lt;img src="https://user-images.githubusercontent.com/43840561/121311111-0f322800-c93f-11eb-9455-436a99434869.png" alt="image" style="zoom:50%;" /&gt;
+
+&lt;img src="https://user-images.githubusercontent.com/43840561/121311125-13f6dc00-c93f-11eb-8a93-3923630d84fa.png" alt="image" style="zoom:50%;" /&gt;
+
+3. 어플리케이션 실행시 active한 prod에 등록된 hello 빈이 출력됨
+
+![image](https://user-images.githubusercontent.com/43840561/121311276-3a1c7c00-c93f-11eb-9698-9abf9172184f.png)
+
+### @Profile과 @ActiveProfiles
+* 서로 다른 환경에서 서로 다른 profile을 활성화하여 필요한 빈만 등록하도록 하는 어노테이션 
+* `@Profile`은 SpringBootApplication을 실행할 때 사용
+* `@ActiveProfiles`은 테스트 환경에서 사용
+
+
+
+## application.properties
+
+* application-{profile}.properties 형식으로 파일 생성
+* 이는 `@ConfigurationProperties`로 간주되고 로드됨
+  * *.properties , *.yml 파일에 있는 property를 자바 클래스에 값을 가져와서(바인딩) 사용할 수 있게 해주는 어노테이션 
+* application-{profile}.properties은 application.properties 보다 우선순위가 높게됨
+* 빌드할 때 다음과 같은 명령어와 함께 특정 환경설정을 적용할 수 있음
+</code></pre></div></div>
+<p>–spring.profiles.active=production</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* properties 파일에 `spring.profiles.include`를 통해 추가할 프로파일을 설정할 수 있음
+
+
+
+#### Example
+
+**application-properties**
+
+</code></pre></div></div>
+<p>spring.profiles.active=dev
+profile-common.name = default_name_mazzi
+defaultonly.name = defualt_name</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**application-prod.properties**
+</code></pre></div></div>
+<p>profile-common.name = test_name_mazzi
+testonly.name = test_name</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**application-dev.properties**
+</code></pre></div></div>
+<p>profile-common.name = dev_name_mazzi
+devonly.name = dev_name</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**AppRunner**
+```java
+@Component
+public class AppRunner implements ApplicationRunner {
+    @Autowired
+    Environment env;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        System.out.println("=====================================================");
+        System.out.println("spring.profiles.active : " + args.getOptionValues("spring.profiles.active"));
+        System.out.println("Enviroment's Active Profile : " + Arrays.toString(env.getActiveProfiles()));
+        System.out.println("defaultonly.name : " + env.getProperty("defaultonly.name"));
+        System.out.println("testonly.name : " + env.getProperty("testonly.name"));
+        System.out.println("devonly.name : " + env.getProperty("devonly.name"));
+        System.out.println("profile-common.name : " + env.getProperty("profile-common.name"));
+        System.out.println("=====================================================");
+    }
+}
+</code></pre></div></div>
+<p><strong>실행 결과</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/43840561/121315869-b6b15980-c943-11eb-83a9-7e4214b18fe6.png" alt="image" style="zoom:50%;" /></p>
+
+<ul>
+  <li>profile-common.name는 모든 프로퍼티 파일이 공통으로 가진 프로퍼티</li>
+  <li>dev 프로파일을 활성화</li>
+  <li>공통 속성인 <code class="highlighter-rouge">profile-common.name</code>은 우선순위가 높은 dev 프로파일의 것으로 오버라이드 됨</li>
+</ul>
+
+<hr />
+<h3 id="참고자료">참고자료</h3>
+<ul>
+  <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.profiles">공식문서</a></li>
+  <li><a href="https://yangbox.tistory.com/35">스프링부트 프로파일(Springboot Profile)로 다른 환경 구성하기</a></li>
+  <li><a href="https://engkimbs.tistory.com/766">스프링 부트 프로파일(Spring Boot Profile)</a></li>
 </ul>
 
 
@@ -229,15 +306,15 @@
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=📌 시간 복잡도&amp;url=http://localhost:4000time"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📋 스프링 부트 Profile로 다른 환경 구성&amp;url=http://localhost:4000profile"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000time"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000profile"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000time"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000profile"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -258,20 +335,13 @@
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/jwp-chess-note">
-            <section class="post">
-                <h2>📚 jwp-chess 미션 정리</h2>
-                <p>## @ControllerAdvice * 전역 예외를 처리하는데 사용 #### 정리 [@ControllerAdvice, @RestControllerAdvice](https://github.com/NewWisdom/TIL/issues/1) ## REST API *...</p>
-            </section>
-        </a>
-    
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/cache">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/jwp-chess-note">
             <section class="post">
-                <h2>📌 Cache</h2>
-                <p>메모리 계층 구조 데이터를 저장하는 공간의 속도와 용량은 반비례 빠를수록 가격이 올라간다. 용량이 큰 저장장치는...</p>
+                <h2>📚 jwp-chess 미션 정리</h2>
+                <p>@ControllerAdvice 전역 예외를 처리하는데 사용 정리 @ControllerAdvice, @RestControllerAdvice REST API REST API 설계 방법을 찾아보고...</p>
             </section>
         </a>
     

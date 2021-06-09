@@ -12,113 +12,10 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
-	  <title>📌 SpringBoot Auto Configuration</title>
-	  <link>//springconfiguration</link>
-	  <author></author>
-	  <pubDate>2021-05-27T19:18:00+09:00</pubDate>
-	  <guid>//springconfiguration</guid>
-	  <description><![CDATA[
-	     <h2 id="테코톡을-보고-추가로-학습한-내용들">테코톡을 보고 추가로 학습한 내용들</h2>
-
-<p>스프링 부트는 component-scan을 통해 component를 찾고 bean을 생성한다.<br />
-이 과정에서 우리가 설정한 bean들이 생성된다.<br />
-그리고 이 과정에서 spring boot의 auto configuration에 의해 추가적인 bean들도 함께 생성된다.</p>
-
-<h3 id="spring-boot-autoconfiguration이란">Spring Boot AutoConfiguration이란?</h3>
-
-<ul>
-  <li>클래스 패스에 존재하는 dependecy를 기반으로 spring 애플리케이션을 자동으로 구성하는 방법</li>
-  <li>스프링 부트는 web, h2, jdbc등 여러 자동 설정을 제공 (starter)</li>
-  <li>특정 Bean을 정의할 필요 없기 때문에 개발이 더 빠르고 쉬워짐</li>
-  <li>스프링부트에선 <code class="highlighter-rouge">@SpringBootApplication</code>에 있는 <code class="highlighter-rouge">EnableAutoConfiguration</code> 로 가능</li>
-</ul>
-
-<h3 id="springbootautoconfiguration">@SpringBootAutoConfiguration</h3>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/024b6568-3a66-4a6f-b4c3-1eaeee3ea27d/image.png" style="zoom: 50%;" /></p>
-
-<ul>
-  <li><code class="highlighter-rouge">@SpringBootConfiguration</code> : 스프링의 <code class="highlighter-rouge">@Configuration</code>을 대체하는 스프링 부트 전용 설정 어노테이션</li>
-  <li><code class="highlighter-rouge">@EnableAutoConfiguration</code> : auto configuration 기능을 사용하겠다는 설정. 클래스 패스에 지정된 내용을 기반으로 설정을 자동화. 일반적으로 <code class="highlighter-rouge">@ComponentScan</code> 와 함께 쓰임</li>
-</ul>
-
-<p><strong>그런데 우리가 정의한 Bean과 Spring Boot가 정의한 Bean이 충돌하면? 또한 불필요한 Bean들도 같이 생성된다면?</strong></p>
-
-<p><code class="highlighter-rouge">@Condition</code>과 <code class="highlighter-rouge">@ConditionalOnXxx</code>을 이용해서 이와 같은 문제를 해결한다.</p>
-
-<h3 id="springfactories">spring.factories</h3>
-
-<p>위의 두 어노테이션을 살펴보기 전에 auto configuration에 필요한 파일들을 살펴보자.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/0e864065-e901-4be2-a736-ba56b5d7e8c6/image.png" style="zoom:33%;" /></p>
-
-<h4 id="auto-configure">Auto Configure</h4>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/06db6a39-a4bd-40f3-bb11-cbd13c55994b/image.png" style="zoom: 50%;" /></p>
-
-<p><code class="highlighter-rouge">spring-boot-autoconfigure/META-INF/spring.factories</code> 에는 스프링 부트가 미리 정의해둔 auto configuration 정보가 들어있다.<br />
-여기에는 자동 설정의 target 클래스 목록들이 나열되어 있고, 여기에 선언된 클래스들이 <code class="highlighter-rouge">@EnableConfiguration</code> 사용 시 target이 된다.</p>
-
-<h3 id="conditional-conditionalonxxx">@Conditional? @ConditionalOnXxx?</h3>
-
-<ul>
-  <li>Sprig 4.0부터 추가된 어노테이션</li>
-</ul>
-
-<p><code class="highlighter-rouge">spring.factories</code> 에 있는 클래스들 중 익숙한 <code class="highlighter-rouge">org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\</code> 를 예시로 보자.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/a41c8243-04ba-424e-b466-c592dd5502b1/image.png" alt="" /></p>
-
-<ul>
-  <li><code class="highlighter-rouge">@ConditionalOnClass({ DataSource.class, EmbeddedDatabaseType.class })</code> 설정을 통해 해당 클래스 파일이 존재해야 설정을 활성화 함을 명시</li>
-  <li><code class="highlighter-rouge">@ConditionalOnMissingBean(type = "io.r2dbc.spi.ConnectionFactory")</code> 설정을 통해 해당 Bean이 존재하지 않을 경우 설정을 활성화 함을 명시</li>
-</ul>
-
-<p>이러한 설정들 덕분에 <code class="highlighter-rouge">우리가 정의한 Bean과 Spring Boot가 정의한 Bean이 충돌하는 문제, 불필요한 Bean들이 생성되는 문제 등</code>을 해결할 수 있다.</p>
-
-<h4 id="autoconfigurationimportfilter">AutoConfigurationImportFilter</h4>
-
-<p>그런데 사실 auto configuration에서 이 <code class="highlighter-rouge">@Condition</code> 을 무조건 타는 것이 아니다.<br />
-<code class="highlighter-rouge">spring.factories</code> 에는 <code class="highlighter-rouge">AutoConfigurationImportFilter</code> 설정이 존재한다.<br />
-아래와 같은 필터들은 각 AutoConfiguration이 가진 <code class="highlighter-rouge">@Conditional</code> 을 가지고 조건을 만족하는지 필터링을 수행한다.<br />
-조건이 맞지 않을 경우, AutoConfiguration이 동작하지 않도록 제외시키는 역할을 한다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/6180dd11-d6e2-4e23-9146-da32cbaaba32/image.png" style="zoom: 50%;" /></p>
-
-<ul>
-  <li><strong>OnBeanCondition</strong> : 특정 bean들의 존재유무에 대해서 다루는 필터
-    <ul>
-      <li><code class="highlighter-rouge">@ConditionalOnBean, @ConditionalOnMissingBean, @ConditionalOnSingleCandidate</code></li>
-    </ul>
-  </li>
-  <li><strong>OnClassCondition</strong> : 특정 class들의 존재유무에 대해서 다루는 필터
-    <ul>
-      <li><code class="highlighter-rouge">@ConditionalOnClass, @ConditionalOnMissingClass</code></li>
-    </ul>
-  </li>
-  <li><strong>OnWebApplicationCondition</strong> : WebApplicationContext의 존재유무에 대해서 다루는 필터
-    <ul>
-      <li><code class="highlighter-rouge">@ConditionalOnWebApplication, @ConditionalOnNotWebApplication</code></li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>그렇다면 이 자동 설정들은 어떻게 불러와질까?</strong></p>
-
-<h3 id="importautoconfigurationimportselectorclass">@Import(AutoConfigurationImportSelector.class)</h3>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/024b6568-3a66-4a6f-b4c3-1eaeee3ea27d/image.png" style="zoom: 50%;" /></p>
-
-<p><code class="highlighter-rouge">@SpringbootApplication</code> 어노테이션 내부에 있던 <code class="highlighter-rouge">@Import(AutoConfigurationImportSelector.class)</code> 는 자동 설정을 지원해주며, import하고 있는 AutoConfigurationImportSelector.class가 <code class="highlighter-rouge">META-INF/spring.factories</code> 에 정의된 자동 설정할 클래스들을 불러온다.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
 	  <title>📌 시간 복잡도</title>
 	  <link>//time</link>
 	  <author></author>
-	  <pubDate>2021-05-26T19:18:00+09:00</pubDate>
+	  <pubDate>2021-06-01T19:18:00+09:00</pubDate>
 	  <guid>//time</guid>
 	  <description><![CDATA[
 	     <h3 id="알고리즘이란">알고리즘이란?</h3>
@@ -175,7 +72,7 @@
 	  <title>📌 Cache</title>
 	  <link>//cache</link>
 	  <author></author>
-	  <pubDate>2021-05-26T19:18:00+09:00</pubDate>
+	  <pubDate>2021-05-31T19:18:00+09:00</pubDate>
 	  <guid>//cache</guid>
 	  <description><![CDATA[
 	     <h3 id="메모리-계층-구조">메모리 계층 구조</h3>
@@ -314,278 +211,104 @@
 	</item>
 
 	<item>
-	  <title>📋 4. 의존 자동 주입</title>
-	  <link>//springbasic4</link>
+	  <title>📌 SpringBoot Auto Configuration</title>
+	  <link>//springconfiguration</link>
 	  <author></author>
-	  <pubDate>2021-05-26T19:18:00+09:00</pubDate>
-	  <guid>//springbasic4</guid>
+	  <pubDate>2021-05-27T19:18:00+09:00</pubDate>
+	  <guid>//springconfiguration</guid>
 	  <description><![CDATA[
-	     <h2 id="autowired-어노테이션을-통한-의존-자동-주입">@Autowired 어노테이션을 통한 의존 자동 주입</h2>
+	     <h2 id="테코톡을-보고-추가로-학습한-내용들">테코톡을 보고 추가로 학습한 내용들</h2>
+
+<p>스프링 부트는 component-scan을 통해 component를 찾고 bean을 생성한다.<br />
+이 과정에서 우리가 설정한 bean들이 생성된다.<br />
+그리고 이 과정에서 spring boot의 auto configuration에 의해 추가적인 bean들도 함께 생성된다.</p>
+
+<h3 id="spring-boot-autoconfiguration이란">Spring Boot AutoConfiguration이란?</h3>
 
 <ul>
-  <li>자동 주입 기능을 사용하면 스프링이 알아서 의존 객체를 찾아 주입한다.</li>
-  <li>사용 방법은 의존을 주입할 대상에 <code class="highlighter-rouge">@Autowiwred</code> 어노테이션을 붙이면 된다.</li>
-  <li>해당 어노테이션이 붙어있으면 스프링이 이를 찾아 필드에 할당한다.</li>
+  <li>클래스 패스에 존재하는 dependecy를 기반으로 spring 애플리케이션을 자동으로 구성하는 방법</li>
+  <li>스프링 부트는 web, h2, jdbc등 여러 자동 설정을 제공 (starter)</li>
+  <li>특정 Bean을 정의할 필요 없기 때문에 개발이 더 빠르고 쉬워짐</li>
+  <li>스프링부트에선 <code class="highlighter-rouge">@SpringBootApplication</code>에 있는 <code class="highlighter-rouge">EnableAutoConfiguration</code> 로 가능</li>
 </ul>
 
-<p>**@Autowired를 적용한 대상에 일치하는 빈이 없으면? **</p>
+<h3 id="springbootautoconfiguration">@SpringBootAutoConfiguration</h3>
 
-<p>해당 필드에 대한 의존을 충족하지 않는다는 내용과 함께 빈이 존재하지 않는다는 에러 메시지가 출력된다.</p>
-
-<p>**만약 두개 이상이면? **</p>
-
-<p>해당 타입의 빈이 한개가 아닌 여러개를 발견했다는 예외 메시지가 출력된다.</p>
-
-<hr />
-
-<h2 id="qualifier를-이용한-의존-객체-선택">@Qualifier를 이용한 의존 객체 선택</h2>
+<p><img src="https://images.velog.io/images/new_wisdom/post/024b6568-3a66-4a6f-b4c3-1eaeee3ea27d/image.png" style="zoom: 50%;" /></p>
 
 <ul>
-  <li>자동 주입 가능한 빈이 두 개 이상인 경우 자동 주입을 할 빈을 지정하는 방법</li>
+  <li><code class="highlighter-rouge">@SpringBootConfiguration</code> : 스프링의 <code class="highlighter-rouge">@Configuration</code>을 대체하는 스프링 부트 전용 설정 어노테이션</li>
+  <li><code class="highlighter-rouge">@EnableAutoConfiguration</code> : auto configuration 기능을 사용하겠다는 설정. 클래스 패스에 지정된 내용을 기반으로 설정을 자동화. 일반적으로 <code class="highlighter-rouge">@ComponentScan</code> 와 함께 쓰임</li>
 </ul>
 
-<h3 id="사용-위치">사용 위치</h3>
+<p><strong>그런데 우리가 정의한 Bean과 Spring Boot가 정의한 Bean이 충돌하면? 또한 불필요한 Bean들도 같이 생성된다면?</strong></p>
 
-<h4 id="bean-을-붙인-빈-설정-메서드">@Bean 을 붙인 빈 설정 메서드</h4>
+<p><code class="highlighter-rouge">@Condition</code>과 <code class="highlighter-rouge">@ConditionalOnXxx</code>을 이용해서 이와 같은 문제를 해결한다.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApplicationContextTestResourceQualifier</span> <span class="o">{</span>
+<h3 id="springfactories">spring.factories</h3>
 
-    <span class="nd">@Bean</span>
-  	<span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"defaultFile"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">File</span> <span class="nf">defaultFile</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">File</span> <span class="n">defaultFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">"defaultFile.txt"</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">defaultFile</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
+<p>위의 두 어노테이션을 살펴보기 전에 auto configuration에 필요한 파일들을 살펴보자.</p>
 
-<h4 id="autowired에서-자동-주입할-빈을-한정할-때-사용">@Autowired에서 자동 주입할 빈을 한정할 때 사용</h4>
+<p><img src="https://images.velog.io/images/new_wisdom/post/0e864065-e901-4be2-a736-ba56b5d7e8c6/image.png" style="zoom:33%;" /></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberListPrinter</span> <span class="o">{</span>
+<h4 id="auto-configure">Auto Configure</h4>
 
-	<span class="kd">private</span> <span class="n">MemberDao</span> <span class="n">memberDao</span><span class="o">;</span>
-	<span class="kd">private</span> <span class="n">MemberPrinter</span> <span class="n">printer</span><span class="o">;</span>
+<p><img src="https://images.velog.io/images/new_wisdom/post/06db6a39-a4bd-40f3-bb11-cbd13c55994b/image.png" style="zoom: 50%;" /></p>
 
-	<span class="kd">public</span> <span class="nf">MemberListPrinter</span><span class="o">(</span><span class="n">MemberDao</span> <span class="n">memberDao</span><span class="o">,</span> <span class="n">MemberPrinter</span> <span class="n">printer</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">memberDao</span> <span class="o">=</span> <span class="n">memberDao</span><span class="o">;</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">printer</span> <span class="o">=</span> <span class="n">printer</span><span class="o">;</span>
-	<span class="o">}</span>
-	
-  <span class="nd">@Autowired</span>
-  <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"printer"</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMemberPrint</span><span class="o">(</span><span class="n">MemberPrinter</span> <span class="n">printer</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">printer</span> <span class="o">=</span> <span class="n">printer</span><span class="o">;</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
+<p><code class="highlighter-rouge">spring-boot-autoconfigure/META-INF/spring.factories</code> 에는 스프링 부트가 미리 정의해둔 auto configuration 정보가 들어있다.<br />
+여기에는 자동 설정의 target 클래스 목록들이 나열되어 있고, 여기에 선언된 클래스들이 <code class="highlighter-rouge">@EnableConfiguration</code> 사용 시 target이 된다.</p>
+
+<h3 id="conditional-conditionalonxxx">@Conditional? @ConditionalOnXxx?</h3>
 
 <ul>
-  <li>@Qualifier의 속성으로 주입할 빈의 후보를 한정한다.</li>
-  <li>빈 설정에 해당 어노테이션이 없으면 빈의 이름을 한정자로 지정한다.</li>
+  <li>Sprig 4.0부터 추가된 어노테이션</li>
 </ul>
 
-<hr />
+<p><code class="highlighter-rouge">spring.factories</code> 에 있는 클래스들 중 익숙한 <code class="highlighter-rouge">org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\</code> 를 예시로 보자.</p>
 
-<h2 id="상위하위-타입-관계와-자동-주입">상위/하위 타입 관계와 자동 주입</h2>
-
-<p>MemberPrinter 클래스를 상속한 MeberSummaryPrinter 클래스가 있다고 하자.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberSummaryPrinter</span> <span class="kd">extends</span> <span class="n">MemberPrinter</span> <span class="o">{</span>
-
-	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span>
-				<span class="s">"회원 정보: 이메일=%s, 이름=%s\n"</span><span class="o">,</span> 
-				<span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-	<span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>그리고 AppCtx 설정에서 <code class="highlighter-rouge">memberPrinter2()</code> 가 의 빈 객체를 설정하도록 변경한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppCtx</span> <span class="o">{</span>
-	<span class="c1">// ...</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberPrinter</span> <span class="nf">memberPrinter1</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberPrinter</span><span class="o">();</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberSummaryPrinter</span> <span class="nf">memberPrinter2</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberSummaryPrinter</span><span class="o">();</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></div></div>
+<p><img src="https://images.velog.io/images/new_wisdom/post/a41c8243-04ba-424e-b466-c592dd5502b1/image.png" alt="" /></p>
 
 <ul>
-  <li><code class="highlighter-rouge">memberPrinter2()</code> 의 빈을 MemberSummaryPrinter으로 변경해도 빈 중복 에러가 발생한다.</li>
-  <li>MemberSummaryPrinter는 MemberPrinter 타입에도 할당할 수 있기 때문이다.</li>
-  <li>스프링 컨테이너는 MemberPrinter 타입 빈을 자동 주입해야하는 @Autowired를 만나면 `memberPrinter1(), memberPrinter2() 중 어떤 빈을 주입해야하는 지 알 수 없다.</li>
+  <li><code class="highlighter-rouge">@ConditionalOnClass({ DataSource.class, EmbeddedDatabaseType.class })</code> 설정을 통해 해당 클래스 파일이 존재해야 설정을 활성화 함을 명시</li>
+  <li><code class="highlighter-rouge">@ConditionalOnMissingBean(type = "io.r2dbc.spi.ConnectionFactory")</code> 설정을 통해 해당 Bean이 존재하지 않을 경우 설정을 활성화 함을 명시</li>
 </ul>
 
-<p>이 문제는 두가지 방법으로 처리할 수 있다.</p>
+<p>이러한 설정들 덕분에 <code class="highlighter-rouge">우리가 정의한 Bean과 Spring Boot가 정의한 Bean이 충돌하는 문제, 불필요한 Bean들이 생성되는 문제 등</code>을 해결할 수 있다.</p>
 
-<p><strong>@Qualifier</strong></p>
+<h4 id="autoconfigurationimportfilter">AutoConfigurationImportFilter</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nd">@Bean</span>
-	<span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"printer"</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="n">MemberPrinter</span> <span class="nf">memberPrinter1</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberPrinter</span><span class="o">();</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"summaryPrinter"</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="n">MemberSummaryPrinter</span> <span class="nf">memberPrinter2</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberSummaryPrinter</span><span class="o">();</span>
-	<span class="o">}</span>
-</code></pre></div></div>
+<p>그런데 사실 auto configuration에서 이 <code class="highlighter-rouge">@Condition</code> 을 무조건 타는 것이 아니다.<br />
+<code class="highlighter-rouge">spring.factories</code> 에는 <code class="highlighter-rouge">AutoConfigurationImportFilter</code> 설정이 존재한다.<br />
+아래와 같은 필터들은 각 AutoConfiguration이 가진 <code class="highlighter-rouge">@Conditional</code> 을 가지고 조건을 만족하는지 필터링을 수행한다.<br />
+조건이 맞지 않을 경우, AutoConfiguration이 동작하지 않도록 제외시키는 역할을 한다.</p>
 
-<p><strong>MemberListPrinter가 MemberSummaryPrinter를 사용하도록 (Composition)</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberListPrinter</span> <span class="o">{</span>
-
-	<span class="kd">private</span> <span class="n">MemberDao</span> <span class="n">memberDao</span><span class="o">;</span>
-	<span class="kd">private</span> <span class="n">MemberPrinter</span> <span class="n">printer</span><span class="o">;</span>
-
-  <span class="c1">// ...</span>
-	
-	<span class="nd">@Autowired</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMemberPrinter</span><span class="o">(</span><span class="n">MemberSummaryPrinter</span> <span class="n">printer</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">printer</span> <span class="o">=</span> <span class="n">printer</span><span class="o">;</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<hr />
-
-<h2 id="autowired의-필수-여부-지정-방법">@Autowired의 필수 여부 지정 방법</h2>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberPrinter</span> <span class="o">{</span>
-	<span class="kd">private</span> <span class="n">DateTimeFormatter</span> <span class="n">dateTimeFormatter</span><span class="o">;</span>
-	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">if</span> <span class="o">(</span><span class="n">dateTimeFormatter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span>
-					<span class="s">"회원 정보: 아이디=%d, 이메일=%s, 이름=%s, 등록일=%tF\n"</span><span class="o">,</span> 
-					<span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
-					<span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getRegisterDateTime</span><span class="o">());</span>
-		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span>
-					<span class="s">"회원 정보: 아이디=%d, 이메일=%s, 이름=%s, 등록일=%s\n"</span><span class="o">,</span> 
-					<span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
-					<span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> 
-					<span class="n">dateTimeFormatter</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getRegisterDateTime</span><span class="o">()));</span>
-		<span class="o">}</span>
-	<span class="o">}</span>
-  
- 	<span class="nd">@Autowired</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDateFormatter</span><span class="o">(</span><span class="n">DateTimeFormatter</span> <span class="n">dateTimeFormatter</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">dateTimeFormatter</span> <span class="o">=</span> <span class="n">dateTimeFormatter</span><span class="o">;</span>
-	<span class="o">}</span>
-
- <span class="c1">// ...</span>
-</code></pre></div></div>
-
-<p>dateTimeFormatter가 null인지 여부에 따라 날짜 형식을 바꿔 출력한다.<br />
-즉 반드시 <code class="highlighter-rouge">setDateFormatter()</code>를 통해 의존 객체를 주입할 필요가 없다.<br />
-하지만 <code class="highlighter-rouge">@Autowired</code>는 해당하는 빈이 존재하지 않으면 예외를 발생시킨다.</p>
-
-<h3 id="autowiredrequired--false">@Autowired(required = false)</h3>
-
-<p>이 경우 <code class="highlighter-rouge">@Autowired(required = false)</code> 설정으로 자동 주입 대상이 필수가 아님을 명시한다.<br />
-이러면 매칭되는 빈이 없어도 예외가 발생하지 않고 자동 주입을 수행하지 않는다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDateFormatter</span><span class="o">(</span><span class="n">DateTimeFormatter</span> <span class="n">dateTimeFormatter</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">this</span><span class="o">.</span><span class="na">dateTimeFormatter</span> <span class="o">=</span> <span class="n">dateTimeFormatter</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="optional">Optional</h3>
-
-<p>스프링 5부터는 required 속성 말고, Optional을 사용할 수도 있다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDateFormatter</span><span class="o">(</span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">DateTimeFormatter</span><span class="o">&gt;</span> <span class="n">formatterOpt</span><span class="o">)</span> <span class="o">{</span>
-	<span class="k">if</span> <span class="o">(</span><span class="n">formatterOpt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">dateTimeFormatter</span> <span class="o">=</span> <span class="n">formatterOpt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-	<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-   	<span class="k">this</span><span class="o">.</span><span class="na">dateTimeFormatter</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="nullable">@Nullable</h3>
-
-<p>해당 어노테이션을 의존 주입 대상 파라미터에 붙이면 세터 메서드를 호출할 때 자동 주입할 빈이 존재할 경우 인자로 받고, 존재하지 않으면 null을 전달한다.<br />
-이 어노테이션은 스프링이 제공하는 어노테이션이다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDateFormatter</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">DateTimeFormatter</span> <span class="n">dateTimeFormatter</span><span class="o">)</span> <span class="o">{</span>
-	<span class="k">this</span><span class="o">.</span><span class="na">dateTimeFormatter</span> <span class="o">=</span> <span class="n">dateTimeFormatter</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>required 속성을 false로 할 때와 차이점?</strong></p>
-
-<p>@Nullable 어노테이션을 사용하면 자동 주입할 빈이 존재하지 않아도 세터 메서드가 호출된다.<br />
-@Autowired(required = false)의 경우 대상 빈이 존재하지 않을 경우 세터 메서드를 호출하지 않는다.</p>
-
-<p>위의 세가지 방식은 메서드 뿐만 아니라 필드에도 동일하게 적용할 수 있다.</p>
-
-<h3 id="생성자-초기화와-필수-여부-지정-방식-동작">생성자 초기화와 필수 여부 지정 방식 동작</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberPrinter</span> <span class="o">{</span>
-	<span class="kd">private</span> <span class="n">DateTimeFormatter</span> <span class="n">dateTimeFormatter</span><span class="o">;</span>
-	
-	<span class="kd">public</span> <span class="nf">MemberPrinter</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">dateTimeFormatter</span> <span class="o">=</span> <span class="n">DateTimeFormatter</span><span class="o">.</span><span class="na">ofPattern</span><span class="o">(</span><span class="s">"yyyy년 MM월 dd일"</span><span class="o">);</span>
-	<span class="o">}</span>
-	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">if</span> <span class="o">(</span><span class="n">dateTimeFormatter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span>
-					<span class="s">"회원 정보: 아이디=%d, 이메일=%s, 이름=%s, 등록일=%tF\n"</span><span class="o">,</span> 
-					<span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
-					<span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getRegisterDateTime</span><span class="o">());</span>
-		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span>
-					<span class="s">"회원 정보: 아이디=%d, 이메일=%s, 이름=%s, 등록일=%s\n"</span><span class="o">,</span> 
-					<span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
-					<span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> 
-					<span class="n">dateTimeFormatter</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getRegisterDateTime</span><span class="o">()));</span>
-		<span class="o">}</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Autowired</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDateFormatter</span><span class="o">(</span><span class="n">DateTimeFormatter</span> <span class="n">dateTimeFormatter</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">dateTimeFormatter</span> <span class="o">=</span> <span class="n">dateTimeFormatter</span><span class="o">;</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></div></div>
-
-<h4 id="autowiredrequired--false일-경우">@Autowired(required = false)일 경우</h4>
+<p><img src="https://images.velog.io/images/new_wisdom/post/6180dd11-d6e2-4e23-9146-da32cbaaba32/image.png" style="zoom: 50%;" /></p>
 
 <ul>
-  <li>dateTimeFormatter에 null을 할당하지 않는다. <code class="highlighter-rouge">setDateFormatter()</code> 가 호출되지 않기 때문이다.</li>
+  <li><strong>OnBeanCondition</strong> : 특정 bean들의 존재유무에 대해서 다루는 필터
+    <ul>
+      <li><code class="highlighter-rouge">@ConditionalOnBean, @ConditionalOnMissingBean, @ConditionalOnSingleCandidate</code></li>
+    </ul>
+  </li>
+  <li><strong>OnClassCondition</strong> : 특정 class들의 존재유무에 대해서 다루는 필터
+    <ul>
+      <li><code class="highlighter-rouge">@ConditionalOnClass, @ConditionalOnMissingClass</code></li>
+    </ul>
+  </li>
+  <li><strong>OnWebApplicationCondition</strong> : WebApplicationContext의 존재유무에 대해서 다루는 필터
+    <ul>
+      <li><code class="highlighter-rouge">@ConditionalOnWebApplication, @ConditionalOnNotWebApplication</code></li>
+    </ul>
+  </li>
 </ul>
 
-<h4 id="nullable-1">@Nullable</h4>
+<p><strong>그렇다면 이 자동 설정들은 어떻게 불러와질까?</strong></p>
 
-<ul>
-  <li>일치하는 빈이 없을 때 기본 생성자에서 초기화해주고 있어도, dateTimeFormatter에 null 값을 할당한다.</li>
-</ul>
+<h3 id="importautoconfigurationimportselectorclass">@Import(AutoConfigurationImportSelector.class)</h3>
 
-<hr />
+<p><img src="https://images.velog.io/images/new_wisdom/post/024b6568-3a66-4a6f-b4c3-1eaeee3ea27d/image.png" style="zoom: 50%;" /></p>
 
-<h2 id="자동-주입과-명시적-의존-주입-간의-관계">자동 주입과 명시적 의존 주입 간의 관계</h2>
+<p><code class="highlighter-rouge">@SpringbootApplication</code> 어노테이션 내부에 있던 <code class="highlighter-rouge">@Import(AutoConfigurationImportSelector.class)</code> 는 자동 설정을 지원해주며, import하고 있는 AutoConfigurationImportSelector.class가 <code class="highlighter-rouge">META-INF/spring.factories</code> 에 정의된 자동 설정할 클래스들을 불러온다.</p>
 
 	  ]]></description>
 	</item>
@@ -904,299 +627,6 @@ View에서 표현하는 속성값들이 요청에 따라 계속 달라질 수 �
   <li><a href="https://woowacourse.github.io/javable/post/2021-04-25-dto-layer-scope/">DTO의 사용 범위에 대하여</a></li>
 </ul>
 
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📋 3. 스프링 DI</title>
-	  <link>//springbasic</link>
-	  <author></author>
-	  <pubDate>2021-05-26T19:18:00+09:00</pubDate>
-	  <guid>//springbasic</guid>
-	  <description><![CDATA[
-	     <h2 id="스프링은-객체-컨테이너">스프링은 객체 컨테이너</h2>
-
-<h3 id="beanfactory">BeanFactory</h3>
-
-<ul>
-  <li>객체 생성과 검색에 대한 기능 정의</li>
-  <li><code class="highlighter-rouge">getBean()</code> : 생성된 객체를 검색하는데 필요한 메서드</li>
-  <li>객체 검색 이외에도 싱글톤인지 프로토타입 빈인지 확인하는 기능도 있음</li>
-</ul>
-
-<h3 id="annotationcontext">AnnotationContext</h3>
-
-<ul>
-  <li>메시지, profile, 환경 변수 등을 처리할 수 있는 기능을 추가로 쩡의</li>
-</ul>
-
-<hr />
-
-<h2 id="의존이란">의존이란?</h2>
-
-<h2 id="di를-통한-의존-처리">DI를 통한 의존 처리</h2>
-
-<h3 id="의존이란-1">의존이란?</h3>
-
-<ul>
-  <li>한 클래스가 다른 클래스의 메서드를 실행할 때 <strong>의존</strong>한다고 표현</li>
-  <li>
-    <p>변경에 의해 영향을 받는 관계를 의미</p>
-  </li>
-  <li>DI는 의존하는 객체를 직접 생성하지 않고, 의존 객체를 주입받는 방식을 사용</li>
-  <li>DI를 통해 객체를 주입하면 유지보수성이 더 올라간다.</li>
-</ul>
-
-<h2 id="스프링의-di-설정">스프링의 DI 설정</h2>
-
-<ul>
-  <li>스프링은 DI를 이용해서 객체를 서로 연결해주는 조립기이다.
-    <ul>
-      <li>특정 타입의 클래스만 생성하는 조립기가 아닌 범용 조립기이다.</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>설정 클래스</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppCtx</span> <span class="o">{</span>
-
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">MemberDao</span> <span class="nf">memberDao</span><span class="o">()</span> <span class="o">{</span>
-    	<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberDao</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">MemberRegisterService</span> <span class="nf">memberRegSvc</span><span class="o">()</span> <span class="o">{</span>
-    	<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberRegisterService</span><span class="o">(</span><span class="n">memberDao</span><span class="o">());</span> <span class="c1">// memberDao()	가 생성한 객체를 주입</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">ChangePasswordService</span> <span class="nf">changePwSvc</span><span class="o">()</span> <span class="o">{</span>
-    	<span class="n">ChangePasswordService</span> <span class="n">pwsSvc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChangePasswordService</span><span class="o">();</span>
-        <span class="n">pwdSvc</span><span class="o">.</span><span class="na">setMemberDao</span><span class="o">(</span><span class="n">memberDao</span><span class="o">());</span>
-        <span class="k">return</span> <span class="n">pwdSvc</span><span class="o">;</span>
-    
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">@Configuration</code> : 스프링 설정 클래스</li>
-  <li><code class="highlighter-rouge">@Bean</code> : 해당 메서드가 생성한 객체를 스프링 빈으로 설정
-    <ul>
-      <li>메서드 이름을 빈 객체의 이름으로 사용</li>
-    </ul>
-  </li>
-</ul>
-
-<p>설정 클래스만 만들어서 끝나는 것이 아닌, 설정 클래스로 컨테이너를 생성해야 한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">AppCtx</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-  
-<span class="c1">// ...</span>
-<span class="n">MemberRegisterService</span> <span class="n">regSvc</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"memberRegSvc"</span><span class="o">,</span> <span class="n">MemberRegisterService</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>컨테이너를 생성하면 <code class="highlighter-rouge">getBean()</code> 를 이용해 사용할 객체를 구할 수 있음</li>
-  <li>스프링 컨테이너 <code class="highlighter-rouge">ctx</code> 로터 이름이 “memberRegSvc”인 빈 객체를 구함</li>
-</ul>
-
-<h3 id="di-방식---생성자-방식">DI 방식 - 생성자 방식</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StationService</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">StationDao</span> <span class="n">stationDao</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">StationService</span><span class="o">(</span><span class="n">StationDao</span> <span class="n">stationDao</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">stationDao</span> <span class="o">=</span> <span class="n">stationDao</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="di-방식---생성자-방식-1">DI 방식 - 생성자 방식</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StationService</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">StationDao</span> <span class="n">stationDao</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStationDao</span><span class="o">(</span><span class="n">StationDao</span> <span class="n">stationDao</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">stationDao</span> <span class="o">=</span> <span class="n">stationDao</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<hr />
-
-<h2 id="configuration-설정-클래스의-bean-설정과-싱글톤">@Configuration 설정 클래스의 @Bean 설정과 싱글톤</h2>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppCtx</span> <span class="o">{</span>
-
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">MemberDao</span> <span class="nf">memberDao</span><span class="o">()</span> <span class="o">{</span>
-    	<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberDao</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">MemberRegisterService</span> <span class="nf">memberRegSvc</span><span class="o">()</span> <span class="o">{</span>
-    	<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberRegisterService</span><span class="o">(</span><span class="n">memberDao</span><span class="o">());</span> <span class="c1">// memberDao()	가 생성한 객체를 주입</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">ChangePasswordService</span> <span class="nf">changePwSvc</span><span class="o">()</span> <span class="o">{</span>
-    	<span class="n">ChangePasswordService</span> <span class="n">pwsSvc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChangePasswordService</span><span class="o">();</span>
-        <span class="n">pwdSvc</span><span class="o">.</span><span class="na">setMemberDao</span><span class="o">(</span><span class="n">memberDao</span><span class="o">());</span>
-        <span class="k">return</span> <span class="n">pwdSvc</span><span class="o">;</span>
-    
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-<ul>
-  <li><code class="highlighter-rouge">memberDao()</code>는 매번 새로운 MemberDao 객체를 생성해서 반환한다.</li>
-</ul>
-
-<p><strong>그러면 <code class="highlighter-rouge">memberRegSvc()</code> 가 반환하는 객체와 <code class="highlighter-rouge">changePwSvc()</code>가 반환하는 객체는 서로 다른 MemberDao 객체를 사용하는 것인가?</strong></p>
-
-<p>🙅‍♀️ 스프링 컨테이너가 생성한 빈은 싱글톤 객체이다.<br />
-<code class="highlighter-rouge">@Bean</code>이 붙은 메서드에 대해 한 개의 객체만 생성하고 이를 보관했다가, 동일한 객체를 반환한다.</p>
-
-<hr />
-
-<h2 id="두-개-이상의-설정-파일-사용하기">두 개 이상의 설정 파일 사용하기</h2>
-
-<p>스프링은 한 개 이상의 설정 파일을 이용해서 컨테이너를 생성할 수 있다.</p>
-
-<h3 id="configuration-autowired">@Configuration, @Autowired</h3>
-
-<p><strong>AppConf1</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConf1</span> <span class="o">{</span>
-
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberDao</span> <span class="nf">memberDao</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberDao</span><span class="o">();</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberPrinter</span> <span class="nf">memberPrinter</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberPrinter</span><span class="o">();</span>
-	<span class="o">}</span>
-	
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>AppConf2</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConf2</span> <span class="o">{</span>
-	<span class="nd">@Autowired</span>
-	<span class="kd">private</span> <span class="n">MemberDao</span> <span class="n">memberDao</span><span class="o">;</span>
-	<span class="nd">@Autowired</span>
-	<span class="kd">private</span> <span class="n">MemberPrinter</span> <span class="n">memberPrinter</span><span class="o">;</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberRegisterService</span> <span class="nf">memberRegSvc</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberRegisterService</span><span class="o">(</span><span class="n">memberDao</span><span class="o">);</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">ChangePasswordService</span> <span class="nf">changePwdSvc</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">ChangePasswordService</span> <span class="n">pwdSvc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChangePasswordService</span><span class="o">();</span>
-		<span class="n">pwdSvc</span><span class="o">.</span><span class="na">setMemberDao</span><span class="o">(</span><span class="n">memberDao</span><span class="o">);</span>
-		<span class="k">return</span> <span class="n">pwdSvc</span><span class="o">;</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberListPrinter</span> <span class="nf">listPrinter</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberListPrinter</span><span class="o">(</span><span class="n">memberDao</span><span class="o">,</span> <span class="n">memberPrinter</span><span class="o">);</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberInfoPrinter</span> <span class="nf">infoPrinter</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">MemberInfoPrinter</span> <span class="n">infoPrinter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MemberInfoPrinter</span><span class="o">();</span>
-		<span class="n">infoPrinter</span><span class="o">.</span><span class="na">setMemberDao</span><span class="o">(</span><span class="n">memberDao</span><span class="o">);</span>
-		<span class="n">infoPrinter</span><span class="o">.</span><span class="na">setPrinter</span><span class="o">(</span><span class="n">memberPrinter</span><span class="o">);</span>
-		<span class="k">return</span> <span class="n">infoPrinter</span><span class="o">;</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">VersionPrinter</span> <span class="nf">versionPrinter</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">VersionPrinter</span> <span class="n">versionPrinter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VersionPrinter</span><span class="o">();</span>
-		<span class="n">versionPrinter</span><span class="o">.</span><span class="na">setMajorVersion</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
-		<span class="n">versionPrinter</span><span class="o">.</span><span class="na">setMinorVersion</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-		<span class="k">return</span> <span class="n">versionPrinter</span><span class="o">;</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">@AutoWired</code> : 스프링의 자동 주입 기능. 스프링 설정 클래스 필드에 해당 어노테이션을 붙이면 해당 타입 빈을 찾아서 필드에 할당한다.
-    <ul>
-      <li>AppConf2의 memberDao 필드에는 AppConf1 클래스에서 설정한 빈이 할당된다.</li>
-    </ul>
-  </li>
-  <li>스프링 컨테이너는 AppConf2 객체를 빈으로 등록하고 <code class="highlighter-rouge">@AutoWired</code> 가 붙은 대상에 대해 알맞은 빈을 자동으로 주입한다.</li>
-</ul>
-
-<p><strong>설정 클래스가 여러개일 때 스프링 컨테이너를 생성하는 방법은?</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">AppConf1</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">AppConf2</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>AnnotationConfigApplicationContext의 생성자의 인자는 가변 인자이다.</li>
-</ul>
-
-<h3 id="import-어노테이션-사용">@Import 어노테이션 사용</h3>
-
-<ul>
-  <li>함께 사용할 설정 클래스를 지정</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
-<span class="nd">@Import</span><span class="o">({</span><span class="n">AppConf2</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfImport</span> <span class="o">{</span>
-
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberDao</span> <span class="nf">memberDao</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberDao</span><span class="o">();</span>
-	<span class="o">}</span>
-	
-	<span class="nd">@Bean</span>
-	<span class="kd">public</span> <span class="n">MemberPrinter</span> <span class="nf">memberPrinter</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MemberPrinter</span><span class="o">();</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>지정한 클래스도 함께 사용하기 때문에 스프링 컨테이너를 생성할 때 AppConfi2를 지정할 필요가 없다.</li>
-</ul>
-
-<hr />
-
-<h2 id="getbean">getBean()</h2>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">VersionPrinter</span> <span class="n">versionPrinter</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"versionPrinter"</span><span class="o">,</span> <span class="n">VersionPrinter</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>첫번째 인자는 빈의 이름</li>
-  <li>두번째 인자는 빈의 타입</li>
-  <li>빈의 이름을 지정하지 않고 타입만으로 빈을 구할 수도 있다.
-    <ul>
-      <li>대신 해당 타입의 빈 객체가 한 개만 존재해야한다.</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>주입 대상 객체를 모두 빈 객체로 설정해야하나?</strong></p>
-
-<p>🙅‍♀️ 스프링 컨테이너가 객체를 관리하는지 여부만 다를 뿐이다.<br />
-참고로 스프링 컨테이너는 자동 주입, 라이프사이클 관리 등 객체 생성 외에도 객체 관리를 위한 다양한 기능을 제공한다.</p>
 
 	  ]]></description>
 	</item>

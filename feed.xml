@@ -8,34 +8,103 @@
     
       
       <item>
-        <title>Kotlin2</title>
+        <title>📋 스프링 부트 Profile로 다른 환경 구성</title>
         
-          <description>&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;as&lt;/code&gt; 키워드 사용해도 되나여?
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;val results = resultBoard.values as List&amp;lt;GameResult&amp;gt;&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;associateWith&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
+          <description>&lt;h2 id=&quot;profile&quot;&gt;Profile?&lt;/h2&gt;
+
 </description>
         
-        <pubDate>Mon, 31 May 2021 00:00:00 +0900</pubDate>
+        <pubDate>Wed, 09 Jun 2021 10:01:00 +0900</pubDate>
         <link>
-        http://localhost:4000/kotlin2</link>
-        <guid isPermaLink="true">http://localhost:4000/kotlin2</guid>
+        http://localhost:4000/profile</link>
+        <guid isPermaLink="true">http://localhost:4000/profile</guid>
       </item>
       
     
       
       <item>
-        <title>Lecture Auth</title>
+        <title>📚 jwp-chess 미션 정리</title>
+        
+          <description>&lt;h2 id=&quot;controlleradvice&quot;&gt;@ControllerAdvice&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 09 Jun 2021 10:01:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/jwp-chess-note</link>
+        <guid isPermaLink="true">http://localhost:4000/jwp-chess-note</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📌 시간 복잡도</title>
+        
+          <description>&lt;h3 id=&quot;알고리즘이란&quot;&gt;알고리즘이란?&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Tue, 01 Jun 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/time</link>
+        <guid isPermaLink="true">http://localhost:4000/time</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📌 Cache</title>
+        
+          <description>&lt;h3 id=&quot;메모리-계층-구조&quot;&gt;메모리 계층 구조&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Mon, 31 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/cache</link>
+        <guid isPermaLink="true">http://localhost:4000/cache</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 4. 의존 자동 주입</title>
+        
+          <description>&lt;h2 id=&quot;autowired-어노테이션을-통한-의존-자동-주입&quot;&gt;@Autowired 어노테이션을 통한 의존 자동 주입&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sat, 29 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/springbasic4</link>
+        <guid isPermaLink="true">http://localhost:4000/springbasic4</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 3. 스프링 DI</title>
+        
+          <description>&lt;h2 id=&quot;스프링은-객체-컨테이너&quot;&gt;스프링은 객체 컨테이너&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 28 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/springbasic</link>
+        <guid isPermaLink="true">http://localhost:4000/springbasic</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 테스트로 배우는 Spring Auth 강의</title>
         
           <description>&lt;h2 id=&quot;피드백-강의&quot;&gt;피드백 강의&lt;/h2&gt;
 
 </description>
         
-        <pubDate>Fri, 28 May 2021 00:00:00 +0900</pubDate>
+        <pubDate>Fri, 28 May 2021 19:18:00 +0900</pubDate>
         <link>
         http://localhost:4000/lecture-auth</link>
         <guid isPermaLink="true">http://localhost:4000/lecture-auth</guid>
@@ -54,66 +123,6 @@
         <link>
         http://localhost:4000/springconfiguration</link>
         <guid isPermaLink="true">http://localhost:4000/springconfiguration</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📌 시간 복잡도</title>
-        
-          <description>&lt;h3 id=&quot;알고리즘이란&quot;&gt;알고리즘이란?&lt;/h3&gt;
-
-</description>
-        
-        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/time</link>
-        <guid isPermaLink="true">http://localhost:4000/time</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📌 Cache</title>
-        
-          <description>&lt;h3 id=&quot;메모리-계층-구조&quot;&gt;메모리 계층 구조&lt;/h3&gt;
-
-</description>
-        
-        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/cache</link>
-        <guid isPermaLink="true">http://localhost:4000/cache</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📋 4. 의존 자동 주입</title>
-        
-          <description>&lt;h2 id=&quot;autowired-어노테이션을-통한-의존-자동-주입&quot;&gt;@Autowired 어노테이션을 통한 의존 자동 주입&lt;/h2&gt;
-
-</description>
-        
-        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/springbasic4</link>
-        <guid isPermaLink="true">http://localhost:4000/springbasic4</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📋 3. 스프링 DI</title>
-        
-          <description>&lt;h2 id=&quot;스프링은-객체-컨테이너&quot;&gt;스프링은 객체 컨테이너&lt;/h2&gt;
-
-</description>
-        
-        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/springbasic</link>
-        <guid isPermaLink="true">http://localhost:4000/springbasic</guid>
       </item>
       
     
@@ -159,6 +168,21 @@
         <link>
         http://localhost:4000/dto-and-vo</link>
         <guid isPermaLink="true">http://localhost:4000/dto-and-vo</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 테스트로 배우는 Spring Configuration 강의</title>
+        
+          <description>&lt;h2 id=&quot;배경-지식-강의&quot;&gt;배경 지식 강의&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Tue, 25 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/spring-configuration-lec</link>
+        <guid isPermaLink="true">http://localhost:4000/spring-configuration-lec</guid>
       </item>
       
     
