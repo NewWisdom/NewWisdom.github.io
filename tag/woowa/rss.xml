@@ -12,7 +12,7 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
-	  <title>📋 스프링 부트 Profile로 다른 환경 구성</title>
+	  <title>🌱 스프링 부트 Profile로 다른 환경 구성</title>
 	  <link>//profile</link>
 	  <author></author>
 	  <pubDate>2021-06-09T10:01:00+09:00</pubDate>
@@ -29,96 +29,104 @@
 <h2 id="profile-1">@Profile</h2>
 
 <ul>
-  <li>
-    <p><code class="highlighter-rouge">@Component, @Configuration, @ConfigurationProperties</code>을 <code class="highlighter-rouge">@Profile</code>와 함께 선언
-```java
-@Configuration
-@Profile(“production”)
-public class ProductionConfiguration {</p>
-
-    <p>// …</p>
-  </li>
+  <li><code class="highlighter-rouge">@Component, @Configuration, @ConfigurationProperties</code>을 <code class="highlighter-rouge">@Profile</code>와 함께 선언</li>
 </ul>
 
-<p>}</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 어플리케이션 실행시 `spring.profiles.active` 프로퍼티로 프로파일을 지정하면 해당 프로파일이 적용된 빈만 등록됨
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Configuration</span>
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">"production"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProductionConfiguration</span> <span class="o">{</span>
 
-**application-properties**
+    <span class="c1">// ...</span>
+
+<span class="o">}</span>
 </code></pre></div></div>
-<p>spring.profiles.active=dev,hsqldb</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<ul>
+  <li>어플리케이션 실행시 <code class="highlighter-rouge">spring.profiles.active</code> 프로퍼티로 프로파일을 지정하면 해당 프로파일이 적용된 빈만 등록됨</li>
+</ul>
 
-
-#### Example
-
-1. application-properties에 다음과 같이 정의
+<p><strong>application-properties</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring.profiles.active=dev,hsqldb
 </code></pre></div></div>
-<p>spring.profiles.active=prod</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. `@Profile` 어노테이션과 함께 `@Configuration` 등록
 
-&lt;img src="https://user-images.githubusercontent.com/43840561/121311111-0f322800-c93f-11eb-9455-436a99434869.png" alt="image" style="zoom:50%;" /&gt;
+<h4 id="example">Example</h4>
 
-&lt;img src="https://user-images.githubusercontent.com/43840561/121311125-13f6dc00-c93f-11eb-8a93-3923630d84fa.png" alt="image" style="zoom:50%;" /&gt;
+<ol>
+  <li>application-properties에 다음과 같이 정의
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring.profiles.active=prod
+</code></pre></div>    </div>
+  </li>
+  <li><code class="highlighter-rouge">@Profile</code> 어노테이션과 함께 <code class="highlighter-rouge">@Configuration</code> 등록</li>
+</ol>
 
-3. 어플리케이션 실행시 active한 prod에 등록된 hello 빈이 출력됨
+<p><img src="https://user-images.githubusercontent.com/43840561/121311111-0f322800-c93f-11eb-9455-436a99434869.png" alt="image" style="zoom:50%;" /></p>
 
-![image](https://user-images.githubusercontent.com/43840561/121311276-3a1c7c00-c93f-11eb-9698-9abf9172184f.png)
+<p><img src="https://user-images.githubusercontent.com/43840561/121311125-13f6dc00-c93f-11eb-8a93-3923630d84fa.png" alt="image" style="zoom:50%;" /></p>
 
-### @Profile과 @ActiveProfiles
-* 서로 다른 환경에서 서로 다른 profile을 활성화하여 필요한 빈만 등록하도록 하는 어노테이션 
-* `@Profile`은 SpringBootApplication을 실행할 때 사용
-* `@ActiveProfiles`은 테스트 환경에서 사용
+<ol>
+  <li>어플리케이션 실행시 active한 prod에 등록된 hello 빈이 출력됨</li>
+</ol>
 
+<p><img src="https://user-images.githubusercontent.com/43840561/121311276-3a1c7c00-c93f-11eb-9698-9abf9172184f.png" alt="image" /></p>
 
+<h3 id="profile과-activeprofiles">@Profile과 @ActiveProfiles</h3>
+<ul>
+  <li>서로 다른 환경에서 서로 다른 profile을 활성화하여 필요한 빈만 등록하도록 하는 어노테이션</li>
+  <li><code class="highlighter-rouge">@Profile</code>은 SpringBootApplication을 실행할 때 사용</li>
+  <li><code class="highlighter-rouge">@ActiveProfiles</code>은 테스트 환경에서 사용</li>
+</ul>
 
-## application.properties
+<h2 id="applicationproperties">application.properties</h2>
 
-* application-{profile}.properties 형식으로 파일 생성
-* 이는 `@ConfigurationProperties`로 간주되고 로드됨
-  * *.properties , *.yml 파일에 있는 property를 자바 클래스에 값을 가져와서(바인딩) 사용할 수 있게 해주는 어노테이션 
-* application-{profile}.properties은 application.properties 보다 우선순위가 높게됨
-* 빌드할 때 다음과 같은 명령어와 함께 특정 환경설정을 적용할 수 있음
-</code></pre></div></div>
-<p>–spring.profiles.active=production</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* properties 파일에 `spring.profiles.include`를 통해 추가할 프로파일을 설정할 수 있음
+<ul>
+  <li>application-{profile}.properties 형식으로 파일 생성</li>
+  <li>이는 <code class="highlighter-rouge">@ConfigurationProperties</code>로 간주되고 로드됨
+    <ul>
+      <li>*.properties , *.yml 파일에 있는 property를 자바 클래스에 값을 가져와서(바인딩) 사용할 수 있게 해주는 어노테이션</li>
+    </ul>
+  </li>
+  <li>application-{profile}.properties은 application.properties 보다 우선순위가 높게됨</li>
+  <li>빌드할 때 다음과 같은 명령어와 함께 특정 환경설정을 적용할 수 있음
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--spring.profiles.active=production
+</code></pre></div>    </div>
+  </li>
+  <li>properties 파일에 <code class="highlighter-rouge">spring.profiles.include</code>를 통해 추가할 프로파일을 설정할 수 있음</li>
+</ul>
 
+<h4 id="example-1">Example</h4>
 
+<p><strong>application-properties</strong></p>
 
-#### Example
-
-**application-properties**
-
-</code></pre></div></div>
-<p>spring.profiles.active=dev
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring.profiles.active=dev
 profile-common.name = default_name_mazzi
-defaultonly.name = defualt_name</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**application-prod.properties**
+defaultonly.name = defualt_name
 </code></pre></div></div>
-<p>profile-common.name = test_name_mazzi
-testonly.name = test_name</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**application-dev.properties**
+<p><strong>application-prod.properties</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>profile-common.name = test_name_mazzi
+testonly.name = test_name
 </code></pre></div></div>
-<p>profile-common.name = dev_name_mazzi
-devonly.name = dev_name</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**AppRunner**
-```java
-@Component
-public class AppRunner implements ApplicationRunner {
-    @Autowired
-    Environment env;
+<p><strong>application-dev.properties</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>profile-common.name = dev_name_mazzi
+devonly.name = dev_name
+</code></pre></div></div>
+<p><strong>AppRunner</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppRunner</span> <span class="kd">implements</span> <span class="n">ApplicationRunner</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="n">Environment</span> <span class="n">env</span><span class="o">;</span>
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        System.out.println("=====================================================");
-        System.out.println("spring.profiles.active : " + args.getOptionValues("spring.profiles.active"));
-        System.out.println("Enviroment's Active Profile : " + Arrays.toString(env.getActiveProfiles()));
-        System.out.println("defaultonly.name : " + env.getProperty("defaultonly.name"));
-        System.out.println("testonly.name : " + env.getProperty("testonly.name"));
-        System.out.println("devonly.name : " + env.getProperty("devonly.name"));
-        System.out.println("profile-common.name : " + env.getProperty("profile-common.name"));
-        System.out.println("=====================================================");
-    }
-}
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(</span><span class="n">ApplicationArguments</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"====================================================="</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"spring.profiles.active : "</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="na">getOptionValues</span><span class="o">(</span><span class="s">"spring.profiles.active"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Enviroment's Active Profile : "</span> <span class="o">+</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">getActiveProfiles</span><span class="o">()));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"defaultonly.name : "</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"defaultonly.name"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"testonly.name : "</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"testonly.name"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"devonly.name : "</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"devonly.name"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"profile-common.name : "</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"profile-common.name"</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"====================================================="</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre></div></div>
 <p><strong>실행 결과</strong></p>
 
@@ -196,7 +204,44 @@ public class AppRunner implements ApplicationRunner {
 
 <ul>
   <li>Profile에 대해 추가적으로 학습하고 정리</li>
-  <li><a href=""></a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/47">Profile</a></li>
+</ul>
+
+<h2 id="테스트에-관하여">테스트에 관하여</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/03a3dc16-07b5-48d0-bf51-fbea7bacc9f6/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>지난 레벨 체스 코드 옮겨오면서 테스트 코드는 빼고 옮겨왔었음 🥲</li>
+  <li>데이브의 권유대로 각 레이어별 테스트 코드 작성</li>
+  <li>처음에는 단순히 <code class="highlighter-rouge">@SpringBootTest</code> (통합테스트)로 진행하려 했음</li>
+  <li>찾아보니 각 레이어를 단위 테스트로도 구현할 수 있음을 깨달음</li>
+  <li><code class="highlighter-rouge">@WebMvcTest, @jdbcTest</code>을 통해 Controller와 Repository 레이어에 대한 단위 테스트를 구현</li>
+</ul>
+
+<h4 id="정리-3">정리</h4>
+
+<ul>
+  <li><a href="https://newwisdom.github.io/unit-test-vs">통합 테스트 VS 단위 테스트</a></li>
+</ul>
+
+<h2 id="학습하라고-던져주신-키워드">학습하라고 던져주신 키워드</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9147f41d-e48f-479d-8573-2f23fcbff416/image.png" style="zoom:50%;" /></p>
+
+<h4 id="정리-4">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/3#issue-862548280">@Responsebody는 어떤 역할을 해줄까?</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/4#issue-862590487">@Componentscan</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/5#issue-862591289">스프링의 DI 방법</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/6">Spring에서 request 처리 과정</a></li>
+</ul>
+
+<h2 id="이번-미션에서-이런-키워드들을-학습했음-">이번 미션에서 이런 키워드들을 학습했음 👻</h2>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues?q=is%3Aissue+is%3Aopen+label%3Ajwp-chess">내 깃헙 issue에 등록했지롱</a></li>
 </ul>
 
 	  ]]></description>
