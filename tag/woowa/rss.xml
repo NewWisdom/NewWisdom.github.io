@@ -12,6 +12,414 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📋 Kotlin을 정복해봅시다 2</title>
+	  <link>//kotlin2</link>
+	  <author></author>
+	  <pubDate>2021-05-26T19:18:00+09:00</pubDate>
+	  <guid>//kotlin2</guid>
+	  <description><![CDATA[
+	     <h2 id="코틀린-dsl">코틀린 DSL</h2>
+
+<h3 id="dls란">DLS란?</h3>
+
+<ul>
+  <li>도메인 특화 언어 (Domain-specific language) ↔️ 범용 프로그래밍 언어</li>
+  <li>선언적 언어</li>
+  <li>세부 실행은 언어를 해석하는 엔진에 맡김</li>
+  <li>컴파일 시점에 제대로 검증하는 것이 어려움</li>
+</ul>
+
+<h3 id="코틀린-dsl이란">코틀린 DSL이란?</h3>
+
+<ul>
+  <li>범용 언어(= 코틀린)로 작성된 프로그램의 일부</li>
+  <li>범용 언어와 동일한 문법 사용</li>
+  <li>호출 결과를 객체로 변환하기 위해 노력할 필요 없음</li>
+  <li>타입 안정성 보장</li>
+</ul>
+
+<h3 id="코틀린은-간결한-구문을-어떻게-지원하는가">코틀린은 간결한 구문을 어떻게 지원하는가?</h3>
+
+<ul>
+  <li>확장 함수</li>
+  <li>중위 호출</li>
+  <li>연산자 오버로딩</li>
+  <li>get 메서드에 대한 관례</li>
+  <li>람다를 괄호 밖으로 빼는 관례</li>
+  <li>수신 객체 지정 람다</li>
+</ul>
+
+<h3 id="확장-함수-extension-functions">확장 함수 Extension functions</h3>
+
+<ul>
+  <li>코틀린은 클래스를 확장해서 새로운 기능을 개발할 수 있도록 지원</li>
+  <li><code class="highlighter-rouge">상속</code> 과는 조금 다른 개념</li>
+  <li>ex) 외부 라이브러리를 사용할 때 이 자체 클래스는 변경할 수  없지만 이를 확장해 원하는 새로운 함수를 만들 수 있음</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"Kotlin"</span><span class="p">.</span><span class="n">lastChar</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">String</span><span class="p">.</span><span class="n">lastChar</span><span class="p">():</span> <span class="n">Char</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">length</span> <span class="p">-</span> <span class="m">1</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="중위-표기-infix-notation">중위 표기 Infix notation</h3>
+
+<h4 id="중위표기법">중위표기법?</h4>
+
+<p><strong>infix(중위표기법)</strong> : 일상생활에서의 수식 표기법으로 두 개의 피연산자 사이에 연산자가 존재하는 표현방식이다.  ex) X + Y</p>
+
+<p>Kotlin에서 <code class="highlighter-rouge">infix</code> 키워드를 사용하여 중위표기법으로 함수를 호출할 수 있다. 단, 아래 요건을 충족해야 한다.</p>
+
+<ul>
+  <li>They must be member functions or extension functions. (멤버 함수 혹은 확장 함수일 때)</li>
+  <li>They must have a single parameter. (단일 매개 변수일 때)</li>
+  <li>The parameter must not accept a variable number of arguments and must have no default value. (가변인자를 받으면 안되고 기본 값을 가지면 안된다.)</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span> <span class="n">to</span> <span class="s">"one"</span>
+
+<span class="k">infix</span> <span class="k">fun</span> <span class="nf">Any</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="p">=</span> <span class="n">Pair</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="연산자-오버로딩-operator-overloading">연산자 오버로딩 Operator overloading</h3>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Point</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">+</span> <span class="n">Point</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+
+<span class="kd">data class</span> <span class="nc">Point</span><span class="p">(</span><span class="kd">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="py">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">plus</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">Point</span><span class="p">):</span> <span class="n">Point</span> <span class="p">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="p">+</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">+</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>plus 함수 앞에 <code class="highlighter-rouge">operator</code> 키워드를 붙여 연산자 오버로딩을 하는 함수임을 명시</li>
+  <li>확장 함수로 정의할 수도 있음</li>
+</ul>
+
+<h4 id="이항-산술-연산-오버로딩">이항 산술 연산 오버로딩</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">연산 우선순위</th>
+      <th style="text-align: center">식</th>
+      <th style="text-align: center">함수 이름</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">a * b</td>
+      <td style="text-align: center">times</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">a / b</td>
+      <td style="text-align: center">div</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">a % b</td>
+      <td style="text-align: center">mod(1.1부터 rem)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">a + b</td>
+      <td style="text-align: center">plus</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">a - b</td>
+      <td style="text-align: center">minus</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>더 많은 연산자에 대한 메서드는 <strong><a href="https://kotlinlang.org/docs/operator-overloading.html#unary-prefix-operators">공식문서</a></strong> 참고</li>
+</ul>
+
+<h3 id="get-메서드에-대한-관례-indexed-access-operator">get 메서드에 대한 관례 Indexed access operator</h3>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">names</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">"am"</span><span class="p">,</span> <span class="s">"mazzi"</span><span class="p">)</span>
+<span class="n">names</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="n">names</span><span class="p">[</span><span class="m">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<ul>
+  <li>get이 아닌 인덱스로 접근한다.</li>
+</ul>
+
+<h3 id="람다를-괄호-밖으로-빼내는-관례-passing-a-lambda-to-the-last-parameter">람다를 괄호 밖으로 빼내는 관례 Passing a lambda to the last parameter</h3>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">check</span><span class="p">(</span><span class="k">false</span><span class="p">)</span> <span class="p">{</span> <span class="s">"Check failed."</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="수신-객체-지정-람다-lambda-with-receiver">수신 객체 지정 람다 Lambda with receiver</h3>
+
+<ul>
+  <li>람다 함수를 쓸 때 내가 자주 쓰고싶은 객체를 미리 지정해서 사용하는 람다</li>
+</ul>
+
+<h4 id="수신-객체">수신 객체?</h4>
+
+<ul>
+  <li>확장 함수에서의 this는 확장된 클래스의 객체</li>
+  <li>즉 확장 함수를 사용하는 그 객체를 의미하는데 이 객체가 바로 수신 객체</li>
+</ul>
+
+<h4 id="with">with</h4>
+
+<ul>
+  <li>첫 번째 인자로 받은 객체를 두 번째 인자로 받은 람다의 수신 객체로 만듦</li>
+</ul>
+
+<p><strong>with를 사용하지 않을 경우</strong></p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="n">StringBuilder</span><span class="p">()</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"\nNow I know this alphabet!"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">result</code> 의 중복이 발생</li>
+</ul>
+
+<h4 id="with를-사용한-경우">with를 사용한 경우</h4>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">stringBuilder</span> <span class="p">=</span> <span class="n">StringBuilder</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">with</span><span class="p">(</span><span class="n">stringBuilder</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
+    		<span class="k">this</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    	<span class="p">}</span>
+        <span class="n">append</span><span class="p">(</span><span class="s">"\n amazzi~~~!"</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 불필요한 stringBuilder 변수를 없애면 alpabet 함수가 식의 결과를 바로 반환하게 된다.
+// 람다 식의 본문에 있는 마지막 식의 값을 반환
+</span><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">StringBuilder</span><span class="p">())</span> <span class="p">{</span>
+    	<span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
+    		<span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    	<span class="p">}</span>
+        <span class="n">append</span><span class="p">(</span><span class="s">"\nNow I know this alphabet!"</span><span class="p">)</span>
+        <span class="n">toString</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>with(stringBuilder, { … }) 와 같은 람다 함수</li>
+</ul>
+
+<h4 id="apply">apply</h4>
+
+<ul>
+  <li>with와 유사</li>
+  <li>유일한 차이는 항상 자신에게 전달된 객체를 반환</li>
+  <li>객체의 인스턴스를 만들면서 즉시 프로퍼티 중 일부를 초기화해야되는 경우 유용</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="n">StringBuilder</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
+    	<span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
+    		<span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+    	<span class="p">}</span>
+        <span class="n">append</span><span class="p">(</span><span class="s">"\nNow I know this alphabet!"</span><span class="p">)</span>
+    <span class="p">}.</span><span class="n">toString</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="초기화를-지연하는-방법">초기화를 지연하는 방법</h3>
+
+<ul>
+  <li>코틀린에서는 변수 선언을 먼저하고, 초기회는 뒤로 미루는 기능들을 제공</li>
+  <li>사용할지 모른는 데이터를 미리 초기화할 필요가 없어 성능 향상에 도움</li>
+</ul>
+
+<h4 id="lateinit">lateInit</h4>
+
+<ul>
+  <li>필요할 때 초기화하고 사용</li>
+  <li>초기화 하지 않고 사용하면 예외 발생</li>
+  <li><code class="highlighter-rouge">var</code> 에만 사용 가능</li>
+  <li>원시 타입에는 적용할 수 없음</li>
+  <li>custom getter/setter 사용 불가
+    <ul>
+      <li></li>
+    </ul>
+  </li>
+  <li>non-null 프로퍼티만 사용 가능</li>
+</ul>
+
+<h4 id="lazy">lazy</h4>
+
+<ul>
+  <li>변수를 선언할 때 초기화 코드도 함께 정의</li>
+  <li>변수가 사용될 때 초기화 코드도 동작하여 변수가 초기화 됨</li>
+</ul>
+
+<hr />
+
+<h2 id="0602-코드리뷰">0602 코드리뷰</h2>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="kd">class</span> <span class="nc">Symbol</span><span class="p">(</span><span class="kd">val</span> <span class="py">symbol</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DIAMOND</span><span class="p">(</span><span class="s">"다이아몬드"</span><span class="p">),</span>
+    <span class="n">SPADE</span><span class="p">(</span><span class="s">"스페이드"</span><span class="p">),</span>
+    <span class="n">HEART</span><span class="p">(</span><span class="s">"하트"</span><span class="p">),</span>
+    <span class="n">CLOVER</span><span class="p">(</span><span class="s">"클로버"</span><span class="p">),</span>
+  <span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>1.4부터 <code class="highlighter-rouge">,</code> 로 끝나도 컴파일 에러가 안남</li>
+</ul>
+
+<h3 id="property와-field">Property와 Field</h3>
+
+<h4 id="field">Field</h4>
+
+<ul>
+  <li>단순히 값만 가짐</li>
+  <li>값을 가져오거나 변경할 때는 직접 참조</li>
+  <li>함수나 블록 내부에 선언된 지역 변수는 모두 필드로 간주</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">count</span> <span class="p">=</span> <span class="m">100</span> <span class="c1">// 메모리가 할당되고 값이 저장됨
+</span><span class="n">println</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="c1">// count 변수값을 직접 참조하여 가져옴
+</span><span class="n">count</span> <span class="p">+=</span> <span class="m">200</span> <span class="c1">// count 변수값을 직접 변경
+</span></code></pre></div></div>
+
+<h4 id="property">Property</h4>
+
+<ul>
+  <li>최상위 변수(함수나 클래스 외부에 정의됨)나 클래스의 멤버 변수로 선언됨</li>
+  <li>선언 시 해당 속성의 getter/ setter가 자동으로 생성됨</li>
+  <li><code class="highlighter-rouge">val</code> 로 선언시 getter 만 생성됨</li>
+  <li>값을 가지지만 속성의 값을 가져오거나 변경할 때는 자동으로 관련 함수가 호출됨
+    <ul>
+      <li>이를 <strong>접근자</strong> 라고 함</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">count</span> <span class="p">=</span> <span class="m">100</span> <span class="c1">// 메모리가 할당되고 값이 저장됨
+</span><span class="n">println</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="c1">// count 속성의 접근자가 호출되어 속성값을 반환
+</span><span class="n">count</span> <span class="p">+=</span> <span class="m">200</span> <span class="c1">// count 속성의 접근자가 호출되어 속성값을 변환
+</span></code></pre></div></div>
+
+<p><strong>엥 근데 필드와 동일하게 코드를 작성하는데? 🤔</strong></p>
+
+<ul>
+  <li>프로그래머가 보는 관점에서는 같지만, 코틀린 컴파일러는 다르게 동작함</li>
+  <li>다음과 같이 count  속성의 접근자를 자동으로 생성</li>
+  <li>count 속성의 값을 가져오거나 변경할 때 자동으로 호출 됨</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">couhnt</span> <span class="p">=</span> <span class="m">100</span>
+	<span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">field</span>
+	<span class="k">set</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">field</span> <span class="p">=</span> <span class="n">value</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">get()</code> 과 <code class="highlighter-rouge">set()</code> 이 접근자</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Array</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;)</span> <span class="p">{</span>
+  <span class="n">pro1</span> <span class="p">+=</span> <span class="n">pro2</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">pro1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="py">pro1</span> <span class="p">=</span> <span class="m">100</span> <span class="c1">// 최상위 수준의 변수이므로 속성임
+</span><span class="kd">var</span> <span class="py">pro2</span> <span class="p">=</span> <span class="m">200</span> <span class="c1">// 최상위 수준의 변수이므로 속성임
+</span></code></pre></div></div>
+
+<ul>
+  <li>pro2의 게터가 호출되어 값을 가져옴</li>
+  <li>pro1의 게터에서 반환된 값과 더함</li>
+  <li>이 값이 pro1의 세터의 인자로 전달되어 pro1의 값이 변경됨</li>
+  <li>pro1 게터에서 반환된 값을 출력</li>
+</ul>
+
+<p>프로퍼티에 <code class="highlighter-rouge">=</code> 을 이용해서 할당하는거랑 get을 사용해서</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">shouldDraw</span>  <span class="p">=</span> <span class="n">cards</span><span class="p">.</span><span class="n">score</span><span class="p">()</span>
+<span class="kd">val</span> <span class="py">shouldDraw2</span> <span class="p">:</span> <span class="n">Boolean</span>
+<span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">cards</span><span class="p">.</span><span class="n">scroe</span><span class="p">()</span>
+</code></pre></div></div>
+
+<ul>
+  <li>get을 쓰는 것은 매번 돌때마다 계산이 됨</li>
+  <li>프로퍼티에 접근은 계산되어 있는 값을 씀</li>
+</ul>
+
+<h3 id="backing-fields">Backing fields﻿</h3>
+
+<ul>
+  <li>커스텀 getter와 setter를 제공할 경우 사용</li>
+  <li>속성이 필드의 값을 필요로 할 때 코틀린은 지원 필드 키워드를 제공</li>
+  <li>getter와 setter 범위에서만 사용 가능</li>
+  <li><code class="highlighter-rouge">field</code> 지시자를 통해 속성의 게터나 세터에서 사용</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">counter</span> <span class="p">=</span> <span class="m">0</span> <span class="c1">// the initializer assigns the backing field directly
+</span>    <span class="k">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">)</span>
+            <span class="n">field</span> <span class="p">=</span> <span class="n">value</span>
+            <span class="c1">// counter = value // ERROR StackOverflow: Using actual name 'counter' would make setter recursive
+</span>    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>아래 예제의 <code class="highlighter-rouge">this</code>는 backing field가 아님</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">isEmpty</span><span class="p">:</span> <span class="n">Boolean</span>
+    <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">size</span> <span class="p">==</span> <span class="m">0</span>
+</code></pre></div></div>
+
+<h3 id="backing-properties">Backing properties﻿</h3>
+
+<ul>
+  <li>Backing fields﻿의 체계에 맞지 않는 작업을 수행할 경우 이는 Backing properties﻿가 됨</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Skills</span><span class="p">(</span><span class="n">skills</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">mutableListOf</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">_skills</span><span class="p">:</span> <span class="n">MutableList</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">skills</span><span class="p">.</span><span class="n">toMutableList</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="py">skills</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span>
+        <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">_skills</span><span class="p">.</span><span class="n">toList</span><span class="p">()</span>
+
+    <span class="k">fun</span> <span class="nf">soft</span><span class="p">(</span><span class="n">soft</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">_skills</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">soft</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">hard</span><span class="p">(</span><span class="n">hard</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">_skills</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">hard</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://itandhumanities.tistory.com/28">코틀린 수신 객체 지정 람다 : with와 apply</a></li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📋 Kotlin을 정복해봅시다 1</title>
 	  <link>//kotlin1</link>
 	  <author></author>
@@ -450,6 +858,61 @@ void와는 다르게 인자로도 사용할 수 있다.</p>
 
 <p>map을 기본적으로 반환한다.</p>
 
+<h4 id="input을-재귀적으로">Input을 재귀적으로</h4>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">tailrec</span> <span class="k">fun</span> <span class="nf">inputCarNames</span><span class="p">():</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">"경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">readLine</span><span class="p">()</span><span class="o">?.</span><span class="n">replace</span><span class="p">(</span><span class="s">" "</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span><span class="o">?.</span><span class="n">split</span><span class="p">(</span><span class="s">","</span><span class="p">)</span> <span class="o">?:</span> <span class="n">inputCarNames</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">tailrec</span> <span class="k">fun</span> <span class="nf">inputTryNumber</span><span class="p">():</span> <span class="n">Int</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">"시도할 횟수는 몇 회인가요?"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">readLine</span><span class="p">()</span><span class="o">?.</span><span class="n">toIntOrNull</span><span class="p">()</span> <span class="o">?:</span> <span class="n">inputTryNumber</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong><code class="highlighter-rouge">tailrec</code></strong> : 꼬리재귀(tail recursive)라는 의미로, 추가적인 연산이 없이 자신 스스로 재귀적으로 호출하다가 어떤 값을 리턴하는 함수
+    <ul>
+      <li>해당 키워드를 붙이면 재귀적인 함수 호출의 최적화가(?) 일어남</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="중위-함수-to-키워드">중위 함수 (to 키워드)</h4>
+
+<ul>
+  <li><strong>중위 표현법</strong> : 변수와 변수사이에 함수를 넣어 연산자 처럼 사용하는 것</li>
+</ul>
+
+<p><strong>조건</strong></p>
+
+<ul>
+  <li>멤버 메서드 또는 확장 함수여야 함</li>
+  <li>하나의 매개변수를 가져야함</li>
+  <li><strong>infix</strong> 키워드를 사용하여 정의</li>
+</ul>
+
+<p><strong>ex) Pair 객체를 생성할 때 to</strong></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7377057b-c283-4102-8e00-d704ae58d308/image.png" style="zoom:33%;" /></p>
+
+<h4 id="by-키워드">by 키워드</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/da1ab914-04bb-4128-ae3d-3393fa9ec579/image.png" style="zoom:33%;" /></p>
+
+<p>위 코드에서 Car의 일급 컬렉션인 Cars를 순회할 때 현재는 <code class="highlighter-rouge">List&lt;Car&gt;</code>에 접근하여 순회하고 있다.<br />
+하지만 코틀린에서는 다음과 같이 변경할 수 있다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4ed5d81e-1003-4aaa-aead-6cfe5f7cc4df/image.png" style="zoom:33%;" /></p>
+
+<p>위와 같이 cars 일급 컬렉션을 바로 순회할 수 있는 이유는 Cars가 다음과 같이 <code class="highlighter-rouge">List&lt;Car&gt;</code> 인터페이스를 구현하고 있기 때문이다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4ebb7070-a1b5-4d4b-a5b7-0d2c56524246/image.png" style="zoom:33%;" /></p>
+
+<p>뭐야 완전 신기해….  <br />
+제이슨이 일단 지금은 “와 뭐야” 이정도까지만 알아두어도 된다고 하였다.<br />
+코틀린 짱</p>
 
 	  ]]></description>
 	</item>
@@ -3079,166 +3542,6 @@ ex) 스트럿츠, 스프링 MVC(과거 버젼)</p>
 <hr />
 
 <p>✍️ 김영님의 <strong>스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</strong> 강의 노트 ✍️</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📋 배포 인프라 강의 1 - Public Cloud, 통신 확인하기</title>
-	  <link>//serve1</link>
-	  <author></author>
-	  <pubDate>2021-04-27T19:18:00+09:00</pubDate>
-	  <guid>//serve1</guid>
-	  <description><![CDATA[
-	     <h2 id="public-cloud란">Public Cloud란?</h2>
-
-<h4 id="cloud">Cloud</h4>
-
-<p>클라우드는 인터넷을 은유적으로 표현하는 말. 어디에든 있고 어떤 형태로든 변할 수 있다. 정확히는 인터넷을 통해 원격으로 접근할 수 있는 모든 것을 의미한다. (메일, 드라이브 등)</p>
-
-<h4 id="cloud-computing">Cloud Computing?</h4>
-
-<p>서버, 데이터베이스, 네트워킹 등 컴퓨팅 리소스를 인터넷을 통해 관리하는 것</p>
-
-<h3 id="클라우드를-사용하는-이유">클라우드를 사용하는 이유?</h3>
-
-<h4 id="관심사의-분리">관심사의 분리</h4>
-
-<p>서비스를 만들려고 할 때 서비스의 본질에 대해 집중을 하기 위해서 사용한다.<br />
-우리의 서비스는 저장소에 있는 데이터를 서버에서 원하는 형태로 가공해 네트워크를 통해 사용자에게 전달한다.<br />
-우리는 데이터, 서버, 네트워크를 어떻게 관리할지만 관심을 두었다.<br />
-그렇다면 실제 서비스 할때를 생각해보자.</p>
-
-<h4 id="서비스할-경우-고려할-점">서비스할 경우 고려할 점</h4>
-
-<ul>
-  <li>데이터를 어떻게 관리할 것인가</li>
-  <li>서버를 어떻게 관리할 것인가</li>
-  <li>네트워크를 어떻게 관리할 것인가</li>
-</ul>
-
-<p>이러한 고민들은 <strong>Cloud</strong> 제공 업체가 해준다.<br />
-클라우드를 사용한다는 것은 단순히 컴퓨팅 리소스를 인터넷을 통해 관리하는 것만을 의미하지 않는다.<br />
-관심사를 분리하여 우리가 집중할 대상에 더 집중하기 위함이다.</p>
-
-<hr />
-
-<h2 id="통신-확인하기">통신 확인하기</h2>
-
-<ul>
-  <li><strong>노드</strong> : IP를 가지고 통신할 수 있는 대상</li>
-  <li>하나의 프로그램을 실행하면 PID를 할당해서 실행시킨다 = 프로그램이 메모리에 띄워져서 동작하는 상태</li>
-</ul>
-
-<h3 id="osi-7-계층">OSI 7 계층</h3>
-
-<h4 id="1계층---physical-layer물리-계층">1계층 - Physical Layer(물리 계층)</h4>
-
-<ul>
-  <li>0과 1의 나열을 주고 받을 수 있게 해주는 모듈</li>
-</ul>
-
-<h4 id="2계층---data-link-layer데이터-링크-계층">2계층 - Data Link Layer(데이터 링크 계층)</h4>
-
-<ul>
-  <li>같은 네트워크에 있는 여러 대의 컴퓨터들이 데이터를 주고 받기 위해 필요한 모듈</li>
-  <li>물리적 주소를 이용해 노드 간 연결</li>
-  <li>Framing 작업이 여기에 속한다.</li>
-  <li>대표 장비 : 브릿지, L2 스위치</li>
-</ul>
-
-<h4 id="3계층---network-layer네트워크-계층">3계층 - Network Layer(네트워크 계층)</h4>
-
-<ul>
-  <li>수많은 네트워크 연결로 이뤄진 inter-network 속에서 목적지 컴퓨터로 데이터를 전송하기 위해 IP 주소로 길을 찾고(routing)</li>
-  <li>자신의 다음 라우터에게 데이터를 넘겨주는 것(forwording)</li>
-  <li>논리적 주소로 최초 출발지부터 최종 목적지까지의 최적 경로 결정</li>
-  <li>대표 장비 : 라우터, L3 스위치 등</li>
-  <li>프로토콜 : IPv4</li>
-</ul>
-
-<h4 id="4계층---transport-layer전송-계층">4계층 - Transport Layer(전송 계층)</h4>
-
-<ul>
-  <li>포트 번호를 통해 서비스를 구분하고 데이터 전송을 담당</li>
-  <li>대표 장비 : L4 스위치 등</li>
-  <li>프로토콜 : TCP</li>
-</ul>
-
-<h4 id="5계층---session-layer세션-계층">5계층 - Session Layer(세션 계층)</h4>
-
-<ul>
-  <li>응용 프로그램 간 세션 수립, 유지, 종료</li>
-</ul>
-
-<h4 id="6계층---presentation-layer표현-계층">6계층 - Presentation Layer(표현 계층)</h4>
-
-<ul>
-  <li>데이터의 표현(확장자 연결, 압축, 암호화, 변환)</li>
-</ul>
-
-<h4 id="7계층---application-layer응용-계층">7계층 - Application Layer(응용 계층)</h4>
-
-<ul>
-  <li>사용자에게 인터페이스 제공, 원본 데이터 생성</li>
-  <li>프로토콜 :  HTTP, SSH 등…</li>
-</ul>
-
-<h3 id="네트워크-체크">네트워크 체크</h3>
-
-<h4 id="1-ping-체크">1. Ping 체크</h4>
-
-<p>IP 정보만으로 서버에 요청이 가능한지 확인한다. <br />
-ICMP란 프로토콜을 사용하는데, 이는 IP가 신뢰성을 보장하지 않아 에러에 대처할 수 없는 문제점에 대해 오류 정보 발견 및 보고를 담당한다.<br />
-TCP가 아니라 Port 번호가 없다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ping [대상 IP]
-</code></pre></div></div>
-
-<ul>
-  <li>RTT(Round Trip Time) : 한 패킷이 왕복한 시간을 의미. 네트워크 시간은 연결 시간, 요청 시간, 응답 시간 등으로 구성됩니다. RTT가 높을 경우 어느 구간에서 오래 걸리는지 확인해야한다.</li>
-</ul>
-
-<p><strong>🤔 IP 정보로 통신할 때, 실제 서버 위치를 아는 법?</strong></p>
-
-<p><strong>ARP(Address Resolution Protocol)</strong> : 논리적 주소인 IP주소 정보를 이용하여 물리적 주소인 MAC 주소를 알아와 통신이 가능하게 도와주는 프로토콜로, ARP Request를 Braodcast로 요청하면 수신한 장비들 중 자신의 IP에 해당하는 장비가 응답을 한다. 응답받은 NIC 포트 정보와 IP, MAC 주소를 기반으로 이후 통신을 진행한다.</p>
-
-<h4 id="2-port-체크">2. Port 체크</h4>
-
-<p>서비스의 정상 구동 여부를 확인할 수 있다.<br />
-포트가 띄워졌다는 것은 그 애플리케이션을 사용할 수 있다는 것이다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ telnet [Target Server IP] [Target Service Port]
-</code></pre></div></div>
-
-<p>하나의 포트 번호를 오픈해두고도 많은 사용자와 연결할 수 있다.</p>
-
-<h4 id="소켓">소켓</h4>
-
-<p>소켓은 소프트웨어로 작성된 통신 접속점으로, 네트워크 응용프로그램은 소켓을 통해 통신망으로 데이터를 송수신한다.<br />
-소켓은 응용 프로그램에서 TCP/IP를 이용하는 창구 역할을 한다.<br />
-(포트번호는 TCP/IP가 지원하는 상위 계층의 프로세스를 구분하기 위한 번호이므로 하나의 컴퓨터내에 있는 응용 프로세스들은 반드시 서로 다른 포트번호를 사용하여야 한다.)</p>
-
-<p>소켓을 이용한 프로그램에서 상대방과 IP 패킷을 주고 받기 위해서는 5가지 정보가 정해져야 한다.</p>
-
-<ul>
-  <li>통신에 사용할 프로토콜</li>
-  <li>자신의 IP 주소</li>
-  <li>자신의 포트번호</li>
-  <li>상대방의 IP 주소</li>
-  <li>상대방의 포트번호</li>
-</ul>
-
-<h4 id="3-http-response-체크">3. HTTP Response 체크</h4>
-
-<p>상태 코드를 기반으로 상세하게 이상유무를 판단할 수 있다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -I google.com
-</code></pre></div></div>
-
-<h4 id="4-패킷-분석">4. 패킷 분석</h4>
-
-<p>tcpdump, <a href="https://www.wireshark.org/download.html">wireshark</a> 등의 도구를 사용하여 패킷을 모니터링할 수 있다.</p>
 
 	  ]]></description>
 	</item>

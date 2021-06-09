@@ -8,6 +8,162 @@
     
       
       <item>
+        <title>Kotlin2</title>
+        
+          <description>&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;as&lt;/code&gt; 키워드 사용해도 되나여?
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;val results = resultBoard.values as List&amp;lt;GameResult&amp;gt;&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;associateWith&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        
+        <pubDate>Mon, 31 May 2021 00:00:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/kotlin2</link>
+        <guid isPermaLink="true">http://localhost:4000/kotlin2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Lecture Auth</title>
+        
+          <description>&lt;h2 id=&quot;피드백-강의&quot;&gt;피드백 강의&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 28 May 2021 00:00:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/lecture-auth</link>
+        <guid isPermaLink="true">http://localhost:4000/lecture-auth</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📌 SpringBoot Auto Configuration</title>
+        
+          <description>&lt;h2 id=&quot;테코톡을-보고-추가로-학습한-내용들&quot;&gt;테코톡을 보고 추가로 학습한 내용들&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Thu, 27 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/springconfiguration</link>
+        <guid isPermaLink="true">http://localhost:4000/springconfiguration</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📌 시간 복잡도</title>
+        
+          <description>&lt;h3 id=&quot;알고리즘이란&quot;&gt;알고리즘이란?&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/time</link>
+        <guid isPermaLink="true">http://localhost:4000/time</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📌 Cache</title>
+        
+          <description>&lt;h3 id=&quot;메모리-계층-구조&quot;&gt;메모리 계층 구조&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/cache</link>
+        <guid isPermaLink="true">http://localhost:4000/cache</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 4. 의존 자동 주입</title>
+        
+          <description>&lt;h2 id=&quot;autowired-어노테이션을-통한-의존-자동-주입&quot;&gt;@Autowired 어노테이션을 통한 의존 자동 주입&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/springbasic4</link>
+        <guid isPermaLink="true">http://localhost:4000/springbasic4</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 3. 스프링 DI</title>
+        
+          <description>&lt;h2 id=&quot;스프링은-객체-컨테이너&quot;&gt;스프링은 객체 컨테이너&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/springbasic</link>
+        <guid isPermaLink="true">http://localhost:4000/springbasic</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📌 MVC 패턴</title>
+        
+          <description>&lt;h2 id=&quot;mvc-패턴&quot;&gt;MVC 패턴&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/mvc-pattern</link>
+        <guid isPermaLink="true">http://localhost:4000/mvc-pattern</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📋 Kotlin을 정복해봅시다 2</title>
+        
+          <description>&lt;h2 id=&quot;코틀린-dsl&quot;&gt;코틀린 DSL&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/kotlin2</link>
+        <guid isPermaLink="true">http://localhost:4000/kotlin2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>📌 DTO와 VO</title>
+        
+          <description>&lt;h2 id=&quot;dto&quot;&gt;DTO&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 May 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/dto-and-vo</link>
+        <guid isPermaLink="true">http://localhost:4000/dto-and-vo</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📌 전략패턴</title>
         
           <description>&lt;h3 id=&quot;if---else의-문제점&quot;&gt;if - else의 문제점&lt;/h3&gt;
@@ -175,7 +331,7 @@
       <item>
         <title>📋 REST API에 대하여</title>
         
-          <description>&lt;h2 id=&quot;rest-api-구성&quot;&gt;REST API 구성&lt;/h2&gt;
+          <description>&lt;h2 id=&quot;rest-api&quot;&gt;REST API&lt;/h2&gt;
 
 </description>
         

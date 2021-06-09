@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>📋 Spring Core 막 적은 강의 노트</title>
+    <title>📌 SpringBoot Auto Configuration</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,21 +34,21 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//spring-core-lecture" />
+        <link rel="canonical" href="http://localhost:4000//springconfiguration" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="📋 Spring Core 막 적은 강의 노트" />
+    <meta property="og:title" content="📌 SpringBoot Auto Configuration" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//spring-core-lecture" />
+    <meta property="og:url" content="http://localhost:4000//springconfiguration" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="📋 Spring Core 막 적은 강의 노트" />
+    <meta name="twitter:title" content="📌 SpringBoot Auto Configuration" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//spring-core-lecture" />
+    <meta name="twitter:url" content="http://localhost:4000//springconfiguration" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
 
     <script type="application/ld+json">
@@ -56,8 +56,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "📋 Spring Core 막 적은 강의 노트",
-    "url": "http://localhost:4000//spring-core-lecture",
+    "name": "📌 SpringBoot Auto Configuration",
+    "url": "http://localhost:4000//springconfiguration",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
@@ -85,7 +85,7 @@
         <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
         <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
         <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
-        <li class="nav-ect  nav-current" role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
         <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
         <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
         <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
@@ -116,7 +116,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">📋 Spring Core 막 적은 강의 노트</h1>
+        <h1 class="post-title">📌 SpringBoot Auto Configuration</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -125,17 +125,13 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-04-20">20 Apr 2021</time>
+            <time class="post-date" datetime="2021-05-27">27 May 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/spring'>Spring</a>
+                       <a href='/tag/techotalk'>Techotalk</a>
                     
                 
                 
@@ -155,106 +151,98 @@
 
         <section class="post-content">
 
-            <p>객체의 의존 관리는 스프링이 한다.<br />
-스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다.</p>
+            <h2 id="테코톡을-보고-추가로-학습한-내용들">테코톡을 보고 추가로 학습한 내용들</h2>
 
-<h3 id="chessservice에서-chessdao-의존하기">ChessService에서 ChessDao 의존하기</h3>
+<p>스프링 부트는 component-scan을 통해 component를 찾고 bean을 생성한다.<br />
+이 과정에서 우리가 설정한 bean들이 생성된다.<br />
+그리고 이 과정에서 spring boot의 auto configuration에 의해 추가적인 bean들도 함께 생성된다.</p>
 
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420104423745.png" alt="image-20210420104423745" /></p>
-
-<p>변경에 취약하다</p>
-
-<p>의존 관계를 개발자가 직접 관리하려면 복잡하다.<br />
-스프링 컨테이너가 관리해준다.</p>
-
-<h3 id="컨테이너">컨테이너</h3>
-
-<p>담아놓는 용기<br />
-스프링에서는 스프링이 활용할 객체들을 담아놓은 용기를 말한다.</p>
-
-<h3 id="bean으로-등록하는-기준">Bean으로 등록하는 기준?</h3>
-
-<p>프로그램 별로 공통적으로 쓸 수 있는 대상 
-레이어에 대한 객체들을 재사용할 수 있는데 이들을 빈으로 관리한다.<br />
-상태가 없는 객체를 빈으로 등록한다.  -&gt; 빈으로 등록 하려면 상태가 없어야 한다.</p>
-
-<p>설정의 메타 데이터(Configuration Metadata)를 이용해 스프링 컨테이너에 담아놓는다.<br />
-컨테이너에 담으면 빈으로 등록된다.</p>
-
-<h3 id="스프링이-객체를-관리하게-하려면">스프링이 객체를 관리하게 하려면</h3>
+<h3 id="spring-boot-autoconfiguration이란">Spring Boot AutoConfiguration이란?</h3>
 
 <ul>
-  <li>객체 관리 대상 알려주기</li>
-  <li>객체들 간의 의존성 정의하기</li>
+  <li>클래스 패스에 존재하는 dependecy를 기반으로 spring 애플리케이션을 자동으로 구성하는 방법</li>
+  <li>스프링 부트는 web, h2, jdbc등 여러 자동 설정을 제공 (starter)</li>
+  <li>특정 Bean을 정의할 필요 없기 때문에 개발이 더 빠르고 쉬워짐</li>
+  <li>스프링부트에선 <code class="highlighter-rouge">@SpringBootApplication</code>에 있는 <code class="highlighter-rouge">EnableAutoConfiguration</code> 로 가능</li>
 </ul>
 
-<h3 id="컨테이너-설정-방법---빈-등록-방법">컨테이너 설정 방법 - 빈 등록 방법</h3>
+<h3 id="springbootautoconfiguration">@SpringBootAutoConfiguration</h3>
 
-<p>@ComponentScan : 등록할 빈을 스캔할 classpath를 지정 (@SpringBootApplication 내부에 속해있는 애너테이션)</p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/024b6568-3a66-4a6f-b4c3-1eaeee3ea27d/image.png" style="zoom: 50%;" /></p>
 
-<p>@Component : ComponentScan 클래스 하위에 특정 애너테이션이 붙은 클래스를 스프링 빈으로 지정</p>
+<ul>
+  <li><code class="highlighter-rouge">@SpringBootConfiguration</code> : 스프링의 <code class="highlighter-rouge">@Configuration</code>을 대체하는 스프링 부트 전용 설정 어노테이션</li>
+  <li><code class="highlighter-rouge">@EnableAutoConfiguration</code> : auto configuration 기능을 사용하겠다는 설정. 클래스 패스에 지정된 내용을 기반으로 설정을 자동화. 일반적으로 <code class="highlighter-rouge">@ComponentScan</code> 와 함께 쓰임</li>
+</ul>
 
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420110038067.png" alt="image-20210420110038067" /></p>
+<p><strong>그런데 우리가 정의한 Bean과 Spring Boot가 정의한 Bean이 충돌하면? 또한 불필요한 Bean들도 같이 생성된다면?</strong></p>
 
-<h3 id="의존성-주입">의존성 주입</h3>
+<p><code class="highlighter-rouge">@Condition</code>과 <code class="highlighter-rouge">@ConditionalOnXxx</code>을 이용해서 이와 같은 문제를 해결한다.</p>
 
-<h4 id="생성자-주입without-스프링-컨테이너">생성자 주입(without 스프링 컨테이너)</h4>
+<h3 id="springfactories">spring.factories</h3>
 
-<h4 id="수정자-주입without-스프링-컨테이너">수정자 주입(without 스프링 컨테이너)</h4>
+<p>위의 두 어노테이션을 살펴보기 전에 auto configuration에 필요한 파일들을 살펴보자.</p>
 
-<p>필드를 통해 주입할 수도 있다.<br />
-스프링에서는 XML, 어노테이션, 자바 클래스를 통해 의존성을 주입할 수 있다.</p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/0e864065-e901-4be2-a736-ba56b5d7e8c6/image.png" style="zoom:33%;" /></p>
 
-<p>@Autowired를 붙여준다. 생성자 매개변수의 값이 필요하구나를 알 수 있다.</p>
+<h4 id="auto-configure">Auto Configure</h4>
 
-<p>특정 컴포넌트 어노테이션을 붙인다고 해서 특정 의미가 부여되는 것은 아니고,</p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/06db6a39-a4bd-40f3-bb11-cbd13c55994b/image.png" style="zoom: 50%;" /></p>
 
-<p>Repository는 도메인 객체의 생명주기를 관리하며 Public Operation을 제공합니다. 이에 Domain Layer에 해당합니다. 도메인 모델과 생애주기가 같기 때문이죠. 
-실제 구현체인 SimpleJpaRepository는 Infrastructure Layer에 해당합니다. 
-이렇게 추상에 의존하고 구체에 의존하지 않도록 구성함으로써(DIP) 유연성있는 시스템을 구성할 수 있습니다.
-반면, DAO는 CRUD와 1:1로 매칭되어 Persistence Operation을 적극적으로 드러냅니다.
-즉, repository는 도메인 모델의 일부로 보며 추상인 반면, dao는 추상이 필수는 아니라고 생각합니다.</p>
+<p><code class="highlighter-rouge">spring-boot-autoconfigure/META-INF/spring.factories</code> 에는 스프링 부트가 미리 정의해둔 auto configuration 정보가 들어있다.<br />
+여기에는 자동 설정의 target 클래스 목록들이 나열되어 있고, 여기에 선언된 클래스들이 <code class="highlighter-rouge">@EnableConfiguration</code> 사용 시 target이 된다.</p>
 
-<blockquote>
-  <p>http://egloos.zum.com/aeternum/v/1160846</p>
-</blockquote>
+<h3 id="conditional-conditionalonxxx">@Conditional? @ConditionalOnXxx?</h3>
 
-<blockquote>
-  <p>https://stackoverflow.com/questions/8550124/what-is-the-difference-between-dao-and-repository-patterns</p>
-</blockquote>
+<ul>
+  <li>Sprig 4.0부터 추가된 어노테이션</li>
+</ul>
 
-<p>빈은 기본적으로 싱글턴 스코프</p>
+<p><code class="highlighter-rouge">spring.factories</code> 에 있는 클래스들 중 익숙한 <code class="highlighter-rouge">org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\</code> 를 예시로 보자.</p>
 
-<p>컨테이너는 개념적인 것 컨텍스트는 객체의 일원</p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/a41c8243-04ba-424e-b466-c592dd5502b1/image.png" alt="" /></p>
 
-<p>갠적으로 어노테이션은 막붙이기 좋고(빠르게 개발하기)
-xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈에 들어와서 좋았습니다.</p>
+<ul>
+  <li><code class="highlighter-rouge">@ConditionalOnClass({ DataSource.class, EmbeddedDatabaseType.class })</code> 설정을 통해 해당 클래스 파일이 존재해야 설정을 활성화 함을 명시</li>
+  <li><code class="highlighter-rouge">@ConditionalOnMissingBean(type = "io.r2dbc.spi.ConnectionFactory")</code> 설정을 통해 해당 Bean이 존재하지 않을 경우 설정을 활성화 함을 명시</li>
+</ul>
 
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420114253606.png" alt="image-20210420114253606" /></p>
+<p>이러한 설정들 덕분에 <code class="highlighter-rouge">우리가 정의한 Bean과 Spring Boot가 정의한 Bean이 충돌하는 문제, 불필요한 Bean들이 생성되는 문제 등</code>을 해결할 수 있다.</p>
 
-<h3 id="서비스-레이어는-어떤-역할을-할까요">서비스 레이어는 어떤 역할을 할까요?</h3>
+<h4 id="autoconfigurationimportfilter">AutoConfigurationImportFilter</h4>
 
-<p>도메인 로직들의 순서를 보장하면서, 서비스 트랜잭션 관리를 한다.<br />
-객체들의 비지니스 플로우를 관리해준다.<br />
-비지니스 로직은 도메인으로!</p>
+<p>그런데 사실 auto configuration에서 이 <code class="highlighter-rouge">@Condition</code> 을 무조건 타는 것이 아니다.<br />
+<code class="highlighter-rouge">spring.factories</code> 에는 <code class="highlighter-rouge">AutoConfigurationImportFilter</code> 설정이 존재한다.<br />
+아래와 같은 필터들은 각 AutoConfiguration이 가진 <code class="highlighter-rouge">@Conditional</code> 을 가지고 조건을 만족하는지 필터링을 수행한다.<br />
+조건이 맞지 않을 경우, AutoConfiguration이 동작하지 않도록 제외시키는 역할을 한다.</p>
 
-<h3 id="pojo">Pojo</h3>
+<p><img src="https://images.velog.io/images/new_wisdom/post/6180dd11-d6e2-4e23-9146-da32cbaaba32/image.png" style="zoom: 50%;" /></p>
 
-<p>스프링에서 스프링 빈으로 관리하고 싶은 객체<br />
-스프링 설정이 가해지기 전 상태의 객체를 POJO라고 한다.</p>
+<ul>
+  <li><strong>OnBeanCondition</strong> : 특정 bean들의 존재유무에 대해서 다루는 필터
+    <ul>
+      <li><code class="highlighter-rouge">@ConditionalOnBean, @ConditionalOnMissingBean, @ConditionalOnSingleCandidate</code></li>
+    </ul>
+  </li>
+  <li><strong>OnClassCondition</strong> : 특정 class들의 존재유무에 대해서 다루는 필터
+    <ul>
+      <li><code class="highlighter-rouge">@ConditionalOnClass, @ConditionalOnMissingClass</code></li>
+    </ul>
+  </li>
+  <li><strong>OnWebApplicationCondition</strong> : WebApplicationContext의 존재유무에 대해서 다루는 필터
+    <ul>
+      <li><code class="highlighter-rouge">@ConditionalOnWebApplication, @ConditionalOnNotWebApplication</code></li>
+    </ul>
+  </li>
+</ul>
 
-<p>포조는 순수한 자바 객체를 의미</p>
+<p><strong>그렇다면 이 자동 설정들은 어떻게 불러와질까?</strong></p>
 
-<p>Java Bean :</p>
+<h3 id="importautoconfigurationimportselectorclass">@Import(AutoConfigurationImportSelector.class)</h3>
 
-<p>자바빈은 포조라고 할 수 있지만 포조는 자바빈이라고 하긴 애매하다.</p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/024b6568-3a66-4a6f-b4c3-1eaeee3ea27d/image.png" style="zoom: 50%;" /></p>
 
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420120440979.png" alt="image-20210420120440979" /></p>
-
-<p>뷰 컨트롤러를 분리했다고 보면 됨 그런 차원에서 의미가 있따.</p>
-
-<p>맞아유 config가 코드 양이 좀 더 짧은 거 같아서 더 좋은 거 같아여! 어차피 configuration은 대부분 만들어 놓으니 다른 클래스 안만들어도 되구!</p>
-
+<p><code class="highlighter-rouge">@SpringbootApplication</code> 어노테이션 내부에 있던 <code class="highlighter-rouge">@Import(AutoConfigurationImportSelector.class)</code> 는 자동 설정을 지원해주며, import하고 있는 AutoConfigurationImportSelector.class가 <code class="highlighter-rouge">META-INF/spring.factories</code> 에 정의된 자동 설정할 클래스들을 불러온다.</p>
 
 
         </section>
@@ -287,15 +275,15 @@ xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈�
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=📋 Spring Core 막 적은 강의 노트&amp;url=http://localhost:4000spring-core-lecture"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📌 SpringBoot Auto Configuration&amp;url=http://localhost:4000springconfiguration"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000spring-core-lecture"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000springconfiguration"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000spring-core-lecture"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000springconfiguration"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -316,20 +304,20 @@ xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈�
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/restapi">
+        <a class="read-next-story no-cover" href="/lecture-auth">
             <section class="post">
-                <h2>📋 REST API에 대하여</h2>
-                <p>## REST API * 오늘날 사용 가능한 가장 일반적인 웹 서비스 유형 중 하나 *...</p>
+                <h2>Lecture Auth</h2>
+                <p>## 피드백 강의 ### 인증 헤더 로그인을 통해 토큰을 발급 받은 후 헤더에 Authorization에 토큰을...</p>
             </section>
         </a>
     
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/responsebody">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/time">
             <section class="post">
-                <h2>🌱 스프링의 DI 방법 (생성자 주입 VS 필드 주입)</h2>
-                <p>스프링의 DI 방법 DI 강한 결합 객체 내부에서 다른 객체를 생성할 경우, 강한 결합도를 가지고...</p>
+                <h2>📌 시간 복잡도</h2>
+                <p>알고리즘이란? 문제를 해결하기 위한 방법 예시 건너뛰기 혹은 살펴보기 전략 자취방 구하기 맛있는 음식점 찾아다니기...</p>
             </section>
         </a>
     

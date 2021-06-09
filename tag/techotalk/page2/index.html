@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>New Wisdom's Log !</title>
+    <title>Welcome To New Wisdom's Log !</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,31 +34,31 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//page5/" />
+        <link rel="canonical" href="http://localhost:4000//tag/techotalk/page2/" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="New Wisdom's Log !" />
+    <meta property="og:title" content="Welcome To New Wisdom's Log !" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//page5/" />
-    <meta property="og:image" content="/assets/images/cover1.jpg" />
+    <meta property="og:url" content="http://localhost:4000//tag/techotalk/page2/" />
+    <meta property="og:image" content="/assets/images/cover2.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="New Wisdom's Log !" />
+    <meta name="twitter:title" content="Welcome To New Wisdom's Log !" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//page5/" />
-    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+    <meta name="twitter:url" content="http://localhost:4000//tag/techotalk/page2/" />
+    <meta name="twitter:image:src" content="/assets/images/cover2.jpg" />
 
     <script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "New Wisdom's Log !",
-    "url": "http://localhost:4000//page5/",
-    "image": "/assets/images/cover1.jpg",
+    "name": "Welcome To New Wisdom's Log !",
+    "url": "http://localhost:4000//tag/techotalk/page2/",
+    "image": "/assets/images/cover2.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
     </script>
@@ -77,10 +77,10 @@
         <span class="hidden">Close</span>
     </a>
     <ul>
-        <li class="nav-home  nav-current" role="presentation"><a href="/">Home</a></li>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
         <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
-        <li class="nav-techotalk " role="presentation"><a href="/tag/techotalk">Techotalk</a></li>
+        <li class="nav-techotalk  nav-current" role="presentation"><a href="/tag/techotalk">Techotalk</a></li>
         <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
         <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
         <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
@@ -100,12 +100,14 @@
     <div class="site-wrapper">
 
         <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
-        <!-- < default -->
+        <!-- dynamically overriding backgrounds for tags as well as descriptions -->
+
+
+<!-- default -->
 <!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
 
-<!-- The big featured header  -->
-<header class="main-header "
-        style="background-image: url(/assets/images/cover1.jpg) ">
+<!-- If we have a tag cover, display that - else blog cover - else nothing -->
+<header class="main-header tag-head " style="background-image: url(/assets/images/java.jpeg) ">
     <nav class="main-nav overlay clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
         
@@ -114,11 +116,14 @@
     </nav>
     <div class="vertical">
         <div class="main-header-content inner">
-            <h1 class="page-title">Welcome To New Wisdom's Log !</h1>
-            <h2 class="page-description">블로그 이사중... 아직 정리가 안되었음...</h2>
+            <h1 class="page-title">Techotalk</h1>
+            <h2 class="page-description">
+            
+                테코톡 정리
+            
+            </h2>
         </div>
     </div>
-    <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
 </header>
 
 <!-- The main content area on the homepage -->
@@ -131,12 +136,10 @@
             <nav class="pagination" role="pagination">
     
         
-            <a class="newer-posts" href="/page4/" title="Previous Page">&laquo; Newer Posts</a>
-      
+            <a class="newer-posts" href="/tag/techotalk" title="Previous Page">&laquo; Newer Posts</a>
+        
     
-    <span class="page-number"> Page 5 of 12 </span>
-     
-        <a class="older-posts" href="/page6/" title="Next Page">Older Posts &raquo;</a>
+    <span class="page-number"> Page 2 of 2 </span>
      
 </nav>
         
@@ -146,10 +149,10 @@
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/serve1">📋 배포 인프라 강의 1 - Public Cloud, 통신 확인하기</a></h2>
+            <h2 class="post-title"><a href="/dto-and-vo">📌 DTO와 VO</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>Public Cloud란? Cloud 클라우드는 인터넷을 은유적으로 표현하는 말. 어디에든 있고 어떤 형태로든 변할 수 있다. 정확히는 인터넷을 통해 원격으로 접근할 수 있는 모든 것을 의미한다. (메일,... <a class="read-more" href="/serve1">&raquo;</a></p>
+            <p>DTO Data Transfer Object (데이터 전송 객체) 계층 간 데이터 교환을 위해 사용하는 객체 로직을 갖고 있지 않은 순수한 데이터 객체 데이터를 전송하는 바구니 getter/setter 메서드만을... <a class="read-more" href="/dto-and-vo">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -167,20 +170,20 @@
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>
+                       <a href='/tag/techotalk'>Techotalk</a>
                     
                 
             
-            <time class="post-date" datetime="2021-04-27">27 Apr 2021</time>
+            <time class="post-date" datetime="2021-05-26">26 May 2021</time>
         </footer>
     </article>
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/restapi">📋 REST API에 대하여</a></h2>
+            <h2 class="post-title"><a href="/springbasic">📋 3. 스프링 DI</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>REST API 오늘날 사용 가능한 가장 일반적인 웹 서비스 유형 중 하나 브라우저 앱을 포함한 다양한 클라이언트가 REST API를 통해 서버와 통신 stateless 통신 및 캐시... <a class="read-more" href="/restapi">&raquo;</a></p>
+            <p>스프링은 객체 컨테이너 BeanFactory 객체 생성과 검색에 대한 기능 정의 getBean() : 생성된 객체를 검색하는데 필요한 메서드 객체 검색 이외에도 싱글톤인지 프로토타입 빈인지 확인하는 기능도 있음... <a class="read-more" href="/springbasic">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -198,20 +201,20 @@
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>
+                       <a href='/tag/techotalk'>Techotalk</a>
                     
                 
             
-            <time class="post-date" datetime="2021-04-21">21 Apr 2021</time>
+            <time class="post-date" datetime="2021-05-26">26 May 2021</time>
         </footer>
     </article>
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/spring-core-lecture">📋 Spring Core 막 적은 강의 노트</a></h2>
+            <h2 class="post-title"><a href="/ocp-stretegy-pattern">📌 전략패턴</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>객체의 의존 관리는 스프링이 한다. 스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다. ChessService에서 ChessDao 의존하기 변경에 취약하다 의존 관계를 개발자가 직접 관리하려면 복잡하다. 스프링 컨테이너가... <a class="read-more" href="/spring-core-lecture">&raquo;</a></p>
+            <p>if - else의 문제점 example public double calculate(boolean isFirstGuest, boolean isLastGuest, List&lt;Item&gt; items) { double sum = 0; for (Item item : items) { if (isFirstGuest)... <a class="read-more" href="/ocp-stretegy-pattern">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -229,85 +232,11 @@
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/spring'>Spring</a>
+                       <a href='/tag/techotalk'>Techotalk</a>
                     
                 
             
-            <time class="post-date" datetime="2021-04-20">20 Apr 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/responsebody">🌱 스프링의 DI 방법 (생성자 주입 VS 필드 주입)</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>스프링의 DI 방법 DI 강한 결합 객체 내부에서 다른 객체를 생성할 경우, 강한 결합도를 가지고 있다고 말한다. A 클래스에서 B라는 객체를 직접 생성하다가, B 객체를 C... <a class="read-more" href="/responsebody">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/springboot'>Springboot</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-04-20">20 Apr 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/request">🌱 Spring에서 request 처리 과정</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>Spring에서 request 처리 과정 DispatcherServlet : 클라이언트의 요청을 전달 받아 요청에 맞는 컨트롤러가 반환한 결과값을 View에 전달하여 알맞은 응답 생성 HandlerMapping : 클라이언트의 요청 URL을 어떤... <a class="read-more" href="/request">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/springboot'>Springboot</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-04-20">20 Apr 2021</time>
+            <time class="post-date" datetime="2021-05-24">24 May 2021</time>
         </footer>
     </article>
     
@@ -317,12 +246,10 @@
         <nav class="pagination" role="pagination">
     
         
-            <a class="newer-posts" href="/page4/" title="Previous Page">&laquo; Newer Posts</a>
-      
+            <a class="newer-posts" href="/tag/techotalk" title="Previous Page">&laquo; Newer Posts</a>
+        
     
-    <span class="page-number"> Page 5 of 12 </span>
-     
-        <a class="older-posts" href="/page6/" title="Next Page">Older Posts &raquo;</a>
+    <span class="page-number"> Page 2 of 2 </span>
      
 </nav>
     

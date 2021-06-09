@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>📋 Spring Core 막 적은 강의 노트</title>
+    <title>📌 MVC 패턴</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -34,21 +34,21 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//spring-core-lecture" />
+        <link rel="canonical" href="http://localhost:4000//mvc-pattern" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="📋 Spring Core 막 적은 강의 노트" />
+    <meta property="og:title" content="📌 MVC 패턴" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//spring-core-lecture" />
+    <meta property="og:url" content="http://localhost:4000//mvc-pattern" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="📋 Spring Core 막 적은 강의 노트" />
+    <meta name="twitter:title" content="📌 MVC 패턴" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//spring-core-lecture" />
+    <meta name="twitter:url" content="http://localhost:4000//mvc-pattern" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
 
     <script type="application/ld+json">
@@ -56,8 +56,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "📋 Spring Core 막 적은 강의 노트",
-    "url": "http://localhost:4000//spring-core-lecture",
+    "name": "📌 MVC 패턴",
+    "url": "http://localhost:4000//mvc-pattern",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
@@ -85,7 +85,7 @@
         <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
         <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
         <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
-        <li class="nav-ect  nav-current" role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
         <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
         <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
         <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
@@ -116,7 +116,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">📋 Spring Core 막 적은 강의 노트</h1>
+        <h1 class="post-title">📌 MVC 패턴</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -125,17 +125,13 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-04-20">20 Apr 2021</time>
+            <time class="post-date" datetime="2021-05-26">26 May 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/spring'>Spring</a>
+                       <a href='/tag/techotalk'>Techotalk</a>
                     
                 
                 
@@ -155,105 +151,180 @@
 
         <section class="post-content">
 
-            <p>객체의 의존 관리는 스프링이 한다.<br />
-스프링은 개발자를 대신해서 객체들을 생성하고 관리하는 일을 한다.</p>
-
-<h3 id="chessservice에서-chessdao-의존하기">ChessService에서 ChessDao 의존하기</h3>
-
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420104423745.png" alt="image-20210420104423745" /></p>
-
-<p>변경에 취약하다</p>
-
-<p>의존 관계를 개발자가 직접 관리하려면 복잡하다.<br />
-스프링 컨테이너가 관리해준다.</p>
-
-<h3 id="컨테이너">컨테이너</h3>
-
-<p>담아놓는 용기<br />
-스프링에서는 스프링이 활용할 객체들을 담아놓은 용기를 말한다.</p>
-
-<h3 id="bean으로-등록하는-기준">Bean으로 등록하는 기준?</h3>
-
-<p>프로그램 별로 공통적으로 쓸 수 있는 대상 
-레이어에 대한 객체들을 재사용할 수 있는데 이들을 빈으로 관리한다.<br />
-상태가 없는 객체를 빈으로 등록한다.  -&gt; 빈으로 등록 하려면 상태가 없어야 한다.</p>
-
-<p>설정의 메타 데이터(Configuration Metadata)를 이용해 스프링 컨테이너에 담아놓는다.<br />
-컨테이너에 담으면 빈으로 등록된다.</p>
-
-<h3 id="스프링이-객체를-관리하게-하려면">스프링이 객체를 관리하게 하려면</h3>
+            <h2 id="mvc-패턴">MVC 패턴</h2>
 
 <ul>
-  <li>객체 관리 대상 알려주기</li>
-  <li>객체들 간의 의존성 정의하기</li>
+  <li>디자인 패턴</li>
+  <li>Model View Controller 3가지로 구분한 패턴</li>
+  <li>유지보수가 편해지는 코드 구성 방식</li>
 </ul>
 
-<h3 id="컨테이너-설정-방법---빈-등록-방법">컨테이너 설정 방법 - 빈 등록 방법</h3>
+<h2 id="웹-애플리케이션-아키텍쳐의-역사">웹 애플리케이션 아키텍쳐의 역사</h2>
 
-<p>@ComponentScan : 등록할 빈을 스캔할 classpath를 지정 (@SpringBootApplication 내부에 속해있는 애너테이션)</p>
+<h3 id="jsp로-구성한-웹-애플리케이션의-아키텍쳐--모델1">(JSP로 구성한) 웹 애플리케이션의 아키텍쳐 : 모델1</h3>
 
-<p>@Component : ComponentScan 클래스 하위에 특정 애너테이션이 붙은 클래스를 스프링 빈으로 지정</p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/6a9d8528-65ae-4e83-be32-c2d033b36fab/image.png" style="zoom:67%;" /></p>
 
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420110038067.png" alt="image-20210420110038067" /></p>
+<ul>
+  <li>구성 : JSP + JavaBeand(Service)</li>
+  <li>뷰와 로직이 섞임</li>
+  <li>장점 : 구조가 단순</li>
+  <li>단점 : 출력과 로직 코드가 섞여 유지보수가 어렵다.</li>
+</ul>
 
-<h3 id="의존성-주입">의존성 주입</h3>
+<h3 id="jsp로-구성한-웹-애플리케이션의-아키텍쳐--모델2">(JSP로 구성한) 웹 애플리케이션의 아키텍쳐 : 모델2</h3>
 
-<h4 id="생성자-주입without-스프링-컨테이너">생성자 주입(without 스프링 컨테이너)</h4>
+<p><img src="https://images.velog.io/images/new_wisdom/post/07291db1-f256-4786-b4ac-7e9fe76049de/image.png" style="zoom:67%;" /></p>
 
-<h4 id="수정자-주입without-스프링-컨테이너">수정자 주입(without 스프링 컨테이너)</h4>
+<ul>
+  <li>구성 : JavaBean(Service) + JSP + 서블릿</li>
+  <li>MVC 구조</li>
+  <li>장점 : 뷰와 로직이 분리되어 유지보수가 쉽다.</li>
+  <li>단점 : 복잡하므로 작은 프로젝트에서는 오히려 과할 수 있다.</li>
+</ul>
 
-<p>필드를 통해 주입할 수도 있다.<br />
-스프링에서는 XML, 어노테이션, 자바 클래스를 통해 의존성을 주입할 수 있다.</p>
+<hr />
 
-<p>@Autowired를 붙여준다. 생성자 매개변수의 값이 필요하구나를 알 수 있다.</p>
+<h3 id="mvc-흐름">MVC 흐름</h3>
 
-<p>특정 컴포넌트 어노테이션을 붙인다고 해서 특정 의미가 부여되는 것은 아니고,</p>
+<ol>
+  <li>사용자는 원하는 기능을 처리하기 위한 모든 요청을 컨트롤러에 보낸다.</li>
+  <li>컨트롤러는 모델을 사용하고, 모델은 알맞은 비즈니스 로직을 수행한다.</li>
+  <li>컨트롤러는 가용자에게 보여줄 뷰를 선택한다.</li>
+  <li>선택된 뷰는 사용자에게 알맞는 결과 화면을 보여준다. 이 때 사용자에게 보여줄 데이터는 컨트롤러를 통해서 전달받는다.</li>
+</ol>
 
-<p>Repository는 도메인 객체의 생명주기를 관리하며 Public Operation을 제공합니다. 이에 Domain Layer에 해당합니다. 도메인 모델과 생애주기가 같기 때문이죠. 
-실제 구현체인 SimpleJpaRepository는 Infrastructure Layer에 해당합니다. 
-이렇게 추상에 의존하고 구체에 의존하지 않도록 구성함으로써(DIP) 유연성있는 시스템을 구성할 수 있습니다.
-반면, DAO는 CRUD와 1:1로 매칭되어 Persistence Operation을 적극적으로 드러냅니다.
-즉, repository는 도메인 모델의 일부로 보며 추상인 반면, dao는 추상이 필수는 아니라고 생각합니다.</p>
+<h3 id="model">Model</h3>
 
-<blockquote>
-  <p>http://egloos.zum.com/aeternum/v/1160846</p>
-</blockquote>
+<ul>
+  <li>값과 기능을 가지고 있는 객체</li>
+  <li>비즈니스 로직을 수행</li>
+</ul>
 
-<blockquote>
-  <p>https://stackoverflow.com/questions/8550124/what-is-the-difference-between-dao-and-repository-patterns</p>
-</blockquote>
+<h3 id="view">View</h3>
 
-<p>빈은 기본적으로 싱글턴 스코프</p>
+<ul>
+  <li>모델에 포함된 데이터의 시각화</li>
+</ul>
 
-<p>컨테이너는 개념적인 것 컨텍스트는 객체의 일원</p>
+<h3 id="controller">Controller</h3>
 
-<p>갠적으로 어노테이션은 막붙이기 좋고(빠르게 개발하기)
-xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈에 들어와서 좋았습니다.</p>
+<ul>
+  <li>모델 객체로의 데이터 흐름을 제어</li>
+  <li>모델과 뷰의 중개자 역할</li>
+  <li>뷰와 모델의 역할을 분리</li>
+</ul>
 
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420114253606.png" alt="image-20210420114253606" /></p>
+<h3 id="why-mvc">Why MVC?</h3>
 
-<h3 id="서비스-레이어는-어떤-역할을-할까요">서비스 레이어는 어떤 역할을 할까요?</h3>
+<ul>
+  <li>각 컨포넌트의 코드 결합도를 낮출 수 있음</li>
+  <li>코드의 재사용성을 높일 수 있음</li>
+  <li>구현자들 간의 커뮤니케이션 효율성을 높일 수 있음</li>
+</ul>
 
-<p>도메인 로직들의 순서를 보장하면서, 서비스 트랜잭션 관리를 한다.<br />
-객체들의 비지니스 플로우를 관리해준다.<br />
-비지니스 로직은 도메인으로!</p>
+<hr />
 
-<h3 id="pojo">Pojo</h3>
+<h2 id="mvc-많이-실수하는-부분들">MVC 많이 실수하는 부분들…</h2>
 
-<p>스프링에서 스프링 빈으로 관리하고 싶은 객체<br />
-스프링 설정이 가해지기 전 상태의 객체를 POJO라고 한다.</p>
+<h3 id="model에서-view의-접근-또는-역할-수행">Model에서 View의 접근 또는 역할 수행</h3>
 
-<p>포조는 순수한 자바 객체를 의미</p>
+<ul>
+  <li>도메인에서 비즈니스 로직이 아닌 출력에 대한 로직은 별도로 분리하자
+    <ul>
+      <li>ex) toString()</li>
+    </ul>
+  </li>
+</ul>
 
-<p>Java Bean :</p>
+<h4 id="view에서-일어나는-과한-값-검증과-예외처리">View에서 일어나는 과한 값 검증과 예외처리</h4>
 
-<p>자바빈은 포조라고 할 수 있지만 포조는 자바빈이라고 하긴 애매하다.</p>
+<ul>
+  <li>View에서 검증을 하면 뒤의 로직은 신경쓰지 않아도 되니 편리하다고는 느낄 수 있음</li>
+  <li>하지만 단일 책임 원칙을 위반함 (입력 채널이 달라질 경우 유효성 테크 로직도 옮겨야함)</li>
+  <li>값 형식은 유효하지만, 도메인 모델에서 확인해야할 부분들은 생성자에서 체크
+    <ul>
+      <li>ex) 이름은 몇 글자 이상이어야 한다.</li>
+    </ul>
+  </li>
+</ul>
 
-<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210420120440979.png" alt="image-20210420120440979" /></p>
+<h4 id="view에서-일어나는-비즈니스-로직">View에서 일어나는 비즈니스 로직</h4>
 
-<p>뷰 컨트롤러를 분리했다고 보면 됨 그런 차원에서 의미가 있따.</p>
+<ul>
+  <li>모델을 생성하거나 모델끼리 연산을 하는 로직</li>
+</ul>
 
-<p>맞아유 config가 코드 양이 좀 더 짧은 거 같아서 더 좋은 거 같아여! 어차피 configuration은 대부분 만들어 놓으니 다른 클래스 안만들어도 되구!</p>
+<h4 id="controller는-최대한-가볍게">Controller는 최대한 가볍게</h4>
+
+<ul>
+  <li>로직은 최대한 배제하고 model과 view의 연결 역할만 하도록 구현</li>
+</ul>
+
+<h3 id="service의-등장-지금은-이런게-있구나-정도만-">Service의 등장 (지금은 이런게 있구나 정도만 )</h3>
+
+<h4 id="controller에서-중복이-발생한다">Controller에서 중복이 발생한다.</h4>
+
+<ul>
+  <li>별도의 객체로 분리</li>
+  <li>별도의 메서드로 분이</li>
+</ul>
+
+<p>이러다 서비스 레이어가 추가되었다!</p>
+
+<h3 id="service란">Service란?</h3>
+
+<ul>
+  <li>비즈니스 로직을 수행하는 메서드를 가지고 있는 객체</li>
+  <li>비즈니스 메서드를 별도의 서비스 객체에서 구현하도록 하고 컨트롤러는 서비스 객체를 사용</li>
+  <li>하나의 트랜잭션을 가짐</li>
+</ul>
+
+<hr />
+
+<h2 id="mvc를-지키면서-코딩하는-방법">MVC를 지키면서 코딩하는 방법</h2>
+
+<h3 id="model은-controller와-view에-의존하지-않아야-한다">Model은 Controller와 View에 의존하지 않아야 한다.</h3>
+
+<ul>
+  <li>Model 내부에 Controller와 View에 관련된 코드가 있으면 안됨</li>
+  <li>model은 데이터와 관련된 코드이니 언제든지 정제된 코드만 꺼내쓸 수 있도록</li>
+</ul>
+
+<h3 id="view는-model에만-의존해야하고-controller에-의존하면-안된다">View는 Model에만 의존해야하고, Controller에 의존하면 안된다.</h3>
+
+<ul>
+  <li>View 내부에 Model의 코드만 있을 수 있고, Controller의 코드가 있으면 안됨</li>
+</ul>
+
+<h3 id="vuew가-model로부터-데이터를-받을-때는-사용자마다-다르게-보여주어야-하는-데이터에-대해서만-받아야-함">Vuew가 Model로부터 데이터를 받을 때는 사용자마다 다르게 보여주어야 하는 데이터에 대해서만 받아야 함</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/c0d6e97c-ad21-4276-be29-6a32d23e6544/image.png" style="zoom: 33%;" /></p>
+
+<p>빨간 부분이 사용자마다 다르게 보여져야하는 부분이다.</p>
+
+<p>또는 자동차 경주 게임에서 <code class="highlighter-rouge">-</code>(대시) 같은 경우</p>
+
+<p><strong>View는 사용자한테 보이는 UI와 모델로부터 받은 데이터가 합쳐지는 부분이다.</strong></p>
+
+<h3 id="controller는-model과-view에-의존해도-된다">Controller는 Model과 View에 의존해도 된다.</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/e1c75904-1aee-4eca-b71d-14d23f3d25cd/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>Controller 내부에는 Model과 View의 코드가 있을 수 있다.</li>
+</ul>
+
+<h3 id="view가-model로부터-데이터를-받을-때-반드시-controller에서-받아야-한다">View가 Model로부터 데이터를 받을 때, 반드시 Controller에서 받아야 한다.</h3>
+
+<hr />
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=ogaXW6KPc8I">[10분 테코톡] 🧀 제리의 MVC 패턴</a></li>
+  <li><a href="https://www.youtube.com/watch?v=uoVNJkyXX0I&amp;t=161s">[10분 테코톡] 👩🏻‍💻👨🏻‍💻해리&amp;션의 MVC 패턴</a></li>
+</ul>
 
 
 
@@ -287,15 +358,15 @@ xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈�
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=📋 Spring Core 막 적은 강의 노트&amp;url=http://localhost:4000spring-core-lecture"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📌 MVC 패턴&amp;url=http://localhost:4000mvc-pattern"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000spring-core-lecture"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000mvc-pattern"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000spring-core-lecture"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000mvc-pattern"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -316,20 +387,20 @@ xml에 명시하면 일률적으로 내가 어떻게 관리하고 있는지 눈�
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/restapi">
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/springbasic">
             <section class="post">
-                <h2>📋 REST API에 대하여</h2>
-                <p>## REST API * 오늘날 사용 가능한 가장 일반적인 웹 서비스 유형 중 하나 *...</p>
+                <h2>📋 3. 스프링 DI</h2>
+                <p>## 스프링은 객체 컨테이너 ### BeanFactory * 객체 생성과 검색에 대한 기능 정의 * `getBean()`...</p>
             </section>
         </a>
     
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/responsebody">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/kotlin2">
             <section class="post">
-                <h2>🌱 스프링의 DI 방법 (생성자 주입 VS 필드 주입)</h2>
-                <p>스프링의 DI 방법 DI 강한 결합 객체 내부에서 다른 객체를 생성할 경우, 강한 결합도를 가지고...</p>
+                <h2>📋 Kotlin을 정복해봅시다 2</h2>
+                <p>코틀린 DSL DLS란? 도메인 특화 언어 (Domain-specific language) ↔️ 범용 프로그래밍 언어 선언적 언어 세부...</p>
             </section>
         </a>
     

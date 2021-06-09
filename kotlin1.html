@@ -587,6 +587,61 @@ void와는 다르게 인자로도 사용할 수 있다.</p>
 
 <p>map을 기본적으로 반환한다.</p>
 
+<h4 id="input을-재귀적으로">Input을 재귀적으로</h4>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">tailrec</span> <span class="k">fun</span> <span class="nf">inputCarNames</span><span class="p">():</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">"경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">readLine</span><span class="p">()</span><span class="o">?.</span><span class="n">replace</span><span class="p">(</span><span class="s">" "</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span><span class="o">?.</span><span class="n">split</span><span class="p">(</span><span class="s">","</span><span class="p">)</span> <span class="o">?:</span> <span class="n">inputCarNames</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">tailrec</span> <span class="k">fun</span> <span class="nf">inputTryNumber</span><span class="p">():</span> <span class="n">Int</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">"시도할 횟수는 몇 회인가요?"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">readLine</span><span class="p">()</span><span class="o">?.</span><span class="n">toIntOrNull</span><span class="p">()</span> <span class="o">?:</span> <span class="n">inputTryNumber</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong><code class="highlighter-rouge">tailrec</code></strong> : 꼬리재귀(tail recursive)라는 의미로, 추가적인 연산이 없이 자신 스스로 재귀적으로 호출하다가 어떤 값을 리턴하는 함수
+    <ul>
+      <li>해당 키워드를 붙이면 재귀적인 함수 호출의 최적화가(?) 일어남</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="중위-함수-to-키워드">중위 함수 (to 키워드)</h4>
+
+<ul>
+  <li><strong>중위 표현법</strong> : 변수와 변수사이에 함수를 넣어 연산자 처럼 사용하는 것</li>
+</ul>
+
+<p><strong>조건</strong></p>
+
+<ul>
+  <li>멤버 메서드 또는 확장 함수여야 함</li>
+  <li>하나의 매개변수를 가져야함</li>
+  <li><strong>infix</strong> 키워드를 사용하여 정의</li>
+</ul>
+
+<p><strong>ex) Pair 객체를 생성할 때 to</strong></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7377057b-c283-4102-8e00-d704ae58d308/image.png" style="zoom:33%;" /></p>
+
+<h4 id="by-키워드">by 키워드</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/da1ab914-04bb-4128-ae3d-3393fa9ec579/image.png" style="zoom:33%;" /></p>
+
+<p>위 코드에서 Car의 일급 컬렉션인 Cars를 순회할 때 현재는 <code class="highlighter-rouge">List&lt;Car&gt;</code>에 접근하여 순회하고 있다.<br />
+하지만 코틀린에서는 다음과 같이 변경할 수 있다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4ed5d81e-1003-4aaa-aead-6cfe5f7cc4df/image.png" style="zoom:33%;" /></p>
+
+<p>위와 같이 cars 일급 컬렉션을 바로 순회할 수 있는 이유는 Cars가 다음과 같이 <code class="highlighter-rouge">List&lt;Car&gt;</code> 인터페이스를 구현하고 있기 때문이다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4ebb7070-a1b5-4d4b-a5b7-0d2c56524246/image.png" style="zoom:33%;" /></p>
+
+<p>뭐야 완전 신기해….  <br />
+제이슨이 일단 지금은 “와 뭐야” 이정도까지만 알아두어도 된다고 하였다.<br />
+코틀린 짱</p>
 
 
         </section>

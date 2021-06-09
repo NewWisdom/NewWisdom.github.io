@@ -1,0 +1,103 @@
+<h2 id="피드백-강의">피드백 강의</h2>
+
+<h3 id="인증-헤더">인증 헤더</h3>
+
+<p>로그인을 통해 토큰을 발급 받은 후 헤더에 Authorization에 토큰을 실어보낸다.<br />
+왜 굳이 이 헤더에 토큰을 넣어 보낼까?</p>
+
+<h3 id="http-인증">HTTP 인증</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/567b6a87-15f7-4409-be6a-2a4baf9b3ffb/image.png" style="zoom:50%;" /></p>
+
+<p>HTTP 프로토콜의 정의이기 때문이다.</p>
+
+<ol>
+  <li>클라이언트가 “/” 요청을 보낸다.</li>
+  <li>서버는 접근을 할 수 있는지 확인하고, 없으면 401을 보낸다.</li>
+  <li>여기서는 basic이라는 방식으로 토큰을 검증하고 있다. 잘못되었으니 다시 요청해!</li>
+</ol>
+
+<h3 id="http-인증-스킴">HTTP 인증 스킴</h3>
+
+<h4 id="basic">Basic</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/0e9a8db3-4221-43a8-84fa-c2f81f371ab1/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>base64를 이용해 인코딩된 사용자의 id/pw 쌍의 인증 정보를 전달</li>
+  <li>안전을 위해 HTTPS(TLS) 연결 위에서 발생되어야 함</li>
+</ul>
+
+<h4 id="bearer">Bearer</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d631b9a8-b41d-438e-8038-6299f044616a/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>bearer token이라는 보안 토큰을 활용하는 인증 스킴</li>
+  <li>Outh2.0에서 사용하기 위해 만들어짐</li>
+</ul>
+
+<h2 id="jwt">JWT</h2>
+
+<ul>
+  <li>Json Web Token</li>
+  <li>웹 표준 (RFC 7519)</li>
+  <li>자체적으로 검증되었음을 증명해주는 signature를 포함</li>
+  <li>생성시 검증이나 권한 인가 시 필요한 값을 넣어 상태를 따로 관리하지 않아도 됨</li>
+</ul>
+
+<h3 id="토큰의-구성">토큰의 구성</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1bcb51b5-e245-4389-9b50-a6d91bc27d2d/image.png" style="zoom:50%;" /></p>
+
+<h4 id="1-header">1. Header</h4>
+
+<ul>
+  <li>토큰에 대한 해석 방법</li>
+  <li>alg : 시그니처에서 사용할 알고리즘 방법</li>
+  <li>typ : 토큰의 타입</li>
+</ul>
+
+<h4 id="2-payload">2. Payload</h4>
+
+<ul>
+  <li>토큰의 내용, 전달할 내용</li>
+  <li>payload의 각각의 값을 클레임이라고 함</li>
+  <li>sub : 클레임의 제목</li>
+  <li>name :</li>
+  <li>iat : 생성 시간</li>
+  <li>이 역시도 base64로 인코딩</li>
+</ul>
+
+<h4 id="3-signature">3. Signature</h4>
+
+<ul>
+  <li>헤더와 페이로드가 변조되지 않았음을 검즌</li>
+  <li>base64로 인코딩을 하고, 알고리즘과 키값으로 해독</li>
+</ul>
+
+<p><strong>basic과 bearer 둘 다 base64로 인코딩 하면 어떻게 구별하나요?</strong></p>
+
+<p>이는 서버에서 페이크처럼 쓸 수 있지!</p>
+
+<p><strong>payload가 같으면 토큰 값도 같아지나요?</strong></p>
+
+<p>근데 아마 iat가 달라서 다를 수 밖에 없을 듯</p>
+
+<p>####</p>
+
+<hr />
+
+<h2 id="dispatcher-servlet">Dispatcher Servlet</h2>
+
+<h3 id="요청에-따라-수행할-로직-분기">요청에 따라 수행할 로직 분기</h3>
+
+<h3 id="dispatcherservlet-위치">DispatcherServlet 위치</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a3187c31-d891-43dc-af7a-bb4cde6ab4b0/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>Handler 앞에 Interceptor가 있음</li>
+</ul>
+
+<p>MVC Config 객체도 모두 빈이었다.</p>
