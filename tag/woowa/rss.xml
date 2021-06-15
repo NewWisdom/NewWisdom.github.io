@@ -13,6 +13,365 @@
    
 	<item>
 	  <title>📚 atdd-subway-map 미션 정리</title>
+	  <link>//atdd-subway-path-note</link>
+	  <author></author>
+	  <pubDate>2021-06-11T10:01:00+09:00</pubDate>
+	  <guid>//atdd-subway-path-note</guid>
+	  <description><![CDATA[
+	     <h2 id="step1-2">STEP1, 2</h2>
+
+<h3 id="jwttokenprovider">JwtTokenProvider</h3>
+
+<ul>
+  <li>jwt 토큰 생성, 토큰 검증, 토큰에서 인증 정보 추출하는 유틸 클래스</li>
+</ul>
+
+<h3 id="authorizationextractor">AuthorizationExtractor</h3>
+
+<ul>
+  <li>HTTP의 <code class="highlighter-rouge">Authorization</code> Header에서 Bearer 타입인 경우 Access Token을 추출하는 유틸 클래스</li>
+</ul>
+
+<h3 id="authenticationprincipalconfig">AuthenticationPrincipalConfig</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationPrincipalConfig</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthService</span> <span class="n">authService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AuthenticationPrincipalConfig</span><span class="o">(</span><span class="n">AuthService</span> <span class="n">authService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">authService</span> <span class="o">=</span> <span class="n">authService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addArgumentResolvers</span><span class="o">(</span><span class="n">List</span> <span class="n">argumentResolvers</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">argumentResolvers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">createAuthenticationPrincipalArgumentResolver</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">AuthenticationPrincipalArgumentResolver</span> <span class="nf">createAuthenticationPrincipalArgumentResolver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">AuthenticationPrincipalArgumentResolver</span><span class="o">(</span><span class="n">authService</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>AuthenticationPrincipalArgumentResolver는 빈 등록이 되어있지 않음</li>
+  <li>해당 리졸버를 활용할 수 있도록 등록해주는 java config</li>
+  <li><code class="highlighter-rouge">AuthenticationPrincipalArgumentResolver</code>를 만들고 등록</li>
+</ul>
+
+<h3 id="authenticationprincipalargumentresolver">AuthenticationPrincipalArgumentResolver</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationPrincipalArgumentResolver</span> <span class="kd">implements</span> <span class="n">HandlerMethodArgumentResolver</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthService</span> <span class="n">authService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AuthenticationPrincipalArgumentResolver</span><span class="o">(</span><span class="n">AuthService</span> <span class="n">authService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">authService</span> <span class="o">=</span> <span class="n">authService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// resolveArgument 메서드가 동작하는 조건을 정의하는 메서드</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supportsParameter</span><span class="o">(</span><span class="n">MethodParameter</span> <span class="n">parameter</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 파라미터 중 @AuthenticationPrincipal이 붙은 경우 동작하게 설정</span>
+        <span class="k">return</span> <span class="n">parameter</span><span class="o">.</span><span class="na">hasParameterAnnotation</span><span class="o">(</span><span class="n">AuthenticationPrincipal</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// supportsParameter가 true인 경우 동작</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Member</span> <span class="nf">resolveArgument</span><span class="o">(</span><span class="n">MethodParameter</span> <span class="n">parameter</span><span class="o">,</span> <span class="n">ModelAndViewContainer</span> <span class="n">mavContainer</span><span class="o">,</span> <span class="n">NativeWebRequest</span> <span class="n">webRequest</span><span class="o">,</span> <span class="n">WebDataBinderFactory</span> <span class="n">binderFactory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">AuthorizationExtractor</span><span class="o">.</span><span class="na">extract</span><span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">webRequest</span><span class="o">.</span><span class="na">getNativeRequest</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">authService</span><span class="o">.</span><span class="na">findMemberByToken</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>컨트롤러 메서드에서 특정 조건에 맞는 파라미터가 있을 때 원하는 값을 바인딩해주는 인터페이스</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">resolveArgument</code> 에서 <code class="highlighter-rouge">Member</code> 도메인 자체를 반환했었음</p>
+  </li>
+</ul>
+
+<h4 id="관련-정리">관련 정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/13">Spring MVC Config 학습 테스트</a></li>
+</ul>
+
+<h3 id="authinterceptor">AuthInterceptor</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthInterceptor</span> <span class="kd">implements</span> <span class="n">HandlerInterceptor</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthService</span> <span class="n">authService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AuthInterceptor</span><span class="o">(</span><span class="n">AuthService</span> <span class="n">authService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">authService</span> <span class="o">=</span> <span class="n">authService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">AuthorizationExtractor</span><span class="o">.</span><span class="na">extract</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+        <span class="n">authService</span><span class="o">.</span><span class="na">validateToken</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>인증 / 인가에 대한 토큰 검증을 담당</p>
+  </li>
+  <li>
+    <p>토큰이 유효하면 true를 반환하도록</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">AuthorizationExtractor.extract()</code> 가 리졸버랑 중복이 되는데?</p>
+
+    <ul>
+      <li>어쩔 수 없음. 이 둘은 서로 모르는 관계로 독립적이니</li>
+      <li>변경의 영향도 최소화를 위해 JwtProvider가 아닌 JwtProvider를 포함한 AuthService를 가지도록</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="step3">STEP3</h2>
+
+<h4 id="graph---그래프-역할을-하는-도메인">Graph - 그래프 역할을 하는 도메인</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Graph</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">WeightedMultigraph</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">,</span> <span class="n">DefaultWeightedEdge</span><span class="o">&gt;</span> <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeightedMultigraph</span><span class="o">(</span><span class="n">DefaultWeightedEdge</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="nf">Graph</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Section</span><span class="o">&gt;</span> <span class="n">sections</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">initPath</span><span class="o">(</span><span class="n">sections</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">initPath</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Section</span><span class="o">&gt;</span> <span class="n">sections</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Section</span> <span class="n">section</span> <span class="o">:</span> <span class="n">sections</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">initEdge</span><span class="o">(</span><span class="n">section</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">initEdge</span><span class="o">(</span><span class="n">Section</span> <span class="n">section</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">addVertex</span><span class="o">(</span><span class="n">section</span><span class="o">.</span><span class="na">getUpStation</span><span class="o">());</span>
+        <span class="n">addVertex</span><span class="o">(</span><span class="n">section</span><span class="o">.</span><span class="na">getDownStation</span><span class="o">());</span>
+        <span class="n">graph</span><span class="o">.</span><span class="na">setEdgeWeight</span><span class="o">(</span><span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="n">section</span><span class="o">.</span><span class="na">getUpStation</span><span class="o">(),</span> <span class="n">section</span><span class="o">.</span><span class="na">getDownStation</span><span class="o">()),</span> <span class="n">section</span><span class="o">.</span><span class="na">getDistance</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">addVertex</span><span class="o">(</span><span class="n">Station</span> <span class="n">station</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">graph</span><span class="o">.</span><span class="na">containsVertex</span><span class="o">(</span><span class="n">station</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="n">station</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Path</span> <span class="nf">shortestPath</span><span class="o">(</span><span class="n">Station</span> <span class="n">source</span><span class="o">,</span> <span class="n">Station</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">DijkstraShortestPath</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">,</span> <span class="n">DefaultWeightedEdge</span><span class="o">&gt;</span> <span class="n">dijkstraShortestPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DijkstraShortestPath</span><span class="o">&lt;&gt;(</span><span class="n">graph</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Path</span><span class="o">(</span><span class="n">dijkstraShortestPath</span><span class="o">.</span><span class="na">getPath</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">target</span><span class="o">).</span><span class="na">getVertexList</span><span class="o">(),</span> <span class="n">dijkstraShortestPath</span><span class="o">.</span><span class="na">getPathWeight</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">target</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="path---사실상-dto-느낌">Path - 사실상 DTO 느낌…</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Path</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">&gt;</span> <span class="n">stations</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">distance</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Path</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">&gt;</span> <span class="n">stations</span><span class="o">,</span> <span class="kt">double</span> <span class="n">distance</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">stations</span> <span class="o">=</span> <span class="n">stations</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">distance</span> <span class="o">=</span> <span class="n">distance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">&gt;</span> <span class="nf">stations</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">stations</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">distance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">distance</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="처음-구현한-로직---모든-line을-불러와-최단-거리-조회">처음 구현한 로직 - 모든 Line을 불러와 최단 거리 조회</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">PathResponse</span> <span class="nf">findPath</span><span class="o">(</span><span class="n">Long</span> <span class="n">sourceId</span><span class="o">,</span> <span class="n">Long</span> <span class="n">targetId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Line</span><span class="o">&gt;</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">lineDao</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+        <span class="n">Graph</span> <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Graph</span><span class="o">(</span><span class="n">lines</span><span class="o">);</span>
+        <span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">shortestPath</span><span class="o">(</span><span class="n">stationDao</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">sourceId</span><span class="o">),</span> <span class="n">stationDao</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">targetId</span><span class="o">));</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">PathResponse</span><span class="o">(</span><span class="n">StationResponse</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">stations</span><span class="o">()),</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">path</span><span class="o">.</span><span class="na">distance</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/452f11f4-a8e7-4365-a71c-9c2be5f6435a/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>사실 처음에는 sections만 가져와서 그래프를 그렸으나, 이렇게 되면 해당 역의 이름들을 가져올 수 없었음</li>
+  <li>기존 코드를 사용하려고 일단 LineDao를 이용했었는데, 재연링의 리뷰대로 모든 Line을 조회하기 보다 필요한 Sections만 조회하도록 리팩토링</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/88d775c4-942a-4437-8f62-a7b0215a96a1/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>이 부분은 DM으로 이야기를 나눴는데,</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PathService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">SectionDao</span> <span class="n">sectionDao</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">StationDao</span> <span class="n">stationDao</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PathService</span><span class="o">(</span><span class="n">SectionDao</span> <span class="n">sectionDao</span><span class="o">,</span> <span class="n">StationDao</span> <span class="n">stationDao</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sectionDao</span> <span class="o">=</span> <span class="n">sectionDao</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">stationDao</span> <span class="o">=</span> <span class="n">stationDao</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">PathResponse</span> <span class="nf">findPath</span><span class="o">(</span><span class="n">Long</span> <span class="n">sourceId</span><span class="o">,</span> <span class="n">Long</span> <span class="n">targetId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Section</span><span class="o">&gt;</span> <span class="n">sections</span> <span class="o">=</span> <span class="n">sectionDao</span><span class="o">.</span><span class="na">findByStationIds</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">sourceId</span><span class="o">,</span> <span class="n">targetId</span><span class="o">));</span>
+        <span class="n">Graph</span> <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Graph</span><span class="o">(</span><span class="n">sections</span><span class="o">);</span>
+        <span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">shortestPath</span><span class="o">(</span><span class="k">new</span> <span class="n">Station</span><span class="o">(</span><span class="n">sourceId</span><span class="o">),</span> <span class="k">new</span> <span class="n">Station</span><span class="o">(</span><span class="n">targetId</span><span class="o">));</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">PathResponse</span><span class="o">(</span><span class="n">StationResponse</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="n">combineStationById</span><span class="o">(</span><span class="n">path</span><span class="o">)),</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">path</span><span class="o">.</span><span class="na">distance</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">&gt;</span> <span class="nf">combineStationById</span><span class="o">(</span><span class="n">Path</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">stationIds</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">stations</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">Station:</span><span class="o">:</span><span class="n">getId</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">stationDao</span><span class="o">.</span><span class="na">findByIds</span><span class="o">(</span><span class="n">stationIds</span><span class="o">).</span><span class="na">sortedStation</span><span class="o">(</span><span class="n">stationIds</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="cookie-vs-localstorage">Cookie vs LocalStorage</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4d9503c2-642a-4ed5-9531-acfc39e6f29b/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li><a href="https://woowacourse.github.io/javable/post/2020-08-31-where_to_store_token/">토큰을 어디에 저장할까?</a> 글을 보고 토큰을 쿠키에 저장</li>
+  <li>재연링의 리뷰로 쿠키를 사용했을 때의 문제점을 알아봄</li>
+  <li>XSS 공격을 막을 수 있는 HTTP-Only 쿠키를 고려</li>
+  <li>하지만 이는 JS에서 꺼내 쓸 수 없어 헤더에 토큰을 실어 보낼 수 없는 이슈</li>
+  <li>(미션 요구사항과 OAuth 표준 등을 고려해) 재연링과 나눈 DM 내용과 같이 다음과 같은 문제들로 쿠키 대신 LocalStorage에 토큰을 저장하도록 변경</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 웹 이외의 클라이언트까지 고려하는 것이 좋다고 생각
+* OAuth 표준을 지키기 위함
+* 사실 HttpOnly를 통해 보호하여도, 하이재킹 등 많은 보안적 위험이 존재하기 때문에 악의적인 의도를 가진 사람이 불편해질 뿐 보안적으로 완벽하게 처리되지 않음
+* MDN에서도 HTML5 이후부터 Cookie를 저장소와 같은 용도로 사용하지 않을 것을 권장
+</code></pre></div></div>
+
+<h4 id="정리">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/21">XSS, CSRF</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/22">SameSite Cookie</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/33">Cookie VS Local Storage</a></li>
+</ul>
+
+<h2 id="front">Front</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a00c23b4-79f3-46f2-891d-863f25e8a418/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li><code class="highlighter-rouge">vue.config</code>를 통해 중복되는 URL에 대한 설정</li>
+  <li>중복되는 fetch는 모듈로 따로 만들어서(fetch.js) 사용하도록 변경</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4b5e5a10-0ebf-4d5b-8750-b6a5ccf92652/image.png" style="zoom:50%;" /></p>
+
+<h2 id="argumentresolver와-authinterceptor">ArgumentResolver와 AuthInterceptor</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/336584ce-5eaf-45d6-ab2f-c4066eb03ab1/image.png" style="zoom:50%;" /></p>
+
+<h4 id="argumentresolver">ArgumentResolver</h4>
+<blockquote>
+  <p>Strategy interface for resolving method parameters into argument values in the context of a given request.</p>
+  <ul>
+    <li>매개변수의 리졸빙</li>
+    <li>컨트롤러에서 파라미터를 바인딩 해주는 역할
+      <h4 id="authinterceptor-1">AuthInterceptor</h4>
+      <p>Workflow interface that allows for customized handler execution chains. Applications can register any number of existing or custom interceptors for certain groups of handlers, to add common preprocessing behavior without needing to modify each handler implementation.
+A HandlerInterceptor gets called before the appropriate HandlerAdapter triggers the execution of the handler itself. This mechanism can be used for a large field of preprocessing aspects, e.g. for authorization checks, or common handler behavior like locale or theme changes. Its main purpose is to allow for factoring out repetitive handler code.</p>
+    </li>
+    <li>권한 확인 또는 로케일 또는 테마 변경과 같은 일반적인 핸들러 동작과 같은 전처리 측면의 넓은 분야에 사용</li>
+    <li>인증 / 인가에 대한 검사</li>
+    <li>주요 목적은 반복적 인 핸들러 코드를 제거하는 것</li>
+    <li>Spring doc에서 공식적으로 authorization checks를 하는 애라고 지정해준 존재</li>
+    <li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerInterceptor.html">공식문서</a></li>
+  </ul>
+</blockquote>
+
+<p><strong>인터셉터와 리졸버는 서로를 모르는 관계이고 독립적으로 가야함</strong></p>
+<h4 id="참고할-글">참고할 글</h4>
+<ul>
+  <li><a href="https://velog.io/@sa833591/Spring-Filter-Interceptor-AOP-%EC%B0%A8%EC%9D%B4-yvmv4k96">Filter, Interceptor, AOP 차이
+</a></li>
+</ul>
+
+<h4 id="정리-1">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/28">HandlerInterceptor</a></li>
+</ul>
+
+<h2 id="다시-구현한다면">다시 구현한다면?</h2>
+
+<h4 id="argumentresolver-에서-dto인-loginmember를-반환하게-할걸">ArgumentResolver 에서 DTO인 LoginMember를 반환하게 할걸!</h4>
+
+<ul>
+  <li>도메인을 반환하면 뷰와 컨트롤러에 노출시키고 도메인을 조작할 가능성이 있음</li>
+  <li>또 불필요한 pw 필드도 가지게 됨</li>
+</ul>
+
+<h4 id="비번-암호화와-member-객체에서-비번을-확인하게-할걸">비번 암호화와 member 객체에서 비번을 확인하게 할걸!</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">TokenResponse</span> <span class="nf">createToken</span><span class="o">(</span><span class="n">TokenRequest</span> <span class="n">tokenRequest</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">memberDao</span><span class="o">.</span><span class="na">findByEmailAndPassword</span><span class="o">(</span><span class="n">tokenRequest</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span> <span class="n">tokenRequest</span><span class="o">.</span><span class="na">getPassword</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">AuthorizationException</span><span class="o">(</span><span class="s">"로그인 실패입니다."</span><span class="o">));</span>
+    <span class="n">String</span> <span class="n">accessToken</span> <span class="o">=</span> <span class="n">jwtTokenProvider</span><span class="o">.</span><span class="na">createToken</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">()));</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">TokenResponse</span><span class="o">(</span><span class="n">accessToken</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>비번을 암호화 할 때는 Spring Security의 <code class="highlighter-rouge">BCryptPasswordEncoder()</code> 를 사용</li>
+  <li>회원가입할 때 입력한 비번을 인코딩하여 저장</li>
+  <li>그런데 만약 여기서 로그인할 때 입력한 비번을 <code class="highlighter-rouge">encoder.encode()</code> 하여 조회하면 실패</li>
+  <li>왜냐면 동일한 원문이어도 각기 다른 인코딩된 값을 내뱉기 때문</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">PasswordEncoder</span> <span class="n">encoder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BCryptPasswordEncoder</span><span class="o">();</span>
+<span class="n">String</span> <span class="err">원문</span> <span class="o">=</span> <span class="s">"qwe123"</span><span class="o">;</span>
+<span class="n">String</span> <span class="err">암호화된</span><span class="n">_</span><span class="err">원문</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="err">원문</span><span class="o">);</span>
+<span class="n">String</span> <span class="err">암호화된</span><span class="n">_</span><span class="err">원문</span><span class="n">_2</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="err">원문</span><span class="o">);</span>
+
+<span class="n">encorder</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="err">원문</span><span class="o">,</span> <span class="err">암호화된</span> <span class="err">원문</span><span class="o">);</span> <span class="c1">// true</span>
+<span class="err">암호화된</span><span class="n">_</span><span class="err">원문</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="err">암호화된</span><span class="n">_</span><span class="err">원문</span><span class="mi">2</span><span class="o">);</span> <span class="c1">//false</span>
+</code></pre></div></div>
+
+<ul>
+  <li>때문에 쿼리로 Member를 받아오고 이 객체에서 <code class="highlighter-rouge">encorder.matches()</code>를 이용해 비번을 확인하자</li>
+</ul>
+
+<h4 id="최단거리-찾는-로직을-전략-패턴으로-구현할걸">최단거리 찾는 로직을 전략 패턴으로 구현할걸!</h4>
+
+<ul>
+  <li>도메인에 외부 라이브러리를 가지고 있는 것이 옳은가?</li>
+  <li>만약 알고리즘이 변경되면 도메인에도 영향이 감</li>
+  <li>전략패턴으로 Dijkstra 알고리즘을 주입하자</li>
+</ul>
+
+<p>CredentialRequest</p>
+
+<p>세션으로 로그인 처리 브라우저에 쿠키가 있으면 자동으로 실어보냄</p>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📚 atdd-subway-map 미션 정리</title>
 	  <link>//atdd-subway-map</link>
 	  <author></author>
 	  <pubDate>2021-06-11T10:01:00+09:00</pubDate>
@@ -2508,288 +2867,6 @@ InternalResourceViewResolver 가 호출됨</p>
 
 <p>Thymeleaf 뷰 템플릿을 사용하면 ThymeleafViewResolver 를 등록해야 한다. <br />
 최근에는 라이브러리만 추가하면 스프링 부트가 이런 작업도 모두 자동화해준다.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</title>
-	  <link>//spring-mvc-3</link>
-	  <author></author>
-	  <pubDate>2021-05-03T19:18:00+09:00</pubDate>
-	  <guid>//spring-mvc-3</guid>
-	  <description><![CDATA[
-	     <h2 id="서블릿-jsp-mvc-패턴">서블릿, JSP, MVC 패턴</h2>
-
-<p>서블릿으로 만들어보고, JSP로 만들어보고 마지막으로 MVC로 만들어 볼 것이다!</p>
-
-<h3 id="서블릿으로-만들었을-때-일부-예제">서블릿으로 만들었을 때 일부 예제</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"memberListServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/servlet/members"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberListServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="n">MemberRepository</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
-        <span class="n">PrintWriter</span> <span class="n">w</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;html&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;head&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;meta charset=\"UTF-8\"&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;title&gt;Title&lt;/title&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;/head&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;body&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;a href=\"/index.html\"&gt;메인&lt;/a&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;table&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;thead&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;th&gt;id&lt;/th&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;th&gt;username&lt;/th&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;th&gt;age&lt;/th&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;/thead&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;tbody&gt;"</span><span class="o">);</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Member</span> <span class="n">member</span> <span class="o">:</span> <span class="n">members</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;tr&gt;"</span><span class="o">);</span>
-            <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;td&gt;"</span> <span class="o">+</span> <span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span> <span class="s">"&lt;/td&gt;"</span><span class="o">);</span>
-            <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;td&gt;"</span> <span class="o">+</span> <span class="n">member</span><span class="o">.</span><span class="na">getUserName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"&lt;/td&gt;"</span><span class="o">);</span>
-            <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;td&gt;"</span> <span class="o">+</span> <span class="n">member</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">+</span> <span class="s">"&lt;/td&gt;"</span><span class="o">);</span>
-            <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;/tr&gt;"</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"    &lt;/tbody&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;/table&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;/body&gt;"</span><span class="o">);</span>
-        <span class="n">w</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;/html&gt;"</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>복잡하지만… 동적으로 원하는 HTML을 만들 수 있다.</li>
-  <li>각 요청마다 Servlet을 만들어야 한다.</li>
-  <li>응답할 HTML을 자바 코드 내에 작성해야한다.</li>
-</ul>
-
-<hr />
-
-<h2 id="jsp">JSP</h2>
-
-<pre><code class="language-jsp">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
-</code></pre>
-
-<h5 id="import문-작성">import문 작성</h5>
-
-<pre><code class="language-jsp">&lt;%@ page import="hello.servlet.domain.member.MemberRepository" %&gt;
-&lt;%@ page import="hello.servlet.domain.member.Member" %&gt;
-&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
-</code></pre>
-
-<pre><code class="language-jsp">&lt;%
-    // request, response 사용 가능
-    MemberRepository memberRepository = MemberRepository.getInstance();
-    System.out.println("save.jsp");
-    String username = request.getParameter("username");
-    int age = Integer.parseInt(request.getParameter("age"));
-    Member member = new Member(username, age);
-    System.out.println("member = " + member);
-    memberRepository.save(member);
-
-%&gt;
-</code></pre>
-
-<p><code class="highlighter-rouge">&lt;% %&gt;</code> 안에 자바코드를 작성할 수 있다.</p>
-
-<ul>
-  <li>비즈니스 로직과 뷰가 연결되어 있다.</li>
-  <li>요구사항이 변경되면 뷰를 수정하다가 비즈니스 로직도 같이 수정될 수 있다.</li>
-  <li>유지보수성이 떨어진다.</li>
-</ul>
-
-<hr />
-
-<h2 id="mvc">MVC</h2>
-
-<h3 id="servlet-jsp의-문제점">Servlet, JSP의 문제점</h3>
-
-<h4 id="너무-많은-역할">너무 많은 역할</h4>
-
-<p>하나의 서블릿이나 JSP만으로 비즈니스 로직과 뷰 렌더링까지 모두 처리하게 되면, 너무 많은 역할을 하고, 또한 유지보수가 어려워진다.</p>
-
-<h4 id="변경의-라이프-사이클">변경의 라이프 사이클</h4>
-
-<p>비즈니스 로직과 뷰의 변경의 라이프 사이클이 다르다.<br />
-예를 들어서 UI 를 일부 수정하는 일과 비즈니스 로직을 수정하는 일은 각각 다르게 발생할 가능성이 매우 높고 대부분 서로에게 영향을 주지 않는다. <br />
-이렇게 변경의 라이프 사이클이 다른 부분을 하나의 코드로 관리하는 것은 유지보수하기 좋지 않다.<br />
-레이어를 분리하는 기준은 변경 주기가 다를 때라고 생각하면 편하다.</p>
-
-<h4 id="기능-특화">기능 특화</h4>
-
-<p>뷰 템플릿은 화면을 렌더링 하는데 최적화 되어 있기 때문에 이 부분의 업무만 담당하는 것이 가장 효과적이다.</p>
-
-<h3 id="model-view-controller">Model View Controller</h3>
-
-<p>MVC 패턴은 서블릿이나, JSP로 처리하던 것을 컨트롤러(Controller)와 뷰(View)라는 영역으로 서로 역할을 나눈 것을 말한다.<br />
-웹 애플리케이션은 보통 이 MVC 패턴을 사용한다.</p>
-
-<h4 id="controller">Controller</h4>
-
-<p>HTTP 요청을 받아서 파라미터를 검증하고, 비즈니스 로직을 실행한다. 그리고 뷰에 전달할 결과 데이터를 조회해서 모델에 담는다.<br />
-중앙에서 조종하는 역할. (비즈니스 로직을 담을 수 있지만, 역할이 너무 많아지기 때문에 비즈니스 로직을 호출한다고 하자.)</p>
-
-<h4 id="model">Model</h4>
-
-<p>뷰에 출력할 데이터를 담아둔다.<br />
-뷰가 필요한 데이터를 모두 모델에 담아서 전달해주는 덕분에 뷰는 비즈니스 로직이나 데이터 접근을 몰라도 되고, 화면을 렌더링 하는 일에 집중할 수 있다.</p>
-
-<h4 id="view">View</h4>
-
-<p>모델에 담겨있는 데이터를 사용해서 화면을 그리는 일에 집중한다. 여기서는 HTML을 생성하는 부분을 말한다.</p>
-
-<h3 id="mvc-적용하기">MVC 적용하기</h3>
-
-<ul>
-  <li>서블릿을 컨트롤러로 사용</li>
-  <li>JSP를 뷰로 사용</li>
-  <li>HttpServletRequest 객체를 모델로 사용 (<code class="highlighter-rouge">request.setAttribute()</code> , <code class="highlighter-rouge">request.getAttribute() </code>사용)</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/1fa7cead-0d71-4afc-a391-a7b7932c9541/image.png" style="zoom:67%;" /></p>
-
-<h4 id="mvcmemberformservlet">MvcMemberFormServlet</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"mvcMemberFormServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/servlet-mvc/members/new-form"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcMemberFormServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">viewPath</span> <span class="o">=</span> <span class="s">"/WEB-INF/views/new-form.jsp"</span><span class="o">;</span>
-        <span class="n">RequestDispatcher</span> <span class="n">requestDispatcher</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">viewPath</span><span class="o">);</span> <span class="c1">// 컨트롤러에서 뷰로 이동</span>
-        <span class="n">requestDispatcher</span><span class="o">.</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span> <span class="c1">// 서블릿에서 JSP를 호출한다.</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">dispatcher.forward()</code> : 다른 서블릿이나 JSP로 이동할 수 있는 기능이다. 서버 내부에서 다시 호출이 발생한다.<br />
-클라이언트에게 갔다가 오는게 아닌(리다이렉트가 아닌), 서버 내부에서 호출한 것이다.</li>
-  <li><code class="highlighter-rouge">/WEB-INF</code> :  이 경로안에 JSP가 있으면 외부에서 직접 JSP를 호출할 수 없어 컨트롤러를 통해서만 접근이 가능하도록 한다.</li>
-</ul>
-
-<h4 id="redirect-vs-forward">redirect vs forward</h4>
-
-<ul>
-  <li>redirect : 실제 클라이언트(웹 브라우저)에 응답이 나갔다가, 클라이언트가 redirect 경로로 다시 요청한다.<br />
-클라이언트가 인지할 수 있고, URL 경로도 실제로 변경된다.</li>
-  <li>forward : 서버 내부에서 일어나는 호출이기 때문에 클라이언트가 인지하지 못한다.</li>
-</ul>
-
-<h4 id="mvcmembersaveservlet">MvcMemberSaveServlet</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"mvcMemberSaveServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/servlet-mvc/members/save"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcMemberSaveServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
-    <span class="n">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="n">MemberRepository</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"username"</span><span class="o">);</span>
-        <span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"age"</span><span class="o">));</span>
-
-        <span class="c1">// 비즈니스 로직</span>
-        <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">age</span><span class="o">);</span>
-        <span class="n">memberRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
-
-        <span class="c1">// Model에 데이터를 보관한다. - req 객체에 Map이 있는데 여기에 저장한다.</span>
-        <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"member"</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
-
-        <span class="n">String</span> <span class="n">viewPath</span> <span class="o">=</span> <span class="s">"/WEB-INF/views/save-result.jsp"</span><span class="o">;</span>
-        <span class="n">RequestDispatcher</span> <span class="n">requestDispatcher</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">viewPath</span><span class="o">);</span>
-        <span class="n">requestDispatcher</span><span class="o">.</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="save-resultjsp">save-result.jsp</h4>
-
-<pre><code class="language-jsp">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-&lt;/head&gt;
-&lt;body&gt; 성공
-&lt;ul&gt;
-    &lt;li&gt;id=${member.id}&lt;/li&gt;
-    &lt;li&gt;username=${member.username}&lt;/li&gt;
-    &lt;li&gt;age=${member.age}&lt;/li&gt;
-&lt;/ul&gt;
-&lt;a href="/index.html"&gt;메인&lt;/a&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<ul>
-  <li><code class="highlighter-rouge">${}</code> : jsp가 제공하는 프로퍼티 접근법으로, req에 담겨있는 attribute에 있는 데이터를 가져올 수 있다.</li>
-</ul>
-
-<h4 id="mvcmemberlistservlet">MvcMemberListServlet</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"mvcMemberListServlet"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/servlet-mvc/members"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MvcMemberListServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="n">MemberRepository</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
-
-        <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"members"</span><span class="o">,</span> <span class="n">members</span><span class="o">);</span>
-
-        <span class="n">String</span> <span class="n">viewPath</span> <span class="o">=</span> <span class="s">"/WEB-INF/views/members.jsp"</span><span class="o">;</span>
-        <span class="n">RequestDispatcher</span> <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">viewPath</span><span class="o">);</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="membersjsp-일부">members.jsp 일부</h4>
-
-<pre><code class="language-jsp">&lt;c:forEach var="item" items="${members}"&gt;
-    &lt;tr&gt;
-        &lt;td&gt;${item.id}&lt;/td&gt;
-        &lt;td&gt;${item.username}&lt;/td&gt;
-        &lt;td&gt;${item.age}&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/c:forEach&gt;
-</code></pre>
-
-<ul>
-  <li><code class="highlighter-rouge">&lt;c:forEach&gt;</code> : <code class="highlighter-rouge">&lt;%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%&gt;</code> 를 선언해야한다.</li>
-</ul>
-
-<h3 id="mvc-패턴의-한계">MVC 패턴의 한계</h3>
-
-<h3 id="forward의-중복">forward의 중복</h3>
-
-<p>메서드를 추출해도 되지만, 메서드 호출마저 중복으로 일어난다.</p>
-
-<h4 id="viewpath에-중복">ViewPath에 중복</h4>
-
-<p>prefix인 <code class="highlighter-rouge">/WEB-INF/views/</code> 와 suffix인 <code class="highlighter-rouge">.jsp</code> 가 중복으로 발생한다.<br />
-만약 jsp가 아닌 thymeleaf 같은 다른 뷰로 변경한다면 전체 코드를 다 변경해야 한다.</p>
-
-<h4 id="사용하지-않는-코드">사용하지 않는 코드</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span>
-</code></pre></div></div>
-
-<p>위 객체는 사용할 수도 있고, 안할수도 있다.</p>
-
-<h4 id="공통-처리가-어렵다">공통 처리가 어렵다.</h4>
-
-<p>컨트롤러에서 공통으로 처리해야 하는 부분이 점점 증가하는 경우를 생각해보자.<br />
-단순히 공통 기능을 메서드로 뽑으면 될 것 같지만, 결과적으로 해당 메서드를 항상 호출해야 하고, 실수로 호출하지 않으면 문제가 된다. <br />
-또한 호출하는 것 자체도 중복이다.</p>
-
-<h4 id="프론트-컨트롤러front-controller-패턴을-도입하면-이런-문제를-깔끔하게-해결할-수-있다">프론트 컨트롤러(Front Controller) <strong>패턴</strong>을 도입하면 이런 문제를 깔끔하게 해결할 수 있다.</h4>
-
-<hr />
-
-<p>✍️ 김영님의 <strong>스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</strong> 강의 노트 ✍️</p>
 
 	  ]]></description>
 	</item>

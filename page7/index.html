@@ -32,6 +32,17 @@
 <!--Syntax Highlighter-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<style type='text/css'>
+    pre, code {
+        white-space: pre;
+        overflow-x: scroll;
+    }
+    .hljs
+{
+    white-space: pre;
+    overflow-x: auto;
+}
+</style>
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
         <link rel="canonical" href="http://localhost:4000//page7/" />
@@ -146,6 +157,72 @@
     
     <article class="post">
         <header class="post-header">
+            <h2 class="post-title"><a href="/unit-test-vs">📋 통합 테스트 VS 단위 테스트</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>통합 테스트 실제 운영 환경에서 사용될 클래스들을 통합하여 테스트한다. 기능 검증이 아닌 스프링 프레임워크에서 전체적으로 플로우가 제대로 동작하는지 검증하기 위해 사용한다. 장점 스프링 부트 컨테이너를 띄워... <a class="read-more" href="/unit-test-vs">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-04-16">16 Apr 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/spring3">📋 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술 강의 노트</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>3. 회원 관리 예제 - 백엔드 개발 비즈니스 요구사항 데이터 : 회원 ID, 이름 기능 : 회원 등록, 조회 아직 데이터 저장소가 선정되지 않음 일반적인 웹... <a class="read-more" href="/spring3">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-04-16">16 Apr 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
             <h2 class="post-title"><a href="/webbasic4">📋 프로가 되기 위한 웹기술 입문 4</a></h2>
         </header>
         <section class="post-excerpt">
@@ -221,68 +298,6 @@
                 
             
             <time class="post-date" datetime="2021-04-14">14 Apr 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository">🕹 Level 1. 체스 미션 정리 - Service Layer, DAO와 Repository</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>MVC와 Service 이번 미션에서 DB를 적용하면서 MVC 패턴에 추가로 Service 레이어를 도입하였다. 또한 DAO와 데이터 전달을 위한 DTO를 처음 사용했는데, DTO를 정리하고 DAO에 대해서도 새롭게 배운... <a class="read-more" href="/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-Service-Layer,-DAO%EC%99%80-Repository">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-04-10">10 Apr 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC">🕹 Level 1. 체스 미션 정리 - JDBC</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>JDBC (Java DataBase Connectivity) JDBC는 DB에 접근할 수 있도록 Java에서 제공하는 API로, 모든 Java의 Data Access 기술의 근간이다. 모든 Persistence Framework는 내부적으로 JDBC API를 이용한다. JDBC를... <a class="read-more" href="/Level-1.-%EC%B2%B4%EC%8A%A4-%EB%AF%B8%EC%85%98-%EC%A0%95%EB%A6%AC-JDBC">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-04-10">10 Apr 2021</time>
         </footer>
     </article>
     
