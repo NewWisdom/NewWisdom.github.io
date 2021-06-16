@@ -12,7 +12,7 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
-	  <title>📚 atdd-subway-map 미션 정리</title>
+	  <title>📚 atdd-subway-path 미션 정리</title>
 	  <link>//atdd-subway-path-note</link>
 	  <author></author>
 	  <pubDate>2021-06-11T10:01:00+09:00</pubDate>
@@ -243,6 +243,18 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
+<h2 id="cors-이슈-해결-법">CORS 이슈 해결 법</h2>
+
+<ul>
+  <li>나같은 경우는 front쪽에 프록시 서버를 두어 해당 이슈가 발생하지 않도록 하였음</li>
+</ul>
+
+<h4 id="정리">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/54">내가 CORS 이슈를 해결한 방법 - Proxy </a></li>
+</ul>
+
 <h2 id="cookie-vs-localstorage">Cookie vs LocalStorage</h2>
 
 <p><img src="https://images.velog.io/images/new_wisdom/post/4d9503c2-642a-4ed5-9531-acfc39e6f29b/image.png" style="zoom:50%;" /></p>
@@ -261,7 +273,7 @@
 * MDN에서도 HTML5 이후부터 Cookie를 저장소와 같은 용도로 사용하지 않을 것을 권장
 </code></pre></div></div>
 
-<h4 id="정리">정리</h4>
+<h4 id="정리-1">정리</h4>
 
 <ul>
   <li><a href="https://github.com/NewWisdom/TIL/issues/21">XSS, CSRF</a></li>
@@ -309,7 +321,7 @@ A HandlerInterceptor gets called before the appropriate HandlerAdapter triggers 
 </a></li>
 </ul>
 
-<h4 id="정리-1">정리</h4>
+<h4 id="정리-2">정리</h4>
 
 <ul>
   <li><a href="https://github.com/NewWisdom/TIL/issues/28">HandlerInterceptor</a></li>
@@ -362,9 +374,182 @@ A HandlerInterceptor gets called before the appropriate HandlerAdapter triggers 
   <li>전략패턴으로 Dijkstra 알고리즘을 주입하자</li>
 </ul>
 
-<p>CredentialRequest</p>
+<hr />
 
-<p>세션으로 로그인 처리 브라우저에 쿠키가 있으면 자동으로 실어보냄</p>
+<h2 id="2021-06-16-위-사항들을-반영하여-다시-구현">2021-06-16 위 사항들을 반영하여 다시 구현</h2>
+
+<h3 id="argumentresolver에서-dto인-loginmember-반환하도록-리팩토링">ArgumentResolver에서 DTO인 LoginMember 반환하도록 리팩토링</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationPrincipalArgumentResolver</span> <span class="kd">implements</span> <span class="n">HandlerMethodArgumentResolver</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthService</span> <span class="n">authService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AuthenticationPrincipalArgumentResolver</span><span class="o">(</span><span class="n">AuthService</span> <span class="n">authService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">authService</span> <span class="o">=</span> <span class="n">authService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supportsParameter</span><span class="o">(</span><span class="n">MethodParameter</span> <span class="n">parameter</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">parameter</span><span class="o">.</span><span class="na">hasParameterAnnotation</span><span class="o">(</span><span class="n">AuthenticationPrincipal</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">LoginMember</span> <span class="nf">resolveArgument</span><span class="o">(</span><span class="n">MethodParameter</span> <span class="n">parameter</span><span class="o">,</span> <span class="n">ModelAndViewContainer</span> <span class="n">mavContainer</span><span class="o">,</span> <span class="n">NativeWebRequest</span> <span class="n">webRequest</span><span class="o">,</span> <span class="n">WebDataBinderFactory</span> <span class="n">binderFactory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">AuthorizationExtractor</span><span class="o">.</span><span class="na">extract</span><span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">webRequest</span><span class="o">.</span><span class="na">getNativeRequest</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">authService</span><span class="o">.</span><span class="na">findLoginMemberByToken</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="loginmember">LoginMember</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginMember</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">email</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LoginMember</span><span class="o">(</span><span class="n">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span> <span class="n">member</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>로직에 필요한 정보만 담고 있는 DTO 생성</p>
+  </li>
+  <li>아 참고로 Interceptor에서는 토큰 검증만 하도록 함
+    <ul>
+      <li>차피 이미 로그인으로 아이디 비번을 검증했잖아?</li>
+    </ul>
+  </li>
+  <li>리졸버에서는 토큰을 통해 진짜 매개변수 리졸빙만 담당</li>
+</ul>
+
+<h3 id="member-객체에서-비번을-확인하도록">member 객체에서 비번을 확인하도록</h3>
+
+<h4 id="authservice">AuthService</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">TokenResponse</span> <span class="nf">createToken</span><span class="o">(</span><span class="n">TokenRequest</span> <span class="n">tokenRequest</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">findMember</span><span class="o">(</span><span class="n">tokenRequest</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">isInvalidPassword</span><span class="o">(</span><span class="n">tokenRequest</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">AuthorizationException</span><span class="o">(</span><span class="s">"로그인 실패입니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">String</span> <span class="n">accessToken</span> <span class="o">=</span> <span class="n">jwtTokenProvider</span><span class="o">.</span><span class="na">createToken</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">()));</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">TokenResponse</span><span class="o">(</span><span class="n">accessToken</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">Member</span> <span class="nf">findMember</span><span class="o">(</span><span class="n">TokenRequest</span> <span class="n">tokenRequest</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">memberDao</span><span class="o">.</span><span class="na">findByEmail</span><span class="o">(</span><span class="n">tokenRequest</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">AuthorizationException</span><span class="o">(</span><span class="s">"로그인 실패입니다."</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>추후 단방향 비번 암호화를 위해 객체에서 비번을 비교하도록 변경</li>
+</ul>
+
+<h3 id="최단거리-찾는-로직을-전략-패턴으로">최단거리 찾는 로직을 전략 패턴으로</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/923976a2-131b-45c4-8911-c8a0b3da1e0c/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>최단 경로 찾기 전략을 인터페이스로, 이를 다익스트라로 구현한 클래스를 만듦</li>
+  <li>알고리즘을 코드의 영향없이 변경할 수 있도록</li>
+</ul>
+
+<h4 id="subwaygraph">SubwayGraph</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubwayGraph</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">WeightedMultigraph</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">,</span> <span class="n">DefaultWeightedEdge</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SubwayGraph</span><span class="o">(</span><span class="n">WeightedMultigraph</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">,</span> <span class="n">DefaultWeightedEdge</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Section</span><span class="o">&gt;</span> <span class="n">sections</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">graph</span> <span class="o">=</span> <span class="n">graph</span><span class="o">;</span>
+        <span class="n">initPath</span><span class="o">(</span><span class="n">sections</span><span class="o">);</span>
+    <span class="o">}</span>
+   <span class="c1">// ...</span>
+</code></pre></div></div>
+
+<ul>
+  <li>그래프 도메인</li>
+</ul>
+
+<h4 id="shortestpathstrategy-인터페이스">ShortestPathStrategy 인터페이스</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ShortestPathStrategy</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">&gt;</span> <span class="nf">getVertexList</span><span class="o">(</span><span class="n">Station</span> <span class="n">source</span><span class="o">,</span> <span class="n">Station</span> <span class="n">target</span><span class="o">);</span>
+
+    <span class="kt">double</span> <span class="nf">getPathWeight</span><span class="o">(</span><span class="n">Station</span> <span class="n">source</span><span class="o">,</span> <span class="n">Station</span> <span class="n">target</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>전략마다 <code class="highlighter-rouge">getVertexList()</code> 와 <code class="highlighter-rouge">getPathWeight()</code> 를 계산하도록 명세</li>
+</ul>
+
+<h4 id="dijkstrashortestpathstrategy">DijkstraShortestPathStrategy</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DijkstraShortestPathStrategy</span> <span class="kd">implements</span> <span class="n">ShortestPathStrategy</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ShortestPathAlgorithm</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">,</span> <span class="n">DefaultWeightedEdge</span><span class="o">&gt;</span> <span class="n">shortestPathAlgorithm</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">DijkstraShortestPathStrategy</span><span class="o">(</span><span class="n">SubwayGraph</span> <span class="n">subwayGraph</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">shortestPathAlgorithm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DijkstraShortestPath</span><span class="o">&lt;&gt;(</span><span class="n">subwayGraph</span><span class="o">.</span><span class="na">getGraph</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">&gt;</span> <span class="nf">getVertexList</span><span class="o">(</span><span class="n">Station</span> <span class="n">source</span><span class="o">,</span> <span class="n">Station</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">shortestPathAlgorithm</span><span class="o">.</span><span class="na">getPath</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">target</span><span class="o">).</span><span class="na">getVertexList</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getPathWeight</span><span class="o">(</span><span class="n">Station</span> <span class="n">source</span><span class="o">,</span> <span class="n">Station</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">shortestPathAlgorithm</span><span class="o">.</span><span class="na">getPathWeight</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">target</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>SubwayGraph를 받아서 최단 경로를 구할 수 있음</li>
+</ul>
+
+<h4 id="shortestpathfinder">ShortestPathFinder</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShortestPathFinder</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ShortestPathStrategy</span> <span class="n">shortestPathStrategy</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ShortestPathFinder</span><span class="o">(</span><span class="n">ShortestPathStrategy</span> <span class="n">shortestPathStrategy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">shortestPathStrategy</span> <span class="o">=</span> <span class="n">shortestPathStrategy</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Path</span> <span class="nf">findShortestPath</span><span class="o">(</span><span class="n">Station</span> <span class="n">source</span><span class="o">,</span> <span class="n">Station</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Path</span><span class="o">(</span><span class="n">shortestPathStrategy</span><span class="o">.</span><span class="na">getVertexList</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">target</span><span class="o">),</span> <span class="n">shortestPathStrategy</span><span class="o">.</span><span class="na">getPathWeight</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">target</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>최단 경로를 찾는 역할</li>
+  <li>전략을 주입받아 최단 경로를 구하고 싶어 도메인을 분리하였음…</li>
+</ul>
+
+<h4 id="변경된-pathservice">변경된 PathService</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">PathResponse</span> <span class="nf">findPath</span><span class="o">(</span><span class="n">Long</span> <span class="n">sourceId</span><span class="o">,</span> <span class="n">Long</span> <span class="n">targetId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Section</span><span class="o">&gt;</span> <span class="n">sections</span> <span class="o">=</span> <span class="n">sectionDao</span><span class="o">.</span><span class="na">findByStationIds</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">sourceId</span><span class="o">,</span> <span class="n">targetId</span><span class="o">));</span>
+    <span class="n">SubwayGraph</span> <span class="n">subwayGraph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubwayGraph</span><span class="o">(</span><span class="k">new</span> <span class="n">WeightedMultigraph</span><span class="o">&lt;&gt;(</span><span class="n">DefaultWeightedEdge</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">sections</span><span class="o">);</span>
+    <span class="n">ShortestPathFinder</span> <span class="n">shortestPathFinder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShortestPathFinder</span><span class="o">(</span><span class="k">new</span> <span class="n">DijkstraShortestPathStrategy</span><span class="o">(</span><span class="n">subwayGraph</span><span class="o">));</span>
+    <span class="n">Path</span> <span class="n">shortestPath</span> <span class="o">=</span> <span class="n">shortestPathFinder</span><span class="o">.</span><span class="na">findShortestPath</span><span class="o">(</span><span class="k">new</span> <span class="n">Station</span><span class="o">(</span><span class="n">sourceId</span><span class="o">),</span> <span class="k">new</span> <span class="n">Station</span><span class="o">(</span><span class="n">targetId</span><span class="o">));</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">PathResponse</span><span class="o">(</span><span class="n">StationResponse</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="n">combineStationById</span><span class="o">(</span><span class="n">shortestPath</span><span class="o">)),</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">shortestPath</span><span class="o">.</span><span class="na">distance</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Station</span><span class="o">&gt;</span> <span class="nf">combineStationById</span><span class="o">(</span><span class="n">Path</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">stationIds</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">stations</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">Station:</span><span class="o">:</span><span class="n">getId</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">stationDao</span><span class="o">.</span><span class="na">findByIds</span><span class="o">(</span><span class="n">stationIds</span><span class="o">).</span><span class="na">sortedStation</span><span class="o">(</span><span class="n">stationIds</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="반영된-코드는-여기에-"><a href="https://github.com/NewWisdom/atdd-subway-path/tree/step5">반영된 코드는 여기에 👻</a></h4>
 
 
 	  ]]></description>

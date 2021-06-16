@@ -12,6 +12,236 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📌 CORS</title>
+	  <link>//cors</link>
+	  <author></author>
+	  <pubDate>2021-06-16T10:01:00+09:00</pubDate>
+	  <guid>//cors</guid>
+	  <description><![CDATA[
+	     <h2 id="배경-지식">배경 지식</h2>
+
+<h3 id="sopsame-origin-policy">SOP(Same Origin Policy)</h3>
+
+<ul>
+  <li>다른 출처의 리소스를 사용하는 것에 제한하는 보안 방식</li>
+</ul>
+
+<h4 id="왜-sop">왜 SOP?</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/bc601fec-399d-4762-bd39-f9ec9357b1a7/image.png" alt="" /></p>
+
+<ul>
+  <li>CSRF Attack 때문!</li>
+  <li>사용자는 인증 토큰을 가지고 있는 상태</li>
+  <li>해커가 만든 주소로 이동하는데, 여기다 해커는 악의적인 스크립트를 심음</li>
+  <li>해커는 인증 토큰을 가지고 악의적인 스크립트를 실행할 수 있음</li>
+  <li>만약 송금이나 민감한 정보를 건드릴 시 굉장히 위험</li>
+</ul>
+
+<p><strong>여기서 SOP가 위력을 발휘</strong></p>
+
+<ul>
+  <li>웹사이트 입장에서는 자신과 다른 출처를 가지기 때문에 위 요청은 받을 수 없다고 판단</li>
+</ul>
+
+<h3 id="출처origin란">출처(Origin)란?</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/c26c3768-a3c4-43dc-930e-da5d4990b1fe/image.png" /></p>
+
+<ul>
+  <li><strong>Protocol, Host, Port</strong> 세가지가 같아야 같은 출처라고 판단</li>
+  <li>참고로 인터넷 익스플로어는 출처판단에 Port가 포함되지 않음</li>
+</ul>
+
+<h4 id="-그러면-다른-출처-리소스가-필요하면-어떻게해">🤔 그러면 다른 출처 리소스가 필요하면 어떻게해??</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f352b075-2ea9-46da-83f8-2e862f46154d/image.png" style="zoom:50%;" /></p>
+
+<h4 id="cors">CORS!!</h4>
+
+<hr />
+
+<h2 id="cors란">CORS란?</h2>
+
+<blockquote>
+  <p>교차 출처 리소스 공유(Cross-Origin Resource Sharing, CORS)는 추가 HTTP 헤더를 사용하여, 한 출처에서 실행중인 웹 애플리케이션이 다른 <strong>출처의</strong> 선택한 자원에 접근할 수 있는 권한을 부여하도록 <strong>브라우저에</strong> 알려주는 체제입니다. - MOZILLA</p>
+</blockquote>
+
+<h2 id="cors-접근제어-시나리오">CORS 접근제어 시나리오</h2>
+
+<h3 id="단순-요청-simple-request">단순 요청 (Simple Request)</h3>
+
+<ul>
+  <li>Preflight 요청 없이 바로 요청</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/12d244c6-c984-4de2-a0df-e147160b6009/image.png" style="zoom:80%;" /></p>
+
+<h4 id="조건을-모두-만족해야-함">조건을 모두 만족해야 함</h4>
+
+<ul>
+  <li><strong>메서드는 아래만 허용</strong>
+    <ul>
+      <li>GET, POST, HEAD</li>
+    </ul>
+  </li>
+  <li><strong>Content-Type은 아래만 허용</strong>
+    <ul>
+      <li>application/x-www-form-urlencoded</li>
+      <li>multipart/form-data</li>
+      <li>test/plain</li>
+    </ul>
+  </li>
+  <li><strong>Header는 아래만 허용</strong>
+    <ul>
+      <li>Accept</li>
+      <li>Accept-Language</li>
+      <li>Content-Language</li>
+      <li>Content-Type</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="프리플라이트-요청-preflight-request">프리플라이트 요청 (Preflight Request)</h3>
+
+<ul>
+  <li>쉽게 말하자면 사전 확인 작업</li>
+  <li>OPTIONS 메서드를 통해 다른 출처의 리소스에 요청이 가능한지 확인하는 작업</li>
+  <li>요청이 가능하면 실제 요청(Actual Request)을 보냄</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4034279a-ff4f-4ba6-9e85-ede6e8bdf2f5/image.png" style="zoom: 50%;" /></p>
+
+<ul>
+  <li>클라이언트가 사전 요청을 보냄</li>
+  <li>서버는 이에 응답</li>
+  <li>만약 이 요청이 거부된다면 Actual Request는 보내지 않음</li>
+</ul>
+
+<h4 id="preflight-request-포맷">Preflight Request 포맷</h4>
+
+<ul>
+  <li><strong>Origin</strong> : 요청 출처</li>
+  <li><strong>Access-Control-Request-Method</strong> : 실제 요청의 메서드</li>
+  <li><strong>Access-Control-Request-Headers</strong> : 실제 요청의 추가 헤더</li>
+</ul>
+
+<h4 id="preflight-response-포맷">Preflight Response 포맷</h4>
+
+<ul>
+  <li><strong>Access-Control-Allow-Origin</strong> : 서버 측 허가 출처</li>
+  <li><strong>Access-Control-Allow-Methods</strong> : 서버 측 허가 메서드</li>
+  <li><strong>Access-Control-Allow-Headers</strong> : 서버 측 허가 헤더</li>
+  <li>**Access-Control-Max-Age **: Preflight 응답 캐시 기간
+    <ul>
+      <li>사전 요청과 실제 요청을 매번 보내면 효율적이지 않으니 브라우저는 사전 요청을 캐싱해둠</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="preflight-response-특징">Preflight Response 특징</h5>
+
+<ul>
+  <li>응답 코드는 200대여야 함</li>
+  <li>응답 바디는 비어있는 것이 좋음</li>
+</ul>
+
+<h4 id="왜-preflight가-필요할까">왜 Preflight가 필요할까?</h4>
+
+<ul>
+  <li>
+    <p>사전 요청이 없으면 서버는 요청에 대해 모든 로직을 일단 수행함</p>
+  </li>
+  <li>
+    <p>그리고 나서 Origin을 판단</p>
+  </li>
+  <li>
+    <p>일단 로직이 수행된 후 CORS 이슈가 발생</p>
+  </li>
+  <li>
+    <p>사전 요청이 있으면 요청을 수행하기 전 Origin을 판단</p>
+  </li>
+  <li>
+    <p>때문에 서버는 안전히 잘 지켜짐</p>
+  </li>
+</ul>
+
+<h4 id="인증정보-포함-요청-credentialed-request">인증정보 포함 요청 (Credentialed Request)</h4>
+
+<ul>
+  <li>인증 관련 헤더를 포함할 때 사용하는 요청</li>
+  <li><strong>클라이언트 측</strong>
+    <ul>
+      <li><code class="highlighter-rouge">credentials : include</code></li>
+    </ul>
+  </li>
+  <li>서버 측
+    <ul>
+      <li><code class="highlighter-rouge">Access-Control-Allow-Credentials : true</code></li>
+      <li>대신 이러면 아래와 같은 조건이 충족되어야 함</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="조건">조건</h5>
+
+<ul>
+  <li><code class="highlighter-rouge">Access-Control-Allow-Origin</code>에는 <code class="highlighter-rouge">*</code>를 사용할 수 없으며, 명시적인 URL이어야함</li>
+  <li>응답 헤더에는 반드시 <code class="highlighter-rouge">Access-Control-Allow-Credentials: true</code>가 존재해야함</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🚨 Access to fetch at ’https://localhost:8080’ from origin ’http://localhost:8000’ has been blocked by CORS policy: The value of the ‘Access-Control-Allow-Origin’ header in the response must not be the wildcard ’*’ when the request’s credentials mode is ‘include’.
+</code></pre></div></div>
+
+<h2 id="cors-해결하기">CORS 해결하기!</h2>
+
+<h3 id="프론트-프록시-서버-설정개발-환경">프론트 프록시 서버 설정(개발 환경)</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d6ab0645-2430-405f-b6c5-4475762a9820/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>브라우저 입장에서는 origin과 target이 같기 때문에 <code class="highlighter-rouge">same origin</code></li>
+</ul>
+
+<h4 id="추가">추가</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/54">내가 CORS 이슈를 해결한 방법 - Proxy </a></li>
+</ul>
+
+<h3 id="스프링-부트-이용">스프링 부트 이용</h3>
+
+<h4 id="crossorigin-어노테이션-사용">@CrossOrigin 어노테이션 사용</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/15daecfe-b6be-4cdf-9147-19f01497859f/image.png" style="zoom:50%;" /></p>
+
+<h5 id="참고">참고</h5>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f908b312-5120-45f4-84f9-0bd36c0c4129/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>Origin을 설정 안해주면 Default 값으로 모든 Origin을 허용함</li>
+  <li>때문에 설정해주는 것이 좋음</li>
+</ul>
+
+<h4 id="전역으로-설정하는-방법---config">전역으로 설정하는 방법 - Config</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/fd4ee87d-b269-453b-9e68-889a10f2c6c3/image.png" style="zoom: 50%;" /></p>
+
+<hr />
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=-2TgkKYmJt4&amp;t=15s">[10분 테코톡] 🌳 나봄의 CORS</a></li>
+  <li><a href="https://evan-moon.github.io/2020/05/21/about-cors/#credentialed-request">CORS는 왜 이렇게 우리를 힘들게 하는걸까?</a></li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📌 시간 복잡도</title>
 	  <link>//time</link>
 	  <author></author>
