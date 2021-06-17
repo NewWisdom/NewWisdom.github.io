@@ -251,11 +251,7 @@
   <li>초기화 하지 않고 사용하면 예외 발생</li>
   <li><code class="highlighter-rouge">var</code> 에만 사용 가능</li>
   <li>원시 타입에는 적용할 수 없음</li>
-  <li>custom getter/setter 사용 불가
-    <ul>
-      <li></li>
-    </ul>
-  </li>
+  <li>custom getter/setter 사용 불가</li>
   <li>non-null 프로퍼티만 사용 가능</li>
 </ul>
 

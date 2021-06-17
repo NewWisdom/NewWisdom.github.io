@@ -12,6 +12,452 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📚 atdd-subway-fare 미션 정리</title>
+	  <link>//atdd-subway-fare-note</link>
+	  <author></author>
+	  <pubDate>2021-06-16T10:01:01+09:00</pubDate>
+	  <guid>//atdd-subway-fare-note</guid>
+	  <description><![CDATA[
+	     <h2 id="요금-정책">요금 정책</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/cd715abe-edce-405a-811a-2b9cff62398b/image.png" style="zoom:33%;" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9b90163c-02c0-4f7a-8801-0c1d74a5e47e/image.png" style="zoom: 50%;" /></p>
+
+<ul>
+  <li>로그인 사용자와 비로그인 사용자를 구별하여 요금 정책을 적용</li>
+  <li>PathController에서는 토큰이 없어도 예외가 아니었고</li>
+  <li>MemberController에서는 토큰이 없으면 예외였기에 Resolver에서는 각각에 맞는 처리를 해주어야 했음</li>
+  <li>맨 처음 페어랑 기능만 돌아가게 구현했을 때는 기존에 있는 로그인된 사용자에 대한 인가 과정을 거치는 Resolver를 재사용하도록 구현</li>
+  <li>이러기 위해서는 이 각각에 맞는 처리를 일간 Controller로 옮겨야 했음</li>
+</ul>
+
+<h4 id="authenticationprincipalargumentresolver">AuthenticationPrincipalArgumentResolver</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Object</span> <span class="nf">resolveArgument</span><span class="o">(</span><span class="n">MethodParameter</span> <span class="n">parameter</span><span class="o">,</span> <span class="n">ModelAndViewContainer</span> <span class="n">mavContainer</span><span class="o">,</span> <span class="n">NativeWebRequest</span> <span class="n">webRequest</span><span class="o">,</span> <span class="n">WebDataBinderFactory</span> <span class="n">binderFactory</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">AuthorizationExtractor</span><span class="o">.</span><span class="na">extract</span><span class="o">(</span><span class="n">webRequest</span><span class="o">.</span><span class="na">getNativeRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="n">LoginMember</span> <span class="n">member</span> <span class="o">=</span> <span class="n">authService</span><span class="o">.</span><span class="na">findMemberByToken</span><span class="o">(</span><span class="n">credentials</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">AuthorizationException</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">member</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="membercontroller에서-loginmember에-대한-처리">MemberController에서 LoginMember에 대한 처리</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">unAuthorizedThrowException</span><span class="o">(</span><span class="nd">@AuthenticationPrincipal</span> <span class="n">LoginMember</span> <span class="n">loginMember</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">loginMember</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">AuthorizationException</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>id가 없으면 (존재하지 않는 사용자이면) 예외</li>
+</ul>
+
+<h4 id="pathcontroller에서-loginmember에-대한-처리">PathController에서 LoginMember에 대한 처리</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">LoginMember</span> <span class="nf">unLoginMemberWrapper</span><span class="o">(</span><span class="nd">@AuthenticationPrincipal</span> <span class="n">LoginMember</span> <span class="n">loginMember</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">loginMember</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">LoginMember</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">loginMember</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>id가 존재하지 않으면 age를 <code class="highlighter-rouge">-1</code> 로 wrap</li>
+</ul>
+
+<h5 id="그런데-이렇게-구현하고-생각한-문제점이">그런데 이렇게 구현하고 생각한 문제점이…</h5>
+
+<ul>
+  <li>Controller에서 이미 리졸빙된 LoginMember에 대한 처리를 또 건드리고 있다는 느낌</li>
+  <li>Controller에서 LoginMember에 대한 비즈니스 로직을 알고 있는 느낌이라 개선이 필요하다고 느낌</li>
+  <li>age를 -1로 감싸서 이 경우 비로그인자로 가정하는 로직이 괜찮은지 의문을 품고 있었음</li>
+</ul>
+
+<h4 id="페어의-리뷰어에게-온-피드백">페어의 리뷰어에게 온 피드백</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/8c7d30b2-c0f7-45af-b31f-dfd6a6ef247d/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>일단 <code class="highlighter-rouge">AuthenticationPrincipalArgumentResolver</code> 와 <code class="highlighter-rouge">AgeAuthenticationPrincipalArgumentResolver</code> 두개로 분리하였음</li>
+  <li><code class="highlighter-rouge">AgeAuthenticationPrincipalArgumentResolver</code> 에서는 요금 정책에 필요한 값인 <code class="highlighter-rouge">age</code> 만 반환하도록 리팩토링</li>
+</ul>
+
+<h4 id="ageauthenticationprincipalargumentresolver">AgeAuthenticationPrincipalArgumentResolver</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AgeAuthenticationPrincipalArgumentResolver</span> <span class="kd">implements</span> <span class="n">HandlerMethodArgumentResolver</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">AuthService</span> <span class="n">authService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AgeAuthenticationPrincipalArgumentResolver</span><span class="o">(</span><span class="n">AuthService</span> <span class="n">authService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">authService</span> <span class="o">=</span> <span class="n">authService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supportsParameter</span><span class="o">(</span><span class="n">MethodParameter</span> <span class="n">parameter</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">parameter</span><span class="o">.</span><span class="na">hasParameterAnnotation</span><span class="o">(</span><span class="n">AgeAuthenticationPrincipal</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">resolveArgument</span><span class="o">(</span><span class="n">MethodParameter</span> <span class="n">parameter</span><span class="o">,</span> <span class="n">ModelAndViewContainer</span> <span class="n">mavContainer</span><span class="o">,</span> <span class="n">NativeWebRequest</span> <span class="n">webRequest</span><span class="o">,</span> <span class="n">WebDataBinderFactory</span> <span class="n">binderFactory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">AuthorizationExtractor</span><span class="o">.</span><span class="na">extract</span><span class="o">(</span><span class="n">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">webRequest</span><span class="o">.</span><span class="na">getNativeRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">.</span><span class="na">class</span><span class="o">)));</span>
+        <span class="n">LoginMember</span> <span class="n">memberByToken</span> <span class="o">=</span> <span class="n">authService</span><span class="o">.</span><span class="na">findMemberByToken</span><span class="o">(</span><span class="n">credentials</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">memberByToken</span><span class="o">.</span><span class="na">getAge</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">Integer</code> 형인 age를 반환하도록….
+    <ul>
+      <li>반환타입을 명시적으로 적어줄걸 그랬네</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="pathservice의-findpath">PathService의 findPath()</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">PathResponse</span> <span class="nf">findPath</span><span class="o">(</span><span class="n">Integer</span> <span class="n">age</span><span class="o">,</span> <span class="n">Long</span> <span class="n">source</span><span class="o">,</span> <span class="n">Long</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Line</span><span class="o">&gt;</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">lineService</span><span class="o">.</span><span class="na">findLines</span><span class="o">();</span>
+        <span class="n">Station</span> <span class="n">sourceStation</span> <span class="o">=</span> <span class="n">stationService</span><span class="o">.</span><span class="na">findStationById</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
+        <span class="n">Station</span> <span class="n">targetStation</span> <span class="o">=</span> <span class="n">stationService</span><span class="o">.</span><span class="na">findStationById</span><span class="o">(</span><span class="n">target</span><span class="o">);</span>
+        <span class="n">SubwayPath</span> <span class="n">subwayPath</span> <span class="o">=</span> <span class="n">pathFinder</span><span class="o">.</span><span class="na">findPath</span><span class="o">(</span><span class="n">lines</span><span class="o">,</span> <span class="n">sourceStation</span><span class="o">,</span> <span class="n">targetStation</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">subwayPath</span><span class="o">.</span><span class="na">calculateDistance</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">lineFare</span> <span class="o">=</span> <span class="n">subwayPath</span><span class="o">.</span><span class="na">getMaxLineFare</span><span class="o">();</span>
+        <span class="n">SubwayPathFare</span> <span class="n">subwayPathFare</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubwayPathFare</span><span class="o">(</span><span class="n">age</span><span class="o">,</span> <span class="n">distance</span><span class="o">,</span> <span class="n">lineFare</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">PathResponseAssembler</span><span class="o">.</span><span class="na">assemble</span><span class="o">(</span><span class="n">subwayPath</span><span class="o">,</span> <span class="n">subwayPathFare</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidPathException</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="subwaypathfare">SubwayPathFare</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubwayPathFare</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">distance</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">lineFare</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SubwayPathFare</span><span class="o">(</span><span class="n">Integer</span> <span class="n">age</span><span class="o">,</span> <span class="kt">int</span> <span class="n">distance</span><span class="o">,</span> <span class="kt">int</span> <span class="n">lineFare</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">wrapAge</span><span class="o">(</span><span class="n">age</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">distance</span> <span class="o">=</span> <span class="n">distance</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lineFare</span> <span class="o">=</span> <span class="n">lineFare</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">wrapAge</span><span class="o">(</span><span class="n">Integer</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getFare</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">fareByDistance</span> <span class="o">=</span> <span class="n">FareCalculatorByDistance</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">distance</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">FareAdjusterByAge</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">age</span><span class="o">,</span> <span class="n">fareByDistance</span><span class="o">,</span> <span class="n">lineFare</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>요금 정책을 해당 도메인에서 Enum인 <code class="highlighter-rouge">FareCalculatorByDistance</code> 와 <code class="highlighter-rouge">FareAdjusterByAge</code> 를 통해 계산하고 있었음</li>
+  <li><code class="highlighter-rouge">wrapAge()</code> 를 통해 null 값으로 age가 들어오면 <code class="highlighter-rouge">FareAdjusterByAge.of()</code>에서 스트림을 돌리는데, 이에 예외가 발생하지 않도록 -1로 포장</li>
+</ul>
+
+<h5 id="참고---fareadjusterbyageof">참고 - FareAdjusterByAge.of()</h5>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">of</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fare</span><span class="o">,</span> <span class="kt">int</span> <span class="n">lineFare</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">values</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">ageRange</span> <span class="o">-&gt;</span> <span class="n">ageRange</span><span class="o">.</span><span class="na">minInclusive</span> <span class="o">&lt;=</span> <span class="n">age</span> <span class="o">&amp;&amp;</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="n">ageRange</span><span class="o">.</span><span class="na">maxExclusive</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">calculator</span> <span class="o">-&gt;</span> <span class="n">calculator</span><span class="o">.</span><span class="na">adjuster</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">fare</span><span class="o">,</span> <span class="n">lineFare</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">findAny</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="n">fare</span> <span class="o">+</span> <span class="n">lineFare</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="farecalculatorbydistance---거리별-요금-정책">FareCalculatorByDistance - 거리별 요금 정책</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">FareCalculatorByDistance</span> <span class="o">{</span>
+    <span class="n">BASE</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">BASE_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">distance</span> <span class="o">-&gt;</span> <span class="n">Constants</span><span class="o">.</span><span class="na">BASE_FARE</span><span class="o">),</span>
+    <span class="n">FIRST_ADDITIONAL</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">BASE_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">FIRST_ADDITIONAL_MAX_BOUNDARY</span><span class="o">,</span>
+            <span class="o">(</span><span class="n">distance</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Constants</span><span class="o">.</span><span class="na">BASE_FARE</span> <span class="o">+</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">((</span><span class="n">Math</span><span class="o">.</span><span class="na">ceil</span><span class="o">((</span><span class="n">distance</span> <span class="o">-</span> <span class="n">Constants</span><span class="o">.</span><span class="na">BASE_MAX_BOUNDARY</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">/</span> <span class="mi">5</span><span class="o">))</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">*</span> <span class="n">Constants</span><span class="o">.</span><span class="na">EXTRA_FARE</span><span class="o">),</span>
+    <span class="n">SECOND_ADDITIONAL</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">FIRST_ADDITIONAL_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span>
+            <span class="o">(</span><span class="n">distance</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Constants</span><span class="o">.</span><span class="na">BASE_FARE</span> <span class="o">+</span> <span class="mi">800</span> <span class="o">+</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">((</span><span class="n">Math</span><span class="o">.</span><span class="na">ceil</span><span class="o">((</span><span class="n">distance</span> <span class="o">-</span> <span class="n">Constants</span><span class="o">.</span><span class="na">FIRST_ADDITIONAL_MAX_BOUNDARY</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">/</span> <span class="mi">8</span><span class="o">))</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">*</span> <span class="n">Constants</span><span class="o">.</span><span class="na">EXTRA_FARE</span><span class="o">);</span>
+
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">minExclusive</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">maxInclusive</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">UnaryOperator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">calculator</span><span class="o">;</span>
+
+    <span class="n">FareCalculatorByDistance</span><span class="o">(</span><span class="kt">int</span> <span class="n">minExclusive</span><span class="o">,</span> <span class="kt">int</span> <span class="n">maxInclusive</span><span class="o">,</span> <span class="n">UnaryOperator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">calculator</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">minExclusive</span> <span class="o">=</span> <span class="n">minExclusive</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">maxInclusive</span> <span class="o">=</span> <span class="n">maxInclusive</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">calculator</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="fareadjusterbyage---나이별-요금-정책">FareAdjusterByAge - 나이별 요금 정책</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">FareAdjusterByAge</span> <span class="o">{</span>
+    <span class="n">PRE_SCHOOLED</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">PRE_SCHOOL_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">getIntegerBinaryOperator</span><span class="o">(</span><span class="mi">0</span><span class="o">)),</span>
+    <span class="n">SCHOOL_AGED</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">PRE_SCHOOL_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">SCHOOL_AGED_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">getIntegerBinaryOperator</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">SCHOOL_AGED_RATE</span><span class="o">)),</span>
+    <span class="n">ADOLESCENT</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">SCHOOL_AGED_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">ADOLESCENT_MAX_BOUNDARY</span><span class="o">,</span> <span class="n">getIntegerBinaryOperator</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">ADOLESCENT_RATE</span><span class="o">));</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">minInclusive</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">maxExclusive</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">BinaryOperator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">adjuster</span><span class="o">;</span>
+
+    <span class="n">FareAdjusterByAge</span><span class="o">(</span><span class="kt">int</span> <span class="n">minInclusive</span><span class="o">,</span> <span class="kt">int</span> <span class="n">maxExclusive</span><span class="o">,</span> <span class="n">BinaryOperator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">adjuster</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">minInclusive</span> <span class="o">=</span> <span class="n">minInclusive</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">maxExclusive</span> <span class="o">=</span> <span class="n">maxExclusive</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">adjuster</span> <span class="o">=</span> <span class="n">adjuster</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">BinaryOperator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">getIntegerBinaryOperator</span><span class="o">(</span><span class="kt">double</span> <span class="n">rate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">fare</span><span class="o">,</span> <span class="n">lineFare</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(((</span><span class="n">fare</span> <span class="o">+</span> <span class="n">lineFare</span><span class="o">)</span> <span class="o">-</span> <span class="mi">350</span><span class="o">)</span> <span class="o">*</span> <span class="n">rate</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="리뷰어에게-받은-피드백">리뷰어에게 받은 피드백</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a9f5ac3d-548f-4f90-ad43-e3af67abc64a/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>리뷰어의 의도는 Member를 나타내는 도메인에서 age를 nullable하게 두고 이를 처리하는 것이 더 명확할 것 같다하심</li>
+</ul>
+
+<h3 id="아쉬운-점">아쉬운 점</h3>
+
+<h4 id="나이별-요금정책을-적용할-때-member-도메인을-사용해볼걸">나이별 요금정책을 적용할 때 Member 도메인을 사용해볼걸!</h4>
+
+<p>현재 경로 조회를 할 때는 member 도메인이 넘어오지 않고 age 값만 넘어오도록 구현했었다.<br />
+그런데 Age는 Member에 종속되는 필드인데 이를 빼서 독립적으로 처리하고 있는게 지금보니 마음에 들지 않는다.<br />
+만약 Member의 다른 필드들도 요금정책에 영행을 주게 된다면 유지보수가 어려운 코드가 된다.<br />
+크루들이랑 이야기를 해보니 한 리졸버에서 Member를 반환해주는데, 이 반환 도메인을 한 인터페이스(예를 들면 Member)를 만들고 이를 구현한 <code class="highlighter-rouge">Guest</code>, <code class="highlighter-rouge">LoginMember</code> 로 로그인, 비로그인 사용자를 구별하여 로직을 수행하는 방법도 있다고 한다.</p>
+
+<p>이러면 리졸버를 나눌 필요도 없고 Member가 age를 가지고 나이에 관한 요금 정책을 수행할 때 해당 도메인에게 물어서 처리할 수 있을 것 같다.</p>
+
+<h4 id="enum에-predicate를-가직-할걸">Enum에 Predicate를 가직 할걸!</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a53fbb31-926c-4123-813c-72f4d7fda9ca/image.png" style="zoom: 50%;" /></p>
+
+<p>또한 각각 요금 정책을 Enum으로 구현하였는데, 여기서 상수를 쓰니 가독성이 매우 떨어지는 느낌이다.</p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1d4bfdf8-ddba-44dc-83be-af5f15860ae8/image.png" style="zoom:33%;" /></p>
+
+<p>상수를 쓴 이유는 위의 피드백으로 매직 넘버에 의미를 부여하고 싶었으나… <br />
+이렇게 하니 오히려 가독성을 헤치는 느낌이었고 마지막 리뷰대로 Enum 안에 범위를 판단하는 <code class="highlighter-rouge">Predicate</code> 를 가지도록 할걸 그랬다.</p>
+
+<h2 id="프론트엔드와의-협업">프론트엔드와의 협업</h2>
+
+<ul>
+  <li>백엔드 4, 프론트엔드 2명 정도씩 팀을 이루어 협업하는 미션이었음</li>
+  <li><a href="https://www.notion.so/4b3b784386a246babcdef0bda179babb">해당 문서</a> 에 있는 프론트엔드 요구사항을 뼈대코드에 반영해 나감</li>
+</ul>
+
+<h2 id="api-문서화">API 문서화</h2>
+
+<ul>
+  <li>Spring Rest Docs를 통해 API 문서화 작업을 진행</li>
+  <li>기존에 있는 RestAssured 테스트를 이용해 API를 만들수도 있는데, 페어랑 같이 시도하다가 계속 오류나서….</li>
+  <li>결국 MockMvc로 테스트 코드 다시짜서 API 문서를 만들었음</li>
+  <li>다른 크루가 RestAssured로 문서를 만들었던데 그거 보고 시도해봐야지…</li>
+  <li>또 리뷰어가 제시한 방향으로 API 문서 만드는 테스트 코드를 조금 수정했더니 더 좋은 문서를 만들 수 있었음</li>
+</ul>
+
+<h4 id="controllertest">ControllerTest</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ActiveProfiles</span><span class="o">(</span><span class="s">"test"</span><span class="o">)</span>
+<span class="nd">@AutoConfigureRestDocs</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="n">ObjectMapper</span> <span class="n">objectMapper</span><span class="o">;</span>
+
+    <span class="kd">protected</span> <span class="kd">static</span> <span class="n">OperationRequestPreprocessor</span> <span class="nf">getDocumentRequest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">preprocessRequest</span><span class="o">(</span>
+                <span class="n">modifyUris</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">scheme</span><span class="o">(</span><span class="s">"https"</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">host</span><span class="o">(</span><span class="s">"newwisdom-subway.p-e.kr"</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">removePort</span><span class="o">(),</span>
+                <span class="n">prettyPrint</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">protected</span> <span class="kd">static</span> <span class="n">OperationResponsePreprocessor</span> <span class="nf">getDocumentResponse</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">preprocessResponse</span><span class="o">(</span><span class="n">prettyPrint</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>API 문서 만드는데 필요한 MockMvc 테스트들은 위 클래스를 상속받고 있음</li>
+  <li>리뷰어의 제안을 통해 <code class="highlighter-rouge">getDocumentRequest()</code>와 <code class="highlighter-rouge">getDocumentResponse()</code> 을 추가</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d4396804-6e9e-4046-a749-99c2cbe085db/image.png" style="zoom: 50%;" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/edaba672-3c4a-481f-984e-e08fa2ba6f20/image.png" style="zoom:50%;" /></p>
+
+<h2 id="테스트-코드의-가독성">테스트 코드의 가독성</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/ab0ebe3f-3560-4b80-a470-781c1731354f/image.png" style="zoom:50%;" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/24757641-e6c6-4a74-b84a-7a014edfc99c/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>이번 리뷰어가 테스트 코드에서 가독성을 지키지 못한 부분들을 많이 피드백 해주었음</li>
+  <li>테스트 코드도 하나의 문서이며 유지보수 대상이기 때문에 가독성을 고려해야 한다는 것을 느꼈음</li>
+  <li>서로 다른 테스트에서 공통으로 쓰이는 메서드들은 상위 클래스인 AcceptanceTest로 끌어 올림</li>
+  <li>테스트에 쓰이는 변수명들도 맥락을 파악하기 쉽도록 변경</li>
+  <li>상수처리도 신경씀</li>
+</ul>
+
+<h2 id="예외-처리">예외 처리</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/2518ddc4-c4ce-4a7a-8ee1-49becedb7936/image.png" style="zoom: 50%;" /></p>
+
+<ul>
+  <li>“일단 프론트의 요구사항 다 반영하도록 구현해보자!”로 잡고 했더니 무수한 커스텀 예외가 만들어졌다…^ㅠ^</li>
+  <li>이를 개선할 방법을 찾다가… 크루들한테 들은 <a href="https://cheese10yun.github.io/spring-guide-exception/">Spring Guide - Exception 전략</a> 을 적용해보기로~</li>
+  <li>RuntimeException을 상속받는 BuisnessException을 만들고 필드에 상태코드와 ErrorMessage(DTO)를 가지도록 구현</li>
+  <li>이를 상속하는 상태코드 400인 BusinessException과 상태코드 401인 AuthorizationException을 만듦</li>
+  <li>또 이를 상속받는 각각의 클라이언트의 요구사항에 맞는 커스텀 예외 만듦</li>
+  <li>
+    <p>ControllerAdvice에서는 다음과 같이 BuisnessException을 잡고 이 예외에서 상태코드와 예외 메시지를 꺼내도록 구현</p>
+  </li>
+  <li>이렇게 되면 어드바이스에서 수많은 커스텀 예외들을 BuisnessException 하나만 잡고 처리할 수 있음</li>
+  <li>상태코드에 따른 클래스를 두어 이가 변경되어도 유지보수가 쉬움</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">BusinessException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorMessage</span><span class="o">&gt;</span> <span class="nf">handleRuntimeException</span><span class="o">(</span><span class="n">BusinessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+
+  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getHttpStatus</span><span class="o">()).</span><span class="na">body</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getErrorMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="businessexception">BusinessException</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BusinessException</span> <span class="kd">extends</span> <span class="n">RuntimeException</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">HttpStatus</span> <span class="n">httpStatus</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ErrorMessage</span> <span class="n">errorMessage</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BusinessException</span><span class="o">(</span><span class="n">HttpStatus</span> <span class="n">httpStatus</span><span class="o">,</span> <span class="n">String</span> <span class="n">errorMessage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">httpStatus</span><span class="o">,</span> <span class="k">new</span> <span class="n">ErrorMessage</span><span class="o">(</span><span class="n">errorMessage</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">BusinessException</span><span class="o">(</span><span class="n">HttpStatus</span> <span class="n">httpStatus</span><span class="o">,</span> <span class="n">ErrorMessage</span> <span class="n">errorMessage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">httpStatus</span> <span class="o">=</span> <span class="n">httpStatus</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">errorMessage</span> <span class="o">=</span> <span class="n">errorMessage</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">HttpStatus</span> <span class="nf">getHttpStatus</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">httpStatus</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">ErrorMessage</span> <span class="nf">getErrorMessage</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">errorMessage</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="authorizationexception">AuthorizationException</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthorizationException</span> <span class="kd">extends</span> <span class="n">BusinessException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">AuthorizationException</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">UNAUTHORIZED</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>BusinessException을 상속</li>
+  <li>401 상태코드</li>
+</ul>
+
+<h4 id="badrequestexception">BadRequestException</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BadRequestException</span> <span class="kd">extends</span> <span class="n">BusinessException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">BadRequestException</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>BusinessException을 상속</li>
+  <li>400 상태코드</li>
+</ul>
+
+<h2 id="배포-스크립트">배포 스크립트</h2>
+
+<ul>
+  <li>실제 API 사용이 가능하도록 EC2에 배포하여야 했음</li>
+  <li>프로젝트가 업데이트되면 프로세스를 재시동해야했음</li>
+  <li>이러면 여러가지 명령어를 실행해야 함….</li>
+  <li>이를 스크립트로 만들어 한번에 처리하도록 구현!</li>
+</ul>
+
+<h4 id="deploy-prodsh">deploy-prod.sh</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c">#!/bin/bash in the top of your scripts then you are telling your system to use bash as a default shell.</span>
+
+<span class="nv">REPOSITORY</span><span class="o">=</span>/home/ubuntu/ <span class="c"># 경로 설정</span>
+<span class="nv">PROJECT_NAME</span><span class="o">=</span>atdd-subway-fare
+
+<span class="nb">cd</span> <span class="nv">$REPOSITORY</span>/<span class="nv">$PROJECT_NAME</span>/ <span class="c"># 경로로 접근</span>
+
+<span class="nb">echo</span> <span class="s2">"&gt; git reset --hard"</span> 
+
+git reset <span class="nt">--hard</span> <span class="c"># 깃허브 초기화</span>
+
+<span class="nb">echo</span> <span class="s2">"&gt; git pull origin step1"</span>
+
+git pull origin step1 <span class="c"># pull 땡겨오기</span>
+
+<span class="nb">echo</span> <span class="s2">"&gt; 프로젝트 Build 시작"</span>
+
+./gradlew clean build <span class="c"># 빌드</span>
+
+<span class="nb">echo</span> <span class="s2">"&gt; Build 파일 경로 복사"</span>
+
+<span class="nv">JAR_LOCATION</span><span class="o">=</span><span class="k">$(</span>find ./<span class="k">*</span> <span class="nt">-name</span> <span class="s2">"*jar"</span> | <span class="nb">grep </span>atdd-subway-fare<span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">"&gt; 현재 구동중인 애플리케이션 pid 확인"</span>
+
+<span class="nv">CURRENT_PID</span><span class="o">=</span><span class="k">$(</span>pgrep <span class="nt">-f</span> <span class="k">${</span><span class="nv">PROJECT_NAME</span><span class="k">}</span><span class="o">[</span><span class="nt">-A-z0-9</span>.]<span class="k">*</span>.jar<span class="nv">$)</span> <span class="c"># 실행시켜져있는 jar pid 받기 </span>
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$CURRENT_PID</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="c"># -z 플래그는 null인것을 체크함, PID가 null인 경우 if절 안으로 들어감</span>
+    <span class="nb">echo</span> <span class="s2">"&gt; 현재 구동 중인 애플리케이션이 없으므로 종료하지 않습니다."</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"&gt; 현재 구동중인 애플리케이션 종료(pid : </span><span class="nv">$CURRENT_PID</span><span class="s2">)"</span>
+    <span class="nb">echo</span> <span class="s2">"&gt; kill -15 </span><span class="nv">$CURRENT_PID</span><span class="s2">"</span>
+    <span class="nb">kill</span> <span class="nt">-15</span> <span class="nv">$CURRENT_PID</span>
+    sleep 5
+<span class="k">fi
+
+</span><span class="nb">echo</span> <span class="s2">"&gt; 새 애플리케이션 배포"</span>
+<span class="nb">echo</span> <span class="s2">"&gt; JAR Location: </span><span class="nv">$JAR_LOCATION</span><span class="s2">"</span> 해당 jar파일 실행
+
+<span class="c">#nohup java -jar 실행</span>
+nohup java <span class="nt">-jar</span> <span class="nt">-Dspring</span>.profiles.active<span class="o">=</span>prod <span class="k">${</span><span class="nv">JAR_LOCATION</span><span class="k">}</span> 1&gt; log-prod.md 2&gt;&amp;1  &amp;
+</code></pre></div></div>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📚 atdd-subway-path 미션 정리</title>
 	  <link>//atdd-subway-path-note</link>
 	  <author></author>
@@ -1314,11 +1760,7 @@ devonly.name = dev_name
   <li>초기화 하지 않고 사용하면 예외 발생</li>
   <li><code class="highlighter-rouge">var</code> 에만 사용 가능</li>
   <li>원시 타입에는 적용할 수 없음</li>
-  <li>custom getter/setter 사용 불가
-    <ul>
-      <li></li>
-    </ul>
-  </li>
+  <li>custom getter/setter 사용 불가</li>
   <li>non-null 프로퍼티만 사용 가능</li>
 </ul>
 
@@ -2808,250 +3250,6 @@ Controller는 MyView만 반환해주면 된다.</p>
 
 <p>RequestMappingHandlerAdapter : 위 어노테이션이 붙은 핸들러를 처리해주는 어댑터</p>
 
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📋 Spring MVC - 3. 서블릿, JSP, MVC 패턴</title>
-	  <link>//spring-mvc-5</link>
-	  <author></author>
-	  <pubDate>2021-05-03T19:18:00+09:00</pubDate>
-	  <guid>//spring-mvc-5</guid>
-	  <description><![CDATA[
-	     <h2 id="스프링-mvc-전체-구조">스프링 MVC 전체 구조</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/6b0d1860-915b-4819-9d2f-9521353e2142/image.png" style="zoom:80%;" /></p>
-
-<h4 id="지금껏-만들었던-프레임-워크---스프링-mvc">지금껏 만들었던 프레임 워크 &lt;-&gt; 스프링 MVC</h4>
-
-<ul>
-  <li>FrontController - DispatcherServlet</li>
-  <li>HandlerMappingMap - HandlerMapping</li>
-  <li>MyHandlerAdapter - HandlerAdapter</li>
-  <li>ModelView - ModelAndView</li>
-  <li>ViewResolver - ViewResolver</li>
-  <li>MyView - View</li>
-</ul>
-
-<h3 id="dispatcherservlet">DispatcherServlet</h3>
-
-<p>DispacherServlet 도 부모 클래스에서 HttpServlet 을 상속 받아서 사용하고, 서블릿으로 동작한다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/630a4870-d2a9-4dec-a4c3-ccfe49db023a/image.png" style="zoom:67%;" /></p>
-
-<p>스프링 부트는 DispatcherServlet를 자동으로 등록하면서 모든 경로에 대해서 매핑한다.</p>
-
-<h4 id="요청의-흐름">요청의 흐름</h4>
-
-<p>DispatcherServlet이 호출되면 <code class="highlighter-rouge">service()</code> 가 호출된다.<br />
-최종적으로는 DispatcherServlet.doDispatch()` 가 호출된다.</p>
-
-<h4 id="dodispatch">doDispatch()</h4>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/cbfe84c7-a2f8-4bf1-a082-42c141b2e287/image.png" style="zoom:67%;" /></p>
-
-<p>DispatcherServlet의 doDispatch()의 주요 부분들을 살펴보자!</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/0e644c4e-cd85-405a-a1ea-f063768df8a1/image.png" alt="" /></p>
-
-<ul>
-  <li>ModelAndView</li>
-  <li>getHandler() : 핸들러를 가져온다.
-    <ul>
-      <li>핸들러가 없으면 404로 셋팅을 한다.</li>
-    </ul>
-  </li>
-  <li>getHandlerAdapter() : 핸들러 어댑터를 가져온다.</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/536712af-32f3-41fc-af6f-5d885365747d/image.png" style="zoom:67%;" /></p>
-
-<ul>
-  <li>핸들러 어댑터로 핸들러 호출하고 ModelAndView 반환</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/eef62fa6-513d-4ed3-b7a3-18ad10ae0074/image.png" style="zoom:67%;" /></p>
-
-<ul>
-  <li>view 렌더링 호출</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/5a04d84a-5b0c-456c-baa1-ddf4401c2f36/image.png" alt="" /></p>
-
-<ul>
-  <li>ViewResolver를 통해서 view를 찾아 반환</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/56d8ddca-3457-4b3a-a7b8-c462504d98d8/image.png" alt="" /></p>
-
-<ul>
-  <li>View 렌더링</li>
-</ul>
-
-<h3 id="스프링-mvc-구조">스프링 MVC 구조</h3>
-
-<ol>
-  <li>핸들러 조회 : 핸들러 매핑을 통해 요청 URL에 매핑된 핸들러 조회</li>
-  <li>핸들러 어댑터 조회 : 핸들러를 실행할 수 있는 핸들러 어댑터 조회</li>
-  <li>핸들러 어댑터 실행 : 핸들러 어댑터 실행</li>
-  <li>핸들러 실행 : 핸들러 어댑터가 실제 핸들러 실행</li>
-  <li>ModelAndView 반환 : 핸들러 어댑터는 핸들러가 반환하는 정보를 ModelAndView로 변환해서 반환</li>
-  <li>viewResolver 호출 : JSP의 경우 <code class="highlighter-rouge">InternalResourceViewResolver</code> 가 자동으로 등록되고 사용됨</li>
-  <li>view 반환 : 뷰 리졸버는 뷰의 논리 이름을 물리 이름으로 바꾸고 렌더링 역할을 담당하는 뷰 객체 반환
-    <ul>
-      <li>JSP의 경우 InternalResourceViewResolver(JstlView) 를 반환하고 내부에 forward() 로직이 있다.</li>
-    </ul>
-  </li>
-  <li>뷰 렌더링 : 뷰를 통해서 뷰를 렌더링 한다.</li>
-</ol>
-
-<p>가장 큰 장점은 DispatcherServlet  코드의 변경 없이 원하는 기능을 변경하거나 확장할 수 있다.<br />
-대부분 확장 가능하도록 인터페이스로 제공한다.</p>
-
-<p>하지만 사실 우리가 확장할 컨트롤러는 거의 없다.</p>
-
-<hr />
-
-<h2 id="핸들러-매핑과-핸들러-어댑터">핸들러 매핑과 핸들러 어댑터</h2>
-
-<h3 id="과거-controller-인터페이스">과거 Controller 인터페이스</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Controller</span> <span class="o">{</span>
-    <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">@Component</code> :  ““/springmvc/old-controller: 라는 이름의 스프링 빈으로 등록</li>
-  <li>빈의 이름으로<strong>URL</strong>을 매핑</li>
-</ul>
-
-<h4 id="위-컨트롤러가-호출되는-방식">위 컨트롤러가 호출되는 방식</h4>
-
-<ul>
-  <li><strong>HandlerMapping</strong>(핸들러 매핑)
-    <ul>
-      <li>핸들러 매핑에서 이 컨트롤러를 찾을 수 있어야 함
- ex) <strong>스프링 빈의 이름으로 핸들러를 찾을 수 있는 핸들러 매핑</strong> 필요</li>
-    </ul>
-  </li>
-  <li><strong>HandlerAdapter</strong>(핸들러 어댑터)
-    <ul>
-      <li>핸들러 매핑을 통해서 찾은 핸들러를 실행할 수 있는 핸들러 어댑터가 필요
- ex) Controller 인터페이스를 실행할 수 있는 핸들러 어댑터를 찾고 실행해야 함</li>
-    </ul>
-  </li>
-  <li>스프링은 이미 필요한 핸들러 매핑과 핸들러 어댑터를 대부분 구현해두었다.</li>
-</ul>
-
-<h4 id="스프링-부트가-자동으로-등록하는-핸들러-매핑과-핸들러-어댑터">스프링 부트가 자동으로 등록하는 핸들러 매핑과 핸들러 어댑터</h4>
-
-<ul>
-  <li><strong>HandlerMapping</strong>
-    <ul>
-      <li>RequestMappingHandlerMapping : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용 - 가장 우선순위가 높음</li>
-      <li>BeanNameUrlHandlerMapping : 스프링 빈의 이름으로 핸들러를 찾는다. 
-(위 예제의 @Component)</li>
-    </ul>
-  </li>
-  <li><strong>HandlerAdapter</strong>
-    <ul>
-      <li>RequestMappingHandlerAdapter : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용 - 가장 우선순위가 높음</li>
-      <li>HttpRequestHandlerAdapter : HttpRequestHandler 처리</li>
-      <li>SimpleControllerHandlerAdapter : Controller 인터페이스(애노테이션X, 과거에 사용) 처리</li>
-    </ul>
-  </li>
-</ul>
-
-<h5 id="1-핸들러-매핑으로-핸들러-조회"><strong>1.</strong> <strong>핸들러 매핑으로 핸들러 조회</strong></h5>
-
-<p>HandlerMapping 을 순서대로 실행해서, 핸들러를 찾는다.</p>
-
-<p>빈이름으로 핸들러를 찾아야하기 때문에 빈이름으로핸들러를찾아주는 BeanNameUrlHandlerMapping가 실행에 성공하고 핸들러인 OldController 를 반환한다.</p>
-
-<h5 id="2-핸들러-어댑터-조회"><strong>2.</strong> <strong>핸들러 어댑터 조회</strong></h5>
-
-<p>HandlerAdapter 의 supports() 를 순서대로 호출한다. SimpleControllerHandlerAdapter 가 Controller 인터페이스를 지원하므로 대상이 된다.</p>
-
-<h5 id="3-핸들러-어댑터-실행"><strong>3.</strong> <strong>핸들러 어댑터 실행</strong></h5>
-
-<p>DispatcherServlet이 조회한 SimpleControllerHandlerAdapter 를 실행하면서 핸들러 정보도 함께 넘겨준다.</p>
-
-<p>SimpleControllerHandlerAdapter 는 핸들러인 OldController 를 내부에서 실행하고, 그 결과를 반환한다.</p>
-
-<h3 id="httprequesthandler"><strong>HttpRequestHandler</strong></h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HttpRequestHandler</span> <span class="o">{</span>
-         <span class="kt">void</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span><span class="o">;</span>
-<span class="o">}</span>
-
-</code></pre></div></div>
-
-<ul>
-  <li><strong>서블릿과 가장 유사한 형태</strong>의 핸들러</li>
-</ul>
-
-<h5 id="1-핸들러-매핑으로-핸들러-조회-1"><strong>1.</strong> <strong>핸들러 매핑으로 핸들러 조회</strong></h5>
-
-<p>HandlerMapping 을 순서대로 실행해서, 핸들러를 찾는다.</p>
-
-<p>빈이름으로 핸들러를 찾아야하기 때문에 빈이름으로 핸들러를찾아주는 BeanNameUrlHandlerMapping 가 실행에 성공하고 핸들러인 MyHttpRequestHandler 를 반환한다.</p>
-
-<h5 id="2-핸들러-어댑터-조회-1"><strong>2.</strong> <strong>핸들러 어댑터 조회</strong></h5>
-
-<p>HandlerAdapter 의 supports() 를 순서대로 호출한다.
-HttpRequestHandlerAdapter 가 HttpRequestHandler 인터페이스를 지원하므로 대상이 된다.</p>
-
-<h5 id="3-핸들러-어댑터-실행-1"><strong>3.</strong> <strong>핸들러 어댑터 실행</strong></h5>
-
-<p>DispatcherServlet이 조회한 HttpRequestHandlerAdapter 를 실행하면서 핸들러 정보도 함께 넘겨준다.</p>
-
-<p>HttpRequestHandlerAdapter 는 핸들러인 MyHttpRequestHandler 를 내부에서 실행하고, 그 결과를 반환한다.</p>
-
-<hr />
-
-<h2 id="뷰-리졸버">뷰 리졸버</h2>
-
-<h4 id="application-properties">application-properties</h4>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring.mvc.view.prefix=/WEB-INF/views/
-spring.mvc.view.suffix=.jsp
-</code></pre></div></div>
-
-<p>스프링 부트는 <code class="highlighter-rouge">InternalResourceViewResolver</code> 라는 뷰 리졸버를 자동으로 등록한다.<br />
-이때 <code class="highlighter-rouge">application.properties</code> 에 등록한 <code class="highlighter-rouge">spring.mvc.view.prefix</code> , <code class="highlighter-rouge">spring.mvc.view.suffix</code> 설정 정보를 사용해서 등록한다.</p>
-
-<h4 id="스프링-부트가-자동으로-등록하는-뷰-리졸버">스프링 부트가 자동으로 등록하는 뷰 리졸버</h4>
-
-<ul>
-  <li>BeanNameViewResolver : 빈 이름으로 뷰를 찾아서 반환</li>
-  <li>InternalResourceViewResolver : JSP를 처리할 수 있는 뷰를 반환</li>
-</ul>
-
-<p><strong>1.</strong> <strong>핸들러 어댑터 호출</strong><br />
-핸들러 어댑터를 통해 논리 뷰 이름을 획득</p>
-
-<p><strong>2. ViewResolver 호출</strong></p>
-
-<p>new-form 이라는 뷰 이름으로 viewResolver를 순서대로 호출
-InternalResourceViewResolver 가 호출됨</p>
-
-<h5 id="3-internalresourceviewresolver"><strong>3. InternalResourceViewResolver</strong></h5>
-
-<p>내부에서 자원을 찾을 수 있음을 의미한다.<br />
-이 뷰 리졸버는 InternalResourceView 를 반환</p>
-
-<h5 id="4-뷰---internalresourceview">4. <strong>뷰</strong> <strong>- InternalResourceView</strong></h5>
-
-<p>InternalResourceView 는 JSP처럼 포워드 forward() 를 호출해서 처리할 수 있는 경우에 사용</p>
-
-<h5 id="5-viewrender">5. view.render()</h5>
-
-<p>view.render() 가 호출되고 InternalResourceView 는 forward() 를 사용해서 JSP를 실행한다</p>
-
-<p>Thymeleaf 뷰 템플릿을 사용하면 ThymeleafViewResolver 를 등록해야 한다. <br />
-최근에는 라이브러리만 추가하면 스프링 부트가 이런 작업도 모두 자동화해준다.</p>
 
 	  ]]></description>
 	</item>
