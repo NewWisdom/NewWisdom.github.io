@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>🌱 Spring에서 request 처리 과정</title>
+    <title>📌 Forward Proxy, Reverse Proxy, Load Balancer</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -45,21 +45,21 @@
 </style>
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//request" />
+        <link rel="canonical" href="http://localhost:4000//proxy" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="🌱 Spring에서 request 처리 과정" />
+    <meta property="og:title" content="📌 Forward Proxy, Reverse Proxy, Load Balancer" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//request" />
+    <meta property="og:url" content="http://localhost:4000//proxy" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="🌱 Spring에서 request 처리 과정" />
+    <meta name="twitter:title" content="📌 Forward Proxy, Reverse Proxy, Load Balancer" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//request" />
+    <meta name="twitter:url" content="http://localhost:4000//proxy" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
 
     <script type="application/ld+json">
@@ -67,8 +67,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "🌱 Spring에서 request 처리 과정",
-    "url": "http://localhost:4000//request",
+    "name": "📌 Forward Proxy, Reverse Proxy, Load Balancer",
+    "url": "http://localhost:4000//proxy",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
@@ -127,7 +127,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">🌱 Spring에서 request 처리 과정</h1>
+        <h1 class="post-title">📌 Forward Proxy, Reverse Proxy, Load Balancer</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -136,17 +136,13 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-04-20">20 Apr 2021</time>
+            <time class="post-date" datetime="2021-05-21">21 May 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
                 
                     
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/springboot'>Springboot</a>
+                       <a href='/tag/techotalk'>Techotalk</a>
                     
                 
                 
@@ -166,43 +162,146 @@
 
         <section class="post-content">
 
-            <h2 id="spring에서-request-처리-과정">Spring에서 request 처리 과정</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/a2caaa9e-bde3-4b10-9e44-8a5a8629c200/image.png" style="zoom:50%;" /></p>
+            <h2 id="network-proxy">(Network) Proxy</h2>
 
 <ul>
-  <li><strong>DispatcherServlet</strong> : 클라이언트의 요청을 전달 받아 요청에 맞는 컨트롤러가 반환한 결과값을 View에 전달하여 알맞은 응답 생성</li>
-  <li><strong>HandlerMapping</strong> : 클라이언트의 요청 URL을 어떤 컨트롤러가 처리할지 결정</li>
-  <li><strong>Controller</strong> : 클라이언트의 요청을 처리한 뒤, 결과를 DispatcherServlet에 반환</li>
-  <li><strong>ModelAndView</strong> : 컨트롤러가 처리한 결과 정보 및 뷰 선택에 필요한 정보를 담음</li>
-  <li><strong>ViewResolver</strong> : 컨트롤러의 처리 결과를 생성할 뷰를 결정</li>
-  <li><strong>View</strong> : 컨트롤러의 처리 결과 화면을 생성, JSP 또는 템플릿 엔진을 뷰로 사용</li>
+  <li><strong>정의</strong> : 남을 대신하여 일을 처리함 (대리)</li>
 </ul>
 
-<ol>
-  <li>클라이언트가 서버에 요청을 하면 <strong>DispatcherServlet</strong>이 요청을 가로챈다.</li>
-  <li>요청을 가로챈 <strong>DispatcherServlet</strong>은 HandlerMapping에게 어떤 컨트롤러에게 요청을 위임하면 좋을지 물어본다. <br />
-(HandlerMapping은 <code class="highlighter-rouge">@Controller</code>로 등록한 것들을 스캔해서 찾아 놓았다.)</li>
-  <li>요청에 매핑된 <strong>Controller</strong>가 있다면 @RequestMapping을 통하여 요청을 처리할 메서드에 도달한다.  <br />
-(이는 HandlerAdapter가 책임진다.)</li>
-  <li><strong>Controller</strong>에서는 해당 요청을 처리할 Service에게 비즈니스 로직을 위임한다.</li>
-  <li><strong>Service</strong>에서는 DB 접근이 필요할 경우 DB 처리를 DAO에게 위임한다.</li>
-  <li><strong>DAO</strong>는 데이터 정보를 받아 Service에게 돌려준다.<br />
-(결과로 받은 Entity 객체를 가지고 Response에 필요한 <strong>DTO</strong> 객체로 변환한다.)</li>
-  <li>모든 비즈니스 로직을 끝낸 <strong>Service</strong>가 결과물을 <strong>Controller</strong>에 넘긴다.</li>
-  <li>결과물을 받은 <strong>Controller</strong>는 필요에 따라 Model 객체에 결과물을 넣거나, View 정보를 담아 <strong>DispatcherServlet</strong>에게 보낸다.</li>
-  <li><strong>DispatcherServlet</strong>은 <strong>ViewResolver</strong>에게 받은 뷰에 대한 정보를 넘긴다.</li>
-  <li><strong>ViewResolver</strong>는 해당 View를 찾아 <strong>DispatcherServlet</strong>에게 알려준다.<br />
-(serffix, prefix를 붙여주는 것도 ViewResolver에서 수행한다.)</li>
-  <li><strong>DispatcherServlet</strong>은 응답할 View에게 Render를 지시하고 <strong>View</strong>는 응답 로직을 처리한다.</li>
-  <li><strong>DispatcherServlet</strong>이 클라이언트에게 렌더링된 View를 응답한다.</li>
-</ol>
+<h3 id="proxy-server">Proxy Server</h3>
 
-<hr />
+<ul>
+  <li>대신 처리하는 서버</li>
+  <li>클라이언트와 서버간의 중계 서버로, 통신을 대리 수행하는 서버</li>
+  <li>캐시/보안/트래픽 분산 등 여러 장점을 가질 수 있음</li>
+</ul>
 
-<h3 id="참고">참고</h3>
+<p><img src="https://images.velog.io/images/new_wisdom/post/d75c5db0-c210-4c0d-88ac-765fd35029fa/image.png" style="zoom: 67%;" /></p>
 
-<p><a href="https://jeong-pro.tistory.com/96">Spring MVC 구조의 처리 과정을 설명해보시오. (MVC process)</a></p>
+<h4 id="종류">종류</h4>
+
+<ul>
+  <li>Forward Proxy</li>
+  <li>Reverse Proxy</li>
+</ul>
+
+<h2 id="forward-proxy">Forward Proxy</h2>
+
+<ul>
+  <li>일반적으로 말하는 Proxy</li>
+  <li>예제
+    <ul>
+      <li>인터넷 속도를 향상 시키기 위해 proxy 설정</li>
+      <li>IP 추적을 방지하기 위해 Proxy 설정</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7c75f596-1729-41f8-97bd-2117436ab99e/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>클라이언트와 인터넷 사이에 위히</li>
+</ul>
+
+<h3 id="특징">특징</h3>
+
+<h4 id="캐싱">캐싱</h4>
+
+<ul>
+  <li>클라이언트가 요청한 내용을 캐싱</li>
+  <li>동일한 요청에 대한 응답 값을 캐싱함</li>
+  <li><strong>장점</strong>
+    <ul>
+      <li>전송 시간 절약</li>
+      <li>불필요한 외부 전송 x</li>
+      <li>외부 요청 감소로 인해 네트워크 병목 현상 방지</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="익명성">익명성</h3>
+
+<ul>
+  <li>클라이언트가 보낸 요청을 감춤</li>
+  <li>클라이언트 요청이 마치 프록시 서버가 요청을 보낸것 처럼 정보를 감출 수 있음</li>
+  <li>서버가 받은 요청을 누가 보냈는지 알지 못하게 함 (서버가 받은 요청 IP는 Proxy의 IP이기 때문)</li>
+</ul>
+
+<h2 id="reverse-proxy">Reverse Proxy</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/60a30c32-1cc9-4d4a-9cb7-8e9bc36e955a/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>인터넷과 서버들 사이에 위치</li>
+</ul>
+
+<h3 id="특징-1">특징</h3>
+
+<h4 id="캐싱-1">캐싱</h4>
+
+<ul>
+  <li>클라이언트가 요청한 내용을 캐싱</li>
+  <li>Forward Proxy와 동일</li>
+</ul>
+
+<h4 id="보안">보안</h4>
+
+<ul>
+  <li>서버 정보를 클라이언트로 부터 숨김</li>
+  <li>클라이언트는 요청을 할 때 서버들을 직접 알지 못함</li>
+  <li>클라이언트는 서버의 Reverse Proxy에 요청을 보냄</li>
+  <li>Reverse Proxy는 자신이 알고 있는 서버에 요청을 전달</li>
+  <li>클라이언트는 Reverse Proxy를 실제 서버라고 생각하여 요청</li>
+  <li>실제 서버의 IP가 노출되지 않음</li>
+</ul>
+
+<h4 id="load-balancing">Load Balancing</h4>
+
+<ul>
+  <li>하는 경우도, 하지 않는 경우도 있어 선택적임</li>
+</ul>
+
+<h2 id="load-balancing-1">Load Balancing</h2>
+
+<ul>
+  <li>부하분산</li>
+  <li>즉 해야할 작업을 나누어 서버의 부하를 분산시키는 서비스 (요청을 서버들에게 나누어줌)</li>
+  <li>서버에 나눠주는 다양한 알고리즘이 존재</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/48e3544d-da19-442d-8d3a-7a981a6d936e/image.png" style="zoom:67%;" /></p>
+
+<h3 id="나타난-배경">나타난 배경</h3>
+
+<ul>
+  <li>서버 한대로 운영하다가 사용자가 늘어난 경우 서버에 부하가 오는 문제 발생</li>
+  <li>서버의 scale up을 한다해도 이런 부담을 해결할 수 없음 (소켓이 한정적이기 때문)</li>
+  <li>서버를 여러대로 두자!</li>
+</ul>
+
+<h3 id="종류-1">종류</h3>
+
+<ul>
+  <li>L2 : MAC 주소를 바탕으로</li>
+  <li>L3 : IP 주소를 바탕으로</li>
+  <li>L4 : Transport Layer (IP &amp; Port) 를 바탕으로 (TCP/UDP)
+    <ul>
+      <li><code class="highlighter-rouge">https://newwisdom.github.io/</code> 로 접근 시 서버 A, 서버 B로 나눠줌</li>
+    </ul>
+  </li>
+  <li>L7 : Application Layer (User Request) 를 바탕으로 (HTTPS, HTTP, FTP)
+    <ul>
+      <li><code class="highlighter-rouge">https://newwisdom.github.io/</code> 에 접근시 <code class="highlighter-rouge">/category</code> 와 <code class="highlighter-rouge">/search</code> 를 담당 서버들로 나눠줌</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="참고자료">참고자료</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=YxwYhenZ3BE&amp;t=367s">[10분 테코톡] 🐿 제이미의 Forward Proxy, Reverse Proxy, Load Balancer</a></li>
+</ul>
+
 
 
         </section>
@@ -235,15 +334,15 @@
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=🌱 Spring에서 request 처리 과정&amp;url=http://localhost:4000request"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📌 Forward Proxy, Reverse Proxy, Load Balancer&amp;url=http://localhost:4000proxy"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000request"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000proxy"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000request"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000proxy"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -264,20 +363,20 @@
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/responsebody">
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/ocp-stretegy-pattern">
             <section class="post">
-                <h2>🌱 스프링의 DI 방법 (생성자 주입 VS 필드 주입)</h2>
-                <p>## 스프링의 DI 방법 ### DI * 변경에 의해 영향을 받는 관계 #### 강한 결합...</p>
+                <h2>📌 전략패턴</h2>
+                <p>### if - else의 문제점 **example** ```java public double calculate(boolean isFirstGuest, boolean isLastGuest, List items)...</p>
             </section>
         </a>
     
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/unit-test-vs">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/kotlin1">
             <section class="post">
-                <h2>📋 통합 테스트 VS 단위 테스트</h2>
-                <p>통합 테스트 실제 운영 환경에서 사용될 클래스들을 통합하여 테스트한다. 기능 검증이 아닌 스프링 프레임워크에서 전체적으로...</p>
+                <h2>📋 Kotlin을 정복해봅시다 1</h2>
+                <p>코틀린이란? 자바 플랫폼에서 돌아가는 새로운 프로그래밍 언어 간결하고 실용적 자바 코드와의 상호 운용성을 중시 코틀린...</p>
             </section>
         </a>
     

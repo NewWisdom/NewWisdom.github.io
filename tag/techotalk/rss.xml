@@ -540,6 +540,7 @@
 
 <p><code class="highlighter-rouge">@SpringbootApplication</code> 어노테이션 내부에 있던 <code class="highlighter-rouge">@Import(AutoConfigurationImportSelector.class)</code> 는 자동 설정을 지원해주며, import하고 있는 AutoConfigurationImportSelector.class가 <code class="highlighter-rouge">META-INF/spring.factories</code> 에 정의된 자동 설정할 클래스들을 불러온다.</p>
 
+
 	  ]]></description>
 	</item>
 
@@ -1100,6 +1101,157 @@ View에서 표현하는 속성값들이 요청에 따라 계속 달라질 수 �
 <ul>
   <li><a href="https://www.youtube.com/watch?v=vNsZXC3VgUA&amp;t=24s">[10분 테코톡] 📣 완태의 전략패턴</a></li>
   <li>[<a href="https://www.youtube.com/watch?v=90ZDvHl8ROE">10분 테코톡] 👾베디의 OCP와 전략패턴</a></li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>📌 Forward Proxy, Reverse Proxy, Load Balancer</title>
+	  <link>//proxy</link>
+	  <author></author>
+	  <pubDate>2021-05-21T10:01:00+09:00</pubDate>
+	  <guid>//proxy</guid>
+	  <description><![CDATA[
+	     <h2 id="network-proxy">(Network) Proxy</h2>
+
+<ul>
+  <li><strong>정의</strong> : 남을 대신하여 일을 처리함 (대리)</li>
+</ul>
+
+<h3 id="proxy-server">Proxy Server</h3>
+
+<ul>
+  <li>대신 처리하는 서버</li>
+  <li>클라이언트와 서버간의 중계 서버로, 통신을 대리 수행하는 서버</li>
+  <li>캐시/보안/트래픽 분산 등 여러 장점을 가질 수 있음</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d75c5db0-c210-4c0d-88ac-765fd35029fa/image.png" style="zoom: 67%;" /></p>
+
+<h4 id="종류">종류</h4>
+
+<ul>
+  <li>Forward Proxy</li>
+  <li>Reverse Proxy</li>
+</ul>
+
+<h2 id="forward-proxy">Forward Proxy</h2>
+
+<ul>
+  <li>일반적으로 말하는 Proxy</li>
+  <li>예제
+    <ul>
+      <li>인터넷 속도를 향상 시키기 위해 proxy 설정</li>
+      <li>IP 추적을 방지하기 위해 Proxy 설정</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7c75f596-1729-41f8-97bd-2117436ab99e/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>클라이언트와 인터넷 사이에 위히</li>
+</ul>
+
+<h3 id="특징">특징</h3>
+
+<h4 id="캐싱">캐싱</h4>
+
+<ul>
+  <li>클라이언트가 요청한 내용을 캐싱</li>
+  <li>동일한 요청에 대한 응답 값을 캐싱함</li>
+  <li><strong>장점</strong>
+    <ul>
+      <li>전송 시간 절약</li>
+      <li>불필요한 외부 전송 x</li>
+      <li>외부 요청 감소로 인해 네트워크 병목 현상 방지</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="익명성">익명성</h3>
+
+<ul>
+  <li>클라이언트가 보낸 요청을 감춤</li>
+  <li>클라이언트 요청이 마치 프록시 서버가 요청을 보낸것 처럼 정보를 감출 수 있음</li>
+  <li>서버가 받은 요청을 누가 보냈는지 알지 못하게 함 (서버가 받은 요청 IP는 Proxy의 IP이기 때문)</li>
+</ul>
+
+<h2 id="reverse-proxy">Reverse Proxy</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/60a30c32-1cc9-4d4a-9cb7-8e9bc36e955a/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>인터넷과 서버들 사이에 위치</li>
+</ul>
+
+<h3 id="특징-1">특징</h3>
+
+<h4 id="캐싱-1">캐싱</h4>
+
+<ul>
+  <li>클라이언트가 요청한 내용을 캐싱</li>
+  <li>Forward Proxy와 동일</li>
+</ul>
+
+<h4 id="보안">보안</h4>
+
+<ul>
+  <li>서버 정보를 클라이언트로 부터 숨김</li>
+  <li>클라이언트는 요청을 할 때 서버들을 직접 알지 못함</li>
+  <li>클라이언트는 서버의 Reverse Proxy에 요청을 보냄</li>
+  <li>Reverse Proxy는 자신이 알고 있는 서버에 요청을 전달</li>
+  <li>클라이언트는 Reverse Proxy를 실제 서버라고 생각하여 요청</li>
+  <li>실제 서버의 IP가 노출되지 않음</li>
+</ul>
+
+<h4 id="load-balancing">Load Balancing</h4>
+
+<ul>
+  <li>하는 경우도, 하지 않는 경우도 있어 선택적임</li>
+</ul>
+
+<h2 id="load-balancing-1">Load Balancing</h2>
+
+<ul>
+  <li>부하분산</li>
+  <li>즉 해야할 작업을 나누어 서버의 부하를 분산시키는 서비스 (요청을 서버들에게 나누어줌)</li>
+  <li>서버에 나눠주는 다양한 알고리즘이 존재</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/48e3544d-da19-442d-8d3a-7a981a6d936e/image.png" style="zoom:67%;" /></p>
+
+<h3 id="나타난-배경">나타난 배경</h3>
+
+<ul>
+  <li>서버 한대로 운영하다가 사용자가 늘어난 경우 서버에 부하가 오는 문제 발생</li>
+  <li>서버의 scale up을 한다해도 이런 부담을 해결할 수 없음 (소켓이 한정적이기 때문)</li>
+  <li>서버를 여러대로 두자!</li>
+</ul>
+
+<h3 id="종류-1">종류</h3>
+
+<ul>
+  <li>L2 : MAC 주소를 바탕으로</li>
+  <li>L3 : IP 주소를 바탕으로</li>
+  <li>L4 : Transport Layer (IP &amp; Port) 를 바탕으로 (TCP/UDP)
+    <ul>
+      <li><code class="highlighter-rouge">https://newwisdom.github.io/</code> 로 접근 시 서버 A, 서버 B로 나눠줌</li>
+    </ul>
+  </li>
+  <li>L7 : Application Layer (User Request) 를 바탕으로 (HTTPS, HTTP, FTP)
+    <ul>
+      <li><code class="highlighter-rouge">https://newwisdom.github.io/</code> 에 접근시 <code class="highlighter-rouge">/category</code> 와 <code class="highlighter-rouge">/search</code> 를 담당 서버들로 나눠줌</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="참고자료">참고자료</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=YxwYhenZ3BE&amp;t=367s">[10분 테코톡] 🐿 제이미의 Forward Proxy, Reverse Proxy, Load Balancer</a></li>
 </ul>
 
 
