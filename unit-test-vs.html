@@ -223,7 +223,11 @@ MockMvc는 브라우저에서 요청과 응답을 의미하는 객체로서 Cont
 <h4 id="transactional">@Transactional</h4>
 
 <p>테스트 완료 후 자동으로 Rollback 처리가 된다. <br />
-하지만 <code class="highlighter-rouge">WebEnvironment.RANDOM_PORT, DEFINED_PORT</code>를 사용하면 실제 테스트 서버는 별도의 스레드에서 테스트를 수행하기 떄문에 트랜잭션이 롤백되지 않는다. (왜?)</p>
+하지만 <code class="highlighter-rouge">WebEnvironment.RANDOM_PORT, DEFINED_PORT</code>를 사용하면 실제 테스트 서버는 별도의 스레드에서 테스트를 수행하기 때문에 트랜잭션이 롤백되지 않는다. (왜?)</p>
+
+<ul>
+  <li><code class="highlighter-rouge">WebEnvironment.RANDOM_PORT, DEFINED_PORT</code> 실제 웹 실행 환경을 띄운다.</li>
+</ul>
 
 <hr />
 
