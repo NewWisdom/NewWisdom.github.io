@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>📚 atdd-subway-map 미션 정리</title>
+    <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<style type='text/css'>
+    pre, code {
+        white-space: pre;
+        overflow-x: scroll;
+    }
+    .hljs
+{
+    white-space: pre;
+    overflow-x: auto;
+}
+</style>
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//atdd-subway-map" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="📚 atdd-subway-map 미션 정리" />
+    <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta property="og:url" content="http://localhost:4000//atdd-subway-map" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="📚 atdd-subway-map 미션 정리" />
+    <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta name="twitter:url" content="http://localhost:4000//atdd-subway-map" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "📚 atdd-subway-map 미션 정리",
+    "url": "http://localhost:4000//atdd-subway-map",
+    "image": "/assets/images/woowa.jpg",
+    "description": "블로그 이사중... 아직 정리가 안되었음..."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-techotalk " role="presentation"><a href="/tag/techotalk">Techotalk</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">📚 atdd-subway-map 미션 정리</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-06-11">11 Jun 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="중복되는-테스트-메서드">중복되는 테스트 메서드</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/73cdc1c4-063d-4a4e-af29-6520fecb721e/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>중복되는 테스트 메서드는 추출하자</li>
+  <li>테스트코드도 유지보수의 대상이며 하나의 문서이기 때문에 가독성을 고려하자</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">ExtractableResponse</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span> <span class="nf">addSection</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">RestAssured</span><span class="o">.</span><span class="na">given</span><span class="o">().</span><span class="na">log</span><span class="o">().</span><span class="na">all</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">content</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">when</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="s">"/lines/{id}/sections"</span><span class="o">,</span> <span class="mi">1L</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">then</span><span class="o">().</span><span class="na">log</span><span class="o">().</span><span class="na">all</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">extract</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="예외-처리는-service에서">예외 처리는 Service에서</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/004aa497-1875-4a85-ba7d-2ab1c0f4f40e/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>DAO에서 예외를 체크해주고 있었음</li>
+  <li>DAO는 말그대로 DB에 어세스하는 역할만 할 뿐</li>
+  <li>이 결과에 대한 예외는 서비스가 알아서 하도록 하자</li>
+</ul>
+
+<h2 id="valid와-validated로-dto-검증">@Valid와 @Validated로 DTO 검증</h2>
+
+<ul>
+  <li><code class="highlighter-rouge">@Valid</code> 를 통해 DTO에서 요청에 대한 검증을 하게 해줌</li>
+  <li>Validation을 group화 할 수 있는 점을 이용해서 각기 요청마다 group을 지어 한 DTO를 사용해도 각각 요청에 맞는 검증을 진행</li>
+</ul>
+
+<h4 id="정리">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/30">@Valid / @Validation으로 요청값 검증</a></li>
+</ul>
+
+<h2 id="valid로-잡은-예외-메시지-처리">Valid로 잡은 예외 메시지 처리</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/2ca1114f-98c3-4ce6-b968-0212fcbbc658/image.png" style="zoom: 50%;" /></p>
+
+<ul>
+  <li>Valid 어노테이션으로 잡은 MethodArgumentNotValidException의 메시지를 제대로 출력하고 있지 않았음</li>
+  <li>게이츠가 제안해준 방법을 적용하니 BindingResult에 있는 예외 메시지들을 추출하여 던져줄 수 있었음</li>
+</ul>
+
+<h2 id="service-레이어에서-도메인이-아닌-dto를-반환하자">Service 레이어에서 도메인이 아닌 DTO를 반환하자</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a2e62828-da05-401f-bad8-e1e86f9b7c9a/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>Controller에서 도메인을 가져다 써서 화면에 필요한 데이터를 표현하기 위해 도메인 자체나 도메인의 getter를 노출시키고 있었음</li>
+  <li>도메인의 정보를 외부(view)에 노출하는 경우, interface인 DTO를 통해 서비스 레이어에서 반환하도록 리팩토링</li>
+  <li><a href="https://github.com/HomoEfficio/dev-tips/blob/master/DTO-DomainObject-Converter.md">참고</a></li>
+</ul>
+
+<h4 id="정리-1">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/26">Service Layer에서 도메인 객체가 아닌 DTO를 반환해야하는 이유? (feat.Open Session In View) </a></li>
+</ul>
+
+<h2 id="restassured에-대해">RestAssured에 대해</h2>
+
+<ul>
+  <li>전 단계까지는 MockMVC 등으로 컨트롤러단을 단위테스트로 진행했음</li>
+  <li>E2E 테스트를 한다는 것은 말 그대로 끝부터 끝까지,요청부터 내가 원하는 응답을 테스트 하는 것인데 <br />
+이렇게되면 단위 테스트를 하는 이유가 있을까라는 고민을 했음</li>
+  <li>고민한 결과 “단위 테스트는 구현 단계에서 내가 구현한 레이어(단위)가 정상 동작하는지를 테스트하기 위해,
+이후 모든 단위들이 조합되었을 때 통합테스트를 통해 애플리케이셔이 원하는 기능을 잘 수행하는지 테스트한다”
+이렇게 결론을 내림</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/191d92fe-c4e1-4595-b67f-ee1d37e1d9a6/image.png" style="zoom:33%;" /></p>
+
+<h2 id="구간-추가-로직">구간 추가 로직</h2>
+
+<ul>
+  <li>구간을 추가할 때 상행역, 하행역이 존재하는지 또 이를 찾고 수정해주기 위한 많은 로직을 작성해야했음</li>
+  <li>그런데 사실 비슷한 로직인데 상행인지 하행인지 대상만 달랐음</li>
+  <li>아래와 같이 일단 구현을 목적으로 했을 때는 엄청난 분기가 생겨버림</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addSection</span><span class="o">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">lineId</span><span class="o">,</span> <span class="kd">final</span> <span class="n">SectionRequest</span> <span class="n">sectionRequest</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Line</span> <span class="n">line</span> <span class="o">=</span> <span class="n">lineRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">lineId</span><span class="o">);</span>
+  <span class="n">Section</span> <span class="n">toAddSection</span> <span class="o">=</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">toSection</span><span class="o">(</span><span class="n">lineId</span><span class="o">);</span>
+  <span class="n">Station</span> <span class="n">targetStation</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">registeredStation</span><span class="o">(</span><span class="n">toAddSection</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">toAddSection</span><span class="o">.</span><span class="na">hasUpStation</span><span class="o">(</span><span class="n">targetStation</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">Section</span> <span class="n">targetSection</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">findSectionWithUpStation</span><span class="o">(</span><span class="n">targetStation</span><span class="o">);</span>
+    <span class="n">checkAddableByDistance</span><span class="o">(</span><span class="n">toAddSection</span><span class="o">,</span> <span class="n">targetSection</span><span class="o">);</span>
+    <span class="n">lineRepository</span><span class="o">.</span><span class="na">updateSection</span><span class="o">(</span><span class="n">lineId</span><span class="o">,</span>
+                                 <span class="k">new</span> <span class="nf">Section</span><span class="o">(</span><span class="n">targetSection</span><span class="o">.</span><span class="na">id</span><span class="o">(),</span> <span class="n">lineId</span><span class="o">,</span> <span class="n">toAddSection</span><span class="o">.</span><span class="na">downStation</span><span class="o">(),</span> <span class="n">targetSection</span><span class="o">.</span><span class="na">downStation</span><span class="o">(),</span> <span class="n">targetSection</span><span class="o">.</span><span class="na">subtractDistance</span><span class="o">(</span><span class="n">toAddSection</span><span class="o">)));</span>
+  <span class="o">}</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">toAddSection</span><span class="o">.</span><span class="na">hasDownStation</span><span class="o">(</span><span class="n">targetStation</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">Section</span> <span class="n">targetSection</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">findSectionWithDownStation</span><span class="o">(</span><span class="n">targetStation</span><span class="o">);</span>
+    <span class="n">checkAddableByDistance</span><span class="o">(</span><span class="n">toAddSection</span><span class="o">,</span> <span class="n">targetSection</span><span class="o">);</span>
+    <span class="n">lineRepository</span><span class="o">.</span><span class="na">updateSection</span><span class="o">(</span><span class="n">lineId</span><span class="o">,</span>
+                                 <span class="k">new</span> <span class="nf">Section</span><span class="o">(</span><span class="n">targetSection</span><span class="o">.</span><span class="na">id</span><span class="o">(),</span> <span class="n">lineId</span><span class="o">,</span> <span class="n">targetSection</span><span class="o">.</span><span class="na">upStation</span><span class="o">(),</span> <span class="n">toAddSection</span><span class="o">.</span><span class="na">upStation</span><span class="o">(),</span> <span class="n">targetSection</span><span class="o">.</span><span class="na">subtractDistance</span><span class="o">(</span><span class="n">toAddSection</span><span class="o">)));</span>
+  <span class="o">}</span>
+  <span class="n">lineRepository</span><span class="o">.</span><span class="na">addSection</span><span class="o">(</span><span class="n">lineId</span><span class="o">,</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">getUpStationId</span><span class="o">(),</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">getDownStationId</span><span class="o">(),</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">getDistance</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>이는 상행구간 찾기, 하행구간 찾기를 전략패턴을 이용해 리팩토 해버렸음</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LineService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">LineRepository</span> <span class="n">lineRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">StationDao</span> <span class="n">stationDao</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">FindSectionStrategy</span><span class="o">&gt;</span> <span class="n">findSectionStrategies</span><span class="o">;</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<ul>
+  <li>일단 LineService가 구간을 찾는 전략을 가지고 있음</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addSection</span><span class="o">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">lineId</span><span class="o">,</span> <span class="kd">final</span> <span class="n">SectionRequest</span> <span class="n">sectionRequest</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Line</span> <span class="n">line</span> <span class="o">=</span> <span class="n">lineRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">lineId</span><span class="o">);</span>
+  <span class="n">Section</span> <span class="n">toAddSection</span> <span class="o">=</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">toSection</span><span class="o">(</span><span class="n">lineId</span><span class="o">);</span>
+  <span class="n">Station</span> <span class="n">targetStation</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">registeredStation</span><span class="o">(</span><span class="n">toAddSection</span><span class="o">);</span>
+  <span class="n">Section</span> <span class="n">targetSection</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">findSectionWithStation</span><span class="o">(</span><span class="n">targetStation</span><span class="o">,</span> <span class="n">findSectionStrategies</span><span class="o">);</span>
+  <span class="n">lineRepository</span><span class="o">.</span><span class="na">updateSection</span><span class="o">(</span><span class="n">lineId</span><span class="o">,</span> <span class="n">targetSection</span><span class="o">.</span><span class="na">updateToAdd</span><span class="o">(</span><span class="n">toAddSection</span><span class="o">));</span>
+  <span class="n">lineRepository</span><span class="o">.</span><span class="na">addSection</span><span class="o">(</span><span class="n">lineId</span><span class="o">,</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">getUpStationId</span><span class="o">(),</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">getDownStationId</span><span class="o">(),</span> <span class="n">sectionRequest</span><span class="o">.</span><span class="na">getDistance</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>대상 구간을 찾을 때 전략들을 주입하고</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Section</span> <span class="nf">findSectionWithStation</span><span class="o">(</span><span class="n">Station</span> <span class="n">targetStation</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">FindSectionStrategy</span><span class="o">&gt;</span> <span class="n">findSectionStrategies</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">findSectionStrategies</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">findSectionStrategy</span> <span class="o">-&gt;</span> <span class="n">findSectionStrategy</span><span class="o">.</span><span class="na">findSection</span><span class="o">(</span><span class="n">sections</span><span class="o">,</span> <span class="n">targetStation</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="nl">Optional:</span><span class="o">:</span><span class="n">isPresent</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">Optional:</span><span class="o">:</span><span class="n">get</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">findAny</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="n">EMPTY</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Sections에서 다음과 같이 해당 구간을 찾음</li>
+</ul>
+
+<h2 id="pr-링크">PR 링크</h2>
+
+<ul>
+  <li><a href="https://github.com/woowacourse/atdd-subway-map/pull/86">STEP1</a></li>
+  <li><a href="https://github.com/woowacourse/atdd-subway-map/pull/162">STEP2</a></li>
+</ul>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📚 atdd-subway-map 미션 정리&amp;url=http://localhost:4000atdd-subway-map"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000atdd-subway-map"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000atdd-subway-map"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/atdd-subway-path-note">
+            <section class="post">
+                <h2>📚 atdd-subway-path 미션 정리</h2>
+                <p>## STEP1, 2 ### JwtTokenProvider * jwt 토큰 생성, 토큰 검증, 토큰에서 인증 정보 추출하는...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/profile">
+            <section class="post">
+                <h2>🌱 스프링 부트 Profile로 다른 환경 구성</h2>
+                <p>Profile? 애플리케이션 일부 configuration을 분리하고 싶을 때 사용 애플리케이션 일부 configuration을 특정 환경에서만 가능하게 하고...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

@@ -12,6 +12,501 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📋 Jpa - 양방향 매핑</title>
+	  <link>//jpa</link>
+	  <author></author>
+	  <pubDate>2021-05-29T19:18:00+09:00</pubDate>
+	  <guid>//jpa</guid>
+	  <description><![CDATA[
+	     <h2 id="양방향-매핑">양방향 매핑</h2>
+
+<ul>
+  <li>반대방향으로도 그래프 조회가 가능해야함</li>
+</ul>
+
+<h3 id="연관-관계의-주인과">연관 관계의 주인과</h3>
+
+<ul>
+  <li>왜 <strong>mappedBy</strong>를 해주는 건지?</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/0bb5bd16-ea28-4860-8051-7831cdb3994e/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>객체는 서로를 포함하고 있어야 함 (2개가 필요)</li>
+</ul>
+
+<h3 id="객체와-테이블이-관계를-맺는-차이">객체와 테이블이 관계를 맺는 차이</h3>
+
+<h4 id="객체-연관관계">객체 연관관계</h4>
+
+<ul>
+  <li>회원 -&gt; 팀 연관 관계 1개 (단방향)</li>
+  <li>팀 -&gt; 회원 연관관계 1개 (단방향)</li>
+</ul>
+
+<h4 id="테이블-연관관계">테이블 연관관계</h4>
+
+<ul>
+  <li>회원 &lt;-&gt; 팀의 연관관계 1개 (양방향)</li>
+</ul>
+
+<h4 id="이-차이를-어떻게-극복할거냐">이 차이를 어떻게 극복할거냐??</h4>
+
+<h4 id="객체의-양방향-관계">객체의 양방향 관계</h4>
+
+<p>객체는 사실 양방향 관계가 아니라 서로 다른 단방향 관계 2개이다.<br />
+객체를 양방향으로 참조하려면 단방향 연관관계를 2개 만들어야 함</p>
+
+<h4 id="테이블의-양방향-관계">테이블의 양방향 관계</h4>
+
+<p>테이블은 외래키 하나로 두테이블의 연관 관계를 관리</p>
+
+<h4 id="둘-중-하나로-외래키를-관리해야-한다">둘 중 하나로 외래키를 관리해야 한다</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f09341ef-b543-4385-b523-95508f1d4021/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>객체는 두 곳에서 연관관계에 있는 객체를 다루고 있음</li>
+  <li>그러면 뭘 믿어야 하나?</li>
+  <li>두개는 어차피 다르다. 둘 중 하나만 주인으로 만들자</li>
+</ul>
+
+<h3 id="연관-관계의-주인">연관 관계의 주인</h3>
+
+<ul>
+  <li>두곳에 있는 객체중 하나만 주인으로 두고 걔만 영향을 받음</li>
+</ul>
+
+<h5 id="양방향-매핑-규칙">양방향 매핑 규칙</h5>
+
+<ul>
+  <li>객체의 두 관계 중 하나를 연관관계의 주인으로 지정</li>
+  <li>연관관계의 주인만이 외래키를 관리(등록, 수정)</li>
+  <li>주인이 아닌 쪽은 읽기만 가능</li>
+  <li>주인은 mappedBy 속성 사용 x</li>
+  <li>주인이 아니면 mappedBy 속성으로 주인 지정</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/905fc876-da30-4127-8deb-166c9a7b1b85/image.png" style="zoom:50%;" /></p>
+
+<h4 id="그런데-누구를-주인으로-해야하나">그런데 누구를 주인으로 해야하나?</h4>
+
+<ul>
+  <li>외래키가 있는 곳을 주인으로 정해라</li>
+  <li>여기서는 Member.team이 연관관계의 주인</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/0f6057f2-1231-4290-8708-1764e7edd84b/image.png" style="zoom:50%;" /></p>
+
+<h5 id="참고---설계">참고 - 설계</h5>
+
+<ul>
+  <li>일단 단방향으로 다 설계를 하고 양방향이 필요할 때 양방향을 추가하자</li>
+  <li>양방향은 조회를 편하게 하기 위해 사용하는 느낌</li>
+  <li>인지 부조화가 생기지 않음</li>
+</ul>
+
+<h4 id="양방향-매핑시-가장-많이-하는-실수">양방향 매핑시 가장 많이 하는 실수</h4>
+
+<ul>
+  <li>연관관계의 주인에 값을 입력하지 않음</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/89b56488-72dd-40db-9a1d-d8409c74feed/image.png" style="zoom:50%;" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+
+<span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"amazzi"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>주인에 값을 입력하기</li>
+</ul>
+
+<h4 id="양방향-매핑시-연관관계의-주인에-값을-입력해야함">양방향 매핑시 연관관계의 주인에 값을 입력해야함</h4>
+
+<ul>
+  <li>순수한 객체 관계를 고려하면 항상 양쪽 다 값을 입력해야 함</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/40569da2-4675-477b-8891-a3228c9bc8b4/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>실제 코드에는 양쪽 다 할 것을 권장</li>
+</ul>
+
+<h3 id="양방향-매핑의-장점">양방향 매핑의 장점</h3>
+
+<ul>
+  <li>단방향 매핑만으로도 이미 연관관계 매핑은 완료</li>
+  <li>양방향 매핑은 반대 방향으로 조회(객체 그래프 탐색) 기능이 추가된 것 뿐</li>
+  <li>JPQL에서 역방향으로 탐색할 일이 많음</li>
+  <li>단방향 매핑을 잘하고 양방향은 필요할 때 추가해도 됨(테이블에 영향을 주지 않음)</li>
+</ul>
+
+<h3 id="연관-관계-매핑-어노테이션">연관 관계 매핑 어노테이션</h3>
+
+<ul>
+  <li>다대일 <code class="highlighter-rouge">@ManyToOne</code></li>
+  <li>일대다 <code class="highlighter-rouge">@OneToMany</code></li>
+  <li>일대일 <code class="highlighter-rouge">@OneToOne</code></li>
+  <li>다대다 <code class="highlighter-rouge">@ManyToMany</code></li>
+  <li><code class="highlighter-rouge">@JoinColum</code>, <code class="highlighter-rouge">@JoinTable</code></li>
+</ul>
+
+<h3 id="상속-관계-매핑-어노테이션">상속 관계 매핑 어노테이션</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">@Ingeritance</code></li>
+  <li><code class="highlighter-rouge">@DiscriminatorColumn</code></li>
+  <li><code class="highlighter-rouge">@DiscriminatorValue</code></li>
+  <li><code class="highlighter-rouge">@MappedSuperclass</code> : 매핑 속성만 상속</li>
+</ul>
+
+<h4 id="복합키-어노테이션">복합키 어노테이션</h4>
+
+<ul>
+  <li><code class="highlighter-rouge">@IdClass</code></li>
+  <li><code class="highlighter-rouge">@EmbeddeId</code></li>
+  <li><code class="highlighter-rouge">@Embeddable</code></li>
+  <li><code class="highlighter-rouge">@MapsId</code></li>
+</ul>
+
+<hr />
+
+<h2 id="jpa-내부구조">JPA 내부구조</h2>
+
+<h3 id="영속성-컨텍스트">영속성 컨텍스트</h3>
+
+<ul>
+  <li>엔티티를 영구히 저장하는 환경</li>
+  <li>영속성 = 영구히 저장하는 속성</li>
+  <li><code class="highlighter-rouge">EntityManager.persist(entity)</code></li>
+  <li>영속성 컨텍스트는 논리적인 개념 (눈에 보이지 않음)</li>
+  <li>엔티티 매니저를 통해 영속성 컨텍스트에 접근</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f984194b-1654-4746-8269-a5969585fb7c/image.png" style="zoom:50%;" /></p>
+
+<h4 id="스프링-프레임-워크에서의-영속성-컨텍스트">스프링 프레임 워크에서의 영속성 컨텍스트</h4>
+
+<ul>
+  <li>엔티티 매니저와 영속성 컨텍스트가 N:1</li>
+  <li>같은 트랜잭션이면 같은 영속성 컨텍스트에 접근</li>
+</ul>
+
+<h3 id="엔티티-매니저-팩토리와-엔티티-매니저">엔티티 매니저 팩토리와 엔티티 매니저</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f229b671-e4ee-4019-980d-be717d3190d3/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>
+    <p>요청이 들어와 이걸 처리하는 스레드가 하나 생성될 때마다 새로운 엔티티 매니저를 만든다.</p>
+  </li>
+  <li>
+    <p>엔티티 매니저에서 내부적으로 데이터베이스 커넥션 풀에서 JPA를 사용</p>
+  </li>
+</ul>
+
+<h3 id="엔티티의-생명-주기">엔티티의 생명 주기</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7ba71a87-a296-4276-8ef5-c8a66a4e1fd2/image.png" style="zoom:50%;" /></p>
+
+<h4 id="비영속-new">비영속 (New)</h4>
+
+<ul>
+  <li>객체를 생성한 상태</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="영속">영속</h4>
+
+<ul>
+  <li>비영속 상태인 객체를 영속성 컨텍스트에 저장한 상태</li>
+  <li>영속성 컨텍스트 안에서 관리되기 시작</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="준영속-detached">준영속 (Detached)</h4>
+
+<ul>
+  <li>엔티티를 영속성 컨텍스트에서 분리</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span><span class="o">.</span><span class="na">detach</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>영속 -&gt; 준영속</li>
+  <li>영속 상태의 엔티티가 영속성 컨텍스트에서 분리</li>
+  <li>영속성 컨텍스트가 제공하는 기능을 사용 못함</li>
+</ul>
+
+<h5 id="준영속-상태로-만드는-방법">준영속 상태로 만드는 방법</h5>
+
+<ul>
+  <li><code class="highlighter-rouge">em.detched(entity)</code> : 특정 엔티티만 준영속 상태로 전환</li>
+  <li><code class="highlighter-rouge">em.clear()</code> : 영속성 컨텍스트를 완전히 초기화</li>
+  <li><code class="highlighter-rouge">em.close()</code> : 영속성 컨텍스트를 종료</li>
+</ul>
+
+<h4 id="삭제">삭제</h4>
+
+<ul>
+  <li>객체를 삭제한 상태</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="영속성-컨텍스트의-이점">영속성 컨텍스트의 이점</h3>
+
+<h4 id="1차-캐시">1차 캐시</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1a245e9b-61e8-400d-b492-e194c230a9d9/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>엔티티 매니저 안에 키 밸류로 캐시가 됨</li>
+</ul>
+
+<h5 id="1차-캐시에서-조회">1차 캐시에서 조회</h5>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"amazzi"</span><span class="o">);</span>
+<span class="c1">// 1차 캐시에 저장됨</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+<span class="c1">// 1차 캐시에서 조회</span>
+<span class="n">Memeber</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>DB를 가지 않음</li>
+  <li>1차 캐시는 Global 캐시가 아님. 트랜잭션 안에서만 동작하는 캐시</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/dbc6eae5-2881-4d47-9a31-5c3a108e15a3/image.png" style="zoom:50%;" /></p>
+
+<h5 id="데이터-베이스에서-조회">데이터 베이스에서 조회</h5>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Member</span> <span class="n">findMember2</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">classm</span> <span class="s">"member2"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/5b985b9a-1b05-4952-ae28-7e0a0b86482d/image.png" style="zoom:50%;" /></p>
+
+<h4 id="동일성-보장">동일성 보장</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Member</span> <span class="n">a</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+<span class="n">Member</span> <span class="n">b</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+
+<span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="c1">// 동일성 비교 true</span>
+</code></pre></div></div>
+
+<ul>
+  <li>1차 캐시로 반복 가능한 읽기 등급(REPEATABLE READ) 등급의 트랜잭션 격리 수준을 DB 가 아닌 애플리케이션 차원에서 제공</li>
+</ul>
+
+<h4 id="트랜잭션을-지원하는-쓰기-지연">트랜잭션을 지원하는 쓰기 지연</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span> <span class="o">=</span> <span class="n">entityManagerFactory</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="n">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+<span class="c1">// 엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 함</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+  	<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member2</span><span class="o">);</span>
+    <span class="c1">// 여기까지 INSERT 쿼리를 DB에 날리지 않음</span>
+
+    <span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// 트랜잭션 커밋</span>
+    <span class="n">em</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="n">em</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">transaction</span><span class="o">.</span><span class="na">rollback</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1602a866-12c2-43db-b955-ddeb562d306b/image.png" style="zoom:50%;" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7008bed1-7d1b-49fb-9ba6-941a655e617c/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>논리적인 개념. 이 때 Insert 쿼리를 쌓아 놓는다.</li>
+</ul>
+
+<h5 id="transcationcommit">transcation.commit();</h5>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/5a364e74-035d-412b-b08c-d88573e6a440/image.png" style="zoom:50%;" /></p>
+
+<h4 id="변경-감지dirty-checking">변경 감지(Dirty Checking)</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span> <span class="o">=</span> <span class="n">entityManagerFactory</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="n">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+<span class="c1">// 엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 함</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+  	<span class="c1">// 영속 엔티티 조회</span>
+    <span class="n">Member</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memberA"</span><span class="o">);</span>
+  
+    <span class="c1">// 영속 엔티티 데이터 수정</span>
+  	<span class="n">memberA</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"hi"</span><span class="o">);</span>
+    
+    <span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// 트랜잭션 커밋</span>
+    <span class="n">em</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span> <span class="c1">// 쿼리를 다 날림</span>
+    <span class="n">em</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span> <span class="c1">// 영속성 컨텍스트 안에 있는 캐시를 다 날림</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">transaction</span><span class="o">.</span><span class="na">rollback</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">em.update(member)</code> 이런 코드가 없어도 됨</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/0c267388-1e7a-477f-a441-a90e496026e8/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>1차 캐시가 생성되는 순간 스냅샷이 생긴다.</li>
+  <li>JPA는 트랜잭션이 커밋되는 순간 스냅샷과 1차 캐시의 엔티티를 비교해서 바뀐 놈을 감지한다.</li>
+  <li>그래서 update 쿼리를 날림</li>
+</ul>
+
+<h5 id="왜-이렇게-했을까">왜 이렇게 했을까?</h5>
+
+<ul>
+  <li>자바 컬렉션에서 데이터를 가져오고 이를 변경하면 리스트에 있는 값이 바뀌죠?</li>
+  <li>이거랑 같은 맥락</li>
+  <li>그래서 바꾸고 커밋만 치면 된다.</li>
+</ul>
+
+<h5 id="엔티티-삭제">엔티티 삭제</h5>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 삭제 대산 엔티티 조회</span>
+<span class="n">Member</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memberA"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">memberA</span><span class="o">);</span> <span class="c1">// 엔티티 삭제</span>
+</code></pre></div></div>
+
+<ul>
+  <li>트랜잭션 커밋 시점에 쿼리가 날라감</li>
+  <li>버퍼를 최대한 늦춘다. (트랜잭션 커밋할 때까지)</li>
+</ul>
+
+<h4 id="플러시">플러시</h4>
+
+<ul>
+  <li>영속성 컨텍스트의 변경 내용을 데이터베이스에 반영</li>
+</ul>
+
+<h5 id="플러시가-발생될-때">플러시가 발생될 때</h5>
+
+<ul>
+  <li>변경 감지</li>
+  <li>수정된 엔티티 쓰기 지연 SQL 저장소에 등록</li>
+  <li>쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 전송 (등록, 수정, 삭제 쿼리)</li>
+</ul>
+
+<h5 id="플러시하는-방법">플러시하는 방법</h5>
+
+<ul>
+  <li>em.flush() : 직접 호출</li>
+  <li>트랜잭션 커밋 : 플러시 자동 호출</li>
+  <li>JPQL 쿼리 실행 : 플러시 자동 호출</li>
+</ul>
+
+<h5 id="jpql-쿼리-실행시-플러시가-자동으로-호출되는-이유">JPQL 쿼리 실행시 플러시가 자동으로 호출되는 이유</h5>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">memberA</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">memberB</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">memberC</span><span class="o">);</span>
+
+<span class="c1">// 중간에 JPQL 실행 // 플러시가 먼저 수행된다.</span>
+<span class="n">query</span> <span class="o">-</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select m from Member m"</span><span class="o">,</span> <span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>쿼리 실행 때 플러시가 안되면 DB에서 조회해올 수 없기 때문</li>
+  <li>만약 마이바티스나 JDBC를 사용하면 플러시가 안됨</li>
+</ul>
+
+<h5 id="플러시는">플러시는!</h5>
+
+<ul>
+  <li>영속성 컨텍스트를 비우지 않음</li>
+  <li>영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화</li>
+  <li>트랜잭션이라는 작업 단위가 중요 -&gt; 커밋 직전에만 동기화 하면 됨</li>
+</ul>
+
+<h4 id="지연-로딩lazy-loading">지연 로딩(Lazy Loading)</h4>
+
+<h5 id="지연로딩과-영속성-컨텍스트">지연로딩과 영속성 컨텍스트</h5>
+
+<ul>
+  <li>Member를 조회할 때 Team도 함께 조회해야 할까?</li>
+  <li>단순히 member 정보만 사용하는 비즈니스 로직이라면… 미리 조회할 필요가 없겠죠
+    <ul>
+      <li><code class="highlighter-rouge">member.getName()</code></li>
+      <li>이러면 FetchType.Lazy로 지연로딩을 걸자</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f93c7561-bafc-426e-a29c-d8ffd4a9c38f/image.png" style="zoom: 33%;" /></p>
+
+<ul>
+  <li>Member를 조회할 때 Team은 가짜 객체(프록시 객체)가 들어감</li>
+</ul>
+
+<h5 id="즉시로딩">즉시로딩</h5>
+
+<ul>
+  <li>FetchType.EAGER</li>
+  <li>Member를 조회할 때 Team도 함께 조회</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/c9642d5c-2ea2-4763-908b-f0b3da9a3b75/image.png" style="zoom:33%;" /></p>
+
+<h5 id="프록시와-즉시로딩-주의">프록시와 즉시로딩 주의</h5>
+
+<ul>
+  <li>가급적 지연 로딩을 사용</li>
+  <li>즉시 로딩을 적용하면 예상하지 못한 SQL이 발생</li>
+  <li>즉시 로딩은 JPQL에서 N+1 문제를 일으킴</li>
+  <li><code class="highlighter-rouge">@ManyToOne</code>, <code class="highlighter-rouge">@OneToOne</code> 은 기본이 즉시 로딩
+    <ul>
+      <li>LAZY로 설정하기</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">@OneToMany</code>, <code class="highlighter-rouge">@ManyToMany</code> 는 기본이 지연 로딩</li>
+  <li>스프링에서는 트랜잭션이 끝나고 컨트롤러에서 LAZY 로딩 하려고 할 때 문제 생김
+    <ul>
+      <li><a href="https://github.com/NewWisdom/TIL/issues/26">Open Session In View</a></li>
+      <li>와 이게 이제 와닿네</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/playlist?list=PL9mhQYIlKEhfpMVndI23RwWTL9-VL-B7U">[토크ON세미나] JPA 프로그래밍 기본기 다지기</a></li>
+</ul>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📋 4. 의존 자동 주입</title>
 	  <link>//springbasic4</link>
 	  <author></author>

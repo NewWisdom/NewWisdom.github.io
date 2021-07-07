@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>📌 Cache</title>
+    <title>📌 Servlet과 Spring</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -45,21 +45,21 @@
 </style>
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//cache" />
+        <link rel="canonical" href="http://localhost:4000//sevlet" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="📌 Cache" />
+    <meta property="og:title" content="📌 Servlet과 Spring" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//cache" />
+    <meta property="og:url" content="http://localhost:4000//sevlet" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="📌 Cache" />
+    <meta name="twitter:title" content="📌 Servlet과 Spring" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//cache" />
+    <meta name="twitter:url" content="http://localhost:4000//sevlet" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
 
     <script type="application/ld+json">
@@ -67,8 +67,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "📌 Cache",
-    "url": "http://localhost:4000//cache",
+    "name": "📌 Servlet과 Spring",
+    "url": "http://localhost:4000//sevlet",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
@@ -127,7 +127,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">📌 Cache</h1>
+        <h1 class="post-title">📌 Servlet과 Spring</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -136,7 +136,7 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-05-31">31 May 2021</time>
+            <time class="post-date" datetime="2021-06-23">23 Jun 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
@@ -162,135 +162,160 @@
 
         <section class="post-content">
 
-            <h3 id="메모리-계층-구조">메모리 계층 구조</h3>
+            <h2 id="서블릿이란">서블릿이란</h2>
 
 <ul>
-  <li>데이터를 저장하는 공간의 속도와 용량은 반비례
+  <li>처음 웹 서버는 정적인 페이지만 만들 수 있었음</li>
+  <li>웹서버에 프로그램을 붙여 동적인 페이지를 생성하기 시작
     <ul>
-      <li>빠를수록 가격이 올라간다.</li>
+      <li>서블릿이 이 프로그램 중 하나</li>
     </ul>
   </li>
-  <li>용량이 큰 저장장치는 속도가 느림</li>
-  <li>둘 다 잡기엔 비용이 너무 많이 듦</li>
+  <li>서블릿은 동적인 페이지를 만드는 프로그램 중 하나이다.</li>
 </ul>
 
-<h3 id="파레토의-법칙">파레토의 법칙</h3>
+<h2 id="서블릿으로-요청을-처리하는-방법">서블릿으로 요청을 처리하는 방법</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9fe8d27c-4b86-4b4b-9f00-675ea55a879d/image.png" style="zoom:67%;" /></p>
 
 <ul>
-  <li>원인 중 상위 20%가 전체 결과의 80%를 만든다.</li>
-  <li>많이 쓰는 20%가 80%의 효율을 차지한다.</li>
+  <li>서블릿은 이런 HTTP 요청과 응답을 좀 더 쉽게 다룰 수 있는 메서드(기능)을 제공</li>
+  <li>개발자들이 집중해야하는 비즈니스 로직에 집중할 수 있음</li>
 </ul>
 
-<h3 id="데이터-지역성의-원리">데이터 지역성의 원리</h3>
+<p><img src="https://images.velog.io/images/new_wisdom/post/2aa5a2cb-f0a1-40aa-bfbf-a8bd63eb1e47/image.png" style="zoom: 50%;" /></p>
 
 <ul>
-  <li>자주 쓰는 데이터는 시간적 혹은 공간적으로 한 곳에 몰려있을 가능성이 높음</li>
-  <li><strong>시간 지역성</strong>
-    <ul>
-      <li>for문에 조건 변수를 선언하면 해당 변수는 for문이 끝나기 전까지 계속 쓰일 확률이 높음</li>
-    </ul>
-  </li>
-  <li><strong>공간 지역성</strong>
-    <ul>
-      <li>for문에서 어떤 배열에 접근했을 때 해당 배열이 위치한 메모리 공간의 내용은 for문이 끝나기 전까지 계속 쓰일 확률이 높음</li>
-      <li>순차 지역성이라고 부르기도 함(arr[0], arr[1] 다음에는 arr[3]에 접근할 확률이 높을 것을 따로 분류하기도 함)</li>
-      <li>ex) 창고의 모든 종이를 한번에 미리 책상위로 가져오면 효율이 좋다.</li>
-    </ul>
-  </li>
+  <li><code class="highlighter-rouge">service()</code> : 요청을 처리할 때 수행하는 메서드</li>
 </ul>
 
-<hr />
-
-<h2 id="cache">Cache</h2>
+<p><img src="https://images.velog.io/images/new_wisdom/post/33e865c3-aab2-4d27-b4ad-a9d5d6e1617c/image.png" style="zoom:50%;" /></p>
 
 <ul>
-  <li>나중에 필요할 수 있는 무언가를 저장했다가 신속하게 회수할 수 있는 보관</li>
-  <li>원본 데이터를 빠르게 저장할 수 있는 메모리에 저장한다.</li>
-  <li>낮은 시간 복잡도로 접근 가능한 곳에 주로 저장한다.
-    <ul>
-      <li>ex) 자바의 HashMap</li>
-    </ul>
-  </li>
-  <li>원하는 데이터가 없거나 최신성을 잃은 경우 그때서야 원본 데이터가 있는 곳에 접근해 데이터를 가져온다.
-    <ul>
-      <li>최신성을 잃었다는 프로그래머가 정해주는 것</li>
-    </ul>
-  </li>
-  <li>원하는 데이터가 있으면 캐시에서 바로 해당 데이처를 제공한다. (Cache Hit)</li>
-  <li>캐시 공간은 작으니 안쓰는 데이터부터 삭제한다.</li>
+  <li>개발자가 처리하고 싶은<code class="highlighter-rouge"> doXxx()</code>를 재정의해주자!</li>
+  <li>서비스 메서드만 재정의해서 처리 방법을 지정</li>
 </ul>
 
-<h3 id="example">Example</h3>
-
-<h4 id="cpu">CPU</h4>
+<h2 id="서블릿-컨테이너와-서블릿이-호출되는-과정">서블릿 컨테이너와 서블릿이 호출되는 과정</h2>
 
 <ul>
-  <li>1초에 최고 수십억번 작동 각능</li>
-  <li>아무리 빠른 주기억장치라도 CPU를 따라가기 어려움</li>
-  <li>그래서 SRAM이라는 특수한 메모리를 CPU에 넣어 캐시 메모리로 사용</li>
+  <li>서블릿 컨테이너는 서블릿을 관리하는 친구 (생명주기 관리)</li>
 </ul>
 
-<h4 id="하드-디스크-데이터베이스">하드 디스크, 데이터베이스</h4>
+<h4 id="사용차-요청이-들어오면">사용차 요청이 들어오면</h4>
+
+<ol>
+  <li>Servlet Request / Servlet Response 객체 생성</li>
+  <li>설정 파일을 참고하여 맵핑할 Servlet을 확인</li>
+  <li>해당 서블릿 인스턴스 존재 유무를 확인하여 없으면 생성 <code class="highlighter-rouge">init()</code></li>
+  <li>Servlet Container에 스레드를 생성하고 res, req를 인자로 service 실행</li>
+  <li>응답을 처리한 Servlet Request / Servlet Response 객체 소명</li>
+</ol>
+
+<p><strong>서블릿은 싱글톤이기 때문에 소멸되지 않고 관리된다.</strong></p>
+
+<h5 id="참고---설정-파일">참고 - 설정 파일</h5>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9467a579-fcf6-4221-960b-667a576979b0/image.png" style="zoom:33%;" /></p>
+
+<h4 id="한-요청을-처리하는-도중-다른-요청이-들어오면">한 요청을 처리하는 도중 다른 요청이 들어오면?</h4>
 
 <ul>
-  <li>하드디스크는 주기억장치에 비해 10만배 느림</li>
-  <li>처리 효율을 올리려면 자주 쓰이는 데이터를 캐싱하는 것이 좋다.</li>
-  <li>JPA의 영속성 컨텍스트</li>
+  <li>멀티 스레드로 요청을 처리</li>
+  <li>스레드당 다른 요청을 처리하거나</li>
+  <li>여러 스레드에서 한 서블릿의 여러 요청을 동시에 처리</li>
+  <li>하지만 스레드는 생성비용이 비싸고, 다른 스레드로 전환하는 것이 많은 오버로딩을 일으킴</li>
 </ul>
 
-<h4 id="youtube">Youtube</h4>
+<h4 id="요청당-서블릿을-정해주면-비효율적이다">요청당 서블릿을 정해주면 비효율적이다.</h4>
 
 <ul>
-  <li>미국에 서버가 있으니 Google Global Cache를 두어 인기 동영사는 국내 서버가 처리하도록 함</li>
-  <li>이처럼 세계 각지에 캐시 서버를 두는 것이 CDN</li>
+  <li>관리적인 측면에서는 멀티스레딩을 다뤄야하는 어려움</li>
+  <li>개발적인 측면에서는 핸들러의 공통 로직이 매번 중복됨</li>
 </ul>
 
-<h4 id="웹-캐시">웹 캐시</h4>
+<h4 id="핸들러의-공통-로직-중복">핸들러의 공통 로직 중복?</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/ab92c505-de46-4d6b-9774-9d2d265d42b9/image.png" style="zoom:50%;" /></p>
 
 <ul>
-  <li>네트워크를 통해 데이터를 가져오는 것은 하드 디스크보다 느릴 때도 많다.</li>
-  <li>웹 브라우저에서는 정적 파일을 하드디스크나 메모리에 캐싱해뒀다가 다음번에 이를 재활용한다.</li>
-  <li>동적 페이지 경우 매번 내용이 바뀌지 않는 경우가 더 많으므로 서버에서 생성한 HTML을 캐싱한다.</li>
-  <li>클라이언트에서 자주 요청하는 내용은 웹 서버로 전달하지 않고 웹 서버 앞단 프록시 서버에서 캐싱해둔 데이터를 바로 제공한다. (프록시 캐시)</li>
+  <li>주문, 계산, 포장이 중복됨</li>
 </ul>
 
-<h4 id="브라우저-캐시">브라우저 캐시</h4>
+<p><img src="https://images.velog.io/images/new_wisdom/post/f90972b9-5694-42be-b4a3-7f89cf1618dd/image.png" style="zoom:50%;" /></p>
 
 <ul>
-  <li>웹 서버에서 클라이언트에 보내는 HTTP 헤더에 캐시 지시사를 삽입해 브라우저에서 이에 따른 캐싱 정책을 실시한다.</li>
-  <li>캐시 유효시간 (max-age)가 지나도 캐시 데이터가 바뀌지 않은 경우를 확인하기 위해 ETag라는 유효성 검사 토큰을 사용한다.</li>
-  <li>캐싱 정책은 웹페이지 전반적 상황에 따라 각 파일마다 다르게 적용되야 함
-    <ul>
-      <li>정적 파일과 동적 부분의 브라우저 캐싱 정책은 달라야함</li>
-    </ul>
-  </li>
+  <li>손님의 요청을 처리하는 과정 중 중복되는 로직을 앞단에 매니저를 두는 것이 <strong>컨트롤러 패턴</strong></li>
 </ul>
 
-<h4 id="redisremote-dictionary-server">Redis(Remote Dictionary Server)</h4>
+<h4 id="dispatcher-servlet">Dispatcher Servlet</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6b952ef0-f0dd-4034-81c8-241e20f37e58/image.png" style="zoom:50%;" /></p>
 
 <ul>
-  <li>메모리 기반 NoSQL DBMS의 일종으로 웹 서비스에서 캐싱을 위해 많이 씀</li>
-  <li>Dictionary Server는 자바의 HashMap과 유사하다.</li>
-  <li>기본적으로 모든 데이터를 메모리에 저장</li>
-  <li>재부팅 때 메모리가 휘발되지 않게 데이터를 하드디스크에 기록할 수 있음</li>
-  <li>DBMS 일종이므로 명시적 삭제하지 않는 한 메모리에서 삭제하지 않음</li>
+  <li>이전에는 요청마다 서블릿을 정의하고 수행할 때마다 스레드를 처리하는 로직을 수행했다면</li>
+  <li>이제는 하나의 서블릿만 정의하고 이 서블릿이 모든 요청을 수행할 수 있도록 하는 전략을 따름</li>
 </ul>
 
-<h4 id="ehcache">EHcache</h4>
+<h2 id="dispatcher-servlet이-web-요청을-처리하는-과정">Dispatcher Servlet이 web 요청을 처리하는 과정</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/72c80f19-0466-4f9a-9217-a2fd35b5fb73/image.png" style="zoom:33%;" /></p>
 
 <ul>
-  <li>자바 표준 캐싱 API 명세인 JSR-107을 따르는 오픈소스 캐시 구현체</li>
-  <li>Spring 프레임워크나 Hibernate ORM 등에서 바로 사용 가능</li>
-  <li>캐시 저장 공간을 속도에 따라 여러 등급으로 나누어 메모리 계층 구조 적용 가능</li>
-  <li>하드디스크에 기록 가능</li>
+  <li>전면 매니저가 모든 요청을 처리는 하되,</li>
+  <li>각각 담당 직원을 둠</li>
 </ul>
 
-<hr />
-
-<h3 id="참고자료">참고자료</h3>
+<p><img src="https://images.velog.io/images/new_wisdom/post/4653c153-d442-49cd-a6b7-974ba61174f2/image.png" style="zoom: 33%;" /></p>
 
 <ul>
-  <li><a href="https://www.youtube.com/watch?v=c33ojJ7kE7M">[10분 테코톡] 🐻큰곰의 Cache</a></li>
+  <li>DispatcherServlet이 모든 요청을 받음</li>
+  <li>핸들러 맵핑이라는 애가 내 요청을 처리할 때 컨트롤러를 찾아서 반환</li>
+  <li>핸들러 어댑터는 해당 컨트롤러 메서드를 호출하여 처리로직 수행하는 역할</li>
+  <li>처리 결과를 Model And View 객체로 변환하여 DispatcherServlet에 넘김</li>
+  <li>DispatcherServlet은 뷰 리졸버를 이용해 뷰를 찾거나 생성</li>
+  <li>이렇게 얻은 뷰에 얻은 데이터를 넣어 응답 객체 생성</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/8c3faa81-ad63-44ba-b9b1-3d89a2a1ebfb/image.png" style="zoom: 33%;" /></p>
+
+<p>스프링을 사용하면 개발자는 핸들러만 신경써주면 된다. <br />
+핸들러 매핑과 핸들러 어댑터 뷰 리졸버는 DispatcherServlet이 스프링 컨테이너로부터 주입을 받아서 사용하고 동작</p>
+
+<h3 id="스프링-컨테이너">스프링 컨테이너</h3>
+
+<ul>
+  <li>프로그램이 동작한느 동안 사용되는 자바 객체들을 프레임워크가 대신 관리하고 보관하기 위해 사용되는 바구니</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/268fa93b-daee-4037-88c7-230af3eb97ea/image.png" style="zoom: 50%;" /></p>
+
+<h4 id="servlet-webapplicationcontext">Servlet WebApplicationContext</h4>
+
+<ul>
+  <li>웹 요청 처리 관련 객체들이 담겨있음</li>
+</ul>
+
+<h4 id="root-webapplicationcontext">Root WebApplicationContext</h4>
+
+<ul>
+  <li>웹 요청 처리 관련된 빈 외의 컴포넌트들 (서비스, 레포지토리 등)</li>
+</ul>
+
+<p><strong>서블릿 설정 파일만 잘 작성해주면 설정대로 생성된 객체가 스프링 컨테이너에서 관리되고 필요한 부분에서 주입받아 Dispatcher Servlet이 알아서 사용할 수 있게된다.</strong></p>
+
+<h3 id="스프링으로-웹-요청을-처리한다는-것은">스프링으로 웹 요청을 처리한다는 것은</h3>
+
+<ul>
+  <li>스프링 mvc 에서 제공하는 Dispatcher Servlet과 웹 요청 처리 관련 구현체들을 사용할 수 있음</li>
+  <li>동시에 스프링 컨테이너, 즉 스프링 IoC를 사용해서 개발할 수 있음</li>
+  <li>즉 개발자는 핸들러에만(컨트롤러) 집중할 수 있도록!</li>
+</ul>
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=calGCwG_B4Y&amp;t=554s">[10분 테코톡] 🐶 코기의 Servlet vs Spring</a></li>
 </ul>
 
 
@@ -325,15 +350,15 @@
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=📌 Cache&amp;url=http://localhost:4000cache"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=📌 Servlet과 Spring&amp;url=http://localhost:4000sevlet"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000cache"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000sevlet"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000cache"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000sevlet"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -354,20 +379,20 @@
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/time">
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/service-work-kotlin4">
             <section class="post">
-                <h2>📌 시간 복잡도</h2>
-                <p>### 알고리즘이란? * 문제를 해결하기 위한 방법 ### 예시 #### 건너뛰기 혹은 살펴보기 전략 *...</p>
+                <h2>📋 Kotlin으로 Spring Rest Docs 삽질하기 (feat. 제작 근로)</h2>
+                <p>## Spring Rest Docs 설정 - build.gradle.kts #### 플러그인 추가 ```kotlin plugins{ // ... id("org.asciidoctor.convert")...</p>
             </section>
         </a>
     
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/jpa">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/kotlin-3">
             <section class="post">
-                <h2>📋 Jpa - 양방향 매핑</h2>
-                <p>양방향 매핑 반대방향으로도 그래프 조회가 가능해야함 연관 관계의 주인과 왜 mappedBy를 해주는 건지? 객체는 서로를...</p>
+                <h2>📋 Kotlin을 정복해봅시다 3</h2>
+                <p>지하철 미션을 코틀린으로 구현해보기 Data class는 상속이 안된다. Custom Exception을 data class로 만들고 싶었다…. 하지만...</p>
             </section>
         </a>
     

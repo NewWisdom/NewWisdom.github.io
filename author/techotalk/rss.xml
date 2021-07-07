@@ -12,6 +12,173 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>📌 Servlet과 Spring</title>
+	  <link>//sevlet</link>
+	  <author></author>
+	  <pubDate>2021-06-23T10:01:00+09:00</pubDate>
+	  <guid>//sevlet</guid>
+	  <description><![CDATA[
+	     <h2 id="서블릿이란">서블릿이란</h2>
+
+<ul>
+  <li>처음 웹 서버는 정적인 페이지만 만들 수 있었음</li>
+  <li>웹서버에 프로그램을 붙여 동적인 페이지를 생성하기 시작
+    <ul>
+      <li>서블릿이 이 프로그램 중 하나</li>
+    </ul>
+  </li>
+  <li>서블릿은 동적인 페이지를 만드는 프로그램 중 하나이다.</li>
+</ul>
+
+<h2 id="서블릿으로-요청을-처리하는-방법">서블릿으로 요청을 처리하는 방법</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9fe8d27c-4b86-4b4b-9f00-675ea55a879d/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>서블릿은 이런 HTTP 요청과 응답을 좀 더 쉽게 다룰 수 있는 메서드(기능)을 제공</li>
+  <li>개발자들이 집중해야하는 비즈니스 로직에 집중할 수 있음</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/2aa5a2cb-f0a1-40aa-bfbf-a8bd63eb1e47/image.png" style="zoom: 50%;" /></p>
+
+<ul>
+  <li><code class="highlighter-rouge">service()</code> : 요청을 처리할 때 수행하는 메서드</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/33e865c3-aab2-4d27-b4ad-a9d5d6e1617c/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>개발자가 처리하고 싶은<code class="highlighter-rouge"> doXxx()</code>를 재정의해주자!</li>
+  <li>서비스 메서드만 재정의해서 처리 방법을 지정</li>
+</ul>
+
+<h2 id="서블릿-컨테이너와-서블릿이-호출되는-과정">서블릿 컨테이너와 서블릿이 호출되는 과정</h2>
+
+<ul>
+  <li>서블릿 컨테이너는 서블릿을 관리하는 친구 (생명주기 관리)</li>
+</ul>
+
+<h4 id="사용차-요청이-들어오면">사용차 요청이 들어오면</h4>
+
+<ol>
+  <li>Servlet Request / Servlet Response 객체 생성</li>
+  <li>설정 파일을 참고하여 맵핑할 Servlet을 확인</li>
+  <li>해당 서블릿 인스턴스 존재 유무를 확인하여 없으면 생성 <code class="highlighter-rouge">init()</code></li>
+  <li>Servlet Container에 스레드를 생성하고 res, req를 인자로 service 실행</li>
+  <li>응답을 처리한 Servlet Request / Servlet Response 객체 소명</li>
+</ol>
+
+<p><strong>서블릿은 싱글톤이기 때문에 소멸되지 않고 관리된다.</strong></p>
+
+<h5 id="참고---설정-파일">참고 - 설정 파일</h5>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9467a579-fcf6-4221-960b-667a576979b0/image.png" style="zoom:33%;" /></p>
+
+<h4 id="한-요청을-처리하는-도중-다른-요청이-들어오면">한 요청을 처리하는 도중 다른 요청이 들어오면?</h4>
+
+<ul>
+  <li>멀티 스레드로 요청을 처리</li>
+  <li>스레드당 다른 요청을 처리하거나</li>
+  <li>여러 스레드에서 한 서블릿의 여러 요청을 동시에 처리</li>
+  <li>하지만 스레드는 생성비용이 비싸고, 다른 스레드로 전환하는 것이 많은 오버로딩을 일으킴</li>
+</ul>
+
+<h4 id="요청당-서블릿을-정해주면-비효율적이다">요청당 서블릿을 정해주면 비효율적이다.</h4>
+
+<ul>
+  <li>관리적인 측면에서는 멀티스레딩을 다뤄야하는 어려움</li>
+  <li>개발적인 측면에서는 핸들러의 공통 로직이 매번 중복됨</li>
+</ul>
+
+<h4 id="핸들러의-공통-로직-중복">핸들러의 공통 로직 중복?</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/ab92c505-de46-4d6b-9774-9d2d265d42b9/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>주문, 계산, 포장이 중복됨</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/f90972b9-5694-42be-b4a3-7f89cf1618dd/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>손님의 요청을 처리하는 과정 중 중복되는 로직을 앞단에 매니저를 두는 것이 <strong>컨트롤러 패턴</strong></li>
+</ul>
+
+<h4 id="dispatcher-servlet">Dispatcher Servlet</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6b952ef0-f0dd-4034-81c8-241e20f37e58/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>이전에는 요청마다 서블릿을 정의하고 수행할 때마다 스레드를 처리하는 로직을 수행했다면</li>
+  <li>이제는 하나의 서블릿만 정의하고 이 서블릿이 모든 요청을 수행할 수 있도록 하는 전략을 따름</li>
+</ul>
+
+<h2 id="dispatcher-servlet이-web-요청을-처리하는-과정">Dispatcher Servlet이 web 요청을 처리하는 과정</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/72c80f19-0466-4f9a-9217-a2fd35b5fb73/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>전면 매니저가 모든 요청을 처리는 하되,</li>
+  <li>각각 담당 직원을 둠</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4653c153-d442-49cd-a6b7-974ba61174f2/image.png" style="zoom: 33%;" /></p>
+
+<ul>
+  <li>DispatcherServlet이 모든 요청을 받음</li>
+  <li>핸들러 맵핑이라는 애가 내 요청을 처리할 때 컨트롤러를 찾아서 반환</li>
+  <li>핸들러 어댑터는 해당 컨트롤러 메서드를 호출하여 처리로직 수행하는 역할</li>
+  <li>처리 결과를 Model And View 객체로 변환하여 DispatcherServlet에 넘김</li>
+  <li>DispatcherServlet은 뷰 리졸버를 이용해 뷰를 찾거나 생성</li>
+  <li>이렇게 얻은 뷰에 얻은 데이터를 넣어 응답 객체 생성</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/8c3faa81-ad63-44ba-b9b1-3d89a2a1ebfb/image.png" style="zoom: 33%;" /></p>
+
+<p>스프링을 사용하면 개발자는 핸들러만 신경써주면 된다. <br />
+핸들러 매핑과 핸들러 어댑터 뷰 리졸버는 DispatcherServlet이 스프링 컨테이너로부터 주입을 받아서 사용하고 동작</p>
+
+<h3 id="스프링-컨테이너">스프링 컨테이너</h3>
+
+<ul>
+  <li>프로그램이 동작한느 동안 사용되는 자바 객체들을 프레임워크가 대신 관리하고 보관하기 위해 사용되는 바구니</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/268fa93b-daee-4037-88c7-230af3eb97ea/image.png" style="zoom: 50%;" /></p>
+
+<h4 id="servlet-webapplicationcontext">Servlet WebApplicationContext</h4>
+
+<ul>
+  <li>웹 요청 처리 관련 객체들이 담겨있음</li>
+</ul>
+
+<h4 id="root-webapplicationcontext">Root WebApplicationContext</h4>
+
+<ul>
+  <li>웹 요청 처리 관련된 빈 외의 컴포넌트들 (서비스, 레포지토리 등)</li>
+</ul>
+
+<p><strong>서블릿 설정 파일만 잘 작성해주면 설정대로 생성된 객체가 스프링 컨테이너에서 관리되고 필요한 부분에서 주입받아 Dispatcher Servlet이 알아서 사용할 수 있게된다.</strong></p>
+
+<h3 id="스프링으로-웹-요청을-처리한다는-것은">스프링으로 웹 요청을 처리한다는 것은</h3>
+
+<ul>
+  <li>스프링 mvc 에서 제공하는 Dispatcher Servlet과 웹 요청 처리 관련 구현체들을 사용할 수 있음</li>
+  <li>동시에 스프링 컨테이너, 즉 스프링 IoC를 사용해서 개발할 수 있음</li>
+  <li>즉 개발자는 핸들러에만(컨트롤러) 집중할 수 있도록!</li>
+</ul>
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=calGCwG_B4Y&amp;t=554s">[10분 테코톡] 🐶 코기의 Servlet vs Spring</a></li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📌 CORS</title>
 	  <link>//cors</link>
 	  <author></author>
@@ -293,6 +460,17 @@
   <li>해밀턴 경로 문제</li>
   <li>컴퓨터로도 풀 수 없다</li>
   <li>너무 오래 걸려</li>
+</ul>
+
+<p>##</p>
+
+<ul>
+  <li>상태랑 행위를 검증할 때 ..</li>
+  <li>목키토를 안쓰고 서비스 안에서 다오를 쓰지만 서비스를 검증하고 싶다.</li>
+  <li>다오를 목으로 하냐 스텁으로 하냐</li>
+  <li>스텁은 then… 스텁은 값 검증을 안하면 됨</li>
+  <li>목은 값 검증을 해야함</li>
+  <li>목은 실제로 add가 동작했는지를 검증해야함</li>
 </ul>
 
 	  ]]></description>
