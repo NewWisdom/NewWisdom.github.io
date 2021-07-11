@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>⚒️ CI/CD란, 젠킨스 실습해보기</title>
+    <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+<!--Syntax Highlighter-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/androidstudio.min.css">
+<style type='text/css'>
+    pre, code {
+        white-space: pre;
+        overflow-x: scroll;
+    }
+    .hljs
+{
+    white-space: pre;
+    overflow-x: auto;
+}
+</style>
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="http://localhost:4000//ci-and-cd" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/page2/" />
+
+    <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="⚒️ CI/CD란, 젠킨스 실습해보기" />
+    <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta property="og:url" content="http://localhost:4000//ci-and-cd" />
+    <meta property="og:image" content="/assets/images/woowa.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="⚒️ CI/CD란, 젠킨스 실습해보기" />
+    <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
+    <meta name="twitter:url" content="http://localhost:4000//ci-and-cd" />
+    <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Welcome To New Wisdom's Log !",
+    "name": "⚒️ CI/CD란, 젠킨스 실습해보기",
+    "url": "http://localhost:4000//ci-and-cd",
+    "image": "/assets/images/woowa.jpg",
+    "description": "블로그 이사중... 아직 정리가 안되었음..."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Welcome To New Wisdom's Log !" href="/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-woowa " role="presentation"><a href="/tag/woowa">WoowaCource</a></li>
+        <li class="nav-techotalk " role="presentation"><a href="/tag/techotalk">Techotalk</a></li>
+        <li class="nav-java " role="presentation"><a href="/tag/java">Java</a></li>
+        <li class="nav-kotlin " role="presentation"><a href="/tag/kotlin">Kotlin</a></li>
+        <li class="nav-oop " role="presentation"><a href="/tag/oop">Oop</a></li>
+        <li class="nav-springboot " role="presentation"><a href="/tag/springboot">SpringBoot</a></li>
+        <li class="nav-ect " role="presentation"><a href="/tag/ect">Ect</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/assets/images/woowa.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class = "amazzi">    
+        <h1 class="post-title">⚒️ CI/CD란, 젠킨스 실습해보기</h1>
+            <section class="post-meta">
+            <!-- <a href='/'></a> -->
+
+            
+                
+                    <a href='/author/amazzi'>✨ new wisdom ✨</a>
+                
+            
+            <time class="post-date" datetime="2021-07-11">11 Jul 2021</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+                
+            </section>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-woowa">
+
+        <header class="post-header">
+            
+        </header>
+        
+        <br>
+
+        <section class="post-content">
+
+            <h2 id="ci-continuous-integration">CI (Continuous Integration)</h2>
+
+<ul>
+  <li>지속적 통합</li>
+  <li>개발하면서 코드에 대한 통합을 지속적으로 진행</li>
+  <li>여러 개발자가 작성하거나 수정한 소스를 지속적으로 통합하고 테스트</li>
+  <li><strong>빌드 및 테스트 자동화</strong></li>
+</ul>
+
+<h3 id="ci를-적용할-때의-흐름">CI를 적용할 때의 흐름</h3>
+
+<ol>
+  <li>개발자는 자신이 개발한 소프트웨어의 소스코드를 공통된 버전 관리시스템(github 등)에 저장.</li>
+  <li>소스코드상에 변동이 생기면 버전 관리 시스템에서는 CI 툴로 소스코드 변경 알림</li>
+  <li>CI툴에서는 변경된 소스코드를 대상으로 Build, Test, Merge를 진행</li>
+  <li>이 과정들이 완료되면 슬랙, 카카오톡, 메일 등을 통해 통합 결과를 알림</li>
+</ol>
+
+<h2 id="cd-continuous-delivery-continuous-deployment">CD (Continuous Delivery, Continuous Deployment)</h2>
+
+<ul>
+  <li>지속적 배포</li>
+  <li>애플리케이션이 항상 신뢰 가능한 수준에서 배포될 수 있도록 지속적으로 관리하자는 개념</li>
+  <li>변경 사항을 레포지토리에서 프로덕션 환경까지 자동으로 배포하는 것</li>
+  <li><strong>배포 자동화</strong></li>
+</ul>
+
+<h3 id="cd를-적용했을-때의-흐름">CD를 적용했을 때의 흐름</h3>
+
+<ol>
+  <li>CI를 통해 소스코드를 검증</li>
+  <li>검증된 소프트웨어를 실제 프로덕션 환경으로 배포</li>
+</ol>
+
+<h2 id="cicd">CI/CD</h2>
+
+<h3 id="tool">Tool</h3>
+
+<ul>
+  <li>Jenkins</li>
+  <li>Travis CI</li>
+  <li>Bamboo</li>
+</ul>
+
+<hr />
+
+<h2 id="젠킨스-도커로-cicd-연습">젠킨스, 도커로 CI/CD 연습</h2>
+
+<blockquote>
+  <p><a href="https://jojoldu.tistory.com/139">docker를 이용한 CI 구축 연습하기 (젠킨스, 슬랙)</a> 를 따라하는 일지</p>
+</blockquote>
+
+<h3 id="buildgradlekts에-tasks-추가">Build.gradle.kts에 tasks 추가</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9096f099-e638-42cd-b719-b7ede0f32535/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>필수는 아니지만, 테스트용으로 추가</li>
+</ul>
+
+<h3 id="쿠버네티스-설치---스킵">쿠버네티스 설치 - 스킵</h3>
+
+<ul>
+  <li><a href="https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-macos/">Mac Os</a></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install kubectl
+// or
+brew install kubernetes-cli
+
+
+kubectl version --client
+</code></pre></div></div>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/571f5b45-43e9-46ab-ae98-1f6600b4c863/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>엥 근데 실패…</li>
+</ul>
+
+<h4 id="해결">해결</h4>
+
+<ul>
+  <li><a href="https://github.com/kubernetes/kubernetes/issues/79503">참고</a></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew cleanup
+$ brew update
+$ brew install kubectl
+</code></pre></div></div>
+
+<h4 id="쿠버네티스-설치가-아니었음">쿠버네티스 설치가 아니었음</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/ef0d93f3-3ca7-4565-9c72-0b54bc4577c7/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>아 이걸 쿠버네티스로 착각 ㅎㅎㅎ 🙃</li>
+</ul>
+
+<h3 id="젠킨스-설치">젠킨스 설치</h3>
+
+<h4 id="이미지-pull-및-실행">이미지 pull 및 실행</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -itd --name jenkins -p 8085:8080 jenkins/jenkins:lts
+</code></pre></div></div>
+
+<ul>
+  <li>run : 이미지를 실행</li>
+  <li><strong>-itd</strong> : interacitve terminal + detach(background)</li>
+  <li><strong>–name</strong> : 이미지 이름 지정</li>
+  <li><strong>-p</strong>: <외부 port="">:<컨테이너 내부port=""></컨테이너></외부></li>
+  <li><strong>jenkins/jenkins:lts</strong> : docker hub이미지 저장소:버전</li>
+</ul>
+
+<h4 id="동작-확인">동작 확인</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/e081e56d-95b1-4c1e-b50b-09cf960c6df2/image.png" style="zoom:50%;" /></p>
+
+<h3 id="젠킨스-접속">젠킨스 접속</h3>
+
+<ul>
+  <li>나는 port를 8085로 했으니 http://localhost:8085/ 으로 접속</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1732d9e5-f24d-4913-8486-cd405579d6d4/image.png" alt="" /></p>
+
+<ul>
+  <li>짠 이렇게 로그인 화면 뜸</li>
+</ul>
+
+<h4 id="로그인">로그인</h4>
+
+<ul>
+  <li>초기 비번은 젠킨스 컨테이너 안 <code class="highlighter-rouge">/var/jenkins_home/secrets/initialAdminPassword</code> 에 있음</li>
+  <li>다음 명령어로 패스워드 확인</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+</code></pre></div></div>
+
+<h4 id="플러그인-설치">플러그인 설치</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a02378ab-4a01-4036-aa7e-e1a7be1fc357/image.png" alt="" /></p>
+
+<ul>
+  <li>install suggested plugins 를 선택하면 많이 사용되는 플러그인들이 포함되어 자동 설치</li>
+  <li>github 플러그인도 자동 설치됨</li>
+  <li>install suggested plugins 이걸 안 선택할 이유가 뭐야 없어</li>
+</ul>
+
+<h4 id="관리자-계정-생성">관리자 계정 생성</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/2aecb0a0-6483-4533-a707-5387be536161/image.png" alt="" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a1c4e71b-0c00-4960-a1c5-3e424bb9e86f/image.png" alt="" /></p>
+
+<h4 id="설치-완료">설치 완료</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/20c10d76-0bd4-4a3e-bbe4-d5ea247d79bc/image.png" alt="" /></p>
+
+<ul>
+  <li>오예</li>
+  <li>젠킨스 컨테이너를 다시 시작해야 한다면 <code class="highlighter-rouge">docker start jenkins</code>로 설치된 젠킨스 컨테이너를 실행 후,</li>
+  <li><code class="highlighter-rouge">docker exec -it jenkins /bin/bash</code> 입력</li>
+  <li><code class="highlighter-rouge">docker run</code>은 재설치를 함</li>
+</ul>
+
+<h3 id="젠킨스-설정">젠킨스 설정</h3>
+
+<ul>
+  <li>젠킨스 메인페이지에서 <code class="highlighter-rouge">새로운 Item</code>을 클릭</li>
+</ul>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210712004157818.png" alt="image-20210712004157818" /></p>
+
+<ul>
+  <li>프로젝트 이름을 입력해주고…</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/2cbde34b-d7bc-465f-b818-dc2121cbb3dc/image.png" alt="" /></p>
+
+<ul>
+  <li>깃 레포지토리 주소를 등록</li>
+  <li>그리고 Credentials 에 있는 Add 버튼을 누르기</li>
+</ul>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210712004730575.png" alt="image-20210712004730575" /></p>
+
+<ul>
+  <li>Kind : Username with password 선택</li>
+  <li>github의 계정, 비번 등록</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/65473bf2-35db-4dbc-9de9-603f1f141b59/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>그리고 방금 등록한 계정 선택</li>
+  <li>젠킨스 빌드가 관리될 브랜치 선택</li>
+</ul>
+
+<h4 id="build-trigger">Build Trigger</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7cdb52b2-4b91-40cd-8024-4b45b48478a0/image.png" style="zoom: 33%;" /></p>
+
+<h4 id="build">Build</h4>
+
+<ul>
+  <li>Excute shell 선택</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6e732c9c-3e3e-4874-b186-ea31054ffc3c/image.png" style="zoom: 33%;" /></p>
+
+<ul>
+  <li>빌드 스크립트 작성</li>
+</ul>
+
+<h4 id="토큰-발급">토큰 발급</h4>
+
+<ul>
+  <li>github에서 토큰 발급하기</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6c1da1aa-c501-450b-a6f0-2c5ace5d6899/image.png" alt="" /></p>
+
+<ul>
+  <li>발급된 토큰을 복사하고, 다시 젠킨스로…</li>
+  <li>젠킨스 대시보드 -&gt; 젠킨스 관리 탭 -&gt; 시스템 설정</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7ad805b0-5673-4cbd-ac0f-ab81157bd723/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>Domain : Global credentials (unrestricted) 선택</li>
+  <li>Kind : Secret text 선택</li>
+  <li>Secret : 위에서 생성한 github 토큰 입력</li>
+  <li>ID : 본인이 지정하는 식별자(ID) 입력 (ex: github)</li>
+</ul>
+
+<h4 id="저장하면-끝-build-now">저장하면 끝! Build Now!</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6e2bd4cd-7f0e-49a9-b9c8-4a9ab276e7b8/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>콘솔도 확인할 수 있음</li>
+</ul>
+
+<h4 id="콘솔-출력">콘솔 출력</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Started by user newwisdom
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/subway-kotlin
+The recommended git tool is: NONE
+using credential 0139eabb-5494-46ce-875e-1bdeedd0d391
+Cloning the remote Git repository
+Cloning repository https://github.com/NewWisdom/subway-kotlin.git
+ &gt; git init /var/jenkins_home/workspace/subway-kotlin # timeout=10
+Fetching upstream changes from https://github.com/NewWisdom/subway-kotlin.git
+ &gt; git --version # timeout=10
+ &gt; git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials 
+ &gt; git fetch --tags --force --progress -- https://github.com/NewWisdom/subway-kotlin.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ &gt; git config remote.origin.url https://github.com/NewWisdom/subway-kotlin.git # timeout=10
+ &gt; git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ &gt; git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 7b0fb7eff520316950d4a0a769d11c46848f76b4 (refs/remotes/origin/master)
+ &gt; git config core.sparsecheckout # timeout=10
+ &gt; git checkout -f 7b0fb7eff520316950d4a0a769d11c46848f76b4 # timeout=10
+Commit message: "feat(member): 멤버 관련 기본 셋팅 추가"
+First time build. Skipping changelog.
+[subway-kotlin] $ /bin/sh -xe /tmp/jenkins8995160598138643631.sh
++ ./gradlew clean print
+Downloading https://services.gradle.org/distributions/gradle-7.0.2-bin.zip
+..........10%...........20%...........30%..........40%...........50%...........60%..........70%...........80%...........90%..........100%
+
+Welcome to Gradle 7.0.2!
+
+Here are the highlights of this release:
+ - File system watching enabled by default
+ - Support for running with and building Java 16 projects
+ - Native support for Apple Silicon processors
+ - Dependency catalog feature preview
+
+For more details see https://docs.gradle.org/7.0.2/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+&gt; Task :clean UP-TO-DATE
+
+&gt; Task :print
+github push complete
+
+BUILD SUCCESSFUL in 2m 43s
+2 actionable tasks: 1 executed, 1 up-to-date
+Finished: SUCCESS
+</code></pre></div></div>
+
+<ul>
+  <li>아직까지는 Build Now를 해야지 빌드가 됨</li>
+</ul>
+
+<h3 id="원격-서버-배포">원격 서버 배포</h3>
+
+<ul>
+  <li>EC2에 올리고 이후 실습을 진행해보자</li>
+  <li>추후 업데이트</li>
+</ul>
+
+<hr />
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li>
+    <p><a href="https://deveric.tistory.com/106">CI/CD 의 개념, 적용해본 후기</a></p>
+  </li>
+  <li>
+    <p><a href="https://goddaehee.tistory.com/260?category=399178">Jenkins 빌드 자동화 - github push시 자동 빌드 하기(github webhook)</a></p>
+  </li>
+</ul>
+
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+                    
+                        <figure class="author-image">
+                            <a class="img" href="/author/amazzi" style="background-image: url(/assets/images/amazzi.jpeg)"><span class="hidden">amazzi's Picture</span></a>
+                        </figure>
+                    
+
+                    <section class="author">
+                        <h4><a href="/author/amazzi">✨ new wisdom ✨</a></h4>
+
+                        
+                            <p> I want to be a person who gives you new wisdom.</p>
+                        
+                        <div class="author-meta">
+                            <span class="author-location icon-location"> Seoul, South Korea</span>
+                            <span class="author-link icon-link"><a href="https://newwisdom.github.io/"> newwisdom.github.io/</a></span>
+                        </div>
+                    </section>
+
+                    <!-- /author  -->
+
+                    <section class="share">
+                        <h4>Share this post</h4>
+                        <a class="icon-twitter" href="http://twitter.com/share?text=⚒️ CI/CD란, 젠킨스 실습해보기&amp;url=http://localhost:4000ci-and-cd"
+                            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span class="hidden">Twitter</span>
+                        </a>
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000ci-and-cd"
+                            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                            <span class="hidden">Facebook</span>
+                        </a>
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000ci-and-cd"
+                           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                            <span class="hidden">Google+</span>
+                        </a>
+                    </section>
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/docker">
+            <section class="post">
+                <h2>🐳 Docker란</h2>
+                <p>## 도커란? * 컨테이너 기반의 오픈소스 가상화 플랫폼 * 다양한 프로그램, 실행환경을 컨테이너로 추상화한, 동일한...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/jpa-casecade">
+            <section class="post">
+                <h2>🌱 JPA - Cascade 노트</h2>
+                <p>JPA에서 엔티티를 저장할 때 연관된 모든 엔티티는 영속 상태여야 한다. 부모 엔티티를 영속 상태로 만들...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">Welcome To New Wisdom's Log !</a> &copy; 2021</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'G-09YB1TZP06', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

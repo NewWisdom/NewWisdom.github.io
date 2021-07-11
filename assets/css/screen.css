@@ -187,7 +187,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
     letter-spacing: 0.01rem;
     font-size: 1.8rem;
-    line-height: 1.75em;
+    /* line-height: 1.75em; */
     color: #3A4145;
     -webkit-font-feature-settings: 'kern' 1;
     -moz-font-feature-settings: 'kern' 1;
@@ -209,7 +209,7 @@ h4, h5, h6 {
     -moz-font-feature-settings: 'dlig' 1, 'liga' 1, 'lnum' 1, 'kern' 1;
     -o-font-feature-settings: 'dlig' 1, 'liga' 1, 'lnum' 1, 'kern' 1;
     color: #2E2E2E;
-    line-height: 1.15em;
+    /* line-height: 1.15em; */
     margin: 0 0 0.7em 0;
     font-family: 'Noto Sans KR', sans-serif;
     text-rendering: geometricPrecision;
@@ -2078,7 +2078,7 @@ Location, website, and link
 
     h1, h2, h3,
     h4, h5, h6 {
-        margin: 0 0 0.3em 0;
+        margin: 1 0 0.3em 0;
     }
 
     h1 {

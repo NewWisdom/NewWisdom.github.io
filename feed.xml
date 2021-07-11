@@ -8,6 +8,52 @@
     
       
       <item>
+        <title>🐳 Docker란</title>
+        
+          <description>&lt;h2 id=&quot;도커란&quot;&gt;도커란?&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sun, 11 Jul 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/docker</link>
+        <guid isPermaLink="true">http://localhost:4000/docker</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>⚒️ CI/CD란, 젠킨스 실습해보기</title>
+        
+          <description>&lt;h2 id=&quot;ci-continuous-integration&quot;&gt;CI (Continuous Integration)&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Sun, 11 Jul 2021 19:18:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/ci-and-cd</link>
+        <guid isPermaLink="true">http://localhost:4000/ci-and-cd</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>🌱 JPA - Cascade 노트</title>
+        
+          <description>&lt;p&gt;JPA에서 엔티티를 저장할 때 연관된 모든 엔티티는 영속 상태여야 한다.&lt;br /&gt;
+부모 엔티티를 영속 상태로 만들 때 연관된 자식도 한번에 영속 상태로 만들 수 있다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 08 Jul 2021 10:01:00 +0900</pubDate>
+        <link>
+        http://localhost:4000/jpa-casecade</link>
+        <guid isPermaLink="true">http://localhost:4000/jpa-casecade</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>📋 Kotlin으로 Spring Rest Docs 삽질하기 (feat. 제작 근로)</title>
         
           <description>&lt;h2 id=&quot;spring-rest-docs-설정---buildgradlekts&quot;&gt;Spring Rest Docs 설정 - build.gradle.kts&lt;/h2&gt;
@@ -33,21 +79,6 @@
         <link>
         http://localhost:4000/sevlet</link>
         <guid isPermaLink="true">http://localhost:4000/sevlet</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>📋 Kotlin을 정복해봅시다 3</title>
-        
-          <description>&lt;h2 id=&quot;지하철-미션을-코틀린으로-구현해보기&quot;&gt;지하철 미션을 코틀린으로 구현해보기&lt;/h2&gt;
-
-</description>
-        
-        <pubDate>Thu, 17 Jun 2021 10:01:00 +0900</pubDate>
-        <link>
-        http://localhost:4000/kotlin-3</link>
-        <guid isPermaLink="true">http://localhost:4000/kotlin-3</guid>
       </item>
       
     

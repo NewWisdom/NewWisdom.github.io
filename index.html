@@ -141,7 +141,7 @@
         
             <nav class="pagination" role="pagination">
     
-    <span class="page-number"> Page 1 of 14 </span>
+    <span class="page-number"> Page 1 of 15 </span>
      
         <a class="older-posts" href="/page2/" title="Next Page">Older Posts &raquo;</a>
      
@@ -150,6 +150,103 @@
     </div>
 
     <!-- This is the post loop - each post will be output using this markup -->
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/docker">🐳 Docker란</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>도커란? 컨테이너 기반의 오픈소스 가상화 플랫폼 다양한 프로그램, 실행환경을 컨테이너로 추상화한, 동일한 인터페이스를 제공해 프로그램의 배포 및 관리를 단순화하게 해줌 어디에서든 실행 가능하도록 해줌(조립컴, AWS, Google... <a class="read-more" href="/docker">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-07-11">11 Jul 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/ci-and-cd">⚒️ CI/CD란, 젠킨스 실습해보기</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>CI (Continuous Integration) 지속적 통합 개발하면서 코드에 대한 통합을 지속적으로 진행 여러 개발자가 작성하거나 수정한 소스를 지속적으로 통합하고 테스트 빌드 및 테스트 자동화 CI를 적용할 때의... <a class="read-more" href="/ci-and-cd">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-07-11">11 Jul 2021</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/jpa-casecade">🌱 JPA - Cascade 노트</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>JPA에서 엔티티를 저장할 때 연관된 모든 엔티티는 영속 상태여야 한다. 부모 엔티티를 영속 상태로 만들 때 연관된 자식도 한번에 영속 상태로 만들 수 있다. Cascade란? 영속성... <a class="read-more" href="/jpa-casecade">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+            
+                
+
+                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
+                <!-- author -->
+                <a href='/author/amazzi'>✨ new wisdom ✨</a>
+
+                
+            
+
+            <!-- [[tags prefix=" on "]] -->
+            
+                on
+                
+                    
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
+                    
+                
+            
+            <time class="post-date" datetime="2021-07-08">08 Jul 2021</time>
+        </footer>
+    </article>
     
     <article class="post">
         <header class="post-header">
@@ -217,109 +314,12 @@
         </footer>
     </article>
     
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/kotlin-3">📋 Kotlin을 정복해봅시다 3</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>지하철 미션을 코틀린으로 구현해보기 Data class는 상속이 안된다. Custom Exception을 data class로 만들고 싶었다…. 하지만 실패 왜냐하면 equals() 메소드를 제대로 오버라이딩해서 구현할 수 있는 방법이 없기... <a class="read-more" href="/kotlin-3">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>,
-                    
-                
-                    
-                       <a href='/tag/kotlin'>Kotlin</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-06-17">17 Jun 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/atdd-subway-fare-note">📚 atdd-subway-fare 미션 정리</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>요금 정책 로그인 사용자와 비로그인 사용자를 구별하여 요금 정책을 적용 PathController에서는 토큰이 없어도 예외가 아니었고 MemberController에서는 토큰이 없으면 예외였기에 Resolver에서는 각각에 맞는 처리를 해주어야 했음 맨... <a class="read-more" href="/atdd-subway-fare-note">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/woowa'>Woowa</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-06-16">16 Jun 2021</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/cors">📌 CORS</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>배경 지식 SOP(Same Origin Policy) 다른 출처의 리소스를 사용하는 것에 제한하는 보안 방식 왜 SOP? CSRF Attack 때문! 사용자는 인증 토큰을 가지고 있는 상태 해커가 만든... <a class="read-more" href="/cors">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/amazzi.jpeg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/amazzi'>✨ new wisdom ✨</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/techotalk'>Techotalk</a>
-                    
-                
-            
-            <time class="post-date" datetime="2021-06-16">16 Jun 2021</time>
-        </footer>
-    </article>
-    
 
     <!-- Previous/next page links - displayed on every page -->
     
         <nav class="pagination" role="pagination">
     
-    <span class="page-number"> Page 1 of 14 </span>
+    <span class="page-number"> Page 1 of 15 </span>
      
         <a class="older-posts" href="/page2/" title="Next Page">Older Posts &raquo;</a>
      

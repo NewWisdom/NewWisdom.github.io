@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>📌 Servlet과 Spring</title>
+    <title>🌱 JPA - Cascade 노트</title>
     <meta name="description" content="블로그 이사중... 아직 정리가 안되었음..." />
 
     <!-- Mobile Meta -->
@@ -45,21 +45,21 @@
 </style>
 <script>hljs.initHighlightingOnLoad();</script>
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="http://localhost:4000//sevlet" />
+        <link rel="canonical" href="http://localhost:4000//jpa-casecade" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Welcome To New Wisdom's Log !" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="📌 Servlet과 Spring" />
+    <meta property="og:title" content="🌱 JPA - Cascade 노트" />
     <meta property="og:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta property="og:url" content="http://localhost:4000//sevlet" />
+    <meta property="og:url" content="http://localhost:4000//jpa-casecade" />
     <meta property="og:image" content="/assets/images/woowa.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="📌 Servlet과 Spring" />
+    <meta name="twitter:title" content="🌱 JPA - Cascade 노트" />
     <meta name="twitter:description" content="블로그 이사중... 아직 정리가 안되었음..." />
-    <meta name="twitter:url" content="http://localhost:4000//sevlet" />
+    <meta name="twitter:url" content="http://localhost:4000//jpa-casecade" />
     <meta name="twitter:image:src" content="/assets/images/woowa.jpg" />
 
     <script type="application/ld+json">
@@ -67,8 +67,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Welcome To New Wisdom's Log !",
-    "name": "📌 Servlet과 Spring",
-    "url": "http://localhost:4000//sevlet",
+    "name": "🌱 JPA - Cascade 노트",
+    "url": "http://localhost:4000//jpa-casecade",
     "image": "/assets/images/woowa.jpg",
     "description": "블로그 이사중... 아직 정리가 안되었음..."
 }
@@ -127,7 +127,7 @@
         
     </nav>
     <div class = "amazzi">    
-        <h1 class="post-title">📌 Servlet과 Spring</h1>
+        <h1 class="post-title">🌱 JPA - Cascade 노트</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -136,13 +136,17 @@
                     <a href='/author/amazzi'>✨ new wisdom ✨</a>
                 
             
-            <time class="post-date" datetime="2021-06-23">23 Jun 2021</time>
+            <time class="post-date" datetime="2021-07-08">08 Jul 2021</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
                 
                     
-                       <a href='/tag/techotalk'>Techotalk</a>
+                       <a href='/tag/woowa'>Woowa</a>,
+                    
+                
+                    
+                       <a href='/tag/springboot'>Springboot</a>
                     
                 
                 
@@ -162,160 +166,153 @@
 
         <section class="post-content">
 
-            <h2 id="서블릿이란">서블릿이란</h2>
+            <p>JPA에서 엔티티를 저장할 때 연관된 모든 엔티티는 영속 상태여야 한다.<br />
+부모 엔티티를 영속 상태로 만들 때 연관된 자식도 한번에 영속 상태로 만들 수 있다.</p>
+
+<h2 id="cascade란">Cascade란?</h2>
 
 <ul>
-  <li>처음 웹 서버는 정적인 페이지만 만들 수 있었음</li>
-  <li>웹서버에 프로그램을 붙여 동적인 페이지를 생성하기 시작
+  <li>영속성 전이</li>
+  <li>연관관계에 있는 엔티티에 작업이 이루어져 상태 변화가 이뤄질 시 동일한 작업이 연결된 엔티티에 전이되는 옵션</li>
+  <li>일반적으로 부모 엔티티에서 cascade 옵션을 걸어줌</li>
+  <li>자식에서 부모로 옵션을 거는 것은 의미가 없다고함</li>
+  <li>즉시로딩, 지연로딩, 연관관계 세팅과 관계 없음</li>
+  <li>부모, 자식 엔티티와 연관관계 주인(외래키 관리자)는 다름</li>
+</ul>
+
+<h3 id="entity의-상태">Entity의 상태</h3>
+
+<ul>
+  <li><strong>Transient</strong> : JPA가 모르는 상태 (단순 객체 생성)</li>
+  <li><strong>Persistent</strong> : JPA가 관리중인 상태 (1차 캐시, Dirty Checking, Write Behind, …)</li>
+  <li><strong>Detached</strong> : JPA가 더이상 관리하지 않는 상태</li>
+  <li><strong>Removed</strong> : JPA가 관리하긴 하지만 삭제하기로 한 상태</li>
+</ul>
+
+<h3 id="casecade-옵션-일부">casecade 옵션 (일부)</h3>
+
+<h4 id="persist">PERSIST</h4>
+
+<ul>
+  <li>엔티티를 영속화 할 때 연관된 엔티티도 함께 유지</li>
+  <li>Transient 인스턴스를 Persistent로 만들어줌</li>
+</ul>
+
+<h4 id="remove">REMOVE</h4>
+
+<ul>
+  <li>엔티티를 삭제할 때, 연관된 엔티도 함께 삭제</li>
+</ul>
+
+<h4 id="all">ALL</h4>
+
+<ul>
+  <li>모든 CASCADE 옵션 적용</li>
+  <li>모든 작업을 부모에서 자식 엔티티로 전파</li>
+</ul>
+
+<h2 id="예시">예시</h2>
+
+<h3 id="아무런-옵션이-없는-경우">아무런 옵션이 없는 경우</h3>
+
+<h4 id="comment">Comment</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Comment</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">comment</span><span class="o">;</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="kd">private</span> <span class="n">Post</span> <span class="n">post</span><span class="o">;</span>
+<span class="o">}</span> 
+</code></pre></div></div>
+
+<h4 id="post">Post</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"post"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Comment</span><span class="o">&gt;</span> <span class="n">comments</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addComment</span><span class="o">(</span><span class="n">Comment</span> <span class="n">comment</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">getComments</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">comment</span><span class="o">);</span>
+        <span class="n">comment</span><span class="o">.</span><span class="na">setPost</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="test-코드">Test 코드</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/cddb1ee2-22ca-47f4-9153-54f8b207c8ed/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>자식인 Comment는 저장되지 않음
     <ul>
-      <li>서블릿이 이 프로그램 중 하나</li>
+      <li>id가 null임을 확인</li>
     </ul>
   </li>
-  <li>서블릿은 동적인 페이지를 만드는 프로그램 중 하나이다.</li>
 </ul>
 
-<h2 id="서블릿으로-요청을-처리하는-방법">서블릿으로 요청을 처리하는 방법</h2>
+<h3 id="cascadetypeall을-건-경우">CascadeType.ALL을 건 경우</h3>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/9fe8d27c-4b86-4b4b-9f00-675ea55a879d/image.png" style="zoom:67%;" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/a9058252-290e-4373-a2a1-1209ddd93929/image.png" style="zoom:50%;" /></p>
 
 <ul>
-  <li>서블릿은 이런 HTTP 요청과 응답을 좀 더 쉽게 다룰 수 있는 메서드(기능)을 제공</li>
-  <li>개발자들이 집중해야하는 비즈니스 로직에 집중할 수 있음</li>
+  <li>부모인 Post 엔티티에서 자식인 Comments에 옵션걸기</li>
 </ul>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/2aa5a2cb-f0a1-40aa-bfbf-a8bd63eb1e47/image.png" style="zoom: 50%;" /></p>
+<p><img src="https://images.velog.io/images/new_wisdom/post/7b0a6cb1-5ce9-490a-80a3-32048d2a6281/image.png" style="zoom: 33%;" /></p>
 
 <ul>
-  <li><code class="highlighter-rouge">service()</code> : 요청을 처리할 때 수행하는 메서드</li>
+  <li>id가 null이 아님을 확인</li>
 </ul>
 
-<p><img src="https://images.velog.io/images/new_wisdom/post/33e865c3-aab2-4d27-b4ad-a9d5d6e1617c/image.png" style="zoom:50%;" /></p>
+<h2 id="고아-객체-제거">고아 객체 제거</h2>
 
 <ul>
-  <li>개발자가 처리하고 싶은<code class="highlighter-rouge"> doXxx()</code>를 재정의해주자!</li>
-  <li>서비스 메서드만 재정의해서 처리 방법을 지정</li>
+  <li>JPA에서는 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제하는 기능 제공</li>
+  <li>참조가 제거된 엔티티는 다른 곳에서 참조하지 않는 고아 객체로 보고 삭제</li>
+  <li>때문에 참조하는 객체가 하나일 때만 사용해야 함 (특정 엔티티에서만 소유하고 있는 엔티티)</li>
+  <li><code class="highlighter-rouge">@OneToOne</code>, <code class="highlighter-rouge">@OneToMany</code> 에서만 사용 가능</li>
 </ul>
 
-<h2 id="서블릿-컨테이너와-서블릿이-호출되는-과정">서블릿 컨테이너와 서블릿이 호출되는 과정</h2>
+<h4 id="example">Example</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d5580482-d984-43e1-8a51-d407d75bc0a1/image.png" style="zoom:50%;" /></p>
 
 <ul>
-  <li>서블릿 컨테이너는 서블릿을 관리하는 친구 (생명주기 관리)</li>
+  <li>Comments 객체는 Post에서만 소유하고 있음</li>
+  <li>Comments에 <code class="highlighter-rouge">orphanRemoval</code> 옵션 추가</li>
 </ul>
 
-<h4 id="사용차-요청이-들어오면">사용차 요청이 들어오면</h4>
-
-<ol>
-  <li>Servlet Request / Servlet Response 객체 생성</li>
-  <li>설정 파일을 참고하여 맵핑할 Servlet을 확인</li>
-  <li>해당 서블릿 인스턴스 존재 유무를 확인하여 없으면 생성 <code class="highlighter-rouge">init()</code></li>
-  <li>Servlet Container에 스레드를 생성하고 res, req를 인자로 service 실행</li>
-  <li>응답을 처리한 Servlet Request / Servlet Response 객체 소명</li>
-</ol>
-
-<p><strong>서블릿은 싱글톤이기 때문에 소멸되지 않고 관리된다.</strong></p>
-
-<h5 id="참고---설정-파일">참고 - 설정 파일</h5>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/9467a579-fcf6-4221-960b-667a576979b0/image.png" style="zoom:33%;" /></p>
-
-<h4 id="한-요청을-처리하는-도중-다른-요청이-들어오면">한 요청을 처리하는 도중 다른 요청이 들어오면?</h4>
+<p><img src="https://images.velog.io/images/new_wisdom/post/70cb0d2c-9aa1-44ec-854b-e7386352fd6b/image.png" style="zoom:50%;" /></p>
 
 <ul>
-  <li>멀티 스레드로 요청을 처리</li>
-  <li>스레드당 다른 요청을 처리하거나</li>
-  <li>여러 스레드에서 한 서블릿의 여러 요청을 동시에 처리</li>
-  <li>하지만 스레드는 생성비용이 비싸고, 다른 스레드로 전환하는 것이 많은 오버로딩을 일으킴</li>
+  <li>Comments를 제거하였을 때,</li>
 </ul>
 
-<h4 id="요청당-서블릿을-정해주면-비효율적이다">요청당 서블릿을 정해주면 비효율적이다.</h4>
+<p><img src="https://images.velog.io/images/new_wisdom/post/a0b3db75-0b62-4034-9cdf-99d6885c85e4/image.png" style="zoom:33%;" /></p>
 
 <ul>
-  <li>관리적인 측면에서는 멀티스레딩을 다뤄야하는 어려움</li>
-  <li>개발적인 측면에서는 핸들러의 공통 로직이 매번 중복됨</li>
+  <li>comment에 대해서 다음과 같이 delete 쿼리가 나감</li>
 </ul>
 
-<h4 id="핸들러의-공통-로직-중복">핸들러의 공통 로직 중복?</h4>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/ab92c505-de46-4d6b-9774-9d2d265d42b9/image.png" style="zoom:50%;" /></p>
-
-<ul>
-  <li>주문, 계산, 포장이 중복됨</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/f90972b9-5694-42be-b4a3-7f89cf1618dd/image.png" style="zoom:50%;" /></p>
-
-<ul>
-  <li>손님의 요청을 처리하는 과정 중 중복되는 로직을 앞단에 매니저를 두는 것이 <strong>컨트롤러 패턴</strong></li>
-</ul>
-
-<h4 id="dispatcher-servlet">Dispatcher Servlet</h4>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/6b952ef0-f0dd-4034-81c8-241e20f37e58/image.png" style="zoom:50%;" /></p>
-
-<ul>
-  <li>이전에는 요청마다 서블릿을 정의하고 수행할 때마다 스레드를 처리하는 로직을 수행했다면</li>
-  <li>이제는 하나의 서블릿만 정의하고 이 서블릿이 모든 요청을 수행할 수 있도록 하는 전략을 따름</li>
-</ul>
-
-<h2 id="dispatcher-servlet이-web-요청을-처리하는-과정">Dispatcher Servlet이 web 요청을 처리하는 과정</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/72c80f19-0466-4f9a-9217-a2fd35b5fb73/image.png" style="zoom:33%;" /></p>
-
-<ul>
-  <li>전면 매니저가 모든 요청을 처리는 하되,</li>
-  <li>각각 담당 직원을 둠</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/4653c153-d442-49cd-a6b7-974ba61174f2/image.png" style="zoom: 33%;" /></p>
-
-<ul>
-  <li>DispatcherServlet이 모든 요청을 받음</li>
-  <li>핸들러 맵핑이라는 애가 내 요청을 처리할 때 컨트롤러를 찾아서 반환</li>
-  <li>핸들러 어댑터는 해당 컨트롤러 메서드를 호출하여 처리로직 수행하는 역할</li>
-  <li>처리 결과를 Model And View 객체로 변환하여 DispatcherServlet에 넘김</li>
-  <li>DispatcherServlet은 뷰 리졸버를 이용해 뷰를 찾거나 생성</li>
-  <li>이렇게 얻은 뷰에 얻은 데이터를 넣어 응답 객체 생성</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/8c3faa81-ad63-44ba-b9b1-3d89a2a1ebfb/image.png" style="zoom: 33%;" /></p>
-
-<p>스프링을 사용하면 개발자는 핸들러만 신경써주면 된다. <br />
-핸들러 매핑과 핸들러 어댑터 뷰 리졸버는 DispatcherServlet이 스프링 컨테이너로부터 주입을 받아서 사용하고 동작</p>
-
-<h3 id="스프링-컨테이너">스프링 컨테이너</h3>
-
-<ul>
-  <li>프로그램이 동작한느 동안 사용되는 자바 객체들을 프레임워크가 대신 관리하고 보관하기 위해 사용되는 바구니</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/268fa93b-daee-4037-88c7-230af3eb97ea/image.png" style="zoom: 50%;" /></p>
-
-<h4 id="servlet-webapplicationcontext">Servlet WebApplicationContext</h4>
-
-<ul>
-  <li>웹 요청 처리 관련 객체들이 담겨있음</li>
-</ul>
-
-<h4 id="root-webapplicationcontext">Root WebApplicationContext</h4>
-
-<ul>
-  <li>웹 요청 처리 관련된 빈 외의 컴포넌트들 (서비스, 레포지토리 등)</li>
-</ul>
-
-<p><strong>서블릿 설정 파일만 잘 작성해주면 설정대로 생성된 객체가 스프링 컨테이너에서 관리되고 필요한 부분에서 주입받아 Dispatcher Servlet이 알아서 사용할 수 있게된다.</strong></p>
-
-<h3 id="스프링으로-웹-요청을-처리한다는-것은">스프링으로 웹 요청을 처리한다는 것은</h3>
-
-<ul>
-  <li>스프링 mvc 에서 제공하는 Dispatcher Servlet과 웹 요청 처리 관련 구현체들을 사용할 수 있음</li>
-  <li>동시에 스프링 컨테이너, 즉 스프링 IoC를 사용해서 개발할 수 있음</li>
-  <li>즉 개발자는 핸들러에만(컨트롤러) 집중할 수 있도록!</li>
-</ul>
+<hr />
 
 <h3 id="참고-자료">참고 자료</h3>
 
 <ul>
-  <li><a href="https://www.youtube.com/watch?v=calGCwG_B4Y&amp;t=554s">[10분 테코톡] 🐶 코기의 Servlet vs Spring</a></li>
+  <li><a href="https://vladmihalcea.com/a-beginners-guide-to-jpa-and-hibernate-cascade-types/">A beginner’s guide to JPA and Hibernate Cascade Types</a></li>
+  <li><a href="https://webcoding-start.tistory.com/41">영속성 전이 및 고아객체 제거</a></li>
 </ul>
 
 
@@ -350,15 +347,15 @@
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=📌 Servlet과 Spring&amp;url=http://localhost:4000sevlet"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=🌱 JPA - Cascade 노트&amp;url=http://localhost:4000jpa-casecade"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000sevlet"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000jpa-casecade"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000sevlet"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:4000jpa-casecade"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -379,20 +376,20 @@
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/service-work-kotlin4">
+        <a class="read-next-story " style="background-image: url(/assets/images/woowa.jpg)" href="/ci-and-cd">
             <section class="post">
-                <h2>📋 Kotlin으로 Spring Rest Docs 삽질하기 (feat. 제작 근로)</h2>
-                <p>## Spring Rest Docs 설정 - build.gradle.kts #### 플러그인 추가 ```kotlin plugins{ // ... id("org.asciidoctor.convert")...</p>
+                <h2>⚒️ CI/CD란, 젠킨스 실습해보기</h2>
+                <p>## CI (Continuous Integration) * 지속적 통합 * 개발하면서 코드에 대한 통합을 지속적으로 진행 *...</p>
             </section>
         </a>
     
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/atdd-subway-fare-note">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/woowa.jpg)" href="/service-work-kotlin4">
             <section class="post">
-                <h2>📚 atdd-subway-fare 미션 정리</h2>
-                <p>요금 정책 로그인 사용자와 비로그인 사용자를 구별하여 요금 정책을 적용 PathController에서는 토큰이 없어도 예외가 아니었고...</p>
+                <h2>📋 Kotlin으로 Spring Rest Docs 삽질하기 (feat. 제작 근로)</h2>
+                <p>Spring Rest Docs 설정 - build.gradle.kts 플러그인 추가 plugins{ // ... id("org.asciidoctor.convert") version "1.5.9.2" }...</p>
             </section>
         </a>
     

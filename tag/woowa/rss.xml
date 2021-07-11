@@ -12,6 +12,743 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>🐳 Docker란</title>
+	  <link>//docker</link>
+	  <author></author>
+	  <pubDate>2021-07-11T19:18:00+09:00</pubDate>
+	  <guid>//docker</guid>
+	  <description><![CDATA[
+	     <h2 id="도커란">도커란?</h2>
+
+<ul>
+  <li>컨테이너 기반의 오픈소스 가상화 플랫폼</li>
+  <li>다양한 프로그램, 실행환경을 컨테이너로 추상화한, 동일한 인터페이스를 제공해 프로그램의 배포 및 관리를 단순화하게 해줌</li>
+  <li>어디에서든 실행 가능하도록 해줌(조립컴, AWS, Google Cloud)</li>
+</ul>
+
+<h3 id="특징">특징</h3>
+
+<h4 id="확장성">확장성</h4>
+
+<ul>
+  <li>이미지만 만들어 놓으면 컨테이너는 그냥 띄우면 됨</li>
+  <li>서버에 서비스 하나 더 띄울라면 <code class="highlighter-rouge">run</code> 명령어로 간단하게 해결</li>
+</ul>
+
+<h4 id="표준성">표준성</h4>
+
+<ul>
+  <li>도커를 사용하지 않는 경우 ruby, nodejs, go, php로 만든 서비스들의 배포 방식은 각각 다름</li>
+  <li>컨테이너라는 표준으로 서버를 배포하므로 모든 서비스들의 배포과정이 동일</li>
+</ul>
+
+<h4 id="이미지">이미지</h4>
+
+<ul>
+  <li>이미지에서 컨테이너를 생성하기 때문에 반드시 이미지를 만드는 과정이 필요</li>
+  <li>이미지를 저장할 곳이 필요</li>
+</ul>
+
+<h4 id="설정">설정</h4>
+
+<ul>
+  <li>보통 환경변수로 제어</li>
+  <li>하나의 이미지가 환경변수에 따라 동적으로 설정파일을 생성하도록 만들어져야함</li>
+</ul>
+
+<h3 id="컨테이너">컨테이너</h3>
+
+<ul>
+  <li>격리된 공간에서 프로세스가 동작하는 기술</li>
+  <li>가상화 기술의 하나</li>
+</ul>
+
+<h4 id="but-기존의-방식과는-차이가-있음">BUT. 기존의 방식과는 차이가 있음</h4>
+
+<ul>
+  <li>기존 가상화 방식은 주로 OS를 가상화 한 것
+    <ul>
+      <li>호스트 OS 위에 게스트 OS 전체를 가상화하여 사용하는 방식</li>
+      <li>이 방식은 어쨌든 성능상 문제가 있다고…</li>
+    </ul>
+  </li>
+  <li>때문에 프로세스를 격리하는 방식 등장
+    <ul>
+      <li>리눅스에서는 프로세스만 격리시키는 리눅스 컨테이너 존재</li>
+    </ul>
+  </li>
+  <li>하나의 서버에 여러개의 컨테이너를 실행하면 서로 영향을 미치지 않고 독립적으로 실행 가능
+    <ul>
+      <li>실행중인 컨테이너에 접속래 명령어 입력 가능</li>
+      <li>패키지 설치 가능</li>
+      <li>사용자 추가 가능</li>
+      <li>여러개의 프로세스를 백그라운드로 실행 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="이미지-1">이미지</h3>
+
+<ul>
+  <li>컨테이너 실행에 필요한 모든 파일과 설정 값등을 포함</li>
+  <li>상태값을 가지지 않고 변하지 않음</li>
+  <li>컨테이너는 이미지를 실행한 상태</li>
+  <li>추가되거나 변하는 값은 컨테이너에 저장됨</li>
+  <li>같은 이미지에서 여러개 컨테이너를 생성할 수 있고, 컨테이너가 수정/삭제되어도 이미지는 변하지 않음</li>
+  <li>ex) MySQL이미지는 MySQL을 실행하는데 필요한 파일과 실행 명령어, 포트 정보등을 가지고 있음</li>
+  <li>도커 이미지는 <a href="https://hub.docker.com/">Docker hub</a>에 등록하거나 <a href="https://docs.docker.com/registry/">Docker Registry</a> 저장소를 직접 만들어 관리할 수 있음</li>
+</ul>
+
+<h4 id="모든-정보를-가지고-있다면-용량이-엄청-클텐데">모든 정보를 가지고 있다면 용량이 엄청 클텐데…</h4>
+
+<ul>
+  <li>이런 문제를 해결하기 위해 <strong>레이어</strong> 라는 개념 도입</li>
+</ul>
+
+<h4 id="레이어">레이어</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/bc4d8eb2-e4f2-481b-9141-c06532daa927/image.png" style="zoom: 67%;" /></p>
+
+<ul>
+  <li>여러개의 레이어를 하나의 파일 시스템으로 사용할 수 있게 해줌</li>
+  <li>이미지는 여러개의 읽기전용 레이어로 구성</li>
+  <li>파일이 추가되거나 수정되면 새로운 레이어가 생성됨</li>
+  <li>어떤 이미지를 베이스로 새로운 이미지를 다운받는면 추가되는 레이어만 다운받으면 됨</li>
+  <li>컨테이너를 생성할 때도 기존 이미지 레이어 위에 읽기, 쓰기 레이어를 추가하는데, 컨테이너가 실행중에 생성하는 파일, 변경 내용은 해당 레이어에만 저장되어 최소한의 용량만 사용</li>
+</ul>
+
+<h4 id="이미지-경로">이미지 경로</h4>
+
+<ul>
+  <li>이미지는 URL 방식으로 관리하며 태그를 붙일 수 있음</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1002ebcd-30c3-41da-bd92-4c6345c29bcd/image.png" style="zoom:50%;" /></p>
+
+<h4 id="dockerfile">Dockerfile</h4>
+
+<ul>
+  <li>이미지를 만들기 위해 DSL을 통해 이미지 생성 과정을 적음</li>
+</ul>
+
+<h2 id="도커-설치--컨테이너-실행">도커 설치 &amp; 컨테이너 실행</h2>
+
+<h3 id="리눅스에-도커-설치하기">리눅스에 도커 설치하기</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -fsSL https://get.docker.com/ | sudo sh
+</code></pre></div></div>
+
+<h3 id="sudo-없이-사용하기">sudo 없이 사용하기</h3>
+
+<ul>
+  <li>도커는 기본적으로 root 권한이 필요</li>
+  <li>루트가 아닌 사용자가 sudo 없이 사용하기 위해 다음 명령어를 통해 사용자를 docker 그룹에 추가</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo usermod -aG docker $USER # 현재 접속중인 사용자에게 권한주기
+</code></pre></div></div>
+
+<h3 id="컨테이너-실행">컨테이너 실행</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">docker run --help</code> 명령어를 통해 다양한 옵션을 알아보자</li>
+  <li>사용할 이미지가 저장되어 있는지 확인하고 없다면 다운로드 <code class="highlighter-rouge">pull</code>를 한 후 컨테이너를 생성 <code class="highlighter-rouge">create</code>하고 시작 <code class="highlighter-rouge">start</code></li>
+</ul>
+
+<h2 id="도커-기본-명령어">도커 기본 명령어</h2>
+
+<h4 id="컨테이너-목록-확인하기-ps">컨테이너 목록 확인하기 (ps)</h4>
+
+<ul>
+  <li>컨테이너 목록을 확인</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps [OPTIONS]
+</code></pre></div></div>
+
+<h4 id="컨테이너-중지하기-stop">컨테이너 중지하기 (stop)</h4>
+
+<ul>
+  <li>실행중인 컨테이너 중지</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop [OPTIONS] CONTAINER [CONTAINER...]
+</code></pre></div></div>
+
+<h4 id="컨테이너-제거하기-rm">컨테이너 제거하기 (rm)</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rm [OPTIONS] CONTAINER [CONTAINER...]
+</code></pre></div></div>
+
+<h4 id="이미지-다운로드하기-pull">이미지 다운로드하기 (pull)</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+</code></pre></div></div>
+
+<h4 id="이미지-삭제하기-rmi">이미지 삭제하기 (rmi)</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rmi [OPTIONS] IMAGE [IMAGE...]
+</code></pre></div></div>
+
+<h4 id="실행중인-컨테이너에-명령어-실행-exec">실행중인 컨테이너에 명령어 실행 (exec)</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+</code></pre></div></div>
+
+<h2 id="도커-이미지-만들기">도커 이미지 만들기</h2>
+
+<ul>
+  <li>도커는 이미지를 만들기 위해 컨테이너의 상태를 그대로 이미지로 저장함</li>
+  <li>ex) 어떤 애플리케이션을 이미지로 만든다면, 리눅스만 설치된 컨테이너에 애플리케이션을 설치하고 이 상태를 그대로 이미지로 저장</li>
+  <li>
+    <p>가상머신의 스냅샷과 비슷한 방식</p>
+  </li>
+  <li>이미지를 만들기 위해서는 <code class="highlighter-rouge">Dockerfile</code>이라는 이미지 빌드용 DSLDomain Specific Language 파일 작성</li>
+</ul>
+
+<h4 id="이미지-빌드">이미지 빌드</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build [OPTIONS] PATH | URL | -
+</code></pre></div></div>
+
+<ul>
+  <li>생성할 이미지 이름을 지정하기 위한 <code class="highlighter-rouge">-t(--tag)</code> 옵션만 알면 빌드가 가능</li>
+</ul>
+
+<h3 id="도커-이미지-저장소">도커 이미지 저장소</h3>
+
+<ul>
+  <li>도커는 빌드한 이미지를 서버에 배포하기 위해 직접 파일을 복사하는 방법 대신 <a href="https://docs.docker.com/registry/">도커 레지스트리</a>(Docker Registry)라는 이미지 저장소를 사용</li>
+  <li>이미지를 레지스트리에 푸시push하고 다른 서버에서 풀pull받아 사용하는 구조 (like. git)</li>
+</ul>
+
+<h4 id="도커-허브-사용">도커 허브 사용</h4>
+
+<ul>
+  <li>기본 이미지 저장소로 ubuntu, centos, debian등의 베이스 이미지와 ruby, golang, java, python 등의 공식 이미지가 저장되어 있음</li>
+  <li><a href="https://subicura.com/2017/02/10/docker-guide-for-beginners-create-image-and-deploy.html">사용법은 참고 자료를 참고하자</a></li>
+</ul>
+
+<h3 id="배포하기">배포하기</h3>
+
+<ul>
+  <li>기존 애플리케이션은 사용하는 언어, 프레임워크, 웹(or WAS)서버, 리눅스 배포판, 개발자의 취향에 따라 각각 다른 방식을 사용</li>
+  <li>새로운 서버를 셋팅하고 한 번에 배포를 성공한다는 건 굉장히 힘든 일</li>
+  <li>또한 의존성 라이브러리가 제대로 설치되었는지 검증하기도 매우 어려웠음</li>
+  <li>컨테이너를 사용하면 어떤 언어, 어떤 프레임워크를 쓰든 상관없이 배포 방식이 동일해지고 과정 또한 굉장히 단순해짐</li>
+  <li>이미지를 다운받고 컨테이너를 실행하면 끝</li>
+</ul>
+
+<hr />
+
+<h3 id="참고자료">참고자료</h3>
+
+<ul>
+  <li><a href="https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html">초보를 위한 도커 안내서 - 도커란 무엇인가?</a></li>
+  <li><a href="https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html">초보를 위한 도커 안내서 - 설치하고 컨테이너 실행하기</a></li>
+  <li><a href="https://subicura.com/2017/02/10/docker-guide-for-beginners-create-image-and-deploy.html">초보를 위한 도커 안내서 - 이미지 만들고 배포하기</a></li>
+  <li><a href="https://subicura.com/2016/06/07/zero-downtime-docker-deployment.html">도커를 이용한 웹서비스 무중단 배포하기</a></li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>⚒️ CI/CD란, 젠킨스 실습해보기</title>
+	  <link>//ci-and-cd</link>
+	  <author></author>
+	  <pubDate>2021-07-11T19:18:00+09:00</pubDate>
+	  <guid>//ci-and-cd</guid>
+	  <description><![CDATA[
+	     <h2 id="ci-continuous-integration">CI (Continuous Integration)</h2>
+
+<ul>
+  <li>지속적 통합</li>
+  <li>개발하면서 코드에 대한 통합을 지속적으로 진행</li>
+  <li>여러 개발자가 작성하거나 수정한 소스를 지속적으로 통합하고 테스트</li>
+  <li><strong>빌드 및 테스트 자동화</strong></li>
+</ul>
+
+<h3 id="ci를-적용할-때의-흐름">CI를 적용할 때의 흐름</h3>
+
+<ol>
+  <li>개발자는 자신이 개발한 소프트웨어의 소스코드를 공통된 버전 관리시스템(github 등)에 저장.</li>
+  <li>소스코드상에 변동이 생기면 버전 관리 시스템에서는 CI 툴로 소스코드 변경 알림</li>
+  <li>CI툴에서는 변경된 소스코드를 대상으로 Build, Test, Merge를 진행</li>
+  <li>이 과정들이 완료되면 슬랙, 카카오톡, 메일 등을 통해 통합 결과를 알림</li>
+</ol>
+
+<h2 id="cd-continuous-delivery-continuous-deployment">CD (Continuous Delivery, Continuous Deployment)</h2>
+
+<ul>
+  <li>지속적 배포</li>
+  <li>애플리케이션이 항상 신뢰 가능한 수준에서 배포될 수 있도록 지속적으로 관리하자는 개념</li>
+  <li>변경 사항을 레포지토리에서 프로덕션 환경까지 자동으로 배포하는 것</li>
+  <li><strong>배포 자동화</strong></li>
+</ul>
+
+<h3 id="cd를-적용했을-때의-흐름">CD를 적용했을 때의 흐름</h3>
+
+<ol>
+  <li>CI를 통해 소스코드를 검증</li>
+  <li>검증된 소프트웨어를 실제 프로덕션 환경으로 배포</li>
+</ol>
+
+<h2 id="cicd">CI/CD</h2>
+
+<h3 id="tool">Tool</h3>
+
+<ul>
+  <li>Jenkins</li>
+  <li>Travis CI</li>
+  <li>Bamboo</li>
+</ul>
+
+<hr />
+
+<h2 id="젠킨스-도커로-cicd-연습">젠킨스, 도커로 CI/CD 연습</h2>
+
+<blockquote>
+  <p><a href="https://jojoldu.tistory.com/139">docker를 이용한 CI 구축 연습하기 (젠킨스, 슬랙)</a> 를 따라하는 일지</p>
+</blockquote>
+
+<h3 id="buildgradlekts에-tasks-추가">Build.gradle.kts에 tasks 추가</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9096f099-e638-42cd-b719-b7ede0f32535/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>필수는 아니지만, 테스트용으로 추가</li>
+</ul>
+
+<h3 id="쿠버네티스-설치---스킵">쿠버네티스 설치 - 스킵</h3>
+
+<ul>
+  <li><a href="https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-macos/">Mac Os</a></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install kubectl
+// or
+brew install kubernetes-cli
+
+
+kubectl version --client
+</code></pre></div></div>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/571f5b45-43e9-46ab-ae98-1f6600b4c863/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>엥 근데 실패…</li>
+</ul>
+
+<h4 id="해결">해결</h4>
+
+<ul>
+  <li><a href="https://github.com/kubernetes/kubernetes/issues/79503">참고</a></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew cleanup
+$ brew update
+$ brew install kubectl
+</code></pre></div></div>
+
+<h4 id="쿠버네티스-설치가-아니었음">쿠버네티스 설치가 아니었음</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/ef0d93f3-3ca7-4565-9c72-0b54bc4577c7/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>아 이걸 쿠버네티스로 착각 ㅎㅎㅎ 🙃</li>
+</ul>
+
+<h3 id="젠킨스-설치">젠킨스 설치</h3>
+
+<h4 id="이미지-pull-및-실행">이미지 pull 및 실행</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -itd --name jenkins -p 8085:8080 jenkins/jenkins:lts
+</code></pre></div></div>
+
+<ul>
+  <li>run : 이미지를 실행</li>
+  <li><strong>-itd</strong> : interacitve terminal + detach(background)</li>
+  <li><strong>–name</strong> : 이미지 이름 지정</li>
+  <li><strong>-p</strong>: <외부 port="">:<컨테이너 내부port=""></컨테이너></외부></li>
+  <li><strong>jenkins/jenkins:lts</strong> : docker hub이미지 저장소:버전</li>
+</ul>
+
+<h4 id="동작-확인">동작 확인</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/e081e56d-95b1-4c1e-b50b-09cf960c6df2/image.png" style="zoom:50%;" /></p>
+
+<h3 id="젠킨스-접속">젠킨스 접속</h3>
+
+<ul>
+  <li>나는 port를 8085로 했으니 http://localhost:8085/ 으로 접속</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/1732d9e5-f24d-4913-8486-cd405579d6d4/image.png" alt="" /></p>
+
+<ul>
+  <li>짠 이렇게 로그인 화면 뜸</li>
+</ul>
+
+<h4 id="로그인">로그인</h4>
+
+<ul>
+  <li>초기 비번은 젠킨스 컨테이너 안 <code class="highlighter-rouge">/var/jenkins_home/secrets/initialAdminPassword</code> 에 있음</li>
+  <li>다음 명령어로 패스워드 확인</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+</code></pre></div></div>
+
+<h4 id="플러그인-설치">플러그인 설치</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a02378ab-4a01-4036-aa7e-e1a7be1fc357/image.png" alt="" /></p>
+
+<ul>
+  <li>install suggested plugins 를 선택하면 많이 사용되는 플러그인들이 포함되어 자동 설치</li>
+  <li>github 플러그인도 자동 설치됨</li>
+  <li>install suggested plugins 이걸 안 선택할 이유가 뭐야 없어</li>
+</ul>
+
+<h4 id="관리자-계정-생성">관리자 계정 생성</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/2aecb0a0-6483-4533-a707-5387be536161/image.png" alt="" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a1c4e71b-0c00-4960-a1c5-3e424bb9e86f/image.png" alt="" /></p>
+
+<h4 id="설치-완료">설치 완료</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/20c10d76-0bd4-4a3e-bbe4-d5ea247d79bc/image.png" alt="" /></p>
+
+<ul>
+  <li>오예</li>
+  <li>젠킨스 컨테이너를 다시 시작해야 한다면 <code class="highlighter-rouge">docker start jenkins</code>로 설치된 젠킨스 컨테이너를 실행 후,</li>
+  <li><code class="highlighter-rouge">docker exec -it jenkins /bin/bash</code> 입력</li>
+  <li><code class="highlighter-rouge">docker run</code>은 재설치를 함</li>
+</ul>
+
+<h3 id="젠킨스-설정">젠킨스 설정</h3>
+
+<ul>
+  <li>젠킨스 메인페이지에서 <code class="highlighter-rouge">새로운 Item</code>을 클릭</li>
+</ul>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210712004157818.png" alt="image-20210712004157818" /></p>
+
+<ul>
+  <li>프로젝트 이름을 입력해주고…</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/2cbde34b-d7bc-465f-b818-dc2121cbb3dc/image.png" alt="" /></p>
+
+<ul>
+  <li>깃 레포지토리 주소를 등록</li>
+  <li>그리고 Credentials 에 있는 Add 버튼을 누르기</li>
+</ul>
+
+<p><img src="/Users/jyejye/Library/Application Support/typora-user-images/image-20210712004730575.png" alt="image-20210712004730575" /></p>
+
+<ul>
+  <li>Kind : Username with password 선택</li>
+  <li>github의 계정, 비번 등록</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/65473bf2-35db-4dbc-9de9-603f1f141b59/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>그리고 방금 등록한 계정 선택</li>
+  <li>젠킨스 빌드가 관리될 브랜치 선택</li>
+</ul>
+
+<h4 id="build-trigger">Build Trigger</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7cdb52b2-4b91-40cd-8024-4b45b48478a0/image.png" style="zoom: 33%;" /></p>
+
+<h4 id="build">Build</h4>
+
+<ul>
+  <li>Excute shell 선택</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6e732c9c-3e3e-4874-b186-ea31054ffc3c/image.png" style="zoom: 33%;" /></p>
+
+<ul>
+  <li>빌드 스크립트 작성</li>
+</ul>
+
+<h4 id="토큰-발급">토큰 발급</h4>
+
+<ul>
+  <li>github에서 토큰 발급하기</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6c1da1aa-c501-450b-a6f0-2c5ace5d6899/image.png" alt="" /></p>
+
+<ul>
+  <li>발급된 토큰을 복사하고, 다시 젠킨스로…</li>
+  <li>젠킨스 대시보드 -&gt; 젠킨스 관리 탭 -&gt; 시스템 설정</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7ad805b0-5673-4cbd-ac0f-ab81157bd723/image.png" style="zoom:67%;" /></p>
+
+<ul>
+  <li>Domain : Global credentials (unrestricted) 선택</li>
+  <li>Kind : Secret text 선택</li>
+  <li>Secret : 위에서 생성한 github 토큰 입력</li>
+  <li>ID : 본인이 지정하는 식별자(ID) 입력 (ex: github)</li>
+</ul>
+
+<h4 id="저장하면-끝-build-now">저장하면 끝! Build Now!</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/6e2bd4cd-7f0e-49a9-b9c8-4a9ab276e7b8/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>콘솔도 확인할 수 있음</li>
+</ul>
+
+<h4 id="콘솔-출력">콘솔 출력</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Started by user newwisdom
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/subway-kotlin
+The recommended git tool is: NONE
+using credential 0139eabb-5494-46ce-875e-1bdeedd0d391
+Cloning the remote Git repository
+Cloning repository https://github.com/NewWisdom/subway-kotlin.git
+ &gt; git init /var/jenkins_home/workspace/subway-kotlin # timeout=10
+Fetching upstream changes from https://github.com/NewWisdom/subway-kotlin.git
+ &gt; git --version # timeout=10
+ &gt; git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials 
+ &gt; git fetch --tags --force --progress -- https://github.com/NewWisdom/subway-kotlin.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ &gt; git config remote.origin.url https://github.com/NewWisdom/subway-kotlin.git # timeout=10
+ &gt; git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ &gt; git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 7b0fb7eff520316950d4a0a769d11c46848f76b4 (refs/remotes/origin/master)
+ &gt; git config core.sparsecheckout # timeout=10
+ &gt; git checkout -f 7b0fb7eff520316950d4a0a769d11c46848f76b4 # timeout=10
+Commit message: "feat(member): 멤버 관련 기본 셋팅 추가"
+First time build. Skipping changelog.
+[subway-kotlin] $ /bin/sh -xe /tmp/jenkins8995160598138643631.sh
++ ./gradlew clean print
+Downloading https://services.gradle.org/distributions/gradle-7.0.2-bin.zip
+..........10%...........20%...........30%..........40%...........50%...........60%..........70%...........80%...........90%..........100%
+
+Welcome to Gradle 7.0.2!
+
+Here are the highlights of this release:
+ - File system watching enabled by default
+ - Support for running with and building Java 16 projects
+ - Native support for Apple Silicon processors
+ - Dependency catalog feature preview
+
+For more details see https://docs.gradle.org/7.0.2/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+&gt; Task :clean UP-TO-DATE
+
+&gt; Task :print
+github push complete
+
+BUILD SUCCESSFUL in 2m 43s
+2 actionable tasks: 1 executed, 1 up-to-date
+Finished: SUCCESS
+</code></pre></div></div>
+
+<ul>
+  <li>아직까지는 Build Now를 해야지 빌드가 됨</li>
+</ul>
+
+<h3 id="원격-서버-배포">원격 서버 배포</h3>
+
+<ul>
+  <li>EC2에 올리고 이후 실습을 진행해보자</li>
+  <li>추후 업데이트</li>
+</ul>
+
+<hr />
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li>
+    <p><a href="https://deveric.tistory.com/106">CI/CD 의 개념, 적용해본 후기</a></p>
+  </li>
+  <li>
+    <p><a href="https://goddaehee.tistory.com/260?category=399178">Jenkins 빌드 자동화 - github push시 자동 빌드 하기(github webhook)</a></p>
+  </li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>🌱 JPA - Cascade 노트</title>
+	  <link>//jpa-casecade</link>
+	  <author></author>
+	  <pubDate>2021-07-08T10:01:00+09:00</pubDate>
+	  <guid>//jpa-casecade</guid>
+	  <description><![CDATA[
+	     <p>JPA에서 엔티티를 저장할 때 연관된 모든 엔티티는 영속 상태여야 한다.<br />
+부모 엔티티를 영속 상태로 만들 때 연관된 자식도 한번에 영속 상태로 만들 수 있다.</p>
+
+<h2 id="cascade란">Cascade란?</h2>
+
+<ul>
+  <li>영속성 전이</li>
+  <li>연관관계에 있는 엔티티에 작업이 이루어져 상태 변화가 이뤄질 시 동일한 작업이 연결된 엔티티에 전이되는 옵션</li>
+  <li>일반적으로 부모 엔티티에서 cascade 옵션을 걸어줌</li>
+  <li>자식에서 부모로 옵션을 거는 것은 의미가 없다고함</li>
+  <li>즉시로딩, 지연로딩, 연관관계 세팅과 관계 없음</li>
+  <li>부모, 자식 엔티티와 연관관계 주인(외래키 관리자)는 다름</li>
+</ul>
+
+<h3 id="entity의-상태">Entity의 상태</h3>
+
+<ul>
+  <li><strong>Transient</strong> : JPA가 모르는 상태 (단순 객체 생성)</li>
+  <li><strong>Persistent</strong> : JPA가 관리중인 상태 (1차 캐시, Dirty Checking, Write Behind, …)</li>
+  <li><strong>Detached</strong> : JPA가 더이상 관리하지 않는 상태</li>
+  <li><strong>Removed</strong> : JPA가 관리하긴 하지만 삭제하기로 한 상태</li>
+</ul>
+
+<h3 id="casecade-옵션-일부">casecade 옵션 (일부)</h3>
+
+<h4 id="persist">PERSIST</h4>
+
+<ul>
+  <li>엔티티를 영속화 할 때 연관된 엔티티도 함께 유지</li>
+  <li>Transient 인스턴스를 Persistent로 만들어줌</li>
+</ul>
+
+<h4 id="remove">REMOVE</h4>
+
+<ul>
+  <li>엔티티를 삭제할 때, 연관된 엔티도 함께 삭제</li>
+</ul>
+
+<h4 id="all">ALL</h4>
+
+<ul>
+  <li>모든 CASCADE 옵션 적용</li>
+  <li>모든 작업을 부모에서 자식 엔티티로 전파</li>
+</ul>
+
+<h2 id="예시">예시</h2>
+
+<h3 id="아무런-옵션이-없는-경우">아무런 옵션이 없는 경우</h3>
+
+<h4 id="comment">Comment</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Comment</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">comment</span><span class="o">;</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="kd">private</span> <span class="n">Post</span> <span class="n">post</span><span class="o">;</span>
+<span class="o">}</span> 
+</code></pre></div></div>
+
+<h4 id="post">Post</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"post"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Comment</span><span class="o">&gt;</span> <span class="n">comments</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addComment</span><span class="o">(</span><span class="n">Comment</span> <span class="n">comment</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">getComments</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">comment</span><span class="o">);</span>
+        <span class="n">comment</span><span class="o">.</span><span class="na">setPost</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="test-코드">Test 코드</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/cddb1ee2-22ca-47f4-9153-54f8b207c8ed/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>자식인 Comment는 저장되지 않음
+    <ul>
+      <li>id가 null임을 확인</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="cascadetypeall을-건-경우">CascadeType.ALL을 건 경우</h3>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a9058252-290e-4373-a2a1-1209ddd93929/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>부모인 Post 엔티티에서 자식인 Comments에 옵션걸기</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/7b0a6cb1-5ce9-490a-80a3-32048d2a6281/image.png" style="zoom: 33%;" /></p>
+
+<ul>
+  <li>id가 null이 아님을 확인</li>
+</ul>
+
+<h2 id="고아-객체-제거">고아 객체 제거</h2>
+
+<ul>
+  <li>JPA에서는 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제하는 기능 제공</li>
+  <li>참조가 제거된 엔티티는 다른 곳에서 참조하지 않는 고아 객체로 보고 삭제</li>
+  <li>때문에 참조하는 객체가 하나일 때만 사용해야 함 (특정 엔티티에서만 소유하고 있는 엔티티)</li>
+  <li><code class="highlighter-rouge">@OneToOne</code>, <code class="highlighter-rouge">@OneToMany</code> 에서만 사용 가능</li>
+</ul>
+
+<h4 id="example">Example</h4>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d5580482-d984-43e1-8a51-d407d75bc0a1/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>Comments 객체는 Post에서만 소유하고 있음</li>
+  <li>Comments에 <code class="highlighter-rouge">orphanRemoval</code> 옵션 추가</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/70cb0d2c-9aa1-44ec-854b-e7386352fd6b/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>Comments를 제거하였을 때,</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/a0b3db75-0b62-4034-9cdf-99d6885c85e4/image.png" style="zoom:33%;" /></p>
+
+<ul>
+  <li>comment에 대해서 다음과 같이 delete 쿼리가 나감</li>
+</ul>
+
+<hr />
+
+<h3 id="참고-자료">참고 자료</h3>
+
+<ul>
+  <li><a href="https://vladmihalcea.com/a-beginners-guide-to-jpa-and-hibernate-cascade-types/">A beginner’s guide to JPA and Hibernate Cascade Types</a></li>
+  <li><a href="https://webcoding-start.tistory.com/41">영속성 전이 및 고아객체 제거</a></li>
+</ul>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📋 Kotlin으로 Spring Rest Docs 삽질하기 (feat. 제작 근로)</title>
 	  <link>//service-work-kotlin4</link>
 	  <author></author>
@@ -151,303 +888,6 @@
     <p><a href="https://github.com/awakuwaku/spring-rest-docs-kotlin-sample/blob/main/build.gradle.kts">awakuwaku/spring-rest-docs-kotlin-sample</a></p>
   </li>
 </ul>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📋 Kotlin을 정복해봅시다 3</title>
-	  <link>//kotlin-3</link>
-	  <author></author>
-	  <pubDate>2021-06-17T10:01:00+09:00</pubDate>
-	  <guid>//kotlin-3</guid>
-	  <description><![CDATA[
-	     <h2 id="지하철-미션을-코틀린으로-구현해보기">지하철 미션을 코틀린으로 구현해보기</h2>
-
-<h3 id="data-class는-상속이-안된다">Data class는 상속이 안된다.</h3>
-
-<p><strong>Custom Exception을 data class로 만들고 싶었다…. 하지만 실패</strong></p>
-
-<ul>
-  <li>왜냐하면 <code class="highlighter-rouge">equals()</code> 메소드를 제대로 오버라이딩해서 구현할 수 있는 방법이 없기 때문</li>
-  <li>ex) A Data Class는 자동적으로 equlas를 구현하는데, 이를 상속받은 B Data Class 또한 자동적으로 equlas를 구현하면 충돌 발생</li>
-</ul>
-
-<p><strong>Custom Exception은 일반 class로 만들더라…</strong></p>
-
-<h3 id="open">Open</h3>
-
-<ul>
-  <li>코틀린에서는 모든 클래스가 기본으로 final</li>
-  <li>때문에 상속을 허용하려면 <code class="highlighter-rouge">open</code> 키워드를 붙여주어야 함</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">open</span> <span class="kd">class</span> <span class="nc">BusinessException</span><span class="p">(</span><span class="kd">val</span> <span class="py">httpStatus</span><span class="p">:</span> <span class="n">HttpStatus</span><span class="p">,</span> <span class="kd">val</span> <span class="py">errorMessage</span><span class="p">:</span> <span class="n">ErrorMessage</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">RuntimeException</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">constructor</span><span class="p">(</span><span class="n">httpStatus</span><span class="p">:</span> <span class="n">HttpStatus</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">:</span> <span class="k">this</span><span class="p">(</span><span class="n">httpStatus</span><span class="p">,</span> <span class="n">ErrorMessage</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="buildgradle에-이거-추가해줘야함">build.gradle에 이거 추가해줘야함</h3>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
-    annotation("javax.persistence.Embeddable")
-}
-</code></pre></div></div>
-
-<ul>
-  <li>Entity가 되기 위해서는 클래스가 final이면 안된다.</li>
-  <li>그런데 코틀린은 모든 클래스가 final이니… entity 클래스들에 open을 일일히 붙여주면 될까 ?</li>
-  <li>build.gradle을 통해 @Entity 어노테이션이 있으면 open 클래스로 만들 수 있다.</li>
-  <li><a href="https://blog.junu.dev/37">참고 - Spring Boot + Kotlin + JPA 적용하기 Entity 생성시 생각해볼 점들</a></li>
-  <li><a href="https://thxwelchs.github.io/Kotlin%20JPA%20Entity%20%EB%AA%A8%EB%8D%B8%EB%A7%81%ED%95%98%EA%B8%B0/">Kotlin JPA Entity 모델링하기</a></li>
-</ul>
-
-<h3 id="복합-컬럼-오류">복합 컬럼(?) 오류</h3>
-
-<h5 id="section">Section</h5>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">@Entity</span>
-<span class="kd">class</span> <span class="nc">Section</span><span class="p">(</span>
-    <span class="n">@Id</span>
-    <span class="n">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span> <span class="p">=</span> <span class="n">GenerationType</span><span class="p">.</span><span class="n">AUTO</span><span class="p">)</span>
-    <span class="n">@Column</span><span class="p">(</span><span class="n">name</span> <span class="p">=</span> <span class="s">"SECTION_ID"</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">id</span><span class="p">:</span> <span class="n">Long</span> <span class="p">=</span> <span class="m">0L</span><span class="p">,</span>
-    <span class="n">@ManyToOne</span>
-    <span class="n">@JoinColumn</span><span class="p">(</span><span class="n">name</span> <span class="p">=</span> <span class="s">"STATION_ID"</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">upStation</span><span class="p">:</span> <span class="n">Station</span><span class="p">,</span>
-    <span class="n">@ManyToOne</span>
-    <span class="n">@JoinColumn</span><span class="p">(</span><span class="n">name</span> <span class="p">=</span> <span class="s">"STATION_ID"</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">downStation</span><span class="p">:</span> <span class="n">Station</span><span class="p">,</span>
-
-    <span class="kd">val</span> <span class="py">distance</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
-
-    <span class="n">@ManyToOne</span>
-    <span class="n">@JoinColumn</span><span class="p">(</span><span class="n">name</span> <span class="p">=</span> <span class="s">"LINE_ID"</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">line</span><span class="p">:</span> <span class="n">Line</span>
-<span class="p">)</span> <span class="p">{</span>
-
-</code></pre></div></div>
-
-<p>Line 엔티티를 다음과 같이 구성하고 jpa를 처음 써보니까 <code class="highlighter-rouge">save</code> 테스트를 진행해봤다. <br />
-그런데 다음과 같은 오류가….</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Caused by: javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Repeated column in mapping for entity: wooteco.subway.line.domain.Section column: station_id (should be mapped with insert="false" update="false")
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 108 more
-Caused by: org.hibernate.MappingException: Repeated column in mapping for entity: wooteco.subway.line.domain.Section column: station_id (should be mapped with insert="false" update="false")
-	at org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
-	at org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
-	at org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
-	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
-	at org.hibernate.mapping.RootClass.validate(RootClass.java:267)
-	at org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:354)
-	at org.hibernate.internal.SessionFactoryImpl.&lt;init&gt;(SessionFactoryImpl.java:298)
-	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:468)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
-	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
-	... 112 more
-
-</code></pre></div></div>
-
-<p>뭐라는건가… 구글링했더니 <code class="highlighter-rouge">Entity 클래스에서 @JoinColumn 설정 후 실행을 하면 매핑에 반복되는 Column이있다는 얘기</code> 라고 한다.<br />
-콘솔 말대로 <code class="highlighter-rouge">@JoinColumn(name = "STATION_ID",insertable=false ,updatable=false)</code> 로 설정해줬더니 해결 🙃.<br />
-쉬익…. jpa 제대로 모르고 일단 써보니까 삽질허네…</p>
-
-<ul>
-  <li><a href="https://hanke-r.tistory.com/134">참고한 글</a></li>
-</ul>
-
-<p>어 그러런데… ` @JoinColumn(name = “STATION_ID”)` 자체를 그냥 빼버렸음 <br />
-이렇게 쓰려면 테이블 컬럼명도 이렇게 수정해주어야 하기때문</p>
-
-<h3 id="일급-컬렉션">일급 컬렉션</h3>
-
-<h4 id="entity에서-일급-컬렉션을-어떻게-쓰냐">@Entity에서 일급 컬렉션을 어떻게 쓰냐?</h4>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">@Entity</span>
-<span class="kd">class</span> <span class="nc">Line</span><span class="p">(</span>
-    <span class="n">@Id</span>
-    <span class="n">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="p">=</span> <span class="n">GenerationType</span><span class="p">.</span><span class="n">AUTO</span><span class="p">)</span>
-    <span class="n">@Column</span><span class="p">(</span><span class="n">name</span> <span class="p">=</span> <span class="s">"LINE_ID"</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">id</span> <span class="p">:</span> <span class="n">Long</span> <span class="p">=</span> <span class="m">0L</span><span class="p">,</span>
-    <span class="n">@Column</span><span class="p">(</span><span class="n">unique</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span> <span class="n">nullable</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">name</span> <span class="p">:</span> <span class="n">String</span><span class="p">,</span>
-    <span class="n">@Column</span><span class="p">(</span><span class="n">unique</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span> <span class="n">nullable</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">color</span> <span class="p">:</span> <span class="n">String</span><span class="p">,</span>
-
-    <span class="kd">val</span> <span class="py">extraFare</span> <span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
-
-    <span class="n">@Embedded</span>
-    <span class="kd">val</span> <span class="py">sections</span> <span class="p">:</span> <span class="n">Sections</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
-<span class="p">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>일급 컬렉션을 가진 필드에 <code class="highlighter-rouge">@Embedded</code> 를 붙여줌</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">@Embeddable</span>
-<span class="kd">class</span> <span class="nc">Sections</span><span class="p">(</span>
-    <span class="n">@OneToMany</span><span class="p">(</span><span class="n">mappedBy</span> <span class="p">=</span> <span class="s">"line"</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="py">sections</span><span class="p">:</span> <span class="n">MutableList</span><span class="p">&lt;</span><span class="n">Section</span><span class="p">&gt;?</span> <span class="p">=</span> <span class="k">null</span>
-<span class="p">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>
-    <p>일급 컬렉션에는 <code class="highlighter-rouge">@Embeddable</code> 붙여줌</p>
-  </li>
-  <li>둘 다 명시해줘도 되고, 둘 중 하나만 선언해주어도 동작</li>
-  <li>@Embeddable은 실제로는 하나의 객체지만, DB의 테이블에서는 해당 객체 내부에 있는 필드들이 풀어져서 만들어짐</li>
-</ul>
-
-<h2 id="application-properties">application-properties</h2>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#하이버네이트가 실행하는 모든 SQL문을 콘솔로 출력해 준다.
-spring.jpa.properties.hibernate.show_sql=true
-#콘솔에 출력되는 JPA 실행 쿼리를 가독성있게 표현한다.
-spring.jpa.properties.hibernate.format_sql=true
-#디버깅이 용이하도록 SQL문 이외에 추가적인 정보를 출력해 준다.
-spring.jpa.properties.hibernate.use_sql_comments=true
-
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driver-class-name=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
-</code></pre></div></div>
-
-<ul>
-  <li>이렇게 할 때는 jpa가 db를 안쓰고 뭔가 다른 db를 쓰는거 같았음</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
-
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
-spring.jpa.hibernate.ddl-auto= update
-
-spring.h2.console.enabled=true
-# default path: h2-console
-spring.h2.console.path=/h2-ui
-</code></pre></div></div>
-
-<ul>
-  <li>이렇게 바꾸니까 해결됐는데… 뭐가 문제였는지 차차 알아보자</li>
-</ul>
-
-<h4 id="jparepository-인터페이스-구현시-repository-안붙여도-됨">JpaRepository 인터페이스 구현시 <code class="highlighter-rouge">@Repository</code> 안붙여도 됨</h4>
-
-<h4 id="연관관계-편의-메서드">연관관계 편의 메서드</h4>
-
-<ul>
-  <li>연관관계를 가진 line과 section 객체</li>
-  <li>section에 다음과 같은 메서드로 연관관계를 정의해줌</li>
-  <li>section의 line을 세팅해줄 때 line의 section도 세팅</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">changeLine</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="n">Line</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="n">line</span> <span class="p">=</span> <span class="n">line</span>
-  <span class="n">line</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">sections</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><a href="https://logical-code.tistory.com/136">참고 - 양방향 매핑시 주의점과 연관관계 메서드</a></li>
-</ul>
-
-<h3 id="update">Update</h3>
-
-<ul>
-  <li>굳이 update() 를 만들지 않아도, 다음과 같이 엔티티를 수정하고 save() 하면 자동으로 update 쿼리가 나간다.</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">update</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">Long</span><span class="p">,</span> <span class="n">lineRequest</span><span class="p">:</span> <span class="n">LineRequest</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="py">updateLine</span> <span class="p">=</span> <span class="n">lineRepository</span><span class="p">.</span><span class="n">findLineById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="o">?:</span> <span class="k">throw</span> <span class="n">LineNotExistException</span><span class="p">()</span>
-    <span class="n">updateLine</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">lineRequest</span><span class="p">)</span>
-    <span class="n">lineRepository</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">updateLine</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/71b458a5-1943-4559-bb05-3540684e267a/image.png" style="zoom:67%;" /></p>
-
-<h4 id="save-하다가-sql-예외가-발생하면나는-name의-유니크가-깨지는-요청-autoincrement는-증가한-상태가-됨">save 하다가 sql 예외가 발생하면(나는 name의 유니크가 깨지는 요청) autoIncrement는 증가한 상태가 됨</h4>
-
-<h4 id="let--ifpresent-같은-느낌">let : ifPresent 같은 느낌</h4>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sections</span><span class="p">.</span><span class="n">find</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">upStation</span> <span class="p">==</span> <span class="n">section</span><span class="p">.</span><span class="n">upStation</span> <span class="p">}</span>
-            <span class="o">?.</span><span class="n">let</span> <span class="p">{</span> <span class="n">replaceSectionWithDownStation</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span> <span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="jvmstatic">@JvmStatic</h3>
-
-<ul>
-  <li>동반 객체에 정의 된 함수에 대한 정적 메서드를 생성할 수 있음</li>
-  <li>어노테이션을 붙인 요소가 속성이면, static getter/setter를 만들어줌</li>
-  <li>동반 객체내에 있는 메서드를 사용하려면 해당 어노테이션을 붙여주어야 함</li>
-</ul>
-
-<h4 id="해당-어노테이션이-없는-자바-디컴파일">해당 어노테이션이 없는 자바 디컴파일</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HandTest</span> <span class="o">{</span>
-   <span class="c1">//...</span>
-
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Companion</span> <span class="o">{</span>
-      <span class="kd">public</span> <span class="kd">final</span> <span class="n">Stream</span> <span class="nf">parameterProvider</span><span class="o">()</span> <span class="o">{</span>
-         <span class="k">return</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">SEVEN</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">17</span><span class="o">)}),</span> <span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">21</span><span class="o">)}),</span> <span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">HEART</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">12</span><span class="o">)}),</span> <span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">HEART</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">JACK</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">HEART</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">JACK</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">31</span><span class="o">)}));</span>
-      <span class="o">}</span>
-
-      <span class="kd">private</span> <span class="nf">Companion</span><span class="o">()</span> <span class="o">{</span>
-      <span class="o">}</span>
-
-      <span class="c1">// $FF: synthetic method</span>
-      <span class="kd">public</span> <span class="nf">Companion</span><span class="o">(</span><span class="n">DefaultConstructorMarker</span> <span class="n">$constructor_marker</span><span class="o">)</span> <span class="o">{</span>
-         <span class="k">this</span><span class="o">();</span>
-      <span class="o">}</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h4 id="해당-어노테이션-존재">해당 어노테이션 존재</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HandTest</span> <span class="o">{</span>
-   <span class="c1">// ...</span>
-  
-   <span class="nd">@JvmStatic</span> <span class="c1">// 정적 메서드 생성됨</span>
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Stream</span> <span class="nf">parameterProvider</span><span class="o">()</span> <span class="o">{</span>
-      <span class="k">return</span> <span class="n">Companion</span><span class="o">.</span><span class="na">parameterProvider</span><span class="o">();</span>
-   <span class="o">}</span>
-
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Companion</span> <span class="o">{</span>
-      <span class="nd">@JvmStatic</span>
-      <span class="kd">public</span> <span class="kd">final</span> <span class="n">Stream</span> <span class="nf">parameterProvider</span><span class="o">()</span> <span class="o">{</span>
-         <span class="k">return</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">SEVEN</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">17</span><span class="o">)}),</span> <span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">21</span><span class="o">)}),</span> <span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">HEART</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">12</span><span class="o">)}),</span> <span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">CollectionsKt</span><span class="o">.</span><span class="na">mutableListOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Card</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">HEART</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">ACE</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">DIAMOND</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">JACK</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">HEART</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">JACK</span><span class="o">),</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="n">Symbol</span><span class="o">.</span><span class="na">CLOVER</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">QUEEN</span><span class="o">)}),</span> <span class="k">new</span> <span class="n">Score</span><span class="o">(</span><span class="mi">31</span><span class="o">)}));</span>
-      <span class="o">}</span>
-
-      <span class="kd">private</span> <span class="nf">Companion</span><span class="o">()</span> <span class="o">{</span>
-      <span class="o">}</span>
-
-      <span class="c1">// $FF: synthetic method</span>
-      <span class="kd">public</span> <span class="nf">Companion</span><span class="o">(</span><span class="n">DefaultConstructorMarker</span> <span class="n">$constructor_marker</span><span class="o">)</span> <span class="o">{</span>
-         <span class="k">this</span><span class="o">();</span>
-      <span class="o">}</span>
-   <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
 
 	  ]]></description>
 	</item>
@@ -1614,104 +2054,6 @@ A HandlerInterceptor gets called before the appropriate HandlerAdapter triggers 
 	</item>
 
 	<item>
-	  <title>📚 jwp-chess 미션 정리</title>
-	  <link>//jwp-chess-note</link>
-	  <author></author>
-	  <pubDate>2021-06-09T10:01:00+09:00</pubDate>
-	  <guid>//jwp-chess-note</guid>
-	  <description><![CDATA[
-	     <h2 id="controlleradvice">@ControllerAdvice</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/d9838b28-b9fd-4cd3-9f8f-f19229e5da70/image.png" style="zoom: 50%;" /></p>
-
-<ul>
-  <li>전역 예외를 처리하는데 사용</li>
-</ul>
-
-<h4 id="정리">정리</h4>
-
-<p><a href="https://github.com/NewWisdom/TIL/issues/1">@ControllerAdvice, @RestControllerAdvice</a></p>
-
-<h2 id="rest-api">REST API</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/b7428bd8-737e-489a-a59d-d3e8a1adcfd2/image.png" style="zoom:50%;" /></p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/3dbc03af-5e1c-4be6-a1e0-7332517831ec/image.png" style="zoom:50%;" /></p>
-
-<ul>
-  <li>REST API 설계 방법을 찾아보고 고민하여 반영</li>
-</ul>
-
-<h4 id="정리-1">정리</h4>
-
-<ul>
-  <li><a href="https://github.com/NewWisdom/TIL/issues/2">REST API 디자인</a></li>
-</ul>
-
-<h2 id="profile">Profile</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/4fdbb04e-3c16-4a59-954f-b0020d245842/image.png" style="zoom:50%;" /></p>
-
-<ul>
-  <li>실제 애플리케이션에서 사용하는 DB는 Mysql 그대로 냅두고</li>
-  <li>테스트에서는 h2를 사용하여 h2 의 장점을 극대화해서 사용하도록 리팩또</li>
-  <li>테스트 DB를 따로 설정하기 위해 열심히 찾아보다가 application-properties를 활용하는 방안 학습</li>
-  <li>처음에는 application-{환경}-properties로 각각 파일을 만들어주었음</li>
-  <li>아래와 같은 리뷰를 받고 test.resource에 application-properties를 만들어줌</li>
-</ul>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/5dc4b405-47bc-4422-83f8-eedaa3b7732e/image.png" style="zoom:50%;" /></p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/4aa931db-0a73-4ada-9ba2-2bb0e3b3ea3b/image.png" style="zoom:33%;" /></p>
-
-<h4 id="정리-2">정리</h4>
-
-<ul>
-  <li>Profile에 대해 추가적으로 학습하고 정리</li>
-  <li><a href="https://github.com/NewWisdom/TIL/issues/47">Profile</a></li>
-</ul>
-
-<h2 id="테스트에-관하여">테스트에 관하여</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/03a3dc16-07b5-48d0-bf51-fbea7bacc9f6/image.png" style="zoom:50%;" /></p>
-
-<ul>
-  <li>지난 레벨 체스 코드 옮겨오면서 테스트 코드는 빼고 옮겨왔었음 🥲</li>
-  <li>데이브의 권유대로 각 레이어별 테스트 코드 작성</li>
-  <li>처음에는 단순히 <code class="highlighter-rouge">@SpringBootTest</code> (통합테스트)로 진행하려 했음</li>
-  <li>찾아보니 각 레이어를 단위 테스트로도 구현할 수 있음을 깨달음</li>
-  <li><code class="highlighter-rouge">@WebMvcTest, @jdbcTest</code>을 통해 Controller와 Repository 레이어에 대한 단위 테스트를 구현</li>
-</ul>
-
-<h4 id="정리-3">정리</h4>
-
-<ul>
-  <li><a href="https://newwisdom.github.io/unit-test-vs">통합 테스트 VS 단위 테스트</a></li>
-</ul>
-
-<h2 id="학습하라고-던져주신-키워드">학습하라고 던져주신 키워드</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/9147f41d-e48f-479d-8573-2f23fcbff416/image.png" style="zoom:50%;" /></p>
-
-<h4 id="정리-4">정리</h4>
-
-<ul>
-  <li><a href="https://github.com/NewWisdom/TIL/issues/3#issue-862548280">@Responsebody는 어떤 역할을 해줄까?</a></li>
-  <li><a href="https://github.com/NewWisdom/TIL/issues/4#issue-862590487">@Componentscan</a></li>
-  <li><a href="https://github.com/NewWisdom/TIL/issues/5#issue-862591289">스프링의 DI 방법</a></li>
-  <li><a href="https://github.com/NewWisdom/TIL/issues/6">Spring에서 request 처리 과정</a></li>
-</ul>
-
-<h2 id="이번-미션에서-이런-키워드들을-학습했음-">이번 미션에서 이런 키워드들을 학습했음 👻</h2>
-
-<ul>
-  <li><a href="https://github.com/NewWisdom/TIL/issues?q=is%3Aissue+is%3Aopen+label%3Ajwp-chess">내 깃헙 issue에 등록했지롱</a></li>
-</ul>
-
-	  ]]></description>
-	</item>
-
-	<item>
 	  <title>🌱 스프링 부트 Profile로 다른 환경 구성</title>
 	  <link>//profile</link>
 	  <author></author>
@@ -1850,6 +2192,104 @@ devonly.name = dev_name
 	</item>
 
 	<item>
+	  <title>📚 jwp-chess 미션 정리</title>
+	  <link>//jwp-chess-note</link>
+	  <author></author>
+	  <pubDate>2021-06-09T10:01:00+09:00</pubDate>
+	  <guid>//jwp-chess-note</guid>
+	  <description><![CDATA[
+	     <h2 id="controlleradvice">@ControllerAdvice</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/d9838b28-b9fd-4cd3-9f8f-f19229e5da70/image.png" style="zoom: 50%;" /></p>
+
+<ul>
+  <li>전역 예외를 처리하는데 사용</li>
+</ul>
+
+<h4 id="정리">정리</h4>
+
+<p><a href="https://github.com/NewWisdom/TIL/issues/1">@ControllerAdvice, @RestControllerAdvice</a></p>
+
+<h2 id="rest-api">REST API</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/b7428bd8-737e-489a-a59d-d3e8a1adcfd2/image.png" style="zoom:50%;" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/3dbc03af-5e1c-4be6-a1e0-7332517831ec/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>REST API 설계 방법을 찾아보고 고민하여 반영</li>
+</ul>
+
+<h4 id="정리-1">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/2">REST API 디자인</a></li>
+</ul>
+
+<h2 id="profile">Profile</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4fdbb04e-3c16-4a59-954f-b0020d245842/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>실제 애플리케이션에서 사용하는 DB는 Mysql 그대로 냅두고</li>
+  <li>테스트에서는 h2를 사용하여 h2 의 장점을 극대화해서 사용하도록 리팩또</li>
+  <li>테스트 DB를 따로 설정하기 위해 열심히 찾아보다가 application-properties를 활용하는 방안 학습</li>
+  <li>처음에는 application-{환경}-properties로 각각 파일을 만들어주었음</li>
+  <li>아래와 같은 리뷰를 받고 test.resource에 application-properties를 만들어줌</li>
+</ul>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/5dc4b405-47bc-4422-83f8-eedaa3b7732e/image.png" style="zoom:50%;" /></p>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/4aa931db-0a73-4ada-9ba2-2bb0e3b3ea3b/image.png" style="zoom:33%;" /></p>
+
+<h4 id="정리-2">정리</h4>
+
+<ul>
+  <li>Profile에 대해 추가적으로 학습하고 정리</li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/47">Profile</a></li>
+</ul>
+
+<h2 id="테스트에-관하여">테스트에 관하여</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/03a3dc16-07b5-48d0-bf51-fbea7bacc9f6/image.png" style="zoom:50%;" /></p>
+
+<ul>
+  <li>지난 레벨 체스 코드 옮겨오면서 테스트 코드는 빼고 옮겨왔었음 🥲</li>
+  <li>데이브의 권유대로 각 레이어별 테스트 코드 작성</li>
+  <li>처음에는 단순히 <code class="highlighter-rouge">@SpringBootTest</code> (통합테스트)로 진행하려 했음</li>
+  <li>찾아보니 각 레이어를 단위 테스트로도 구현할 수 있음을 깨달음</li>
+  <li><code class="highlighter-rouge">@WebMvcTest, @jdbcTest</code>을 통해 Controller와 Repository 레이어에 대한 단위 테스트를 구현</li>
+</ul>
+
+<h4 id="정리-3">정리</h4>
+
+<ul>
+  <li><a href="https://newwisdom.github.io/unit-test-vs">통합 테스트 VS 단위 테스트</a></li>
+</ul>
+
+<h2 id="학습하라고-던져주신-키워드">학습하라고 던져주신 키워드</h2>
+
+<p><img src="https://images.velog.io/images/new_wisdom/post/9147f41d-e48f-479d-8573-2f23fcbff416/image.png" style="zoom:50%;" /></p>
+
+<h4 id="정리-4">정리</h4>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/3#issue-862548280">@Responsebody는 어떤 역할을 해줄까?</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/4#issue-862590487">@Componentscan</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/5#issue-862591289">스프링의 DI 방법</a></li>
+  <li><a href="https://github.com/NewWisdom/TIL/issues/6">Spring에서 request 처리 과정</a></li>
+</ul>
+
+<h2 id="이번-미션에서-이런-키워드들을-학습했음-">이번 미션에서 이런 키워드들을 학습했음 👻</h2>
+
+<ul>
+  <li><a href="https://github.com/NewWisdom/TIL/issues?q=is%3Aissue+is%3Aopen+label%3Ajwp-chess">내 깃헙 issue에 등록했지롱</a></li>
+</ul>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>📋 테스트로 배우는 Spring Auth 강의</title>
 	  <link>//lecture-auth</link>
 	  <author></author>
@@ -1957,676 +2397,6 @@ devonly.name = dev_name
 </ul>
 
 <p>MVC Config 객체도 모두 빈이었다.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📋 Kotlin을 정복해봅시다 2</title>
-	  <link>//kotlin2</link>
-	  <author></author>
-	  <pubDate>2021-05-26T19:18:00+09:00</pubDate>
-	  <guid>//kotlin2</guid>
-	  <description><![CDATA[
-	     <h2 id="코틀린-dsl">코틀린 DSL</h2>
-
-<h3 id="dls란">DLS란?</h3>
-
-<ul>
-  <li>도메인 특화 언어 (Domain-specific language) ↔️ 범용 프로그래밍 언어</li>
-  <li>선언적 언어</li>
-  <li>세부 실행은 언어를 해석하는 엔진에 맡김</li>
-  <li>컴파일 시점에 제대로 검증하는 것이 어려움</li>
-</ul>
-
-<h3 id="코틀린-dsl이란">코틀린 DSL이란?</h3>
-
-<ul>
-  <li>범용 언어(= 코틀린)로 작성된 프로그램의 일부</li>
-  <li>범용 언어와 동일한 문법 사용</li>
-  <li>호출 결과를 객체로 변환하기 위해 노력할 필요 없음</li>
-  <li>타입 안정성 보장</li>
-</ul>
-
-<h3 id="코틀린은-간결한-구문을-어떻게-지원하는가">코틀린은 간결한 구문을 어떻게 지원하는가?</h3>
-
-<ul>
-  <li>확장 함수</li>
-  <li>중위 호출</li>
-  <li>연산자 오버로딩</li>
-  <li>get 메서드에 대한 관례</li>
-  <li>람다를 괄호 밖으로 빼는 관례</li>
-  <li>수신 객체 지정 람다</li>
-</ul>
-
-<h3 id="확장-함수-extension-functions">확장 함수 Extension functions</h3>
-
-<ul>
-  <li>코틀린은 클래스를 확장해서 새로운 기능을 개발할 수 있도록 지원</li>
-  <li><code class="highlighter-rouge">상속</code> 과는 조금 다른 개념</li>
-  <li>ex) 외부 라이브러리를 사용할 때 이 자체 클래스는 변경할 수  없지만 이를 확장해 원하는 새로운 함수를 만들 수 있음</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"Kotlin"</span><span class="p">.</span><span class="n">lastChar</span><span class="p">()</span>
-
-<span class="k">fun</span> <span class="nf">String</span><span class="p">.</span><span class="n">lastChar</span><span class="p">():</span> <span class="n">Char</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">length</span> <span class="p">-</span> <span class="m">1</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="중위-표기-infix-notation">중위 표기 Infix notation</h3>
-
-<h4 id="중위표기법">중위표기법?</h4>
-
-<p><strong>infix(중위표기법)</strong> : 일상생활에서의 수식 표기법으로 두 개의 피연산자 사이에 연산자가 존재하는 표현방식이다.  ex) X + Y</p>
-
-<p>Kotlin에서 <code class="highlighter-rouge">infix</code> 키워드를 사용하여 중위표기법으로 함수를 호출할 수 있다. 단, 아래 요건을 충족해야 한다.</p>
-
-<ul>
-  <li>They must be member functions or extension functions. (멤버 함수 혹은 확장 함수일 때)</li>
-  <li>They must have a single parameter. (단일 매개 변수일 때)</li>
-  <li>The parameter must not accept a variable number of arguments and must have no default value. (가변인자를 받으면 안되고 기본 값을 가지면 안된다.)</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span> <span class="n">to</span> <span class="s">"one"</span>
-
-<span class="k">infix</span> <span class="k">fun</span> <span class="nf">Any</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="p">=</span> <span class="n">Pair</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h3 id="연산자-오버로딩-operator-overloading">연산자 오버로딩 Operator overloading</h3>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Point</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">+</span> <span class="n">Point</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
-
-<span class="kd">data class</span> <span class="nc">Point</span><span class="p">(</span><span class="kd">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="py">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">operator</span> <span class="k">fun</span> <span class="nf">plus</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">Point</span><span class="p">):</span> <span class="n">Point</span> <span class="p">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="p">+</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">+</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>plus 함수 앞에 <code class="highlighter-rouge">operator</code> 키워드를 붙여 연산자 오버로딩을 하는 함수임을 명시</li>
-  <li>확장 함수로 정의할 수도 있음</li>
-</ul>
-
-<h4 id="이항-산술-연산-오버로딩">이항 산술 연산 오버로딩</h4>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">연산 우선순위</th>
-      <th style="text-align: center">식</th>
-      <th style="text-align: center">함수 이름</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">a * b</td>
-      <td style="text-align: center">times</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">a / b</td>
-      <td style="text-align: center">div</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">a % b</td>
-      <td style="text-align: center">mod(1.1부터 rem)</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">a + b</td>
-      <td style="text-align: center">plus</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">a - b</td>
-      <td style="text-align: center">minus</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li>더 많은 연산자에 대한 메서드는 <strong><a href="https://kotlinlang.org/docs/operator-overloading.html#unary-prefix-operators">공식문서</a></strong> 참고</li>
-</ul>
-
-<h3 id="get-메서드에-대한-관례-indexed-access-operator">get 메서드에 대한 관례 Indexed access operator</h3>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">names</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">"am"</span><span class="p">,</span> <span class="s">"mazzi"</span><span class="p">)</span>
-<span class="n">names</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
-<span class="n">names</span><span class="p">[</span><span class="m">0</span><span class="p">]</span>
-</code></pre></div></div>
-
-<ul>
-  <li>get이 아닌 인덱스로 접근한다.</li>
-</ul>
-
-<h3 id="람다를-괄호-밖으로-빼내는-관례-passing-a-lambda-to-the-last-parameter">람다를 괄호 밖으로 빼내는 관례 Passing a lambda to the last parameter</h3>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">check</span><span class="p">(</span><span class="k">false</span><span class="p">)</span> <span class="p">{</span> <span class="s">"Check failed."</span> <span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="수신-객체-지정-람다-lambda-with-receiver">수신 객체 지정 람다 Lambda with receiver</h3>
-
-<ul>
-  <li>람다 함수를 쓸 때 내가 자주 쓰고싶은 객체를 미리 지정해서 사용하는 람다</li>
-</ul>
-
-<h4 id="수신-객체">수신 객체?</h4>
-
-<ul>
-  <li>확장 함수에서의 this는 확장된 클래스의 객체</li>
-  <li>즉 확장 함수를 사용하는 그 객체를 의미하는데 이 객체가 바로 수신 객체</li>
-</ul>
-
-<h4 id="with">with</h4>
-
-<ul>
-  <li>첫 번째 인자로 받은 객체를 두 번째 인자로 받은 람다의 수신 객체로 만듦</li>
-</ul>
-
-<p><strong>with를 사용하지 않을 경우</strong></p>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="n">StringBuilder</span><span class="p">()</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
-    	<span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"\nNow I know this alphabet!"</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">result</code> 의 중복이 발생</li>
-</ul>
-
-<h4 id="with를-사용한-경우">with를 사용한 경우</h4>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="py">stringBuilder</span> <span class="p">=</span> <span class="n">StringBuilder</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">with</span><span class="p">(</span><span class="n">stringBuilder</span><span class="p">)</span> <span class="p">{</span>
-    	<span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
-    		<span class="k">this</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
-    	<span class="p">}</span>
-        <span class="n">append</span><span class="p">(</span><span class="s">"\n amazzi~~~!"</span><span class="p">)</span>
-        <span class="k">this</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// 불필요한 stringBuilder 변수를 없애면 alpabet 함수가 식의 결과를 바로 반환하게 된다.
-// 람다 식의 본문에 있는 마지막 식의 값을 반환
-</span><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">StringBuilder</span><span class="p">())</span> <span class="p">{</span>
-    	<span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
-    		<span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
-    	<span class="p">}</span>
-        <span class="n">append</span><span class="p">(</span><span class="s">"\nNow I know this alphabet!"</span><span class="p">)</span>
-        <span class="n">toString</span><span class="p">()</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></div></div>
-
-<ul>
-  <li>with(stringBuilder, { … }) 와 같은 람다 함수</li>
-</ul>
-
-<h4 id="apply">apply</h4>
-
-<ul>
-  <li>with와 유사</li>
-  <li>유일한 차이는 항상 자신에게 전달된 객체를 반환</li>
-  <li>객체의 인스턴스를 만들면서 즉시 프로퍼티 중 일부를 초기화해야되는 경우 유용</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">alphabet</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="n">StringBuilder</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
-    	<span class="k">for</span> <span class="p">(</span><span class="n">letter</span> <span class="k">in</span> <span class="sc">'A'</span><span class="o">..</span><span class="sc">'Z'</span><span class="p">)</span> <span class="p">{</span>
-    		<span class="n">append</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
-    	<span class="p">}</span>
-        <span class="n">append</span><span class="p">(</span><span class="s">"\nNow I know this alphabet!"</span><span class="p">)</span>
-    <span class="p">}.</span><span class="n">toString</span><span class="p">()</span>
-</code></pre></div></div>
-
-<h3 id="초기화를-지연하는-방법">초기화를 지연하는 방법</h3>
-
-<ul>
-  <li>코틀린에서는 변수 선언을 먼저하고, 초기회는 뒤로 미루는 기능들을 제공</li>
-  <li>사용할지 모른는 데이터를 미리 초기화할 필요가 없어 성능 향상에 도움</li>
-</ul>
-
-<h4 id="lateinit">lateInit</h4>
-
-<ul>
-  <li>필요할 때 초기화하고 사용</li>
-  <li>초기화 하지 않고 사용하면 예외 발생</li>
-  <li><code class="highlighter-rouge">var</code> 에만 사용 가능</li>
-  <li>원시 타입에는 적용할 수 없음</li>
-  <li>custom getter/setter 사용 불가</li>
-  <li>non-null 프로퍼티만 사용 가능</li>
-</ul>
-
-<h4 id="lazy">lazy</h4>
-
-<ul>
-  <li>변수를 선언할 때 초기화 코드도 함께 정의</li>
-  <li>변수가 사용될 때 초기화 코드도 동작하여 변수가 초기화 됨</li>
-</ul>
-
-<hr />
-
-<h2 id="0602-코드리뷰">0602 코드리뷰</h2>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="kd">class</span> <span class="nc">Symbol</span><span class="p">(</span><span class="kd">val</span> <span class="py">symbol</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">DIAMOND</span><span class="p">(</span><span class="s">"다이아몬드"</span><span class="p">),</span>
-    <span class="n">SPADE</span><span class="p">(</span><span class="s">"스페이드"</span><span class="p">),</span>
-    <span class="n">HEART</span><span class="p">(</span><span class="s">"하트"</span><span class="p">),</span>
-    <span class="n">CLOVER</span><span class="p">(</span><span class="s">"클로버"</span><span class="p">),</span>
-  <span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>1.4부터 <code class="highlighter-rouge">,</code> 로 끝나도 컴파일 에러가 안남</li>
-</ul>
-
-<h3 id="property와-field">Property와 Field</h3>
-
-<h4 id="field">Field</h4>
-
-<ul>
-  <li>단순히 값만 가짐</li>
-  <li>값을 가져오거나 변경할 때는 직접 참조</li>
-  <li>함수나 블록 내부에 선언된 지역 변수는 모두 필드로 간주</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">count</span> <span class="p">=</span> <span class="m">100</span> <span class="c1">// 메모리가 할당되고 값이 저장됨
-</span><span class="n">println</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="c1">// count 변수값을 직접 참조하여 가져옴
-</span><span class="n">count</span> <span class="p">+=</span> <span class="m">200</span> <span class="c1">// count 변수값을 직접 변경
-</span></code></pre></div></div>
-
-<h4 id="property">Property</h4>
-
-<ul>
-  <li>최상위 변수(함수나 클래스 외부에 정의됨)나 클래스의 멤버 변수로 선언됨</li>
-  <li>선언 시 해당 속성의 getter/ setter가 자동으로 생성됨</li>
-  <li><code class="highlighter-rouge">val</code> 로 선언시 getter 만 생성됨</li>
-  <li>값을 가지지만 속성의 값을 가져오거나 변경할 때는 자동으로 관련 함수가 호출됨
-    <ul>
-      <li>이를 <strong>접근자</strong> 라고 함</li>
-    </ul>
-  </li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">count</span> <span class="p">=</span> <span class="m">100</span> <span class="c1">// 메모리가 할당되고 값이 저장됨
-</span><span class="n">println</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="c1">// count 속성의 접근자가 호출되어 속성값을 반환
-</span><span class="n">count</span> <span class="p">+=</span> <span class="m">200</span> <span class="c1">// count 속성의 접근자가 호출되어 속성값을 변환
-</span></code></pre></div></div>
-
-<p><strong>엥 근데 필드와 동일하게 코드를 작성하는데? 🤔</strong></p>
-
-<ul>
-  <li>프로그래머가 보는 관점에서는 같지만, 코틀린 컴파일러는 다르게 동작함</li>
-  <li>다음과 같이 count  속성의 접근자를 자동으로 생성</li>
-  <li>count 속성의 값을 가져오거나 변경할 때 자동으로 호출 됨</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">couhnt</span> <span class="p">=</span> <span class="m">100</span>
-	<span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">field</span>
-	<span class="k">set</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">field</span> <span class="p">=</span> <span class="n">value</span>
-  <span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">get()</code> 과 <code class="highlighter-rouge">set()</code> 이 접근자</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Array</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;)</span> <span class="p">{</span>
-  <span class="n">pro1</span> <span class="p">+=</span> <span class="n">pro2</span>
-  <span class="n">println</span><span class="p">(</span><span class="n">pro1</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">var</span> <span class="py">pro1</span> <span class="p">=</span> <span class="m">100</span> <span class="c1">// 최상위 수준의 변수이므로 속성임
-</span><span class="kd">var</span> <span class="py">pro2</span> <span class="p">=</span> <span class="m">200</span> <span class="c1">// 최상위 수준의 변수이므로 속성임
-</span></code></pre></div></div>
-
-<ul>
-  <li>pro2의 게터가 호출되어 값을 가져옴</li>
-  <li>pro1의 게터에서 반환된 값과 더함</li>
-  <li>이 값이 pro1의 세터의 인자로 전달되어 pro1의 값이 변경됨</li>
-  <li>pro1 게터에서 반환된 값을 출력</li>
-</ul>
-
-<p>프로퍼티에 <code class="highlighter-rouge">=</code> 을 이용해서 할당하는거랑 get을 사용해서</p>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">shouldDraw</span>  <span class="p">=</span> <span class="n">cards</span><span class="p">.</span><span class="n">score</span><span class="p">()</span>
-<span class="kd">val</span> <span class="py">shouldDraw2</span> <span class="p">:</span> <span class="n">Boolean</span>
-<span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">cards</span><span class="p">.</span><span class="n">scroe</span><span class="p">()</span>
-</code></pre></div></div>
-
-<ul>
-  <li>get을 쓰는 것은 매번 돌때마다 계산이 됨</li>
-  <li>프로퍼티에 접근은 계산되어 있는 값을 씀</li>
-</ul>
-
-<h3 id="backing-fields">Backing fields﻿</h3>
-
-<ul>
-  <li>커스텀 getter와 setter를 제공할 경우 사용</li>
-  <li>속성이 필드의 값을 필요로 할 때 코틀린은 지원 필드 키워드를 제공</li>
-  <li>getter와 setter 범위에서만 사용 가능</li>
-  <li><code class="highlighter-rouge">field</code> 지시자를 통해 속성의 게터나 세터에서 사용</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="py">counter</span> <span class="p">=</span> <span class="m">0</span> <span class="c1">// the initializer assigns the backing field directly
-</span>    <span class="k">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">)</span>
-            <span class="n">field</span> <span class="p">=</span> <span class="n">value</span>
-            <span class="c1">// counter = value // ERROR StackOverflow: Using actual name 'counter' would make setter recursive
-</span>    <span class="p">}</span>
-</code></pre></div></div>
-
-<p>아래 예제의 <code class="highlighter-rouge">this</code>는 backing field가 아님</p>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">isEmpty</span><span class="p">:</span> <span class="n">Boolean</span>
-    <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">size</span> <span class="p">==</span> <span class="m">0</span>
-</code></pre></div></div>
-
-<h3 id="backing-properties">Backing properties﻿</h3>
-
-<ul>
-  <li>Backing fields﻿의 체계에 맞지 않는 작업을 수행할 경우 이는 Backing properties﻿가 됨</li>
-</ul>
-
-<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Skills</span><span class="p">(</span><span class="n">skills</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">mutableListOf</span><span class="p">())</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="kd">val</span> <span class="py">_skills</span><span class="p">:</span> <span class="n">MutableList</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">skills</span><span class="p">.</span><span class="n">toMutableList</span><span class="p">()</span>
-    <span class="kd">val</span> <span class="py">skills</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span>
-        <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">_skills</span><span class="p">.</span><span class="n">toList</span><span class="p">()</span>
-
-    <span class="k">fun</span> <span class="nf">soft</span><span class="p">(</span><span class="n">soft</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="n">_skills</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">soft</span><span class="p">)</span>
-    <span class="p">}</span>
-
-    <span class="k">fun</span> <span class="nf">hard</span><span class="p">(</span><span class="n">hard</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="n">_skills</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">hard</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="as-키워드-사용해도-되나여"><code class="highlighter-rouge">as</code> 키워드 사용해도 되나여?</h3>
-
-<ul>
-  <li><code class="highlighter-rouge">val results = resultBoard.values as List&lt;GameResult&gt;</code></li>
-  <li>자바의 타입 변환과 같은 것</li>
-</ul>
-
-<hr />
-
-<h3 id="참고-자료">참고 자료</h3>
-
-<ul>
-  <li><a href="https://itandhumanities.tistory.com/28">코틀린 수신 객체 지정 람다 : with와 apply</a></li>
-</ul>
-
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>📋 테스트로 배우는 Spring Configuration 강의</title>
-	  <link>//spring-configuration-lec</link>
-	  <author></author>
-	  <pubDate>2021-05-25T19:18:00+09:00</pubDate>
-	  <guid>//spring-configuration-lec</guid>
-	  <description><![CDATA[
-	     <h2 id="배경-지식-강의">배경 지식 강의</h2>
-
-<p>스프링 컨테이너와 스프링빈</p>
-
-<h3 id="컨테이너">컨테이너</h3>
-
-<p>스프링 컨테이너에 빈을 등록하기 위해서는 Configuration이 필요하다.</p>
-
-<ul>
-  <li>XML</li>
-  <li>Annotation 기반의 configuration</li>
-  <li>java bean  configuration</li>
-</ul>
-
-<h3 id="xml로-configuration-설정하는-예시">XML로 Configuration 설정하는 예시</h3>
-
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
-       <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
-       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span><span class="nt">&gt;</span>
-
-    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"userRepository"</span> <span class="na">class=</span><span class="s">"nextstep.helloworld.core.xmlConfig.UserRepository"</span><span class="nt">/&gt;</span>
-
-    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"userService"</span> <span class="na">class=</span><span class="s">"nextstep.helloworld.core.xmlConfig.UserService"</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"userRepository"</span> <span class="na">ref=</span><span class="s">"userRepository"</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/bean&gt;</span>
-<span class="nt">&lt;/beans&gt;</span>
-</code></pre></div></div>
-
-<ul>
-  <li>userRepository와 userService를 빈으로 등록함</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">"application-config.xml"</span><span class="o">);</span>
-
-<span class="n">String</span><span class="o">[]</span> <span class="n">beanDefinitionNames</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBeanDefinitionNames</span><span class="o">();</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">ClassPathXmlApplicationContext</code>로 해당 XML파일을 로드해온다.</li>
-  <li><code class="highlighter-rouge">getBeanDefinitionNames()</code> : 등록된 빈이름을 가져온다.</li>
-</ul>
-
-<h3 id="java-bean-configuration">java bean configuration</h3>
-
-<h4 id="학습-테스트-코드">학습 테스트 코드</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">JavaConfigTest</span> <span class="o">{</span>
-    <span class="nd">@Test</span>
-    <span class="kt">void</span> <span class="nf">javaConfig</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">beanDefinitionNames</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBeanDefinitionNames</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">beanDefinitionNames</span><span class="o">));</span>
-
-        <span class="n">AuthService</span> <span class="n">authService</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">AuthService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="n">assertThat</span><span class="o">(</span><span class="n">authService</span><span class="o">).</span><span class="na">isNotNull</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>HelloApplication 클래스를 기반으로 빈 등록을 할 것이다.</li>
-</ul>
-
-<h4 id="authenticationprincipalconfig">AuthenticationPrincipalConfig</h4>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Java-based Configuration을 하기 위한 클래스로 지정하기</span>
-<span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationPrincipalConfig</span> <span class="o">{</span>
-
-    <span class="c1">// AuthService 빈을 등록하기</span>
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">AuthService</span> <span class="nf">authService</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nf">AuthService</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="c1">// AuthenticationPrincipalArgumentResolver를 빈 등록하고 authService에 대한 의존성을 주입하기</span>
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">AuthenticationPrincipalArgumentResolver</span> <span class="nf">authenticationPrincipalArgumentResolver</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nf">AuthenticationPrincipalArgumentResolver</span><span class="o">(</span><span class="n">authService</span><span class="o">());</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">@Configuration</code> : 메타 데이터를 설정할 수 있는 클래스가 된다.</li>
-  <li><code class="highlighter-rouge"> @Bean</code> 과 특정 객체를 반환하는 메서드로 해당 객체를 빈으로 등록할 수 있다.</li>
-  <li>빈들의 의존성 또한 직접 맺어줄 수 있다.</li>
-</ul>
-
-<p><strong>@Configuration 클래스도 빈 등록이 되나요?</strong></p>
-
-<p>🙆‍♀️</p>
-
-<p><strong>@Configuration 클래스의 메서드 순서와 빈 등록 순서는 상관이 없나요?</strong></p>
-
-<p>🙆‍♀️</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
-<span class="kt">void</span> <span class="nf">useSpringBean</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">String</span><span class="o">[]</span> <span class="n">beanDefinitionNames</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBeanDefinitionNames</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">beanDefinitionNames</span><span class="o">));</span>
-
-    <span class="n">AuthService</span> <span class="n">authService</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">AuthService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// 싱글톤 // new AuthService()이니까</span>
-    <span class="n">AuthenticationPrincipalArgumentResolver</span> <span class="n">resolver</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">AuthenticationPrincipalArgumentResolver</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">assertThat</span><span class="o">(</span><span class="n">resolver</span><span class="o">.</span><span class="na">getAuthService</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">authService</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>resolver에 있는 AuthService 객체와 빈으로 등록된 AuthService가 같은 객체인가?</strong></p>
-
-<p>🙆‍♀️</p>
-
-<hr />
-
-<h2 id="외부-파일의-값을-이용하기">외부 파일의 값을 이용하기</h2>
-
-<h3 id="properties-파일-접근">properties 파일 접근</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Java-based Configuration을 하기 위한 클래스로 지정하기</span>
-<span class="c1">// application.properties 파일을 활용하기 위한 설정 추가하기</span>
-<span class="nd">@Configuration</span>
-<span class="nd">@PropertySource</span><span class="o">(</span><span class="s">"classpath:application.properties"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PropertySourceConfig</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Environment</span> <span class="n">env</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">PropertySourceConfig</span><span class="o">(</span><span class="n">Environment</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">env</span> <span class="o">=</span> <span class="n">env</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="c1">// application.properties의 security-jwt-token-secret-key 값을 활용하여 JwtTokenKeyProvider를 빈으로 등록하기</span>
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">JwtTokenKeyProvider</span> <span class="nf">jwtTokenKeyProvider</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nf">JwtTokenKeyProvider</span><span class="o">(</span><span class="s">"security-jwt-token-secret-key"</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Environment 라는 필드가 있다.</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
-<span class="kt">void</span> <span class="nf">key</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">PropertySourceConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">String</span><span class="o">[]</span> <span class="n">beanDefinitionNames</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBeanDefinitionNames</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">beanDefinitionNames</span><span class="o">));</span>
-
-    <span class="n">JwtTokenKeyProvider</span> <span class="n">jwtTokenKeyProvider</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">JwtTokenKeyProvider</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">assertThat</span><span class="o">(</span><span class="n">jwtTokenKeyProvider</span><span class="o">.</span><span class="na">getSecretKey</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.ih1aovtQShabQ7l0cINw4k1fagApg3qLWiB8Kt59Lno"</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">PropertySourceConfig</code> 클래스로 컨텍스트를 만든다.</li>
-  <li>사실 이 properties를 객체로 만들어 접근할 수도 있다.</li>
-</ul>
-
-<h3 id="value-주입">@Value 주입</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 컴포넌트 스캔을 통한 빈 등록</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtTokenExpireProvider</span> <span class="o">{</span>
-    <span class="c1">// application.properties의 security-jwt-token-expire-length 값을 활용하여 validityInMilliseconds값 초기화 하기</span>
-    <span class="kd">private</span> <span class="kt">long</span> <span class="n">validityInMilliseconds</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">JwtTokenExpireProvider</span><span class="o">(</span><span class="nd">@Value</span><span class="o">(</span><span class="s">"${security-jwt-token-expire-length}"</span><span class="o">)</span> <span class="kt">long</span> <span class="n">validityInMilliseconds</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">validityInMilliseconds</span> <span class="o">=</span> <span class="n">validityInMilliseconds</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getValidityInMilliseconds</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">validityInMilliseconds</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Java-based Configuration을 하기 위한 클래스로 지정하기</span>
-<span class="c1">// application.properties 파일을 활용하기 위한 설정 추가하기</span>
-<span class="c1">// nextstep.helloworld.core.environment 내에 있는 스프링 빈을 스캔하기</span>
-<span class="nd">@Configuration</span>
-<span class="nd">@PropertySource</span><span class="o">(</span><span class="s">"classpath:application.properties"</span><span class="o">)</span>
-<span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">"nextstep.helloworld.core.environment"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ValueConfig</span> <span class="o">{</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong>환경에 따라 properties 설정이 가능한가요?</strong></p>
-
-<p>🙆‍♀️ 환경에 맞게 deploy하기 - profile</p>
-
-<hr />
-
-<h2 id="스프링-컨테이너-설정-방법-히스토리">스프링 컨테이너 설정 방법 히스토리</h2>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/55f6f1f7-1e78-4099-814c-d884510efb89/image.png" style="zoom:67%;" /></p>
-
-<p>컨테이너 설정을 할 때는 메타정보를 통해 이루어진다.</p>
-
-<p>맨 처음에는 <strong>XML기반</strong>으로 진행되었다.<br />
-이러면 프로덕션 코드와 의존 관계, 빈 등록 정보를 분리할 수 있었다.</p>
-
-<p>이후 <strong>어노테이션 기반</strong>이 등장하면서 XML과 혼용하여 사용하였다.<br />
-등록할 빈들을 어노테이션으로 관리하였다.</p>
-
-<p>Spring 3.0부터는 <strong>Java Bean 기반</strong>으로 이루어졌다.<br />
-XML로 관리하던 내용들을 Bean 등록을 통해 관리하였다.</p>
-
-<hr />
-
-<h3 id="auto-configuration">Auto Configuration?</h3>
-
-<ul>
-  <li><strong>jar dependency 기반</strong>으로 스프링 애플리케이션을 자동으로 설정해준다.</li>
-</ul>
-
-<p>별다른 설정을 하지 않았는데도, DB 등에 관련한 것들을 마음 껏 쓸 수 있었다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/01ebb7bc-6306-49f3-9b00-5f4e9e62682e/image.png" style="zoom:67%;" /></p>
-
-<p>그 이유는 <code class="highlighter-rouge">@SpringBootApplication</code> 에 있는 <code class="highlighter-rouge">@EnableAutoConfiguration</code> 덕분이다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/b2b3a167-8bab-45e0-ae77-20ac1ee0521e/image.png" style="zoom:33%;" /></p>
-
-<p>컨텍스트를 로드하면 이정도의 AutoConfiguration들이 등록된다.</p>
-
-<p>ex) jdbcTemplate을 생성해주지 않았는데도 자동으로 주입된다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/a4b8b58e-311e-4c72-8f15-8f3c3287666d/image.png" style="zoom:50%;" /></p>
-
-<p><strong>빈으로 등록되지 않은 클래스를 사용하면 컴파일 에러가 떠야하는데 나지 않는 이유는?</strong></p>
-
-<p><code class="highlighter-rouge">@ConditionalOnClass</code> 덕분이다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/a24ebfbc-d8dd-4cca-9e92-07163b4e6e85/image.png" style="zoom:50%;" /></p>
-
-<ul>
-  <li>DataSource, JdbcTemplate이 로드가 되면 동작한다.</li>
-</ul>
-
-<h4 id="h2consoleautoconfiguration">H2ConsoleAutoConfiguration</h4>
-
-<p>h2 DB설정을 해주지 않았는데도 h2와 관련된 설정이 자동으로 된다.</p>
-
-<p><img src="https://images.velog.io/images/new_wisdom/post/95850513-5786-4b7a-b2e0-efc5d5680cf2/image.png" style="zoom:67%;" /></p>
-
-<p>이것도 이미 등록되어있기 때문에 가능하다.</p>
 
 	  ]]></description>
 	</item>
